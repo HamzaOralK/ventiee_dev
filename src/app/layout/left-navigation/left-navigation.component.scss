@@ -1,4 +1,7 @@
 mat-drawer-container, mat-drawer {
     height: 100%;
-    width: 100%;
+}
+
+mat-drawer {
+    min-width: 300px;
 }

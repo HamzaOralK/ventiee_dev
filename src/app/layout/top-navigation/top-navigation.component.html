@@ -1,9 +1,11 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <mat-icon class="icon" aria-hidden="false" (click)="toggleLeftMenu()">menu</mat-icon>
-        <span>{{(appState | async).user?.name}}</span>
+        <span routerLink="/home">{{(appState | async).user?.name}}</span>
         <span class="spacer"></span>
-        <mat-icon class="icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+        <button mat-icon-button routerLink="/login">
+            <mat-icon>favorite</mat-icon>
+        </button>
         <mat-icon class="icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
     </mat-toolbar-row>
 </mat-toolbar>

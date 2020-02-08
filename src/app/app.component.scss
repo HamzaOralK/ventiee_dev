@@ -5,7 +5,7 @@
     flex-direction: column;
 }
 
-left-navigation {
-    flex: 1 1 auto;
-    max-width: 300px;
+.mainContainer {
+    display: flex;
+    height: 100%;
 }
