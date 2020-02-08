@@ -12,12 +12,12 @@ export class UserService {
         private store: Store<{ app: { leftNavigationOpen: boolean, user: User } }>
         ) {}
 
-    addUser(user: User) {
+    signUp(user: User) {
         return this.http.post('https://angular-http-acab3.firebaseio.com/users.json', user);
     }
 
-    getUser() {
-        return this.http.get('https://angular-http-acab3.firebaseio.com/users.json?orderBy="id"&equalTo="00001"').subscribe(p => {
+    getUser(email: string) {
+        return this.http.get('https://angular-http-acab3.firebaseio.com/users.json?orderBy="email"&equalTo="'+ email +'"').subscribe(p => {
             let user: User;
             for(let [key, value] of Object.entries(p)) {
                 user = value;

@@ -14,11 +14,9 @@ export class AppComponent implements OnInit, OnDestroy {
     title = 'mitap';
     subscription = new Subscription();
 
-    constructor(private userService: UserService) { }
+    constructor() { }
 
-    ngOnInit() {
-        let userSubscription = this.userService.getUser();
-    }
+    ngOnInit() { }
 
     ngOnDestroy() { }
 }

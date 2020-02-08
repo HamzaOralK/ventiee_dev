@@ -2,7 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+
 import { StoreModule } from '@ngrx/store';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,10 +22,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button'; 
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatInputModule } from '@angular/material/input'; 
 
 /** Reducers */
 import { appReducer } from './services/app/store/app.reducer';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+
 
 
 @NgModule({
@@ -31,21 +39,25 @@ import { appReducer } from './services/app/store/app.reducer';
         LeftNavigationComponent,
         MainPageComponent,
         HomeComponent,
-        LoginComponent
+        LoginComponent,
+        SignUpComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
+        ReactiveFormsModule,
         StoreModule.forRoot({ app: appReducer }),
         /** Material Components */
         MatSidenavModule,
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
     ],
-    providers: [],
+    providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
