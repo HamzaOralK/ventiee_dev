@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '
 import { MatSidenav } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { AppState } from 'src/app/services/state';
 
 @Component({
   selector: 'left-navigation',
@@ -11,11 +12,11 @@ import { Observable } from 'rxjs';
 export class LeftNavigationComponent implements OnInit, AfterViewInit {
     @ViewChild('drawer', {static: false}) drawer: MatSidenav;
 
-    leftNavState: Observable<{ leftNavigationOpen: boolean }>
+    leftNavState: Observable<AppState>
 
     constructor(
         private cdr: ChangeDetectorRef, 
-        private store: Store<{ app: { leftNavigationOpen: boolean } }>
+        private store: Store<{ app: AppState }>
     ) { }
 
     ngOnInit() {

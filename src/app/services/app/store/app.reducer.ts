@@ -1,6 +1,7 @@
 import * as AppActions from './app.actions';
+import { AppState } from '../../state';
 
-const initialState = {
+const initialState: AppState = {
     leftNavigationOpen: false
 };
 

@@ -3,13 +3,14 @@ import { User } from '../../dtos/user';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import * as AppAction from '../app/store/app.actions';
+import { AppState } from '../state';
 
 @Injectable({ providedIn: 'root' })
 
 export class UserService {
     constructor(
         private http: HttpClient,
-        private store: Store<{ app: { leftNavigationOpen: boolean, user: User } }>
+        private store: Store<{ app: AppState }>
         ) {}
 
     signUp(user: User) {

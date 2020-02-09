@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as AppAction from '../../services/app/store/app.actions'
 import { Observable } from 'rxjs';
 import { User } from 'src/app/dtos/user';
+import { AppState } from 'src/app/services/state';
 
 @Component({
   selector: 'top-navigation',
@@ -11,10 +12,10 @@ import { User } from 'src/app/dtos/user';
 })
 export class TopNavigationComponent implements OnInit {
 
-    appState: Observable<{ leftNavigationOpen: boolean, user: User }>
+    appState: Observable<AppState>
 
     constructor(
-        private store: Store<{ app: { leftNavigationOpen: boolean, user: User } }>
+        private store: Store<{ app: AppState }>
     ) { }
     
     ngOnInit() { 

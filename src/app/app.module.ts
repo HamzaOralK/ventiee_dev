@@ -29,6 +29,7 @@ import { MatInputModule } from '@angular/material/input';
 /** Reducers */
 import { appReducer } from './services/app/store/app.reducer';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { EventLineComponent } from './components/event-line/event-line.component';
 
 
 
@@ -40,7 +41,8 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
         MainPageComponent,
         HomeComponent,
         LoginComponent,
-        SignUpComponent
+        SignUpComponent,
+        EventLineComponent
     ],
     imports: [
         BrowserModule,
