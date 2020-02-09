@@ -15,11 +15,13 @@ export const appReducer: ActionReducerMap<AppState> = {
 
 
 export interface AppWise {
-    leftNavigationOpen: boolean
+    leftNavigationOpen: boolean,
+    events: Event[]
 };
 
 export const initialState: AppWise = {
-    leftNavigationOpen: false
+    leftNavigationOpen: false,
+    events: []
 }
 
 export function appWiseReducer(state = initialState, action: AppActions.AppActions) {
@@ -29,7 +31,17 @@ export function appWiseReducer(state = initialState, action: AppActions.AppActio
                 ...state, 
                 leftNavigationOpen: !state.leftNavigationOpen
             };
-            default: 
-            return state;
+        case AppActions.GET_EVENTS:
+            return {
+                ...state,
+                events: [...action.payload]
+            }
+        case AppActions.ADD_EVENT:
+            return {
+                ...state,
+                events: [...state.events, action.payload]
+            }
+        default: 
+        return state;
     }
 }

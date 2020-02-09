@@ -25,6 +25,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input'; 
+import { MatCardModule } from '@angular/material/card'; 
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
@@ -58,6 +59,7 @@ import { EventLineComponent } from './components/event-line/event-line.component
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
+        MatCardModule
     ],
     providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
     bootstrap: [AppComponent]

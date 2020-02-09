@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { User } from 'src/app/dtos/user';
 import * as AuthActions from '../auth/store/auth.actions';
 import * as fromApp from '../../store/app.reducer';
+import { CONFIG } from '../../config';
 
 
 @Injectable({
@@ -17,11 +18,11 @@ export class AuthService {
     ) { }
 
     signUp(user: User) {
-        return this.http.post('https://angular-http-acab3.firebaseio.com/users.json', user);
+        return this.http.post(CONFIG.serviceURL + '/users.json', user);
     }
 
     loginUser(email: string) {
-        return this.http.get('https://angular-http-acab3.firebaseio.com/users.json?orderBy="email"&equalTo="' + email + '"').subscribe(p => {
+        return this.http.get(CONFIG.serviceURL + '/users.json?orderBy="email"&equalTo="' + email + '"').subscribe(p => {
             let user: User;
             for (let [key, value] of Object.entries(p)) {
                 user = value;

@@ -1,5 +1,9 @@
 <mat-drawer-container class="example-container">
   <mat-drawer #drawer class="example-sidenav" [opened]="(appWise | async).leftNavigationOpen" mode="side">
-    <p>Auto-resizing sidenav</p>
+    <event-line 
+        *ngFor="let event of (appWise | async).events" 
+        [title]="event.title"
+        [peopleCount]="event.peopleCount"
+    ></event-line>
   </mat-drawer>
 </mat-drawer-container>

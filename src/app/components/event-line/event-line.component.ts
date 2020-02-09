@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import * as fromApp from '../../store/app.reducer';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-event-line',
+  selector: 'event-line',
   templateUrl: './event-line.component.html',
   styleUrls: ['./event-line.component.scss']
 })
 export class EventLineComponent implements OnInit {
 
-  constructor() { }
+    appWise: Observable<fromApp.AppWise>
 
-  ngOnInit(): void {
-  }
+    @Input() title: string;
+    @Input() peopleCount: number;
+
+    constructor( ) { }
+
+    ngOnInit(): void { }
 
 }
