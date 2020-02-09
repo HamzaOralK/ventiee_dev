@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/dtos/user';
 import { UserService } from 'src/app/services/dataServices/user-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
         password: new FormControl('', [Validators.required, Validators.min(5)])
     })
     constructor(
-        private userService: UserService
+        private authService: AuthService
     ) { }
 
     ngOnInit(): void { }
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     onSubmit() {
         let user = new User();
         user.email = this.login.value.email;
-        this.userService.getUser(user.email);
+        this.authService.loginUser(user.email);
     }
 
 }

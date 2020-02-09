@@ -27,10 +27,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'; 
 
 /** Reducers */
-import { appReducer } from './services/app/store/app.reducer';
+import * as fromApp from './store/app.reducer';
+
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { EventLineComponent } from './components/event-line/event-line.component';
-
 
 
 @NgModule({
@@ -50,7 +50,7 @@ import { EventLineComponent } from './components/event-line/event-line.component
         AppRoutingModule,
         HttpClientModule,
         ReactiveFormsModule,
-        StoreModule.forRoot({ app: appReducer }),
+        StoreModule.forRoot(fromApp.appReducer),
         /** Material Components */
         MatSidenavModule,
         MatToolbarModule,
