@@ -32,6 +32,8 @@ import * as fromApp from './store/app.reducer';
 
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { EventLineComponent } from './components/event-line/event-line.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { EventLineComponent } from './components/event-line/event-line.component
         HomeComponent,
         LoginComponent,
         SignUpComponent,
-        EventLineComponent
+        EventLineComponent,
+        LoginFormComponent,
+        SignUpFormComponent
     ],
     imports: [
         BrowserModule,
