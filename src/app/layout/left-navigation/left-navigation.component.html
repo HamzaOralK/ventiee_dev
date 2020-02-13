@@ -1,9 +1,19 @@
-<mat-drawer-container class="example-container">
-  <mat-drawer #drawer class="example-sidenav" [opened]="(appWise | async).leftNavigationOpen" mode="side">
-    <event-line 
-        *ngFor="let event of (appWise | async).events" 
-        [title]="event.title"
-        [peopleCount]="event.peopleCount"
-    ></event-line>
+<mat-drawer-container class="container">
+  <mat-drawer #drawer class="sidenav" [opened]="(appWise | async).leftNavigationOpen" mode="side">
+    <mat-form-field appearance="fill">
+      <mat-label>Search for an Event!</mat-label>
+      <input matInput (keyup)="onChange($event)" [(ngModel)]="value">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <event-line *ngFor="let event of (appWise | async).events" [event]="event"></event-line>
+    <mat-card *ngIf="(appWise | async).events.length === 0">
+      Aradığınız etkinlik bulunamadı. İsterseniz yaratın.
+      <mat-card-actions>
+        <button mat-raised-button color="primary">Etkinlik Yarat</button>
+        <button mat-raised-button color="warn" (click)="clearFilter()">Meeh</button>
+      </mat-card-actions>
+    </mat-card>
   </mat-drawer>
 </mat-drawer-container>

@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { EventPageComponent } from './pages/event-page/event-page.component';
 
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent},
     { path: 'signup', component: SignUpComponent},
+    { path: 'event/:id', component: EventPageComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 

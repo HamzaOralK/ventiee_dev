@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Event } from 'src/app/dtos/event';
 
 @Component({
   selector: 'event-line',
@@ -10,13 +11,12 @@ import { Observable } from 'rxjs';
 })
 export class EventLineComponent implements OnInit {
 
-    appWise: Observable<fromApp.AppWise>
+  appWise: Observable<fromApp.AppWise>
 
-    @Input() title: string;
-    @Input() peopleCount: number;
+  @Input() event: Event;
 
-    constructor( ) { }
+  constructor( ) { }
 
-    ngOnInit(): void { }
+  ngOnInit(): void { }
 
 }

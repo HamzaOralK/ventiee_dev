@@ -15,11 +15,26 @@ export class EventService {
         private store: Store<fromApp.AppWise>
     ) {}
 
-    getEvents() {
-        this.http.get<Event[]>(CONFIG.serviceURL + '/events.json').subscribe((result: any) => {
-            console.log(Object.values(result));
-            this.store.dispatch(new AppActitons.GetEvents(Object.values(result)));
-        });
+    getEvents(eventTitle: string = undefined) {
+      let url = CONFIG.serviceURL + '/events.json';
+      if(eventTitle) {
+        url = url + '?orderBy="title"&startAt="' + eventTitle + '"';
+      }
+      this.http.get<Event[]>(url).subscribe(
+      (result: any) => {
+        console.log(Object.values(result));
+        this.store.dispatch(new AppActitons.GetEvents(Object.values(result)));
+      },
+      error => {
+        if(error.error === 'not found') {
+          this.store.dispatch(new AppActitons.GetEvents([]));
+        }
+      });
+    }
+
+    getEventById(id: string) {
+      let url = CONFIG.serviceURL + '/events.json?orderBy="id"&equalTo="' + id + '"';
+      return this.http.get<Event>(url);
     }
 
     addEvent(event: Event) {

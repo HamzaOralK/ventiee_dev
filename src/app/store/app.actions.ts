@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-
+import { Event } from '../dtos/event'
 export const TOGGLE_SIDE_NAV = 'TOGGLE_SIDE_NAV';
 export const GET_EVENTS = 'GET_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';

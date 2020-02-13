@@ -1,13 +1,13 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <mat-icon class="icon" aria-hidden="false" (click)="toggleLeftMenu()">menu</mat-icon>
-        <span routerLink="/home">{{(auth | async).user?.name}}</span>
-        <span class="spacer"></span>
-        <button mat-icon-button routerLink="/login">
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button routerLink="/signup">
-            <mat-icon>delete</mat-icon>
-        </button>
-    </mat-toolbar-row>
+  <mat-toolbar-row>
+    <mat-icon class="icon" aria-hidden="false" (click)="toggleLeftMenu()">menu</mat-icon>
+    <span routerLink="/home">{{(auth | async).user?.name}}</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/login">
+      Login
+    </button>
+    <button mat-button routerLink="/signup">
+      Sign-Up
+    </button>
+  </mat-toolbar-row>
 </mat-toolbar>

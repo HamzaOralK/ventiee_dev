@@ -1,1 +1,3 @@
-<mat-card>For {{title}}, need {{peopleCount}} people.</mat-card>
+<mat-card [routerLink]="['/event', event.id]">
+  For {{event.title}}, need {{event.peopleCount}} people.
+</mat-card>
