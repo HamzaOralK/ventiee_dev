@@ -1,5 +1,5 @@
-import { UserSettings } from './UserSettings';
 import { UserType, Gender, SchoolType, RelationshipStatus } from './enums';
+import { UserSettings } from './userSettings';
 
 export class User {
     email: string;

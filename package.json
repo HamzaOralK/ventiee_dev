@@ -1,19 +1,13 @@
 {
   "name": "mitap",
   "version": "0.0.0",
-  "engines": {
-    "node": "13.0.1",
-    "npm": "6.13.4"
-  },
   "scripts": {
     "ng": "ng",
-    "starta": "ng serve",
-    "start": "node server.js",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -22,8 +16,6 @@
     "@angular/common": "~9.0.0",
     "@angular/compiler": "~9.0.0",
     "@angular/core": "~9.0.0",
-    "@angular/cli": "~9.0.0",
-    "@angular/compiler-cli": "~9.0.0",
     "@angular/forms": "~9.0.0",
     "@angular/material": "^9.0.0",
     "@angular/platform-browser": "~9.0.0",
@@ -32,10 +24,11 @@
     "@ngrx/store": "^8.6.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "typescript": "~3.7.5",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@angular/cli": "~9.0.0",
+    "@angular/compiler-cli": "~9.0.0",
     "@angular-devkit/build-angular": "~0.900.0",
     "@angular/language-service": "~9.0.0",
     "@types/node": "^12.11.1",
@@ -51,6 +44,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0"
+    "tslint": "~5.15.0",
+    "typescript": "~3.7.5"
   }
 }
