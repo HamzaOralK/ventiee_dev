@@ -33,13 +33,11 @@ export class AppComponent implements OnInit, OnDestroy {
   mainTapHammer: HammerGestureConfig;
 
   constructor(
-    private eventService: EventService,
     private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit() {
     this.auth = this.store.select("authState");
-    this.eventService.getEvents();
 
     let body = document.body;
     this.swipeHammer = new MyHammerConfig();

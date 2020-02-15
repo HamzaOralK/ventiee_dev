@@ -12,13 +12,7 @@ export class HomeComponent implements OnInit {
     constructor(private eventService: EventService) { }
 
     ngOnInit(): void {
-        /*
-        let event = new Event();
-        event.id = '2';
-        event.title = 'Beer at Kadıköy';
-        event.peopleCount = 5;
-        this.eventService.addEvent(event);
-        */
+      this.eventService.getEvents();
     }
 
 }
