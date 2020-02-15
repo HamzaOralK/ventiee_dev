@@ -3,7 +3,10 @@
     <mat-form-field appearance="fill">
       <mat-label>Search for an Event!</mat-label>
       <input matInput (keyup)="onChange($event)" [(ngModel)]="value">
-      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+      <button mat-icon-button matPrefix (click)="createEvent()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
@@ -11,7 +14,7 @@
     <mat-card *ngIf="(appWise | async).events.length === 0">
       Aradığınız etkinlik bulunamadı. İsterseniz yaratın.
       <mat-card-actions>
-        <button mat-raised-button color="primary">Etkinlik Yarat</button>
+        <button mat-raised-button color="primary" (click)="createEvent()">Etkinlik Yarat</button>
         <button mat-raised-button color="warn" (click)="clearFilter()">Meeh</button>
       </mat-card-actions>
     </mat-card>

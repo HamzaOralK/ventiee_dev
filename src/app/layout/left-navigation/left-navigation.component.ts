@@ -5,31 +5,35 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
 import { EventService } from 'src/app/services/dataServices/event-service.service';
+import { COMMONS } from 'src/app/shared/commons';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'left-navigation',
-  templateUrl: './left-navigation.component.html',
-  styleUrls: ['./left-navigation.component.scss']
+  selector: "left-navigation",
+  templateUrl: "./left-navigation.component.html",
+  styleUrls: ["./left-navigation.component.scss"]
 })
-export class LeftNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('drawer', {static: false}) drawer: MatSidenav;
+export class LeftNavigationComponent
+  implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("drawer", { static: false }) drawer: MatSidenav;
 
   appWise: Observable<fromApp.AppWise>;
   eventSearchText: Subject<string> = new Subject();
   subscription: Subscription = new Subscription();
-  value: string = '';
+  value: string = "";
 
   constructor(
     private cdr: ChangeDetectorRef,
     private store: Store<fromApp.AppState>,
-    private eventService: EventService
-  ) { }
+    private eventService: EventService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.appWise = this.store.select('appWise');
+    this.appWise = this.store.select("appWise");
     this.eventSearchText
-    .pipe( debounceTime(500) )
-    .subscribe(p => this.eventService.getEvents(p));
+      .pipe(debounceTime(500))
+      .subscribe(p => this.eventService.getEvents(p));
     this.subscription.add(this.eventSearchText);
   }
 
@@ -41,12 +45,18 @@ export class LeftNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     this.subscription.unsubscribe();
   }
 
-  onChange(event:any) {
+  onChange(event: any) {
     this.eventSearchText.next(event.target.value);
   }
 
   clearFilter() {
-    this.value = '';
+    this.value = "";
     this.eventSearchText.next(undefined);
   }
+
+  createEvent() {
+    let id = COMMONS.generateUUID();
+    this.router.navigate(["/createEvent/"+id]);
+  }
+
 }

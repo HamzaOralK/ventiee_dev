@@ -22,6 +22,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
+import { RoomNavigationComponent } from "./layout/room-navigation/room-navigation.component";
+import { CreateEventComponent } from "./pages/create-event/create-event.component";
 
 
 /** Material Components */
@@ -33,48 +35,59 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatStepperModule } from "@angular/material/stepper";
 
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
-import { RoomNavigationComponent } from './layout/room-navigation/room-navigation.component';
+import { CreateEventFormComponent } from './components/create-event-form/create-event-form.component';
+
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        TopNavigationComponent,
-        LeftNavigationComponent,
-        MainPageComponent,
-        HomeComponent,
-        LoginComponent,
-        SignUpComponent,
-        EventLineComponent,
-        LoginFormComponent,
-        SignUpFormComponent,
-        EventPageComponent,
-        UserSettingsComponent,
-        RoomNavigationComponent
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        StoreModule.forRoot(fromApp.appReducer),
-        /** Material Components */
-        MatSidenavModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        MatTabsModule
-    ],
-    providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    TopNavigationComponent,
+    LeftNavigationComponent,
+    MainPageComponent,
+    HomeComponent,
+    LoginComponent,
+    SignUpComponent,
+    EventLineComponent,
+    LoginFormComponent,
+    SignUpFormComponent,
+    EventPageComponent,
+    UserSettingsComponent,
+    RoomNavigationComponent,
+    CreateEventComponent,
+    CreateEventFormComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    StoreModule.forRoot(fromApp.appReducer),
+    /** Material Components */
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatStepperModule
+  ],
+  providers: [
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

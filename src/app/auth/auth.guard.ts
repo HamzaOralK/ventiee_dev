@@ -15,11 +15,11 @@ export class AuthGuard implements CanActivate {
       return this.checkLogin(url);
     }
 
-    checkLogin(url: string) {
-      if(this.authService.isLoggedIn) {return true;}
-      this.router.navigate(['/login']);
-      console.log("Auth Guard stuck!");
-      return false;
-    }
+  checkLogin(url: string) {
+    if(this.authService.isLoggedIn) {return true;}
+    this.router.navigate(['/login']);
+    console.log("Auth Guard stuck!");
+    return false;
+  }
 
 }
