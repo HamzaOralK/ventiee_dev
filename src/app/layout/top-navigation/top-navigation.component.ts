@@ -18,13 +18,13 @@ export class TopNavigationComponent implements OnInit {
     constructor(
         private store: Store<fromApp.AppState>
     ) { }
-    
-    ngOnInit() { 
+
+    ngOnInit() {
         this.auth = this.store.select('authState');
     }
-    
+
     toggleLeftMenu() {
-        this.store.dispatch(new AppAction.ToggleSideNav())
+      this.store.dispatch(new AppAction.ToggleLeftNav())
     }
 
 }

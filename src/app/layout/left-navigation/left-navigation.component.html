@@ -1,5 +1,5 @@
-<mat-drawer-container class="container">
-  <mat-drawer #drawer class="sidenav" [opened]="(appWise | async).leftNavigationOpen" mode="side">
+<mat-sidenav-container class="container">
+  <mat-sidenav #drawer class="sidenav" [opened]="(appWise | async).leftNavigationOpen" mode="side">
     <mat-form-field appearance="fill">
       <mat-label>Search for an Event!</mat-label>
       <input matInput (keyup)="onChange($event)" [(ngModel)]="value">
@@ -15,5 +15,5 @@
         <button mat-raised-button color="warn" (click)="clearFilter()">Meeh</button>
       </mat-card-actions>
     </mat-card>
-  </mat-drawer>
-</mat-drawer-container>
+  </mat-sidenav>
+</mat-sidenav-container>

@@ -15,20 +15,27 @@ export const appReducer: ActionReducerMap < AppState > = {
 
 export interface AppWise {
   leftNavigationOpen: boolean,
+  roomNavigationOpen: boolean,
   events: Event[]
 };
 
 export const initialState: AppWise = {
   leftNavigationOpen: false,
+  roomNavigationOpen: false,
   events: []
 }
 
 export function appWiseReducer(state = initialState, action: AppActions.AppActions) {
   switch (action.type) {
-    case AppActions.TOGGLE_SIDE_NAV:
+    case AppActions.TOGGLE_LEFT_NAV:
       return {
         ...state,
         leftNavigationOpen: !state.leftNavigationOpen
+      };
+    case AppActions.TOGGLE_ROOM_NAV:
+      return {
+        ...state,
+        roomNavigationOpen: !state.roomNavigationOpen
       };
     case AppActions.GET_EVENTS:
       return {

@@ -27,6 +27,7 @@ export class AuthService {
             for (let [key, value] of Object.entries(p)) {
                 user = value;
             }
+            console.log(user);
             this.store.dispatch(new AuthActions.LoginUser(user));
         });
     }

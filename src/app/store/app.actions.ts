@@ -1,23 +1,29 @@
 import { Action } from '@ngrx/store';
 import { Event } from '../dtos/event'
-export const TOGGLE_SIDE_NAV = 'TOGGLE_SIDE_NAV';
+export const TOGGLE_LEFT_NAV = 'TOGGLE_LEFT_NAV';
+export const TOGGLE_ROOM_NAV = 'TOGGLE_ROOM_NAV';
 export const GET_EVENTS = 'GET_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
 
-export class ToggleSideNav implements Action {
-    readonly type = TOGGLE_SIDE_NAV;
-    //payload: boolean;
-    constructor() { }
+export class ToggleLeftNav implements Action {
+  readonly type = TOGGLE_LEFT_NAV;
+  //payload: boolean;
+  constructor() { }
+}
+
+export class ToggleRoomNav implements Action {
+  readonly type = TOGGLE_ROOM_NAV;
+  constructor() { }
 }
 
 export class GetEvents implements Action {
-    readonly type = GET_EVENTS;
-    constructor(public payload: Event[]) {}
+  readonly type = GET_EVENTS;
+  constructor(public payload: Event[]) {}
 }
 
 export class AddEvent implements Action {
-    readonly type = ADD_EVENT;
-    constructor(public payload: Event) { }
+  readonly type = ADD_EVENT;
+  constructor(public payload: Event) { }
 }
 
-export type AppActions = ToggleSideNav | GetEvents | AddEvent;
+export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | AddEvent;

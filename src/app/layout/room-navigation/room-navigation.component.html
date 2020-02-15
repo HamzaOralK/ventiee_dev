@@ -1,0 +1,15 @@
+<mat-sidenav-container class="container" [ngClass]="(appWise | async).roomNavigationOpen ? 'opened' : 'closed'">
+  <mat-sidenav #drawer class="sidenav" mode="side" opened>
+    <mat-toolbar>
+      <button mat-icon-button (click)="toggleRoomMenu()">
+        <mat-icon>chat</mat-icon>
+      </button>
+      <span *ngIf="(appWise | async).roomNavigationOpen">Odalar</span>
+    </mat-toolbar>
+    <div class="rooms">
+      <button mat-icon-button class="room">
+        <mat-icon>chat</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

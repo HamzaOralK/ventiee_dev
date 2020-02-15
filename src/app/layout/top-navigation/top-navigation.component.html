@@ -3,11 +3,18 @@
     <mat-icon class="icon" aria-hidden="false" (click)="toggleLeftMenu()">menu</mat-icon>
     <span routerLink="/home">{{(auth | async).user?.name}}</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/login">
-      Login
-    </button>
-    <button mat-button routerLink="/signup">
-      Sign-Up
-    </button>
+    <ng-container *ngIf="(auth | async).user; else noUser" >
+      <button mat-button routerLink="/userSettings/{{(auth | async).user.id}}">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </ng-container>
+    <ng-template #noUser>
+      <button mat-button routerLink="/login">
+        Login
+      </button>
+      <button mat-button routerLink="/signup">
+        Sign-Up
+      </button>
+    </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
