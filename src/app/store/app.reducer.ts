@@ -28,9 +28,14 @@ export const initialState: AppWise = {
 export function appWiseReducer(state = initialState, action: AppActions.AppActions) {
   switch (action.type) {
     case AppActions.TOGGLE_LEFT_NAV:
+      let leftNavState: boolean;
+
+      if(action.payload) leftNavState = action.payload
+      else leftNavState = !state.leftNavigationOpen;
+
       return {
         ...state,
-        leftNavigationOpen: !state.leftNavigationOpen
+        leftNavigationOpen: leftNavState
       };
     case AppActions.TOGGLE_ROOM_NAV:
       return {

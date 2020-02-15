@@ -7,8 +7,7 @@ export const ADD_EVENT = 'ADD_EVENT';
 
 export class ToggleLeftNav implements Action {
   readonly type = TOGGLE_LEFT_NAV;
-  //payload: boolean;
-  constructor() { }
+  constructor(public payload?: boolean) { }
 }
 
 export class ToggleRoomNav implements Action {
