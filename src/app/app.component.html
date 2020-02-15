@@ -3,6 +3,6 @@
     <div class="mainContainer">
         <left-navigation style="height: 100%;"></left-navigation>
         <main-page style="width: 100%"></main-page>
-        <room-navigation style="height: 100%;"></room-navigation>
+        <room-navigation style="height: 100%;" *ngIf="(auth | async).user"></room-navigation>
     </div>
 </div>

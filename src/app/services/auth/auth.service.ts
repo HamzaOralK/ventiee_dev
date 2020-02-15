@@ -5,16 +5,18 @@ import { User } from 'src/app/dtos/user';
 import * as AuthActions from '../auth/store/auth.actions';
 import * as fromApp from '../../store/app.reducer';
 import { CONFIG } from '../../config';
+import { Router } from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+    isLoggedIn: boolean = false;
     constructor(
         private http: HttpClient,
-        private store: Store<{ app: fromApp.AppState }>
+        private store: Store<{ app: fromApp.AppState }>,
+        private router: Router
     ) { }
 
     signUp(user: User) {
@@ -27,7 +29,8 @@ export class AuthService {
             for (let [key, value] of Object.entries(p)) {
                 user = value;
             }
-            console.log(user);
+            this.isLoggedIn = true;
+            this.router.navigate(['/home']);
             this.store.dispatch(new AuthActions.LoginUser(user));
         });
     }

@@ -13,6 +13,7 @@ export class RoomNavigationComponent implements OnInit {
 
   appWise: Observable<fromApp.AppWise>;
 
+
   constructor(
     private store: Store<fromApp.AppState>
   ) { }
