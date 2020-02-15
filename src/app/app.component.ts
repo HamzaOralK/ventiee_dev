@@ -5,8 +5,19 @@ import * as fromAuth from './services/auth/store/auth.reducer';
 import * as fromApp from './store/app.reducer';
 import * as AppAction from './store/app.actions';
 import { Store } from '@ngrx/store';
-import * as Hammer from "hammerjs";
 import { HammerGestureConfig } from '@angular/platform-browser';
+
+export class MyHammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    // override hammerjs default configuration
+    'pan': { threshold: 5 },
+    'swipe': {
+      velocity: 10,
+      threshold: 20,
+      direction: 4
+    }
+  }
+}
 
 @Component({
   selector: "app-root",
@@ -18,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   auth: Observable<fromAuth.State>;
 
-  swipeHammer: HammerGestureConfig;
+  swipeHammer: MyHammerConfig;
   mainTapHammer: HammerGestureConfig;
 
   constructor(
@@ -27,13 +38,12 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.eventService.getEvents();
     this.auth = this.store.select("authState");
+    this.eventService.getEvents();
 
     let body = document.body;
-
-    this.swipeHammer = new HammerGestureConfig();
-    this.swipeHammer.events = ["panright", "panleft"];
+    this.swipeHammer = new MyHammerConfig();
+    this.swipeHammer.events = ["panright"];
     let swipeHammer = this.swipeHammer.buildHammer(body);
     swipeHammer.on("panright", () => {
       this.openNav();
