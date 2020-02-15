@@ -1,7 +1,7 @@
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="generalDescription">
     <form [formGroup]="generalDescription">
-      <ng-template matStepLabel>Etkinlik Bilgileri</ng-template>
+      <ng-template matStepLabel>Etkinlik</ng-template>
       <mat-form-field>
         <mat-label>Başlık</mat-label>
         <input matInput placeholder="Ne için?" formControlName="title" required>
@@ -18,10 +18,10 @@
 
   <mat-step [stepControl]="timeInformation">
     <form [formGroup]="timeInformation">
-      <ng-template matStepLabel>Zaman Bilgileri</ng-template>
+      <ng-template matStepLabel>Zaman</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Buluşma Saati</mat-label>
-        <input matInput type="datetime-local" formControlName="time" placeholder="start date">
+        <input matInput type="time" formControlName="time" placeholder="start date">
       </mat-form-field>
       <div class="space"></div>
       <mat-form-field appearance="fill">
@@ -46,7 +46,7 @@
 
   <mat-step [stepControl]="placeInformation">
     <form [formGroup]="placeInformation">
-      <ng-template matStepLabel>Yer Bilgileri</ng-template>
+      <ng-template matStepLabel>Yer</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Nerede?</mat-label>
         <input matInput formControlName="venue">

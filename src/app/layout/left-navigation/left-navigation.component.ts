@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
+import * as AppAction from '../../store/app.actions';
 import { EventService } from 'src/app/services/dataServices/event-service.service';
 import { COMMONS } from 'src/app/shared/commons';
 import { Router } from '@angular/router';
@@ -56,6 +57,7 @@ export class LeftNavigationComponent
 
   createEvent() {
     let id = COMMONS.generateUUID();
+    this.store.dispatch(new AppAction.ToggleLeftNav(false));
     this.router.navigate(["/createEvent/"+id]);
   }
 
