@@ -1,1 +1,6 @@
-<p *ngIf="event">{{event.id}} | {{event.title}} | {{event.peopleCount}}</p>
+<mat-card>
+    <p *ngIf="event"> {{event.title}} için {{event.peopleCount}} kişi aranıyor.</p>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" >İnsan Bul!</button>
+    </mat-card-actions>
+</mat-card>

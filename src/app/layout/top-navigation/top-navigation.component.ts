@@ -24,7 +24,7 @@ export class TopNavigationComponent implements OnInit {
     }
 
     toggleLeftMenu() {
-      this.store.dispatch(new AppAction.ToggleLeftNav())
+      this.store.dispatch(new AppAction.ToggleLeftNav());
     }
 
 }

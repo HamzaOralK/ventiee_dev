@@ -1,82 +1,84 @@
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="generalDescription">
-    <form [formGroup]="generalDescription">
-      <ng-template matStepLabel>Etkinlik</ng-template>
-      <mat-form-field>
-        <mat-label>Başlık</mat-label>
-        <input matInput placeholder="Ne için?" formControlName="title" required>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Kaç kişi?</mat-label>
-        <input matInput placeholder="Kaç kişi?" peopleCount="peopleCount" type="number" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>İleri</button>
-      </div>
-    </form>
-  </mat-step>
+<div class="stepper">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="generalDescription">
+      <form [formGroup]="generalDescription">
+        <ng-template matStepLabel>Etkinlik</ng-template>
+        <mat-form-field>
+          <mat-label>Başlık</mat-label>
+          <input matInput placeholder="Ne için?" formControlName="title" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Kaç kişi?</mat-label>
+          <input matInput placeholder="Kaç kişi?" peopleCount="peopleCount" type="number" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>İleri</button>
+        </div>
+      </form>
+    </mat-step>
 
-  <mat-step [stepControl]="timeInformation">
-    <form [formGroup]="timeInformation">
-      <ng-template matStepLabel>Zaman</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Buluşma Saati</mat-label>
-        <input matInput type="time" formControlName="time" placeholder="start date">
-      </mat-form-field>
-      <div class="space"></div>
-      <mat-form-field appearance="fill">
-        <mat-label>Başlangıç Tarihi</mat-label>
-        <input matInput [matDatepicker]="startDate" formControlName="startDate">
-        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-        <mat-datepicker #startDate></mat-datepicker>
-      </mat-form-field>
-      <div class="space"></div>
-      <mat-form-field appearance="fill">
-        <mat-label>Bitiş Tarihi</mat-label>
-        <input matInput [matDatepicker]="endDate" formControlName="endDate">
-        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-        <mat-datepicker #endDate></mat-datepicker>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Geri</button>
-        <button mat-button matStepperNext>İleri</button>
-      </div>
-    </form>
-  </mat-step>
+    <mat-step [stepControl]="timeInformation">
+      <form [formGroup]="timeInformation">
+        <ng-template matStepLabel>Zaman</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Buluşma Saati</mat-label>
+          <input matInput type="time" formControlName="time" placeholder="HH:mm">
+        </mat-form-field>
+        <div class="space"></div>
+        <mat-form-field appearance="fill">
+          <mat-label>Başlangıç Tarihi</mat-label>
+          <input matInput [matDatepicker]="startDate" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+        </mat-form-field>
+        <div class="space"></div>
+        <mat-form-field appearance="fill">
+          <mat-label>Bitiş Tarihi</mat-label>
+          <input matInput [matDatepicker]="endDate" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate></mat-datepicker>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Geri</button>
+          <button mat-button matStepperNext>İleri</button>
+        </div>
+      </form>
+    </mat-step>
 
-  <mat-step [stepControl]="placeInformation">
-    <form [formGroup]="placeInformation">
-      <ng-template matStepLabel>Yer</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Nerede?</mat-label>
-        <input matInput formControlName="venue">
-      </mat-form-field>
-      <div class="container" formGroupName="location">
-        <h3>Adres</h3>
+    <mat-step [stepControl]="placeInformation">
+      <form [formGroup]="placeInformation">
+        <ng-template matStepLabel>Yer</ng-template>
         <mat-form-field appearance="fill">
-          <mat-label>İlçe</mat-label>
-          <input matInput formControlName="district">
+          <mat-label>Nerede?</mat-label>
+          <input matInput formControlName="venue">
         </mat-form-field>
-        <div class="space"></div>
-        <mat-form-field appearance="fill">
-          <mat-label>Şehir</mat-label>
-          <input matInput formControlName="city">
-        </mat-form-field>
-        <div class="space"></div>
-        <mat-form-field appearance="fill">
-          <mat-label>Enlem</mat-label>
-          <input matInput formControlName="lat">
-        </mat-form-field>
-        <div class="space"></div>
-        <mat-form-field appearance="fill">
-          <mat-label>Boylam</mat-label>
-          <input matInput formControlName="long">
-        </mat-form-field>
-      </div>
-      <div>
-        <button mat-button matStepperPrevious>Geri</button>
-        <button mat-button (click)="createEvent()">Etkinlik Yarat</button>
-      </div>
-    </form>
-  </mat-step>
-</mat-horizontal-stepper>
+        <div class="container" formGroupName="location">
+          <h3>Adres</h3>
+          <mat-form-field appearance="fill">
+            <mat-label>İlçe</mat-label>
+            <input matInput formControlName="district">
+          </mat-form-field>
+          <div class="space"></div>
+          <mat-form-field appearance="fill">
+            <mat-label>Şehir</mat-label>
+            <input matInput formControlName="city">
+          </mat-form-field>
+          <div class="space"></div>
+          <mat-form-field appearance="fill">
+            <mat-label>Enlem</mat-label>
+            <input matInput formControlName="lat">
+          </mat-form-field>
+          <div class="space"></div>
+          <mat-form-field appearance="fill">
+            <mat-label>Boylam</mat-label>
+            <input matInput formControlName="long">
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Geri</button>
+          <button mat-button (click)="createEvent()">Etkinlik Yarat</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

@@ -7,3 +7,25 @@
 .space {
   width: 30px;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  mat-form-field {
+    min-width: 300px;
+  }
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+mat-horizontal-stepper {
+  max-width: 500px;
+}
+

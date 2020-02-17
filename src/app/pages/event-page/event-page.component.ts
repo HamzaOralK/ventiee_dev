@@ -6,7 +6,7 @@ import { Event } from '../../dtos/event';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-event-page',
+  selector: 'event-page',
   templateUrl: './event-page.component.html',
   styleUrls: ['./event-page.component.scss']
 })
