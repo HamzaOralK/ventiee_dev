@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as fromApp from '../../store/app.reducer';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { Event } from 'src/app/dtos/event';
 
 @Component({

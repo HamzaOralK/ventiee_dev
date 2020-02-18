@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { EventService } from './services/dataServices/event-service.service';
 import * as fromAuth from './services/auth/store/auth.reducer';
 import * as fromApp from './store/app.reducer';
 import * as AppAction from './store/app.actions';
 import { Store } from '@ngrx/store';
 import { HammerGestureConfig } from '@angular/platform-browser';
+
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
