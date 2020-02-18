@@ -4,7 +4,7 @@
     <span routerLink="/home">{{(auth | async).user?.name}}</span>
     <span class="spacer"></span>
     <ng-container *ngIf="(auth | async).user; else noUser" >
-      <button mat-button routerLink="/userSettings/{{(auth | async).user.id}}">
+      <button mat-button routerLink="/userSettings/{{(auth | async).user.email}}">
         <mat-icon>settings</mat-icon>
       </button>
     </ng-container>

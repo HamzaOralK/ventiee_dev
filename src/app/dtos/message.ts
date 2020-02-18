@@ -2,7 +2,7 @@ import { User } from './user';
 import { Room } from './room';
 
 export class MMessage {
-    id:string;
+    _id:string;
     user: User;
     date: Date;
     message: string;

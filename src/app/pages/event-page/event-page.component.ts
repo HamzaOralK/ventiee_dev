@@ -26,7 +26,9 @@ export class EventPageComponent implements OnInit {
     this.event$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.eventService.getEventById(params.get('id')))
     );
-    this.event$.subscribe(p => this.event = Object.values(p)[0] as Event);
+    this.event$.subscribe(p => {
+      this.event = p;
+    });
   }
 
 }

@@ -10,10 +10,12 @@ export class User {
     schoolType: SchoolType;
     school: string;
     birthday: Date;
-    id: string;
+    /* Userla id dönülecek */
+    _id: string;
     userType: UserType;
     userSetting: UserSettings;
     gender: Gender;
-    relationshipStatus: RelationshipStatus
+    relationshipStatus: RelationshipStatus;
+    password:string;
 }
 

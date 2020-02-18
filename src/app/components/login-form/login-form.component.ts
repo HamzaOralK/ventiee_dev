@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
+import { EventService } from 'src/app/services/dataServices/event-service.service';
+import { Observable } from 'rxjs';
+import * as fromAuth from '../../services/auth/store/auth.reducer';
+import * as fromApp from '../../store/app.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'login-form',
@@ -10,13 +15,19 @@ import { User } from 'src/app/dtos/user';
 })
 export class LoginFormComponent implements OnInit {
 
+  auth: Observable<fromAuth.State>;
+
   login = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.min(5)])
   })
   constructor(
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private eventService: EventService,
+    private store: Store<fromApp.AppState>
+  ) {
+    this.auth = this.store.select('authState');
+  }
 
   ngOnInit(): void { }
 
@@ -24,9 +35,16 @@ export class LoginFormComponent implements OnInit {
     return this.login['controls'];
   }
 
-  onSubmit() {
+  async onSubmit() {
     let user = new User();
     user.email = this.login.value.email;
-    this.authService.loginUser(user.email);
+    user.password = this.login.value.password;
+    await this.loginService(user).then(p => {
+      this.eventService.getEvents(this.authService.token);
+    })
+  }
+
+  async loginService(user) {
+    this.authService.loginUser(user);
   }
 }

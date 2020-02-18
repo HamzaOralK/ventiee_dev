@@ -1,12 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { EventService } from './services/dataServices/event-service.service';
 import * as fromAuth from './services/auth/store/auth.reducer';
+import * as AuthActions from './services/auth/store/auth.actions';
 import * as fromApp from './store/app.reducer';
 import * as AppAction from './store/app.actions';
 import { Store } from '@ngrx/store';
 import { HammerGestureConfig } from '@angular/platform-browser';
+import { CONFIG } from './config';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth/auth.service';
+import { EventService } from './services/dataServices/event-service.service';
 
 
 export class MyHammerConfig extends HammerGestureConfig {
@@ -15,7 +19,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     'pan': { threshold: 5 },
     'swipe': {
       velocity: 10,
-      threshold: 20,
+      threshold: 100,
       direction: 4
     }
   }
@@ -26,7 +30,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = "mitap";
   subscription = new Subscription();
   auth: Observable<fromAuth.State>;
@@ -35,11 +39,15 @@ export class AppComponent implements OnInit, OnDestroy {
   mainTapHammer: HammerGestureConfig;
 
   constructor(
-    private store: Store<fromApp.AppState>
+    private authService: AuthService,
+    private eventService: EventService,
+    private store: Store<fromApp.AppState>,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.auth = this.store.select("authState");
+    this.checkLocalStorage();
 
     let body = document.body;
     this.swipeHammer = new MyHammerConfig();
@@ -58,6 +66,8 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit() { }
+
   ngOnDestroy() {}
 
   openNav() {
@@ -66,6 +76,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   closeNav() {
     this.store.dispatch(new AppAction.ToggleLeftNav(false));
+  }
+
+  checkLocalStorage() {
+    let str = window.localStorage.getItem(CONFIG.loginLocalStorageKey);
+    if(str) {
+      this.authService.isLoggedIn = true;
+      this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));
+      this.router.navigate(['/home']);
+    } else this.router.navigate(['/home']);
   }
 
 

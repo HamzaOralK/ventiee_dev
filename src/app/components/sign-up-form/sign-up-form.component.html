@@ -18,6 +18,33 @@
       Name is <strong>required</strong>
     </mat-error>
   </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Surname</mat-label>
+    <input matInput type="text" formControlName="surname">
+    <mat-error *ngIf="signUpControls.surname.hasError('required')">
+      Surname is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Nickname</mat-label>
+    <input matInput type="text" formControlName="nickname">
+    <mat-error *ngIf="signUpControls.nickname.hasError('required')">
+      Nickname is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password">
+    <mat-error *ngIf="signUpControls.password.hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+
+
   <button mat-raised-button color="primary" [disabled]="!signUp.valid">Sign Up</button>
 
 </form>

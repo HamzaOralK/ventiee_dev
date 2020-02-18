@@ -9,10 +9,10 @@ import { Event } from 'src/app/dtos/event';
 })
 export class HomeComponent implements OnInit {
 
-    constructor(private eventService: EventService) { }
+    constructor() { }
 
     ngOnInit(): void {
-      this.eventService.getEvents();
+      
     }
 
 }
