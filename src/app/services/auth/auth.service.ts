@@ -58,7 +58,8 @@ export class AuthService {
     this.isLoggedIn = false;
     window.localStorage.removeItem(CONFIG.loginLocalStorageKey);
     this.store.dispatch(new AuthActions.LogoutUser());
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']).then(() => window.location.reload());
+
   }
 
   public get authHeader() {

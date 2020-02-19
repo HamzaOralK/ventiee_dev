@@ -24,12 +24,12 @@ export class EventService {
       this.auth = this.store.select('authState');
       this.auth.subscribe(p => {
         if(p.token && p.user) {
-          this.getEvents(p.token);
+          this.getEvents();
         }
       })
     }
 
-    getEvents(token: string, eventTitle: string = undefined) {
+    getEvents(eventTitle: string = undefined) {
        let url = CONFIG.serviceURL + '/events';
         this.http.get<Event[]>(url, this.authService.authHeader)
         .pipe(catchError(err => {

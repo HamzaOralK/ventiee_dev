@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.auth.subscribe(p => {
       if (p.user && p.token) {
-        this.eventService.getEvents(p.token);
+        this.eventService.getEvents();
       }
     });
     this.eventSearchText

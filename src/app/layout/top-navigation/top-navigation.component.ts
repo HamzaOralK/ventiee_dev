@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/dtos/user';
 import * as fromApp from '../../store/app.reducer';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'top-navigation',
@@ -16,7 +17,8 @@ export class TopNavigationComponent implements OnInit {
     auth: Observable<fromAuth.State>
 
     constructor(
-        private store: Store<fromApp.AppState>
+        private store: Store<fromApp.AppState>,
+        private authService: AuthService
     ) { }
 
     ngOnInit() {
@@ -25,6 +27,10 @@ export class TopNavigationComponent implements OnInit {
 
     toggleLeftMenu() {
       this.store.dispatch(new AppAction.ToggleLeftNav());
+    }
+
+    logOut() {
+      this.authService.logoutUser();
     }
 
 }
