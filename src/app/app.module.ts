@@ -8,6 +8,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 
 import { StoreModule } from '@ngrx/store';
 
+import { NgxMaskModule } from "ngx-mask";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +25,7 @@ import { EventPageComponent } from './pages/event-page/event-page.component';
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { RoomNavigationComponent } from "./layout/room-navigation/room-navigation.component";
 import { CreateEventComponent } from "./pages/create-event/create-event.component";
-
+import { CreateEventFormComponent } from "./components/create-event-form/create-event-form.component";
 
 /** Material Components */
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -39,12 +40,8 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatStepperModule } from "@angular/material/stepper";
 
-
 /** Reducers */
 import * as fromApp from './store/app.reducer';
-import { CreateEventFormComponent } from './components/create-event-form/create-event-form.component';
-
-
 
 @NgModule({
   declarations: [
@@ -71,6 +68,7 @@ import { CreateEventFormComponent } from './components/create-event-form/create-
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxMaskModule,
     StoreModule.forRoot(fromApp.appReducer),
     /** Material Components */
     MatSidenavModule,

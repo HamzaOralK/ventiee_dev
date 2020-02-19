@@ -37,10 +37,9 @@ export class EventService {
         }))
         .subscribe(
         (result: any) => {
-          console.log(Object.values(result));
           this.store.dispatch(new AppActitons.GetEvents(Object.values(result)));
         },
-        error => {          
+        error => {
           if(error.status === 401) {
             this.authService.logoutUser();
           }
@@ -57,6 +56,6 @@ export class EventService {
           // console.log(result);
       // });
     // }
-    
+
 
 }

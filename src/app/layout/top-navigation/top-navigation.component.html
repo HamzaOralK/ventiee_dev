@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <mat-icon class="icon" aria-hidden="false" (click)="toggleLeftMenu()">menu</mat-icon>
-    <span routerLink="/home">{{(auth | async).user?.name}}</span>
+    <mat-icon class="icon" aria-hidden="false" routerLink="/home">home</mat-icon>
+    <span>{{(auth | async).user?.name}}</span>
     <span class="spacer"></span>
     <ng-container *ngIf="(auth | async).user; else noUser" >
       <button mat-button routerLink="/userSettings/{{(auth | async).user.email}}">

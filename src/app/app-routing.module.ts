@@ -8,7 +8,6 @@ import { UserSettingsComponent } from './pages/user-settings/user-settings.compo
 import { CreateEventComponent } from './pages/create-event/create-event.component';
 import { AuthGuard } from './auth/auth.guard';
 
-
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent},
@@ -19,11 +18,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-
 
 export class AppRoutingModule { }

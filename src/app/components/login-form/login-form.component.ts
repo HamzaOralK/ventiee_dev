@@ -23,7 +23,6 @@ export class LoginFormComponent implements OnInit {
   })
   constructor(
     private authService: AuthService,
-    private eventService: EventService,
     private store: Store<fromApp.AppState>
   ) {
     this.auth = this.store.select('authState');
@@ -39,12 +38,7 @@ export class LoginFormComponent implements OnInit {
     let user = new User();
     user.email = this.login.value.email;
     user.password = this.login.value.password;
-    await this.loginService(user).then(p => {
-      this.eventService.getEvents(this.authService.token);
-    })
-  }
-
-  async loginService(user) {
     this.authService.loginUser(user);
   }
+
 }
