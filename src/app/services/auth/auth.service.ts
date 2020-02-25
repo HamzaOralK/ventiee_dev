@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { User } from 'src/app/dtos/user';
 import * as AuthActions from '../auth/store/auth.actions';
@@ -8,7 +8,6 @@ import * as fromApp from '../../store/app.reducer';
 import { CONFIG } from '../../config';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { EventService } from '../dataServices/event-service.service';
 
 
 @Injectable({

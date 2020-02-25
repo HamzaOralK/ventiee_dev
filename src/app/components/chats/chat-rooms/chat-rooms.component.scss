@@ -1,0 +1,17 @@
+.room {
+    height: 60px;
+    padding: 3px;
+    overflow: hidden;
+    box-shadow: unset;
+    border-bottom: 1px rgba(0, 0, 0, 0.14) solid;
+    margin-bottom: 10px
+}
+
+mat-card-subtitle {
+    margin: 0;
+}
+
+.image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}

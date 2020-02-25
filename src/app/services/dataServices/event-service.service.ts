@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Event } from '../../dtos/event';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { CONFIG } from '../../config';
 

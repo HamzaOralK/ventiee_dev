@@ -42,6 +42,9 @@ import { MatStepperModule } from "@angular/material/stepper";
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
+import { ChatsComponent } from './components/chats/chats.component';
+import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
+import { ChattingComponent } from './pages/chatting/chatting.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import * as fromApp from './store/app.reducer';
     UserSettingsComponent,
     RoomNavigationComponent,
     CreateEventComponent,
-    CreateEventFormComponent
+    CreateEventFormComponent,
+    ChatsComponent,
+    ChatRoomsComponent,
+    ChattingComponent
   ],
   imports: [
     BrowserModule,
