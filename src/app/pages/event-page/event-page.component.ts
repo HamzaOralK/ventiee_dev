@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
-import { EventService } from 'src/app/services/dataServices/event-service.service';
+import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Event } from '../../dtos/event';
 import { switchMap } from 'rxjs/operators';
 

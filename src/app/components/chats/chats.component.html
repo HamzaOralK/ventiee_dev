@@ -5,6 +5,6 @@
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
-<div>
-  <chat-rooms [room]="chat"></chat-rooms>
+<div *ngFor="let room of (chat | async).rooms">
+  <chat-rooms [room]="room"></chat-rooms>
 </div>

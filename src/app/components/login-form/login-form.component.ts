@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
-import { EventService } from 'src/app/services/dataServices/event-service.service';
+import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Observable } from 'rxjs';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import * as fromApp from '../../store/app.reducer';

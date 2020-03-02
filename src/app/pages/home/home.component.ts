@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store } from '@ngrx/store';
-import { EventService } from 'src/app/services/dataServices/event-service.service';
+import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';

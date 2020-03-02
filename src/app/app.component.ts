@@ -10,7 +10,7 @@ import { HammerGestureConfig } from '@angular/platform-browser';
 import { CONFIG } from './config';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
-import { EventService } from './services/dataServices/event-service.service';
+import { EventService } from './services/dataServices/event/event-service.service';
 
 
 export class MyHammerConfig extends HammerGestureConfig {

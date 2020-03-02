@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { EventService } from 'src/app/services/dataServices/event-service.service';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import * as fromAuth from "../../services/auth/store/auth.reducer";
-import * as fromApp from "../../store/app.reducer";
-import * as AppAction from "../../store/app.actions";
+import * as fromAuth from '../../services/auth/store/auth.reducer';
+import * as fromApp from '../../store/app.reducer';
+import * as fromChat from '../../services/dataServices/chat/store/chat.reducer';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { Room } from 'src/app/dtos/room';
 
@@ -20,18 +18,20 @@ export class ChatsComponent implements OnInit {
 
   auth: Observable<fromAuth.State>;
   appWise: Observable<fromApp.AppWise>;
+  chat: Observable<fromChat.State>;
 
   chatSearchText: Subject<string> = new Subject();
   subscription: Subscription = new Subscription();
   value: string = "";
 
-  chat: Room;
+  // chat: Room;
 
   constructor(
     private store: Store<fromApp.AppState>,
   ) {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
+    this.chat = this.store.select("chatState");
   }
 
 
@@ -45,8 +45,6 @@ export class ChatsComponent implements OnInit {
       .pipe(debounceTime(500))
       .subscribe(p => console.log(p));
     this.subscription.add(this.chatSearchText);
-    this.chat = new Room();
-    this.chat._id = "123";
   }
 
   ngOnDestroy() {

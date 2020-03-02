@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Event } from '../../dtos/event';
+import { Event } from '../../../dtos/event';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { CONFIG } from '../../config';
+import { CONFIG } from '../../../config';
 
-import * as fromApp from '../../store/app.reducer';
-import * as AppActitons from '../../store/app.actions';
-import * as fromAuth from '../auth/store/auth.reducer';
+import * as fromApp from '../../../store/app.reducer';
+import * as AppActitons from '../../../store/app.actions';
+import * as fromAuth from '../../auth/store/auth.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 
