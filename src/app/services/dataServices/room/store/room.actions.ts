@@ -36,4 +36,4 @@ export class KickUser implements Action {
 }
 
 
-export type ChatActions = SendMessage | GetMessage | JoinRoom | QuitRoom | KickUser;
+export type RoomActions = SendMessage | GetMessage | JoinRoom | QuitRoom | KickUser;

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import * as fromApp from '../../store/app.reducer';
-import * as fromChat from '../../services/dataServices/chat/store/chat.reducer';
+import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { Room } from 'src/app/dtos/room';
 
@@ -18,9 +18,9 @@ export class ChatsComponent implements OnInit {
 
   auth: Observable<fromAuth.State>;
   appWise: Observable<fromApp.AppWise>;
-  chat: Observable<fromChat.State>;
+  rooms: Observable<fromRoom.State>;
 
-  chatSearchText: Subject<string> = new Subject();
+  roomSearchText: Subject<string> = new Subject();
   subscription: Subscription = new Subscription();
   value: string = "";
 
@@ -31,7 +31,7 @@ export class ChatsComponent implements OnInit {
   ) {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
-    this.chat = this.store.select("chatState");
+    this.rooms = this.store.select("roomState");
   }
 
 
@@ -41,10 +41,10 @@ export class ChatsComponent implements OnInit {
         // this.eventService.getEvents();
       }
     });
-    this.chatSearchText
+    this.roomSearchText
       .pipe(debounceTime(500))
       .subscribe(p => console.log(p));
-    this.subscription.add(this.chatSearchText);
+    this.subscription.add(this.roomSearchText);
   }
 
   ngOnDestroy() {
@@ -52,11 +52,11 @@ export class ChatsComponent implements OnInit {
   }
 
   onChange(event: any) {
-    this.chatSearchText.next(event.target.value);
+    this.roomSearchText.next(event.target.value);
   }
 
   clearFilter() {
     this.value = "";
-    this.chatSearchText.next(undefined);
+    this.roomSearchText.next(undefined);
   }
 }

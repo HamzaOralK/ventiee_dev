@@ -1,4 +1,4 @@
-import * as ChatActions from './chat.actions';
+import * as RoomActions from './room.actions';
 import { Room } from 'src/app/dtos/room';
 import { MMessage } from 'src/app/dtos/Message';
 
@@ -12,31 +12,31 @@ const initialState: State = {
   activeRoom: undefined
 }
 
-export function chatReducer(state = initialState, action: ChatActions.ChatActions) {
+export function roomReducer(state = initialState, action: RoomActions.RoomActions) {
   let room: Room;
   switch (action.type) {
-    case ChatActions.GET_MESSAGE:
+    case RoomActions.GET_MESSAGE:
       return {
         ...state,
         rooms: [action.payload.room],
       }
-    case ChatActions.SEND_MESSAGE:
+    case RoomActions.SEND_MESSAGE:
       room = state.rooms.find(p => p._id === action.payload.room._id);
       return {
         ...state,
         room: [...state.rooms, {...room, messages: [...room.messages, ...action.payload.message]}]
       }
-    case ChatActions.JOIN_ROOM:
+    case RoomActions.JOIN_ROOM:
       return {
         ...state,
         room: [...state.rooms, action.payload.room]
       }
-    case ChatActions.QUIT_ROOM:
+    case RoomActions.QUIT_ROOM:
       return {
         ...state,
         room: state.rooms.filter(p => p._id !== action.payload.room._id)
       }
-    case ChatActions.KICK_USER:
+    case RoomActions.KICK_USER:
       room = state.rooms.find(p => p._id === action.payload.room._id);
       return {
         ...state,

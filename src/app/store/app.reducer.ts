@@ -1,19 +1,19 @@
 import * as AppActions from './app.actions';
 import * as fromAuth from '../services/auth/store/auth.reducer';
-import * as fromChat from '../services/dataServices/chat/store/chat.reducer';
+import * as fromRoom from '../services/dataServices/room/store/room.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 import { Event } from '../dtos/event';
 
 export interface AppState {
   appWise: AppWise;
   authState ?: fromAuth.State;
-  chatState?: fromChat.State;
+  roomState?: fromRoom.State;
 }
 
 export const appReducer: ActionReducerMap < AppState > = {
   appWise: appWiseReducer,
   authState: fromAuth.authReducer,
-  chatState: fromChat.chatReducer
+  roomState: fromRoom.roomReducer
 }
 
 export interface AppWise {
