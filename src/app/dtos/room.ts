@@ -7,6 +7,6 @@ export class Room {
     eventId: string;
     users: User[];
     messages: MMessage[];
-    moderator: User;
+    moderator?: User;
     roomType: RoomType
 }

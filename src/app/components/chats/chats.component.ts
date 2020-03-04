@@ -7,7 +7,6 @@ import * as fromAuth from '../../services/auth/store/auth.reducer';
 import * as fromApp from '../../store/app.reducer';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { Room } from 'src/app/dtos/room';
 
 @Component({
   selector: 'chats',
@@ -32,6 +31,7 @@ export class ChatsComponent implements OnInit {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
     this.rooms = this.store.select("roomState");
+    this.rooms.subscribe(p => console.log(p));
   }
 
 
