@@ -38,7 +38,7 @@ export class KickUser implements Action {
 
 export class ChangeActiveRoom implements Action {
   readonly type = CHANGE_ACTIVE_ROOM;
-  constructor(public payload: { room: Room }) { }
+  constructor(public payload: { roomId: string }) { }
 }
 
 export type RoomActions = SendMessage | GetMessage | JoinRoom | QuitRoom | KickUser | ChangeActiveRoom;

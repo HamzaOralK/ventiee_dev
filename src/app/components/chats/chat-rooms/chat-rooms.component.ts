@@ -15,8 +15,4 @@ export class ChatRoomsComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  log(id) {
-    this.roomService.getMessages(this.room);
-  }
-
 }

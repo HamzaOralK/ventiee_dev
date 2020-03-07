@@ -4,7 +4,7 @@ import { RoomType } from 'src/app/dtos/enums';
 
 export interface State {
   rooms: Room[];
-  activeRoom: string;
+  activeRoom: Room;
 }
 
 const initialState: State = {
@@ -20,7 +20,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
     case RoomActions.GET_MESSAGE:
       return {
         ...state,
-        activeRoom: action.payload.room._id
+        activeRoom: action.payload.room
       }
     case RoomActions.SEND_MESSAGE:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
@@ -48,10 +48,10 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         rooms: [...state.rooms, {...room, users: room.users.filter( p => p._id !== action.payload.user._id )}]
       }
     case RoomActions.CHANGE_ACTIVE_ROOM:
-      roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
+      room = state.rooms.find(p => p._id === action.payload.roomId);
       return {
         ...state,
-        activeRoom: action.payload.room._id
+        activeRoom: room
       }
     default:
       return state;

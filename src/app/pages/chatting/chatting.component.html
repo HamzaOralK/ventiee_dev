@@ -1,8 +1,12 @@
-
-<p>chatting works!</p>
-
+<div #messages class="messages">
+  <div class="all" [ngClass]="isOwn(message) ? 'own' : 'other' " *ngFor="let message of activeRoom.messages">
+    <div style="max-width: 65%;">
+      <span>{{message.message}}</span>
+    </div>
+  </div>
+</div>
 <mat-form-field appearance="fill" class="messageEntry">
-  <mat-label>Textarea</mat-label>
+  <mat-label>Bir şey yazın.</mat-label>
   <textarea
     matInput
     (keyup.enter)="sendMessage($event)"
