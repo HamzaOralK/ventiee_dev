@@ -1,5 +1,5 @@
 import { User } from './user';
-import { MMessage } from './Message';
+import { MMessage } from './message';
 import { RoomType } from './enums';
 
 export class Room {
