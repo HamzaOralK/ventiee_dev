@@ -5,7 +5,7 @@
     <span>{{(auth | async).user?.name}}</span>
     <span class="spacer"></span>
     <ng-container *ngIf="(auth | async).user; else noUser" >
-      <button mat-button routerLink="/userSettings/{{(auth | async).user.email}}">
+      <button mat-button routerLink="/userSettings/{{(auth | async).user._id}}">
         <mat-icon>settings</mat-icon>
       </button>
       <button mat-button (click)="logOut()">

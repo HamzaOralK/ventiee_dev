@@ -1,5 +1,4 @@
 import { User } from './user';
-import { Room } from './room';
 
 export class MMessage {
     _id:string;
@@ -7,5 +6,5 @@ export class MMessage {
     date: Date;
     message: string;
     event: Event;
-    room: Room;
+    roomId: string;
 }

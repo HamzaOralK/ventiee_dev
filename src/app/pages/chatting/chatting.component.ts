@@ -1,5 +1,6 @@
-import { Component, OnInit, NgZone, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
+import * as RoomActions from '../../services/dataServices/room/store/room.actions';
 import * as fromApp from '../../store/app.reducer';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import { Observable } from 'rxjs/internal/Observable';
@@ -31,8 +32,7 @@ export class ChattingComponent implements OnInit {
     private store: Store<fromApp.AppState>,
     private roomService: RoomService,
     private _ngZone: NgZone,
-    private router: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private router: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +43,12 @@ export class ChattingComponent implements OnInit {
       this.activeRoom = p.activeRoom;
     });
     this.authState.subscribe(p => this.user = p.user);
+    this.roomService.connectRoom();
+    this.roomService
+    .getMessages()
+    .subscribe((message: string) => {
+      
+    });
   }
 
   ngAfterViewChecked() {        
@@ -61,7 +67,7 @@ export class ChattingComponent implements OnInit {
       message.date = new Date();
       message.message = value;
       message.user = this.user;
-      message.room = this.activeRoom;
+      message.roomId = this.activeRoom._id;
       this.roomService.sendMessage(this.activeRoom, message);
     };
     (event.target as HTMLInputElement).value = '';
@@ -70,7 +76,6 @@ export class ChattingComponent implements OnInit {
   scrollToBottom() {
     this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
   }
-
 
   prevent(event: InputEvent) {
     event.preventDefault();
