@@ -40,7 +40,6 @@ export class RoomService {
 
   connectRoom() {
     if(this.activeRoom && this.activeRoom._id) {
-      console.log(this.activeRoom, this.activeRoom._id);
       this.socket = io(this.url);
     }
   }
@@ -58,7 +57,6 @@ export class RoomService {
 
   sendMessage(room: Room, message: MMessage) {
     this.socket.emit('message', message);
-    console.log(message);
     this.store.dispatch(new RoomAction.SendMessage({room, message: [message] }));
   }
 

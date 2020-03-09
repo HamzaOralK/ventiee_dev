@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges } from '@angular/core';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import * as RoomActions from '../../services/dataServices/room/store/room.actions';
 import * as fromApp from '../../store/app.reducer';
@@ -25,6 +25,9 @@ export class ChattingComponent implements OnInit {
   authState: Observable<fromAuth.State>;
   activeRoom: Room;
   user: User;
+
+  scroll: Boolean = false;
+
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messages') messages: ElementRef;
 
@@ -47,13 +50,16 @@ export class ChattingComponent implements OnInit {
     this.roomService
     .getMessages()
     .subscribe((message: string) => {
-      
+      this.scroll = true;
     });
   }
 
-  ngAfterViewChecked() {        
-    this.scrollToBottom();        
-  } 
+  ngAfterViewChecked() {
+    if(this.scroll){
+      this.scrollToBottom();
+      this.scroll = false;
+    }
+  }
 
   triggerResize() {
     this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
@@ -69,6 +75,7 @@ export class ChattingComponent implements OnInit {
       message.user = this.user;
       message.roomId = this.activeRoom._id;
       this.roomService.sendMessage(this.activeRoom, message);
+      this.scrollToBottom();
     };
     (event.target as HTMLInputElement).value = '';
   }
@@ -77,7 +84,7 @@ export class ChattingComponent implements OnInit {
     this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
   }
 
-  prevent(event: InputEvent) {
+  submit(event) {
     event.preventDefault();
   }
 

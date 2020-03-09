@@ -28,10 +28,6 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       let dumMessages = [...room.messages, ...action.payload.message];
       room.messages = dumMessages;
       state.rooms[roomIndex] = room;
-      console.log({ 
-        ...state,
-        rooms: [...state.rooms]
-      });
       return {
         ...state,
         rooms: [...state.rooms]

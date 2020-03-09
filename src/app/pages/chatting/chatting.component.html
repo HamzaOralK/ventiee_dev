@@ -1,19 +1,17 @@
 <div #messages class="messages">
-  <div class="all" [ngClass]="isOwn(message) ? 'own' : 'other' " *ngFor="let message of activeRoom.messages">
-    <div style="max-width: 65%;">
-      <span>{{message.message}}</span>
+  <div class="all" [ngClass]="isOwn(message) ? 'own' : 'other' " *ngFor="let message of activeRoom.messages; let i = index;">
+    <div style="max-width: 65%; overflow: hidden;">
+      <span *ngIf="i > 0 && activeRoom.messages[i-1].user.email !== message.user.email">{{message.user.name}}</span>
+      <span *ngIf="i === 0">{{message.user.name}}</span>
+      <div class="message">
+        <span>{{message.message}}</span>
+      </div>
     </div>
   </div>
 </div>
-<mat-form-field appearance="fill" class="messageEntry">
-  <mat-label>Bir şey yazın.</mat-label>
-  <textarea
-    matInput
-    (keyup.enter)="sendMessage($event)"
-    (keydown.enter)="prevent($event)"
-    cdkTextareaAutosize
-    #autosize="cdkTextareaAutosize"
-    cdkAutosizeMinRows="1"
-    cdkAutosizeMaxRows="5">
-  </textarea>
-</mat-form-field>
+<form (submit)="submit($event)" (keyup.enter)="sendMessage($event)" (keydown.enter)="$event.preventDefault()">
+  <mat-form-field appearance="fill" class="messageEntry">
+    <mat-label>Bir şey yazın.</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
+</form>
