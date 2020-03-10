@@ -4,20 +4,20 @@
     <mat-label>E-Mail</mat-label>
     <input matInput formControlName="email">
     <mat-error *ngIf="loginControls.email.hasError('email') && !loginControls.email.hasError('required')">
-      Please enter a valid email address
+      {{'emailNotValid' | ml}}
     </mat-error>
     <mat-error *ngIf="loginControls.email.hasError('required')">
-      Email is <strong>required</strong>
+      {{'emailRequired' | ml}}
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <mat-label>Password</mat-label>
+    <mat-label>{{'password' | ml}}</mat-label>
     <input matInput type="password" formControlName="password">
     <mat-error *ngIf="loginControls.password.hasError('required')">
-      Password is <strong>required</strong>
+      {{'passwordRequired' | ml}}
     </mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary">Log-In</button>
+  <button mat-raised-button color="primary">{{'login' | ml}}</button>
 
 </form>

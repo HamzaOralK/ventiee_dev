@@ -45,6 +45,7 @@ import * as fromApp from './store/app.reducer';
 import { ChatsComponent } from './components/chats/chats.component';
 import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
 import { ChattingComponent } from './pages/chatting/chatting.component';
+import { MultiLanguagePipe } from './pipes/multi-language.pipe';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ChattingComponent } from './pages/chatting/chatting.component';
     CreateEventFormComponent,
     ChatsComponent,
     ChatRoomsComponent,
-    ChattingComponent
+    ChattingComponent,
+    MultiLanguagePipe
   ],
   imports: [
     BrowserModule,

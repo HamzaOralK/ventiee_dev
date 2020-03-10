@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
 import { EventService } from './services/dataServices/event/event-service.service';
 import { AppService } from './app.service';
+import { LangService } from './services/lang/lang.service';
 
 
 export class MyHammerConfig extends HammerGestureConfig {

@@ -1,5 +1,5 @@
 <mat-form-field appearance="fill" class="searchBox">
-  <mat-label>Search you chats!</mat-label>
+  <mat-label>{{'searchchats' | ml}}</mat-label>
   <input matInput (keyup)="onChange($event)" [(ngModel)]="value">
   <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
     <mat-icon>close</mat-icon>

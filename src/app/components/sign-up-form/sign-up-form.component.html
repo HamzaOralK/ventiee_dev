@@ -4,47 +4,43 @@
     <mat-label>E-Mail</mat-label>
     <input matInput formControlName="email">
     <mat-error *ngIf="signUpControls.email.hasError('email') && !signUpControls.email.hasError('required')">
-      Please enter a valid email address
+      {{'emailNotValid' | ml}}
     </mat-error>
     <mat-error *ngIf="signUpControls.email.hasError('required')">
-      Email is <strong>required</strong>
+      {{'emailRequired' | ml}}
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <mat-label>Name</mat-label>
+    <mat-label>{{'name' | ml}}</mat-label>
     <input matInput type="text" formControlName="name">
     <mat-error *ngIf="signUpControls.name.hasError('required')">
-      Name is <strong>required</strong>
+      {{'nameRequired' | ml}}
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <mat-label>Surname</mat-label>
+    <mat-label>{{'surname' | ml}}</mat-label>
     <input matInput type="text" formControlName="surname">
     <mat-error *ngIf="signUpControls.surname.hasError('required')">
-      Surname is <strong>required</strong>
+      {{'surnameRequired' | ml}}
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <mat-label>Nickname</mat-label>
+    <mat-label>{{'nickname' | ml}}</mat-label>
     <input matInput type="text" formControlName="nickname">
     <mat-error *ngIf="signUpControls.nickname.hasError('required')">
-      Nickname is <strong>required</strong>
+      {{'nicknameRequired' | ml}}
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <mat-label>Password</mat-label>
+    <mat-label>{{'password' | ml}}</mat-label>
     <input matInput type="password" formControlName="password">
     <mat-error *ngIf="signUpControls.password.hasError('required')">
-      Password is <strong>required</strong>
+      {{'passwordRequired' | ml}}
     </mat-error>
   </mat-form-field>
-
-
-
-  <button mat-raised-button color="primary" [disabled]="!signUp.valid">Sign Up</button>
-
+  <button mat-raised-button color="primary" [disabled]="!signUp.valid">{{'signup' | ml}}</button>
 </form>
