@@ -1,4 +1,4 @@
-<mat-card class="room" [routerLink]="['/room', room._id]">
+<mat-card class="room" (click)="onCloseNav()" [routerLink]="['/room', room._id]">
     <mat-card-header>
         <div mat-card-avatar class="image"></div>
         <mat-card-title>Event Name</mat-card-title>

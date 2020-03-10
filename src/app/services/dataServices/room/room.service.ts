@@ -47,17 +47,20 @@ export class RoomService {
   getMessages() {
     return Observable.create((observer) => {
       this.socket.on('messageToClient', (message: Object) => {
+          console.log(message);
           let incMessage = message['message'] as MMessage;
-          if(incMessage.user.email !== this.user.email)
-            this.roomStore.dispatch(new RoomAction.SendMessage({room: this.activeRoom, message: [incMessage]}));
+          let room = this.rooms.find(p => p._id === incMessage.roomId);
+          this.roomStore.dispatch(new RoomAction.SendMessage({room: room, message: [incMessage]}));
           observer.next(message);
+      });
+      this.socket.on('nsList', (message: Object) => {
+        console.log(message);
       });
     });
   }
 
   sendMessage(room: Room, message: MMessage) {
     this.socket.emit('message', message);
-    this.store.dispatch(new RoomAction.SendMessage({room, message: [message] }));
   }
 
   changeRoom(roomId: string) {

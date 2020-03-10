@@ -89,7 +89,7 @@ export class ChattingComponent implements OnInit {
   }
 
   isOwn(message: MMessage) {
-    return message.user === this.user;
+    return message.user.email === this.user.email;
   }
 
 }

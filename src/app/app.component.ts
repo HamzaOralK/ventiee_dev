@@ -11,6 +11,7 @@ import { CONFIG } from './config';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
 import { EventService } from './services/dataServices/event/event-service.service';
+import { AppService } from './app.service';
 
 
 export class MyHammerConfig extends HammerGestureConfig {
@@ -18,8 +19,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     // override hammerjs default configuration
     'pan': { threshold: 5 },
     'swipe': {
-      velocity: 10,
-      threshold: 100,
+      velocity: 10000,
+      threshold: 10000,
       direction: 4
     }
   }
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private eventService: EventService,
+    private appService: AppService,
     private store: Store<fromApp.AppState>,
     private router: Router
   ) {}
@@ -54,7 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.swipeHammer.events = ["panright"];
     let swipeHammer = this.swipeHammer.buildHammer(body);
     swipeHammer.on("panright", () => {
-      this.openNav();
+      this.appService.openNav();
     });
 
     let main = document.getElementById("main");
@@ -62,21 +63,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mainTapHammer.events = ["tap"];
     let mainTapHammer = this.mainTapHammer.buildHammer(main);
     mainTapHammer.on("tap", () => {
-      this.closeNav();
+      this.appService.closeNav();
     });
   }
 
   ngAfterViewInit() { }
 
   ngOnDestroy() {}
-
-  openNav() {
-    this.store.dispatch(new AppAction.ToggleLeftNav(true));
-  }
-
-  closeNav() {
-    this.store.dispatch(new AppAction.ToggleLeftNav(false));
-  }
 
   checkLocalStorage() {
     let str = window.localStorage.getItem(CONFIG.loginLocalStorageKey);
