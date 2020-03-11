@@ -16,6 +16,9 @@ form {
   mat-form-field {
     min-width: 300px;
   }
+  input[type="text"] {
+    text-transform: lowercase;
+  }
 }
 
 .stepper {

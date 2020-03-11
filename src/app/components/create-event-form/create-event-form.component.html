@@ -2,14 +2,14 @@
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="generalDescription">
       <form [formGroup]="generalDescription">
-        <ng-template matStepLabel>{{'event' | ml}}</ng-template>
+        <ng-template matStepLabel>{{'event' | ml }}</ng-template>
         <mat-form-field>
           <mat-label>{{'title'| ml}}</mat-label>
-          <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required>
+          <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required appLowerCase>
         </mat-form-field>
         <mat-form-field>
           <mat-label>{{'howmany' | ml}}</mat-label>
-          <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" type="number" required>
+          <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" required appOnlyNumbers>
         </mat-form-field>
         <div>
           <button mat-button matStepperNext>{{'next'| ml}}</button>

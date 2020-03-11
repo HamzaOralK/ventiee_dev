@@ -46,6 +46,8 @@ import { ChatsComponent } from './components/chats/chats.component';
 import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
 import { ChattingComponent } from './pages/chatting/chatting.component';
 import { MultiLanguagePipe } from './pipes/multi-language.pipe';
+import { LowerCaseDirective } from './directives/lower-case.directive';
+import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { MultiLanguagePipe } from './pipes/multi-language.pipe';
     ChatsComponent,
     ChatRoomsComponent,
     ChattingComponent,
-    MultiLanguagePipe
+    MultiLanguagePipe,
+    LowerCaseDirective,
+    OnlyNumbersDirective
   ],
   imports: [
     BrowserModule,
