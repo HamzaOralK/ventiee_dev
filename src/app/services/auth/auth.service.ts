@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   isLoggedIn: boolean = false;
   auth: Observable < fromAuth.State > ;
@@ -58,7 +59,6 @@ export class AuthService {
     window.localStorage.removeItem(CONFIG.loginLocalStorageKey);
     this.store.dispatch(new AuthActions.LogoutUser());
     this.router.navigate(['/home']).then(() => window.location.reload());
-
   }
 
   public get authHeader() {

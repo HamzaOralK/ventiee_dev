@@ -39,6 +39,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatStepperModule } from "@angular/material/stepper";
+import { MatBadgeModule } from '@angular/material/badge'; 
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
@@ -93,7 +94,8 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
     MatTabsModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatStepperModule
+    MatStepperModule,
+    MatBadgeModule
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }

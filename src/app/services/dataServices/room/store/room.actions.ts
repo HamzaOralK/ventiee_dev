@@ -13,7 +13,7 @@ export const CHANGE_ACTIVE_ROOM = 'CHANGE_ACTIVE_ROOM';
 
 export class SendMessage implements Action {
   readonly type = SEND_MESSAGE;
-  constructor(public payload: { room: Room, message?: MMessage[] }) { }
+  constructor(public payload: { room: Room, user: User, message?: MMessage[] }) { }
 }
 
 export class GetMessage implements Action {

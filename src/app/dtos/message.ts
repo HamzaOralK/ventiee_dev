@@ -7,4 +7,5 @@ export class MMessage {
     message: string;
     event: Event;
     roomId: string;
+    isRead: boolean;
 }

@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <mat-icon class="icon" aria-hidden="false" (click)="toggleLeftMenu()">menu</mat-icon>
+    <mat-icon class="icon" [matBadge]="unreadMessages" matBadgeColor="warn" (click)="toggleLeftMenu()">menu</mat-icon>
     <mat-icon class="icon" aria-hidden="false" routerLink="/home">home</mat-icon>
-    <span>{{(auth | async).user?.name}}</span>
+    <span>{{user?.name}}</span>
     <span class="spacer"></span>
-    <ng-container *ngIf="(auth | async).user; else noUser" >
-      <button mat-button routerLink="/userSettings/{{(auth | async).user._id}}">
+    <ng-container *ngIf="user; else noUser" >
+      <button mat-button routerLink="/userSettings/{{user.id}}">
         <mat-icon>settings</mat-icon>
       </button>
       <button mat-button (click)="logOut()">

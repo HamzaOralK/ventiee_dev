@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as AppAction from '../../store/app.actions'
 import { Observable } from 'rxjs';
-import { User } from 'src/app/dtos/user';
 import * as fromApp from '../../store/app.reducer';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { User } from 'src/app/dtos/user';
 
 @Component({
   selector: 'top-navigation',
@@ -14,7 +14,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class TopNavigationComponent implements OnInit {
 
-    auth: Observable<fromAuth.State>
+    auth: Observable<fromAuth.State>;
+    user: User;
+    unreadMessages: number;
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -22,7 +24,12 @@ export class TopNavigationComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.auth = this.store.select('authState');
+        this.store.select('authState').subscribe(p => {
+          this.user = p.user;
+        });
+        this.store.select('roomState').subscribe(p => {
+          this.unreadMessages = p.unreadMessages;
+        });
     }
 
     toggleLeftMenu() {

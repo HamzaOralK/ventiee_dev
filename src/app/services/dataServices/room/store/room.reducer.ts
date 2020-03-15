@@ -5,12 +5,14 @@ import { RoomType } from 'src/app/dtos/enums';
 export interface State {
   rooms: Room[];
   activeRoom: Room;
+  unreadMessages: number;
 }
 
 const initialState: State = {
   rooms: [{_id: "10", eventId: "10", roomType: RoomType.Public, messages:[], users:[]},
           {_id: "20", eventId: "10", roomType: RoomType.Public, messages: [], users: []}],
-  activeRoom: undefined
+  activeRoom: undefined,
+  unreadMessages: 0
 }
 
 export function roomReducer(state = initialState, action: RoomActions.RoomActions) {
@@ -28,9 +30,14 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       let dumMessages = [...room.messages, ...action.payload.message];
       room.messages = dumMessages;
       state.rooms[roomIndex] = room;
+      let unreadMessages = state.unreadMessages;
+      if(action.payload.message[0].user.id !== action.payload.user.id) {
+        unreadMessages++;
+      }
       return {
         ...state,
-        rooms: [...state.rooms]
+        rooms: [...state.rooms],
+        unreadMessages:  unreadMessages
       }
     case RoomActions.JOIN_ROOM:
       return {
@@ -46,7 +53,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       room = state.rooms.find(p => p._id === action.payload.room._id);
       return {
         ...state,
-        rooms: [...state.rooms, {...room, users: room.users.filter( p => p._id !== action.payload.user._id )}]
+        rooms: [...state.rooms, {...room, users: room.users.filter( p => p.id !== action.payload.user.id )}]
       }
     case RoomActions.CHANGE_ACTIVE_ROOM:
       room = state.rooms.find(p => p._id === action.payload.roomId);

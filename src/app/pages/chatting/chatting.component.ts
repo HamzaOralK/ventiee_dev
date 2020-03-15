@@ -46,12 +46,6 @@ export class ChattingComponent implements OnInit {
       this.activeRoom = p.activeRoom;
     });
     this.authState.subscribe(p => this.user = p.user);
-    this.roomService.connectRoom();
-    this.roomService
-    .getMessages()
-    .subscribe((message: string) => {
-      this.scroll = true;
-    });
   }
 
   ngAfterViewChecked() {
@@ -74,6 +68,7 @@ export class ChattingComponent implements OnInit {
       message.message = value;
       message.user = this.user;
       message.roomId = this.activeRoom._id;
+      message.isRead = false;
       this.roomService.sendMessage(this.activeRoom, message);
       this.scrollToBottom();
     };

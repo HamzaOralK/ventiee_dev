@@ -13,6 +13,7 @@ import { AuthService } from './services/auth/auth.service';
 import { EventService } from './services/dataServices/event/event-service.service';
 import { AppService } from './app.service';
 import { LangService } from './services/lang/lang.service';
+import { RoomService } from './services/dataServices/room/room.service';
 
 
 export class MyHammerConfig extends HammerGestureConfig {
@@ -44,7 +45,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private authService: AuthService,
     private appService: AppService,
     private store: Store<fromApp.AppState>,
-    private router: Router
+    private router: Router,
+    private roomService: RoomService
   ) {}
 
   ngOnInit() {
@@ -66,6 +68,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     mainTapHammer.on("tap", () => {
       this.appService.closeNav();
     });
+    this.roomService.connectRoom();
+    this.roomService
+    .getMessages()
+    .subscribe((message: string) => {
+      console.log(message);
+    });
+
   }
 
   ngAfterViewInit() { }
