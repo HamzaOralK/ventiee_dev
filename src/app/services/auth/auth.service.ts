@@ -8,6 +8,7 @@ import * as fromApp from '../../store/app.reducer';
 import { CONFIG } from '../../config';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { RoomService } from '../dataServices/room/room.service';
 
 
 @Injectable({
@@ -22,7 +23,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private store: Store < fromApp.AppState > ,
-    private router: Router
+    private router: Router,
+    private roomService: RoomService
   ) {
     this.auth = this.store.select('authState');
     this.auth.subscribe(p => {
@@ -46,6 +48,12 @@ export class AuthService {
         this.isLoggedIn = true;
         this.router.navigate(['/home']);
         this.store.dispatch(new AuthActions.LoginUser(p));
+        this.roomService.connectRoom();
+        this.roomService
+            .getMessages()
+            .subscribe((message: string) => {
+              console.log(message);
+            });
       }
     });
   }

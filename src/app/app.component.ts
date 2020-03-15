@@ -68,13 +68,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     mainTapHammer.on("tap", () => {
       this.appService.closeNav();
     });
-    this.roomService.connectRoom();
-    this.roomService
-    .getMessages()
-    .subscribe((message: string) => {
-      console.log(message);
-    });
-
   }
 
   ngAfterViewInit() { }
