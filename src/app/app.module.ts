@@ -9,6 +9,8 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { StoreModule } from '@ngrx/store';
 
 import { NgxMaskModule } from "ngx-mask";
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +28,9 @@ import { UserSettingsComponent } from './pages/user-settings/user-settings.compo
 import { RoomNavigationComponent } from "./layout/room-navigation/room-navigation.component";
 import { CreateEventComponent } from "./pages/create-event/create-event.component";
 import { CreateEventFormComponent } from "./components/create-event-form/create-event-form.component";
+import { ChatsComponent } from './components/chats/chats.component';
+import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
+import { ChattingComponent } from './pages/chatting/chatting.component';
 
 /** Material Components */
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -43,12 +48,11 @@ import { MatBadgeModule } from '@angular/material/badge';
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
-import { ChatsComponent } from './components/chats/chats.component';
-import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
-import { ChattingComponent } from './pages/chatting/chatting.component';
+
 import { MultiLanguagePipe } from './pipes/multi-language.pipe';
 import { LowerCaseDirective } from './directives/lower-case.directive';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
+
 
 @NgModule({
   declarations: [
@@ -95,7 +99,9 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
     MatDatepickerModule,
     MatMomentDateModule,
     MatStepperModule,
-    MatBadgeModule
+    MatBadgeModule,
+    PickerModule,
+    EmojiModule
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
