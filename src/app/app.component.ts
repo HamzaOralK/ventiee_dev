@@ -79,7 +79,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     if(str) {
       this.authService.isLoggedIn = true;
       this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));
-      this.router.navigate(['/home']);
     } else this.router.navigate(['/home']);
   }
 

@@ -13,7 +13,7 @@
 <form (submit)="submit($event)" (keyup.enter)="sendMessage($event)" (keydown.enter)="$event.preventDefault()">
   <mat-form-field appearance="fill" class="messageEntry">
     <mat-label>Bir şey yazın.</mat-label>
-    <textarea matInput><ngx-emoji [emoji]="{ id: 'santa', skin: 3 }" size="16"></ngx-emoji></textarea>
+    <textarea matInput></textarea>
   </mat-form-field>
   <emoji-mart class="emojis" set="apple" [showPreview]="false"></emoji-mart>
 </form>
