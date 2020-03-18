@@ -44,14 +44,19 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatStepperModule } from "@angular/material/stepper";
-import { MatBadgeModule } from '@angular/material/badge'; 
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
 
+/** Directives and Pipes */
 import { MultiLanguagePipe } from './pipes/multi-language.pipe';
 import { LowerCaseDirective } from './directives/lower-case.directive';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
+
+/** TimePicker */
+import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
 
 @NgModule({
@@ -100,6 +105,9 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
     MatMomentDateModule,
     MatStepperModule,
     MatBadgeModule,
+    MatSnackBarModule,
+    /** Additional */
+    NgxMaterialTimepickerModule.setLocale("tr-TR"),
     PickerModule,
     EmojiModule
   ],

@@ -12,15 +12,18 @@
     {"key": "next", "value": "İleri"},
     {"key": "back", "value": "Geri"},
     {"key": "time", "value": "Zaman"},
-    {"key": "meetingTime", "value": "Buluşma Saati"},
+    {"key": "startTime", "value": "Buluşma Saati"},
+    {"key": "endTime", "value": "Bitiş Saati"},
     {"key": "startDate", "value": "Başlangıç Tarihi"},
     {"key": "endDate", "value": "Bitiş Tarihi"},
+    {"key": "timeError", "value": "Tarihte bir sıkıntı var."},
     {"key": "place", "value": "Yer"},
     {"key": "where", "value": "Nerede"},
     {"key": "address", "value": "Adres"},
     {"key": "address", "value": "Adres"},
     {"key": "long", "value": "Boylam"},
     {"key": "lat", "value": "Enlem"},
+    {"key": "eventCreateSuccess", "value": "Etkinlik başarı ile yaratıldı." },
     {"key": "emailNotValid", "value": "Geçerli bir e-mail adresi girin."},
     {"key": "emailRequired", "value": "E-Mail zorunlu."},
     {"key": "password", "value": "Şifre"},
@@ -31,5 +34,5 @@
     {"key": "surnameRequired", "value": "Soyisim zorunlu."},
     {"key": "nickname", "value": "Nickname"},
     {"key": "nicknameRequired", "value": "Nickname zorunlu."}
-    
+
 ]

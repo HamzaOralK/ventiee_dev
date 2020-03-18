@@ -2,11 +2,13 @@ export class Event {
   _id: string;
   title: string;
   peopleCount: number;
-  time: Date;
   startDate: Date;
   endDate: Date;
   venue: string;
-  location: MLocation;
+  district: string;
+  city: string;
+  longtitute: string;
+  latitute: string;
 }
 
 export class MLocation {

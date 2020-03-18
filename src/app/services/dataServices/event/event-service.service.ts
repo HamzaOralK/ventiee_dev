@@ -51,11 +51,8 @@ export class EventService {
       return this.http.get<Event>(url, this.authService.authHeader);
     }
 
-    // addEvent(event: Event) {
-      // this.http.post<Event>(CONFIG.serviceURL + '/events.json', event).subscribe((result) => {
-          // console.log(result);
-      // });
-    // }
-
+    addEvent(event: Event) {
+      return this.http.post<any>(CONFIG.serviceURL + "/event/add", event, this.authService.authHeader);
+    }
 
 }

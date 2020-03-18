@@ -7,11 +7,11 @@ import * as en from '../../locale/en.json';
 })
 export class LangService {
   language: string = 'tr';
-  dictionary: any[];
+  dictionary: {key: string, value: string}[];
   constructor() {
     this.decideDict();
   }
-  
+
   decideDict() {
     switch (this.language) {
       case 'tr':
@@ -23,7 +23,12 @@ export class LangService {
       default:
         this.dictionary = undefined;
     }
-
   }
+
+  get(key: string) {
+    return this.dictionary.find(l => l.key === key).value;
+  }
+
+
 
 }
