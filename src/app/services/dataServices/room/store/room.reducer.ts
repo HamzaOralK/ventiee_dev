@@ -1,6 +1,5 @@
 import * as RoomActions from './room.actions';
 import { Room } from 'src/app/dtos/room';
-import { RoomType } from 'src/app/dtos/enums';
 
 export interface State {
   rooms: Room[];
@@ -9,8 +8,7 @@ export interface State {
 }
 
 const initialState: State = {
-  rooms: [{_id: "10", eventId: "10", roomType: RoomType.Public, messages:[], users:[]},
-          {_id: "20", eventId: "10", roomType: RoomType.Public, messages: [], users: []}],
+  rooms: [],
   activeRoom: undefined,
   unreadMessages: 0
 }
@@ -42,6 +40,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
     case RoomActions.JOIN_ROOM:
       return {
         ...state,
+        activeRoom: action.payload.room,
         rooms: [...state.rooms, action.payload.room]
       }
     case RoomActions.QUIT_ROOM:

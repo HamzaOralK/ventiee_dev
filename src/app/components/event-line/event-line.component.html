@@ -1,4 +1,15 @@
-<mat-card [routerLink]="['/event', event._id]">
-  For {{event.title}}, need {{event.peopleCount}} people.
-</mat-card>
-
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      For {{event.title}}, need {{event.peopleCount}} people.
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div>
+    <mat-card>
+      <p *ngIf="event"> {{event.title}} için {{event.peopleCount}} kişi aranıyor.</p>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="joinEvent()">{{'join' | ml}}</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</mat-expansion-panel>

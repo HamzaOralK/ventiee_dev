@@ -8,11 +8,12 @@ import { Store } from '@ngrx/store';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/internal/operators/take';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MMessage } from 'src/app/dtos/message';
 import { COMMONS } from 'src/app/shared/commons';
 import { User } from 'src/app/dtos/user';
 import { Room } from 'src/app/dtos/room';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'chatting',
@@ -32,20 +33,21 @@ export class ChattingComponent implements OnInit {
   @ViewChild('messages') messages: ElementRef;
 
   constructor(
-    private store: Store<fromApp.AppState>,
     private roomService: RoomService,
     private _ngZone: NgZone,
-    private router: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.roomState = this.store.select('roomState');
-    this.authState = this.store.select('authState');
-    this.router.paramMap.subscribe(p => this.roomService.changeRoom(p.get('id')));
-    this.roomState.subscribe(p => {
-      this.activeRoom = p.activeRoom;
-    });
-    this.authState.subscribe(p => this.user = p.user);
+    this.activatedRoute.paramMap.subscribe(p => this.roomService.changeRoom(p.get('id')));
+    this.user = this.authService.user;
+    this.activeRoom = this.roomService.activeRoom;
+    /** For test purposes */
+    if(this.activeRoom === undefined) {
+      this.router.navigate(['/home'])
+    }
   }
 
   ngAfterViewChecked() {

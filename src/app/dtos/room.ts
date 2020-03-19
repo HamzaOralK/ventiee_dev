@@ -8,5 +8,6 @@ export class Room {
     users: User[];
     messages: MMessage[];
     moderator?: User;
-    roomType: RoomType
+    roomType: RoomType;
+    title: string;
 }

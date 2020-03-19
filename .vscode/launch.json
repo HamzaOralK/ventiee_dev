@@ -6,10 +6,9 @@
     "configurations": [
         {
             "name": "Launch localhost",
-            "type": "firefox",
+            "type": "chrome",
             "request": "launch",
-            "reAttach": true,
-            "url": "http://localhost/4200",
+            "url": "http://192.168.1.3:4200",
             "webRoot": "${workspaceFolder}"
         }
     ]

@@ -77,10 +77,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   checkLocalStorage() {
     let str = window.localStorage.getItem(CONFIG.loginLocalStorageKey);
     if(str) {
-      this.authService.isLoggedIn = true;
-      this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));
-    } else this.router.navigate(['/home']);
+        this.authService.isLoggedIn = true;
+        this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));
+    } else {
+        this.router.navigate(['/home']);
+    }
   }
-
-
 }

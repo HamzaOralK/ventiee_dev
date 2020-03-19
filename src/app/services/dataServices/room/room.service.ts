@@ -23,9 +23,10 @@ export class RoomService {
   connectionOptions: any;
   user: User;
 
+
   constructor(
     private httpClient: HttpClient,
-    private store: Store<fromApp.AppState>, 
+    private store: Store<fromApp.AppState>,
     private roomStore: Store<fromRoom.State>
   ) {
     this.store.select('roomState').subscribe(p => {
@@ -34,25 +35,35 @@ export class RoomService {
     });
     this.store.select('authState').subscribe(p => {
       this.user = p.user;
+      if(this.user)
+        this.socket = io(this.url, {
+          reconnection: true,
+          reconnectionDelay: 1000,
+          reconnectionDelayMax: 5000,
+          reconnectionAttempts: Infinity
+        });
+        this.getMessages()
+        .subscribe((message: string) => {
+          console.log(message);
+        });
     })
     this.url = CONFIG.serviceURL;
   }
 
-  connectRoom() {
-      this.socket = io(this.url);
-  }
-
   getMessages() {
     return Observable.create((observer) => {
-      this.socket.on('messageToClient', (message: Object) => {
-          let incMessage = message['message'] as MMessage;
-          let room = this.rooms.find(p => p._id === incMessage.roomId);
-          this.roomStore.dispatch(new RoomAction.SendMessage({room: room, user: this.user, message: [incMessage]}));
-          observer.next(message);
-      });
-      this.socket.on('nsList', (message: Object) => {
-        console.log(message);
-      });
+      if(this.socket) {
+        this.socket.on('messageToClient', (message: Object) => {
+            console.log(message);
+            let incMessage = message['message'] as MMessage;
+            let room = this.rooms.find(p => p._id === incMessage.roomId);
+            this.roomStore.dispatch(new RoomAction.SendMessage({room: room, user: this.user, message: [incMessage]}));
+            observer.next(message);
+        });
+        this.socket.on('nsList', (message: Object) => {
+          console.log(message);
+        });
+      }
     });
   }
 
@@ -62,5 +73,9 @@ export class RoomService {
 
   changeRoom(roomId: string) {
     this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({roomId}));
+  }
+
+  joinRoom(room: Room) {
+    this.roomStore.dispatch(new RoomAction.JoinRoom({room}));
   }
 }

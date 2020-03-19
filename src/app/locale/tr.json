@@ -1,5 +1,6 @@
 [
     {"key": "login", "value": "Giriş"},
+    {"key": "loginError", "value": "Giriş  yapamadınız. Bir problem oluştu."},
     {"key": "signup", "value": "Kayıt Ol"},
     {"key": "searchforanevent", "value": "Bir etkinlik arayın!"},
     {"key": "noEventError", "value": "Aradığınız etkinlik bulunamadı. İsterseniz yaratın."},
@@ -33,6 +34,7 @@
     {"key": "surname", "value": "Soyisim"},
     {"key": "surnameRequired", "value": "Soyisim zorunlu."},
     {"key": "nickname", "value": "Nickname"},
-    {"key": "nicknameRequired", "value": "Nickname zorunlu."}
+    {"key": "nicknameRequired", "value": "Nickname zorunlu."},
+    {"key": "join", "value": "Katıl"}
 
 ]

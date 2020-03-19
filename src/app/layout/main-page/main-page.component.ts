@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { RoomService } from 'src/app/services/dataServices/room/room.service';
 
 @Component({
   selector: 'main-page',
@@ -8,9 +9,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private roomService: RoomService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

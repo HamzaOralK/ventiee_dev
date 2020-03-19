@@ -17,10 +17,17 @@ export class ChatRoomsComponent implements OnInit {
     private appService: AppService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+  }
 
   onCloseNav() {
     this.appService.closeNav();
+  }
+
+  getLastMessage() {
+    if (this.room.messages[this.room.messages.length - 1]) return this.room.messages[this.room.messages.length-1].message;
+    else return '';
   }
 
 }
