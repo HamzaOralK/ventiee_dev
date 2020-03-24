@@ -10,6 +10,8 @@ import { CONFIG } from 'src/app/config';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +25,12 @@ export class RoomService {
   connectionOptions: any;
   user: User;
 
-
   constructor(
-    private httpClient: HttpClient,
+    private http: HttpClient,
     private store: Store<fromApp.AppState>,
-    private roomStore: Store<fromRoom.State>
+    private roomStore: Store<fromRoom.State>,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.store.select('roomState').subscribe(p => {
       this.activeRoom = p.activeRoom;
@@ -76,6 +79,20 @@ export class RoomService {
   }
 
   joinRoom(room: Room) {
-    this.roomStore.dispatch(new RoomAction.JoinRoom({room}));
+    let url = CONFIG.serviceURL + '/jUser/add';
+    console.log(url);
+    let postObj = {
+      eventId: room._id,
+      userId: this.user.id,
+      joinDate: new Date()
+    }
+
+    //this.http.post<any>(url, postObj,this.authService.authHeader)
+    //.subscribe(res => {
+    //console.log(res);
+      this.roomStore.dispatch(new RoomAction.JoinRoom({ room }));
+      this.router.navigate(['/room/' + room._id]);
+    //}, e => console.log(e) );
+
   }
 }

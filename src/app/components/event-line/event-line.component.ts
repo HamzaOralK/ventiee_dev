@@ -18,21 +18,21 @@ export class EventLineComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private roomService: RoomService,
-    private router: Router
+    private roomService: RoomService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log(this.event);
+  }
 
   joinEvent() {
     let userNewRoom = new Room();;
-    userNewRoom.eventId = this.event._id;
     userNewRoom._id = this.event._id;
     userNewRoom.users = [];
     userNewRoom.messages = [];
     userNewRoom.title = this.event.title;
     userNewRoom.users.push(this.authService.user);
     this.roomService.joinRoom(userNewRoom);
-    this.router.navigate(['/room/' + userNewRoom._id]);
+
   }
 }

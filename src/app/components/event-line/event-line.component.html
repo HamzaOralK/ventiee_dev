@@ -1,12 +1,41 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      For {{event.title}}, need {{event.peopleCount}} people.
+      {{event.title}} için {{event.peopleCount}} kişi aranıyor..
     </mat-panel-title>
   </mat-expansion-panel-header>
   <div>
+    <div style="display: flex; align-items: center;">
+      <p> <b>{{'organisator' | ml}}: </b></p>
+      <div mat-card-avatar class="header-image"></div>
+    </div>
     <mat-card>
-      <p *ngIf="event"> {{event.title}} için {{event.peopleCount}} kişi aranıyor.</p>
+      <div *ngIf="event" class="eventInfo">
+        <mat-card class="card">
+          <mat-card-header>
+            <mat-card-title>{{'place' | ml}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list role="list">
+              <mat-list-item role="listitem"> <b>{{ 'city' | ml}}:</b> {{  event.city }} </mat-list-item>
+              <mat-list-item role="listitem"> <b>{{ 'district' | ml}}:</b> {{  event.district }} </mat-list-item>
+              <mat-list-item role="listitem"> <b>{{ 'venue' | ml}}:</b> {{  event.venue }} </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card">
+          <mat-card-header>
+            <mat-card-title>{{'time' | ml}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list role="list">
+              <mat-list-item role="listitem"> <b>{{ 'startDate' | ml}}:</b> {{ event.startDate | date:'dd/MM/yyyy HH:mm' }} </mat-list-item>
+              <mat-list-item role="listitem"> <b>{{ 'endDate' | ml}}:</b> {{ event.endDate | date:'dd/MM/yyyy HH:mm' }} </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="joinEvent()">{{'join' | ml}}</button>
       </mat-card-actions>

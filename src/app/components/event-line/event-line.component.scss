@@ -1,5 +1,21 @@
+@import '~@angular/material/theming';
+@import '../../../theme.scss';
+
 mat-card {
     margin: 5px 5px 0 5px;
-    background: antiquewhite;
+    background: mat-color($app-warn);
     cursor: pointer;
+}
+
+mat-expansion-panel {
+  margin: 1px
+}
+
+.eventInfo {
+  display: flex;
+}
+
+.header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
 }

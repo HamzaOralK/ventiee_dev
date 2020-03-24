@@ -2,7 +2,9 @@
     <mat-card-header>
         <mat-card-title>{{room.title}}</mat-card-title>
     </mat-card-header>
-    <mat-card-content>
-        <p>{{getLastMessage()}}</p>
+    <mat-card-content *ngIf="getLastMessageUser()">
+        <p style="text-overflow: ellipsis;overflow: hidden;max-width: 250px;">
+          <b>{{getLastMessageUser()}}:</b> {{getLastMessage()}}
+        </p>
     </mat-card-content>
 </mat-card>

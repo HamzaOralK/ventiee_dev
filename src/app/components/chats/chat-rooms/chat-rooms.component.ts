@@ -30,4 +30,14 @@ export class ChatRoomsComponent implements OnInit {
     else return '';
   }
 
+  getLastMessageUser() {
+    if (this.room.messages[this.room.messages.length - 1]) {
+      if (this.room.messages[this.room.messages.length - 1].user.nickname)
+        return this.room.messages[this.room.messages.length - 1].user.nickname
+      else return this.room.messages[this.room.messages.length - 1].user.name
+    } else {
+      return '';
+    };
+  }
+
 }

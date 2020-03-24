@@ -27,7 +27,6 @@ export class AuthService {
     private http: HttpClient,
     private store: Store < fromApp.AppState > ,
     private router: Router,
-    private roomService: RoomService,
     private notificationService: NotificationService,
     private langService: LangService
   ) {

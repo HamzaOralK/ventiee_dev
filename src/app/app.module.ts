@@ -47,6 +47,7 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
@@ -108,6 +109,7 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
     MatBadgeModule,
     MatSnackBarModule,
     MatExpansionModule,
+    MatListModule,
     /** Additional */
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
     PickerModule,

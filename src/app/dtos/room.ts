@@ -1,13 +1,8 @@
 import { User } from './user';
 import { MMessage } from './message';
-import { RoomType } from './enums';
+import { Event } from './event';
 
-export class Room {
-    _id: string;
-    eventId: string;
-    users: User[];
-    messages: MMessage[];
-    moderator?: User;
-    roomType: RoomType;
-    title: string;
+export class Room extends Event {
+  users: User[];
+  messages: MMessage[];
 }
