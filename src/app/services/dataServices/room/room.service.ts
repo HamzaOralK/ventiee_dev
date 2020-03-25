@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,9 @@ export class RoomService implements OnDestroy {
   user: User;
   subscription: Subscription;
 
+  msg: Subject<MMessage>;
+
+
   constructor(
     private http: HttpClient,
     private store: Store<fromApp.AppState>,
@@ -34,6 +37,7 @@ export class RoomService implements OnDestroy {
     private authService: AuthService,
     private router: Router
   ) {
+    this.msg = new Subject();
     this.subscription = new Subscription();
     this.store.select('roomState').subscribe(p => {
       this.activeRoom = p.activeRoom;
@@ -65,11 +69,11 @@ export class RoomService implements OnDestroy {
     return Observable.create((observer) => {
       if(this.socket) {
         this.socket.on('messageToClient', (message: Object) => {
-            console.log(message);
             let incMessage = message['message'] as MMessage;
             let room = this.rooms.find(p => p._id === incMessage.roomId);
             this.roomStore.dispatch(new RoomAction.SendMessage({room: room, user: this.user, message: [incMessage]}));
             observer.next(message);
+            this.msg.next(message as MMessage);
         });
         this.socket.on('nsList', (message: Object) => {
           console.log(message);

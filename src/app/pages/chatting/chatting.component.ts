@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import * as RoomActions from '../../services/dataServices/room/store/room.actions';
 import * as fromApp from '../../store/app.reducer';
@@ -14,20 +14,22 @@ import { COMMONS } from 'src/app/shared/commons';
 import { User } from 'src/app/dtos/user';
 import { Room } from 'src/app/dtos/room';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'chatting',
   templateUrl: './chatting.component.html',
   styleUrls: ['./chatting.component.scss']
 })
-export class ChattingComponent implements OnInit {
+export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   roomState: Observable<fromRoom.State>;
   authState: Observable<fromAuth.State>;
   activeRoom: Room;
   user: User;
+  subscription: Subscription;
 
-  scroll: Boolean = false;
+  scroll: Boolean = true;
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messages') messages: ElementRef;
@@ -41,6 +43,7 @@ export class ChattingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.subscription = new Subscription();
     this.activatedRoute.paramMap.subscribe(p => this.roomService.changeRoom(p.get('id')));
     this.user = this.authService.user;
     this.activeRoom = this.roomService.activeRoom;
@@ -48,6 +51,10 @@ export class ChattingComponent implements OnInit {
     if(this.activeRoom === undefined) {
       this.router.navigate(['/home'])
     }
+    let msgSubscription = this.roomService.msg.subscribe(p => {
+      this.scroll = true;
+    });
+    this.subscription.add(msgSubscription);
   }
 
   ngAfterViewChecked() {
@@ -55,6 +62,10 @@ export class ChattingComponent implements OnInit {
       this.scrollToBottom();
       this.scroll = false;
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   triggerResize() {
@@ -72,13 +83,14 @@ export class ChattingComponent implements OnInit {
       message.roomId = this.activeRoom._id;
       message.isRead = false;
       this.roomService.sendMessage(this.activeRoom, message);
-      this.scrollToBottom();
     };
     (event.target as HTMLInputElement).value = '';
   }
 
   scrollToBottom() {
-    this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
+    if ((this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
+      this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
+    }
   }
 
   submit(event) {
