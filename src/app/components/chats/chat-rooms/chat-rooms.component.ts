@@ -26,12 +26,12 @@ export class ChatRoomsComponent implements OnInit {
   }
 
   getLastMessage() {
-    if (this.room.messages[this.room.messages.length - 1]) return this.room.messages[this.room.messages.length-1].message;
+    if (this.room.messages && this.room.messages[this.room.messages.length - 1]) return this.room.messages[this.room.messages.length-1].message;
     else return '';
   }
 
   getLastMessageUser() {
-    if (this.room.messages[this.room.messages.length - 1]) {
+    if (this.room.messages && this.room.messages[this.room.messages.length - 1]) {
       if (this.room.messages[this.room.messages.length - 1].user.nickname)
         return this.room.messages[this.room.messages.length - 1].user.nickname
       else return this.room.messages[this.room.messages.length - 1].user.name

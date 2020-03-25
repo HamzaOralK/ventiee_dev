@@ -1,14 +1,15 @@
 @import '~@angular/material/theming';
 @import '../../../theme.scss';
 
-mat-card {
+.eventInfo mat-card {
     margin: 5px 5px 0 5px;
-    background: mat-color($app-warn);
+    background: mat-color($app-accent, 200) !important;
     cursor: pointer;
 }
 
 mat-expansion-panel {
-  margin: 1px
+  margin: 1px;
+  background-color: mat-color($app-accent, 50) !important;
 }
 
 .eventInfo {

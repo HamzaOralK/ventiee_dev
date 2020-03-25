@@ -39,6 +39,7 @@ export class RoomService {
     this.store.select('authState').subscribe(p => {
       this.user = p.user;
       if(this.user)
+        this.getRooms();
         this.socket = io(this.url, {
           reconnection: true,
           reconnectionDelay: 1000,
@@ -87,12 +88,21 @@ export class RoomService {
       joinDate: new Date()
     }
 
-    //this.http.post<any>(url, postObj,this.authService.authHeader)
-    //.subscribe(res => {
-    //console.log(res);
+    this.http.post<any>(url, postObj,this.authService.authHeader)
+    .subscribe(res => {
+      console.log(res);
       this.roomStore.dispatch(new RoomAction.JoinRoom({ room }));
       this.router.navigate(['/room/' + room._id]);
-    //}, e => console.log(e) );
+    }, e => console.log(e) );
 
   }
+
+  getRooms() {
+    let url = CONFIG.serviceURL + "/jUser/getEvents/" + this.authService.user.id;
+    this.http.get<any>(url, this.authService.authHeader).subscribe(res => {
+      let rooms = res as Room[]
+      this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
+    });
+  }
+
 }

@@ -1,6 +1,7 @@
 export class Event {
   _id: string;
   title: string;
+  moderatorId: string;
   peopleCount: number;
   startDate: Date;
   endDate: Date;

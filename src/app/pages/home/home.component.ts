@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import * as fromAuth from "../../services/auth/store/auth.reducer";
 import * as fromApp from "../../store/app.reducer";
 import * as AppAction from "../../store/app.actions";
+import { User } from 'src/app/dtos/user';
 
 @Component({
   selector: "home",
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   eventSearchText: Subject<string> = new Subject();
   subscription: Subscription = new Subscription();
   value: string = "";
+  user: User;
 
   constructor(
     private eventService: EventService,
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit {
     this.auth.subscribe(p => {
       if (p.user && p.token) {
         this.eventService.getEvents();
+        this.user = p.user;
       }
     });
     this.eventSearchText

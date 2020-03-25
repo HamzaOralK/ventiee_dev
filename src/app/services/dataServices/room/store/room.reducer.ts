@@ -37,6 +37,11 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         rooms: [...state.rooms],
         unreadMessages:  unreadMessages
       }
+    case RoomActions.GET_ROOMS:
+      return {
+        ...state,
+        rooms: [...state.rooms, ...action.payload.rooms]
+      }
     case RoomActions.JOIN_ROOM:
       return {
         ...state,

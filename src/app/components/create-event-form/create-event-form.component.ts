@@ -7,6 +7,7 @@ import { EventService } from 'src/app/services/dataServices/event/event-service.
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { LangService } from 'src/app/services/lang/lang.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: "create-event-form",
@@ -53,7 +54,8 @@ export class CreateEventFormComponent implements OnInit {
     private eventService: EventService,
     private notificationService: NotificationService,
     private langService: LangService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +68,7 @@ export class CreateEventFormComponent implements OnInit {
     //console.log(this.placeInformation.value);
     let newEvent = new Event();
     newEvent.title = this.generalDescription.value.title;
+    newEvent.moderatorId = this.authService.user.id;
     newEvent.peopleCount = this.generalDescription.value.peopleCount;
     let formStartDate: Date = new Date(this.timeInformation.value.startDate);
     let formStartTime: string = this.timeInformation.value.startTime;

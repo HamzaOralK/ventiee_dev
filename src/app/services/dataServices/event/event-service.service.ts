@@ -47,7 +47,6 @@ export class EventService {
         }))
         .subscribe(
           (result: any) => {
-            console.log(result);
             let r = result.filter((elem) => !this.joinedRooms.find(({ _id }) => elem._id === _id));
             this.store.dispatch(new AppActitons.GetEvents(Object.values(r)));
           },

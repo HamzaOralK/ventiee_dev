@@ -1,3 +1,6 @@
+@import '~@angular/material/theming';
+@import '../../../theme.scss';
+
 $break-small: 600px;
 $break-middle: 640px;
 $break-large: 1200px;
@@ -9,6 +12,7 @@ $break-large: 1200px;
     flex-direction: column;
     height: 100%;
     justify-content: center;
+    background-color: mat-color($app-accent, 100) !important;
 }
 
 router-outlet + * {
