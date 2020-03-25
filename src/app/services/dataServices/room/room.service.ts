@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Room } from 'src/app/dtos/room';
 import { Store } from '@ngrx/store';
 import * as fromRoom from './store/room.reducer';
@@ -12,11 +12,12 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoomService {
+export class RoomService implements OnDestroy {
 
   socket: SocketIOClient.Socket;
   rooms: Room[];
@@ -24,6 +25,7 @@ export class RoomService {
   url: string;
   connectionOptions: any;
   user: User;
+  subscription: Subscription;
 
   constructor(
     private http: HttpClient,
@@ -32,6 +34,7 @@ export class RoomService {
     private authService: AuthService,
     private router: Router
   ) {
+    this.subscription = new Subscription();
     this.store.select('roomState').subscribe(p => {
       this.activeRoom = p.activeRoom;
       this.rooms = p.rooms;
@@ -46,12 +49,16 @@ export class RoomService {
           reconnectionDelayMax: 5000,
           reconnectionAttempts: Infinity
         });
-        this.getMessages()
+        let getMessagesSubscription = this.getMessages()
         .subscribe((message: string) => {
           console.log(message);
         });
+        this.subscription.add(getMessagesSubscription);
     })
     this.url = CONFIG.serviceURL;
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   getMessages() {
@@ -101,6 +108,9 @@ export class RoomService {
     let url = CONFIG.serviceURL + "/jUser/getEvents/" + this.authService.user.id;
     this.http.get<any>(url, this.authService.authHeader).subscribe(res => {
       let rooms = res as Room[]
+      for(let i = 0; i < rooms.length; i++) {
+        if (!rooms[i].messages) rooms[i].messages = [];
+      }
       this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
     });
   }
