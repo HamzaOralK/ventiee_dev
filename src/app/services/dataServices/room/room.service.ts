@@ -44,6 +44,7 @@ export class RoomService implements OnDestroy {
       this.activeRoom = p.activeRoom;
       this.rooms = p.rooms;
     });
+
     this.store.select('authState').subscribe(p => {
       this.user = p.user;
 
@@ -62,8 +63,10 @@ export class RoomService implements OnDestroy {
         this.connected = true;
       }
     })
+
     this.url = CONFIG.serviceURL;
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.connected = false;
@@ -73,15 +76,11 @@ export class RoomService implements OnDestroy {
     return Observable.create((observer) => {
       if(this.socket) {
         this.socket.on('messageToClient', (message: Object) => {
-            console.log(message);
             let incMessage = message['message'] as MMessage;
             let room = this.rooms.find(p => p._id === incMessage.eventId);
             this.roomStore.dispatch(new RoomAction.SendMessage({room: room, user: this.user, message: [incMessage]}));
             observer.next(message);
             this.msg.next(message as MMessage);
-        });
-        this.socket.on('nsList', (message: Object) => {
-          console.log(message);
         });
       }
     });
@@ -97,18 +96,18 @@ export class RoomService implements OnDestroy {
 
   joinRoom(room: Room) {
     let url = CONFIG.serviceURL + '/jUser/add';
-    console.log(url);
+
     let postObj = {
-      eventId: room._id,
-      userId: this.user.id,
-      joinDate: new Date()
+        eventId: room._id,
+        userId: this.user.id,
+        joinDate: new Date()
     }
 
     this.http.post<any>(url, postObj,this.authService.authHeader)
     .subscribe(res => {
-      console.log(res);
-      this.roomStore.dispatch(new RoomAction.JoinRoom({ room }));
-      this.router.navigate(['/room/' + room._id]);
+        console.log(res);
+        this.roomStore.dispatch(new RoomAction.JoinRoom({ room }));
+        this.router.navigate(['/room/' + room._id]);
     }, e => console.log(e) );
 
   }
@@ -116,12 +115,16 @@ export class RoomService implements OnDestroy {
   getRooms() {
     let url = CONFIG.serviceURL + "/jUser/getEvents/" + this.authService.user.id;
     this.http.get<any>(url, this.authService.authHeader).subscribe(res => {
-      let rooms = res as Room[]
-      for(let i = 0; i < rooms.length; i++) {
-        if (!rooms[i].messages) rooms[i].messages = [];
-      }
-      this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
+        let rooms = res as Room[]
+        for(let i = 0; i < rooms.length; i++) {
+            if (!rooms[i].messages) rooms[i].messages = [];
+        }
+        this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
     });
   }
 
+  getRoomUsers(eventId: string) {
+    let url = CONFIG.serviceURL + "/jUser/get/" + eventId;
+    return this.http.get<User[]>(url, this.authService.authHeader);
+  }
 }

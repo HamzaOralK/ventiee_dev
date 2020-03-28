@@ -59,6 +59,7 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 
 /** TimePicker */
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
+import { EventInfoComponent } from './pages/event-info/event-info.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
     ChattingComponent,
     MultiLanguagePipe,
     LowerCaseDirective,
-    OnlyNumbersDirective
+    OnlyNumbersDirective,
+    EventInfoComponent
   ],
   imports: [
     BrowserModule,

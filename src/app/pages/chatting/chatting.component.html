@@ -1,3 +1,11 @@
+<div style="display: flex; flex-direction: row; align-items: center; margin-top: 10px;">
+  <span class="text">
+    <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp;
+  </span>
+  <button mat-icon-button (click)="openDialog()">
+    <mat-icon>event_note</mat-icon>
+  </button>
+</div>
 <div #messages class="messages" *ngIf="activeRoom">
   <div class="all" [ngClass]="isOwn(message) ? 'own' : 'other' " *ngFor="let message of activeRoom.messages; let i = index;">
     <div style="max-width: 65%; overflow: hidden;">

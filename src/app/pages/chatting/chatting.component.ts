@@ -1,10 +1,7 @@
 import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
-import * as RoomActions from '../../services/dataServices/room/store/room.actions';
-import * as fromApp from '../../store/app.reducer';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { Store } from '@ngrx/store';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/internal/operators/take';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
@@ -15,6 +12,8 @@ import { User } from 'src/app/dtos/user';
 import { Room } from 'src/app/dtos/room';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { EventInfoComponent } from '../event-info/event-info.component';
 
 @Component({
   selector: 'chatting',
@@ -39,7 +38,8 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
     private _ngZone: NgZone,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -104,6 +104,17 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
   textareaFocus() {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
+  }
+
+  openDialog(): void {
+
+    const dialogRef = this.dialog.open(EventInfoComponent, {
+      data: { room: this.activeRoom }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 
 }
