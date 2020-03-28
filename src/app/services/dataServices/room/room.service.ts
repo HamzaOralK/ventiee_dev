@@ -26,9 +26,10 @@ export class RoomService implements OnDestroy {
   connectionOptions: any;
   user: User;
   subscription: Subscription;
-
   msg: Subject<MMessage>;
+  connected: boolean = false;
 
+  private getMessagesSubscription: Subscription;
 
   constructor(
     private http: HttpClient,
@@ -45,32 +46,36 @@ export class RoomService implements OnDestroy {
     });
     this.store.select('authState').subscribe(p => {
       this.user = p.user;
-      if(this.user)
+
+      if(this.user && !this.connected) {
         this.getRooms();
-        this.socket = io(this.url, {
+        this.socket = io(CONFIG.serviceURL, {
           reconnection: true,
           reconnectionDelay: 1000,
           reconnectionDelayMax: 5000,
           reconnectionAttempts: Infinity
         });
-        let getMessagesSubscription = this.getMessages()
-        .subscribe((message: string) => {
+        this.getMessagesSubscription = this.getMessages().subscribe((message: string) => {
           console.log(message);
-        });
-        this.subscription.add(getMessagesSubscription);
+        }, e => console.log(e));
+        this.subscription.add(this.getMessagesSubscription);
+        this.connected = true;
+      }
     })
     this.url = CONFIG.serviceURL;
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.connected = false;
   }
 
   getMessages() {
     return Observable.create((observer) => {
       if(this.socket) {
         this.socket.on('messageToClient', (message: Object) => {
+            console.log(message);
             let incMessage = message['message'] as MMessage;
-            let room = this.rooms.find(p => p._id === incMessage.roomId);
+            let room = this.rooms.find(p => p._id === incMessage.eventId);
             this.roomStore.dispatch(new RoomAction.SendMessage({room: room, user: this.user, message: [incMessage]}));
             observer.next(message);
             this.msg.next(message as MMessage);

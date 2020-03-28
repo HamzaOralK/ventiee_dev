@@ -6,6 +6,6 @@ export class MMessage {
     date: Date;
     message: string;
     event: Event;
-    roomId: string;
+    eventId: string;
     isRead: boolean;
 }

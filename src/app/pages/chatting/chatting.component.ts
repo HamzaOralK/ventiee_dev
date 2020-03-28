@@ -80,7 +80,7 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
       message.date = new Date();
       message.message = value;
       message.user = this.user;
-      message.roomId = this.activeRoom._id;
+      message.eventId = this.activeRoom._id;
       message.isRead = false;
       this.roomService.sendMessage(this.activeRoom, message);
     };
@@ -99,6 +99,11 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   isOwn(message: MMessage) {
     return message.user.email === this.user.email;
+  }
+
+  textareaFocus() {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
   }
 
 }
