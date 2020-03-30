@@ -5,6 +5,9 @@
     <span>{{user?.name}}</span>
     <span class="spacer"></span>
     <ng-container *ngIf="user; else noUser" >
+      <button mat-button routerLink="/eventCalendar">
+        <mat-icon>calendar_today</mat-icon>
+      </button>
       <button mat-button routerLink="/userSettings/{{user.id}}">
         <mat-icon>settings</mat-icon>
       </button>

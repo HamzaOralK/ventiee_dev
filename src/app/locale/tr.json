@@ -39,6 +39,9 @@
     {"key": "surnameRequired", "value": "Soyisim zorunlu."},
     {"key": "nickname", "value": "Nickname"},
     {"key": "nicknameRequired", "value": "Nickname zorunlu."},
-    {"key": "join", "value": "Katıl"}
+    {"key": "join", "value": "Katıl"},
+    {"key": "previous", "value": "Öncesi"},
+    {"key": "today", "value": "Bugün"},
+    {"key": "next", "value": "İlerisi"}
 
 ]

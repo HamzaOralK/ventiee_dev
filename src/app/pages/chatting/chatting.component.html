@@ -1,4 +1,4 @@
-<div style="display: flex; flex-direction: row; align-items: center; margin-top: 10px;">
+<div style="display: flex; flex-direction: row; align-items: center; margin-top: 10px;" *ngIf="activeRoom">
   <span class="text">
     <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp;
   </span>
@@ -9,8 +9,8 @@
 <div #messages class="messages" *ngIf="activeRoom">
   <div class="all" [ngClass]="isOwn(message) ? 'own' : 'other' " *ngFor="let message of activeRoom.messages; let i = index;">
     <div style="max-width: 65%; overflow: hidden;">
-      <span *ngIf="i > 0 && activeRoom.messages[i-1].user.email !== message.user.email">{{message.user.name}}</span>
-      <span *ngIf="i === 0">{{message.user.name}}</span>
+      <span *ngIf="i > 0 && activeRoom.messages[i-1].user.email !== message.user.email && !isOwn(message)">{{message.user.name}}</span>
+      <span *ngIf="i === 0 && !isOwn(message)">{{message.user.name}}</span>
       <div class="message">
         <span>{{message.message}}</span>
       </div>
@@ -19,9 +19,9 @@
 </div>
 
 <form (submit)="submit($event)" (keyup.enter)="sendMessage($event)" (keydown.enter)="$event.preventDefault()">
-  <mat-form-field appearance="fill" class="messageEntry">
+  <mat-form-field appearance="outline" class="messageEntry">
     <mat-label>Bir şey yazın.</mat-label>
-    <textarea matInput (focus)="textareaFocus()"></textarea>
+    <textarea matInput (focus)="textareaFocus()" style="resize: none"></textarea>
   </mat-form-field>
   <!-- <emoji-mart class="emojis" set="apple" [showPreview]="false"></emoji-mart> -->
 </form>

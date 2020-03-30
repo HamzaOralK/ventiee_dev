@@ -1,0 +1,18 @@
+@import "../../../../mixins.scss";
+
+.calendar {
+  overflow-y: auto;
+}
+
+.group {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+:host ::ng-deep .cal-month-view .cal-header .cal-cell {
+  @include for-size(phone-only) {
+    font-size: 8px;
+  }
+}

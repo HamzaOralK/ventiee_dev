@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -60,6 +60,9 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 /** TimePicker */
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { EventInfoComponent } from './pages/event-info/event-info.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { EventCalendarModule } from './components/event-calendar/event-calendar.module';
+import { PipesModule } from './pipes/pipes.module';
 
 
 @NgModule({
@@ -82,7 +85,7 @@ import { EventInfoComponent } from './pages/event-info/event-info.component';
     ChatsComponent,
     ChatRoomsComponent,
     ChattingComponent,
-    MultiLanguagePipe,
+    //MultiLanguagePipe,
     LowerCaseDirective,
     OnlyNumbersDirective,
     EventInfoComponent
@@ -115,9 +118,13 @@ import { EventInfoComponent } from './pages/event-info/event-info.component';
     /** Additional */
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
     PickerModule,
-    EmojiModule
+    EmojiModule,
+    EventCalendarModule,
+    PipesModule
   ],
+  exports: [],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
   ],
   bootstrap: [AppComponent]

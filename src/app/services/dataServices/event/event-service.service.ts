@@ -41,7 +41,7 @@ export class EventService {
 
     getEvents(eventTitle: string = undefined) {
       let url = CONFIG.serviceURL + '/events';
-      this.http.get<Event[]>(url, this.authService.authHeader)
+      this.http.get<Event[]>(url)
         .pipe(catchError(err => {
           throw err
         }))
@@ -60,11 +60,11 @@ export class EventService {
 
     getEventById(id: string) {
       let url = CONFIG.serviceURL + '/event/get/' + id;
-      return this.http.get<Event>(url, this.authService.authHeader);
+      return this.http.get<Event>(url);
     }
 
     addEvent(event: Event) {
-      return this.http.post<any>(CONFIG.serviceURL + "/event/add", event, this.authService.authHeader);
+      return this.http.post<any>(CONFIG.serviceURL + "/event/add", event);
     }
 
 }

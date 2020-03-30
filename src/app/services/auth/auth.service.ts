@@ -69,7 +69,7 @@ export class AuthService {
     this.store.dispatch(new AuthActions.LogoutUser());
     this.router.navigate(['/home']).then(() => window.location.reload());
   }
-
+  /*
   public get authHeader() {
     return {
       headers: {
@@ -77,5 +77,6 @@ export class AuthService {
       }
     }
   }
+  */
 
 }

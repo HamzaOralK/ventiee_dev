@@ -22,9 +22,7 @@ export class EventInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.roomService.getRoomUsers(this.data.room._id).subscribe(p => {
-      console.log(p);
       this.users = p;
     });
   }
@@ -33,8 +31,8 @@ export class EventInfoComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  isModerator() {
-    return this.data.room.moderatorId === this.authService.user.id;
+  isKickable(user) {
+    return this.data.room.moderatorId === this.authService.user.id && user.userId !== this.authService.user.id;
   }
 
   kickUser(user: User) {

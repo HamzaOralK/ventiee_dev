@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-// @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
-@import '~@ctrl/ngx-emoji-mart/picker';
+
+//@import '~@ctrl/ngx-emoji-mart/picker';
 
 html, body {
     height:100%;

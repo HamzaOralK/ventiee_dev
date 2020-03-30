@@ -103,7 +103,7 @@ export class RoomService implements OnDestroy {
         joinDate: new Date()
     }
 
-    this.http.post<any>(url, postObj,this.authService.authHeader)
+    this.http.post<any>(url, postObj)
     .subscribe(res => {
         console.log(res);
         this.roomStore.dispatch(new RoomAction.JoinRoom({ room }));
@@ -114,7 +114,7 @@ export class RoomService implements OnDestroy {
 
   getRooms() {
     let url = CONFIG.serviceURL + "/jUser/getEvents/" + this.authService.user.id;
-    this.http.get<any>(url, this.authService.authHeader).subscribe(res => {
+    this.http.get<any>(url).subscribe(res => {
         let rooms = res as Room[]
         for(let i = 0; i < rooms.length; i++) {
             if (!rooms[i].messages) rooms[i].messages = [];
@@ -125,6 +125,6 @@ export class RoomService implements OnDestroy {
 
   getRoomUsers(eventId: string) {
     let url = CONFIG.serviceURL + "/jUser/get/" + eventId;
-    return this.http.get<User[]>(url, this.authService.authHeader);
+    return this.http.get<User[]>(url);
   }
 }
