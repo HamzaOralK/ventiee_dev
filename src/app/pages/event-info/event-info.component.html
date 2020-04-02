@@ -1,7 +1,7 @@
 <h4>{{data.room.title}}</h4>
 <div *ngFor="let user of users" class="text">
-  {{user.nickname}}
-  <button mat-icon-button (click)="kickUser(user)" *ngIf="isKickable(user)">
+  {{user.nickname}} | {{user._id}}
+  <button mat-icon-button (click)="kickUser(user)" *ngIf="isKickable(user) && isModerator()">
     <mat-icon>remove_circle_outline</mat-icon>
   </button>
 </div>

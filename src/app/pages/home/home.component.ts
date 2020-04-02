@@ -35,16 +35,12 @@ export class HomeComponent implements OnInit {
     this.appWise = this.store.select("appWise");
   }
   ngOnInit(): void {
-    this.auth.subscribe(p => {
-      if (p.user && p.token) {
-        this.eventService.getEvents();
-        this.user = p.user;
-      }
-    });
-    this.eventSearchText
+    let eventSearchSubscription = this.eventSearchText
       .pipe(debounceTime(500))
-      .subscribe(p => this.eventService.getEvents(p));
-    this.subscription.add(this.eventSearchText);
+      .subscribe(p => {
+        this.eventService.getEvents(p)
+      });
+    this.subscription.add(eventSearchSubscription);
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

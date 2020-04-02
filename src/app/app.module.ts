@@ -53,16 +53,17 @@ import { MatListModule } from '@angular/material/list';
 import * as fromApp from './store/app.reducer';
 
 /** Directives and Pipes */
-import { MultiLanguagePipe } from './pipes/multi-language.pipe';
-import { LowerCaseDirective } from './directives/lower-case.directive';
-import { OnlyNumbersDirective } from './directives/only-numbers.directive';
+import { MultiLanguagePipe } from './shared/pipes/multi-language.pipe';
+import { LowerCaseDirective } from './shared/directives/lower-case.directive';
+import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
 
 /** TimePicker */
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { EventCalendarModule } from './components/event-calendar/event-calendar.module';
-import { PipesModule } from './pipes/pipes.module';
+import { PipesModule } from './shared/pipes/pipes.module';
+import { DirectivesModule } from './shared/directives/directives.module';
 
 
 @NgModule({
@@ -85,9 +86,6 @@ import { PipesModule } from './pipes/pipes.module';
     ChatsComponent,
     ChatRoomsComponent,
     ChattingComponent,
-    //MultiLanguagePipe,
-    LowerCaseDirective,
-    OnlyNumbersDirective,
     EventInfoComponent
   ],
   imports: [
@@ -120,7 +118,8 @@ import { PipesModule } from './pipes/pipes.module';
     PickerModule,
     EmojiModule,
     EventCalendarModule,
-    PipesModule
+    PipesModule,
+    DirectivesModule
   ],
   exports: [],
   providers: [

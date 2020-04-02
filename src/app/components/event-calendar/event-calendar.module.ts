@@ -6,9 +6,10 @@ import { EventCalendarComponent } from './event-calendar/event-calendar.componen
 import { EventCalendarRoutingModule } from './event-calendar-routing.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
-import { PipesModule } from 'src/app/pipes/pipes.module';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { registerLocaleData } from '@angular/common';
 import localeTr from '@angular/common/locales/tr';
+import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 
 registerLocaleData(localeTr);
 
@@ -20,6 +21,7 @@ registerLocaleData(localeTr);
     MatButtonToggleModule,
     MatButtonModule,
     PipesModule,
+    DirectivesModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory

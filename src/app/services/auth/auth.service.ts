@@ -69,14 +69,5 @@ export class AuthService {
     this.store.dispatch(new AuthActions.LogoutUser());
     this.router.navigate(['/home']).then(() => window.location.reload());
   }
-  /*
-  public get authHeader() {
-    return {
-      headers: {
-        'x-auth-token': this.token
-      }
-    }
-  }
-  */
 
 }

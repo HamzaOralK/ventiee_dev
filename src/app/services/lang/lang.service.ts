@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as tr from '../../locale/tr.json';
-import * as en from '../../locale/en.json';
+import * as tr from '../../shared/locale/tr.json';
+import * as en from '../../shared/locale/en.json';
 
 @Injectable({
   providedIn: 'root'

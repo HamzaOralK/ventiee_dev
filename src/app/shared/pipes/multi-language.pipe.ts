@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LangService } from '../services/lang/lang.service';
+import { LangService } from '../../services/lang/lang.service';
 
 @Pipe({
   name: 'ml',

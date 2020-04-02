@@ -120,6 +120,8 @@ export class RoomService implements OnDestroy {
             if (!rooms[i].messages) rooms[i].messages = [];
         }
         this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
+    }, error => {
+      this.authService.logoutUser();
     });
   }
 

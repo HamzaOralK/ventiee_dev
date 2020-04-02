@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'room/:id', component: ChattingComponent, canActivate: [AuthGuard]},
   { path: 'userSettings/:id', component: UserSettingsComponent, canActivate: [AuthGuard]},
   { path: 'createEvent/:id', component: CreateEventComponent, canActivate: [AuthGuard]},
-  { path: 'eventCalendar', loadChildren: () => import('./components/event-calendar/event-calendar.module').then(m => m.EventCalendarModule)},
+  { path: 'eventCalendar', loadChildren: () => import('./components/event-calendar/event-calendar.module').then(m => m.EventCalendarModule), canActivate: [AuthGuard]},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 
