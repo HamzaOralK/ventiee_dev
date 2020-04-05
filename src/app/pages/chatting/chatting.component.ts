@@ -43,12 +43,13 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = new Subscription();
-    this.activatedRoute.paramMap.subscribe(p => this.roomService.changeRoom(p.get('id')));
     this.user = this.authService.user;
-    this.activeRoom = this.roomService.activeRoom;
-    /** For test purposes */
-    if(this.activeRoom === undefined) {
+    this.subscription = new Subscription();
+    this.activatedRoute.paramMap.subscribe(p => {
+      this.roomService.changeRoom(p.get('id'));
+      this.activeRoom = this.roomService.activeRoom;
+    });
+    if (this.activeRoom === undefined) {
       this.router.navigate(['/home'])
     }
     let msgSubscription = this.roomService.msg.subscribe(p => {
@@ -112,9 +113,7 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
       data: { room: this.activeRoom }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
 }

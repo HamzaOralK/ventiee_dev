@@ -6,7 +6,7 @@
     <mat-icon>event_note</mat-icon>
   </button>
 </div>
-<div #messages class="messages" *ngIf="activeRoom">
+<div #messages class="messages scroll" *ngIf="activeRoom">
   <div class="all" [ngClass]="isOwn(message) ? 'own' : 'other' " *ngFor="let message of activeRoom.messages; let i = index;">
     <div style="max-width: 65%; overflow: hidden;">
       <span *ngIf="i > 0 && activeRoom.messages[i-1].user.email !== message.user.email && !isOwn(message)">{{message.user.name}}</span>
