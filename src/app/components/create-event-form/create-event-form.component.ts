@@ -25,6 +25,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class CreateEventFormComponent implements OnInit {
   @Input() eventId: string;
+
   isLinear = true;
   generalDescription = new FormGroup({
     id: new FormControl(""),
@@ -111,6 +112,7 @@ export class CreateEventFormComponent implements OnInit {
             this.langService.get("eventCreateSuccess"),
             "OK"
           );
+          /** TODO: /event/add olduktan sonra idsinin dönmesi ve adamın eventlerine eklenmesi */
           this.router.navigate(["/event/5e484a779be75f28e860bdef"]);
         }
       });

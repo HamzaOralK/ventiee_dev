@@ -19,7 +19,7 @@ import { RoomService } from './services/dataServices/room/room.service';
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
     // override hammerjs default configuration
-    'pan': { threshold: 5 },
+    'pan': { threshold: 150 },
     'swipe': {
       velocity: 10000,
       threshold: 10000,

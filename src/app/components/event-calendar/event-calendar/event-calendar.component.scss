@@ -2,6 +2,7 @@
 
 .calendar {
   overflow-y: auto;
+  height: calc(100% - 50px);
 }
 
 .group {

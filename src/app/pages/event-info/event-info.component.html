@@ -1,6 +1,7 @@
 <h4>{{data.room.title}}</h4>
 <div *ngFor="let user of users" class="text">
-  {{user.nickname}} | {{user._id}}
+  {{user.nickname}} <span *ngIf="isUserModerator(user)">(Moderatör)</span>
+
   <button mat-icon-button (click)="kickUser(user)" *ngIf="isKickable(user) && isModerator()">
     <mat-icon>remove_circle_outline</mat-icon>
   </button>

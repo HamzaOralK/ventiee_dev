@@ -41,7 +41,8 @@ export class EventCalendarComponent implements OnInit {
   viewDate: Date = new Date();
 
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
-  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
+  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
+  /** TODO: langService */
   locale: string = 'tr';
 
   modalData: {

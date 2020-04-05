@@ -64,6 +64,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { EventCalendarModule } from './components/event-calendar/event-calendar.module';
 import { PipesModule } from './shared/pipes/pipes.module';
 import { DirectivesModule } from './shared/directives/directives.module';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { DirectivesModule } from './shared/directives/directives.module';
     ChatsComponent,
     ChatRoomsComponent,
     ChattingComponent,
-    EventInfoComponent
+    EventInfoComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

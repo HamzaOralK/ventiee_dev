@@ -39,6 +39,10 @@ export class EventInfoComponent implements OnInit {
     return this.data.room.moderatorUserId === this.authService.user.id;
   }
 
+  isUserModerator(user) {
+    return this.data.room.moderatorUserId === user._id;
+  }
+
   kickUser(user: User) {
     console.log(user);
   }

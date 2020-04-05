@@ -5,9 +5,9 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
   <div>
-    <div style="display: flex; align-items: center;">
-      <p> <b>{{'organisator' | ml}}: {{event.userName}}</b></p>
+    <div class="line" routerLink="/profile/{{event.moderatorUserId}}">
       <div mat-card-avatar class="header-image"></div>
+      <p> <b>{{'organisator' | ml}}: {{event.userName}}</b></p>
     </div>
     <mat-card>
       <div *ngIf="event" class="eventInfo">
