@@ -1,1 +1,37 @@
-<p>user-profile works!</p>
+<ng-container *ngIf="user">
+  <div class="profile-header">
+    <div class="top">
+      <div class="header-image"></div>
+      <h2>{{user.nickname}}</h2>
+    </div>
+
+    <div>
+      <mat-icon>star</mat-icon>
+      <mat-icon>star</mat-icon>
+      <mat-icon>star</mat-icon>
+      <mat-icon>star_half</mat-icon>
+      <mat-icon>star_border</mat-icon>
+    </div>
+
+  </div>
+  <mat-tab-group>
+    <mat-tab label="Profile">
+      <mat-card>
+        Benim hakkımda saçma sapan açıklamalar.
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Ektinlikleri">
+      <mat-card>
+        Etkinlikler
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Son Yorumlar">
+      <mat-card>
+        Etkinlikler
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+
+
+</ng-container>
+

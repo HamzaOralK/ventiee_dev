@@ -11,7 +11,7 @@ export class MultiLanguagePipe implements PipeTransform {
   transform(key: string): string {
     if(key && this.langService.dictionary) {
       let translation = this.langService.dictionary.find(p => p.key === key);
-      return translation.value;
+      return translation ? translation.value: key;
     }
   }
 

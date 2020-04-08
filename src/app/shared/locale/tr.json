@@ -42,6 +42,8 @@
     {"key": "join", "value": "Katıl"},
     {"key": "previous", "value": "Öncesi"},
     {"key": "today", "value": "Bugün"},
-    {"key": "next", "value": "İlerisi"}
-
+    {"key": "next", "value": "İlerisi"},
+    {"key": "emailNotification", "value": "E-Mail Bildirimleri"},
+    {"key": "save", "value": "Kaydet"},
+    {"key": "profileSettings", "value": "Profil Ayarları"}
 ]

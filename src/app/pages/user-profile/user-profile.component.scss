@@ -1,0 +1,17 @@
+.header-image {
+  width: 64px;
+  height: 64px;
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+  border-radius: 32px;
+}
+
+.profile-header {
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+  .top {
+    display: flex;
+  }
+}
+

@@ -1,1 +1,25 @@
-<p>user-settings works!</p>
+<h2>{{'profileSettings' | ml}}</h2>
+<mat-tab-group>
+  <mat-tab label="Temel Ayarlar">
+    <form [formGroup]="profileForm" *ngIf="user" (ngSubmit)="submit($event)">
+      <mat-form-field appearance="fill">
+        <mat-label>{{'nickname' | ml}}</mat-label>
+        <input matInput type="text" formControlName="nickname">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'name' | ml}}</mat-label>
+        <input matInput type="text" formControlName="name">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'surname' | ml}}</mat-label>
+        <input matInput type="text" formControlName="surname">
+      </mat-form-field>
+      <br>
+      <mat-checkbox formControlName="emailNotification">{{'emailNotification' | ml}}</mat-checkbox>
+      <br>
+      <button mat-raised-button>{{'save' | ml}}</button>
+    </form>
+  </mat-tab>
+</mat-tab-group>

@@ -31,6 +31,7 @@ import { CreateEventFormComponent } from "./components/create-event-form/create-
 import { ChatsComponent } from './components/chats/chats.component';
 import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
 import { ChattingComponent } from './pages/chatting/chatting.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 /** Material Components */
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -48,24 +49,20 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
-
-/** Directives and Pipes */
-import { MultiLanguagePipe } from './shared/pipes/multi-language.pipe';
-import { LowerCaseDirective } from './shared/directives/lower-case.directive';
-import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
 
 /** TimePicker */
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { EventCalendarModule } from './components/event-calendar/event-calendar.module';
+
+/** Shared Modules */
 import { PipesModule } from './shared/pipes/pipes.module';
 import { DirectivesModule } from './shared/directives/directives.module';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-
 
 @NgModule({
   declarations: [
@@ -115,6 +112,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     MatSnackBarModule,
     MatExpansionModule,
     MatListModule,
+    MatCheckboxModule,
     /** Additional */
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
     PickerModule,
