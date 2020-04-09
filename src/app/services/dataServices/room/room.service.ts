@@ -98,9 +98,9 @@ export class RoomService implements OnDestroy {
     let url = CONFIG.serviceURL + '/jUser/add';
 
     let postObj = {
-        eventId: room._id,
-        userId: this.user.id,
-        joinDate: new Date()
+      eventId: room._id,
+      userId: this.user.id,
+      joinDate: new Date()
     }
 
     this.http.post<any>(url, postObj)
@@ -125,8 +125,10 @@ export class RoomService implements OnDestroy {
     });
   }
 
-  getRoomUsers(eventId: string) {
-    let url = CONFIG.serviceURL + "/jUser/get/" + eventId;
-    return this.http.get<User[]>(url);
+  getRoomUsers(room: Room) {
+    let url = CONFIG.serviceURL + "/jUser/get/" + room._id;
+    this.http.get<User[]>(url).subscribe(p => {
+      this.roomStore.dispatch(new RoomAction.SetRoomUsers({room: room, users: p}))
+    });
   }
 }

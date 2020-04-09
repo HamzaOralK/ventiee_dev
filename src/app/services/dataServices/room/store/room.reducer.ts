@@ -65,6 +65,14 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         ...state,
         activeRoom: room
       }
+    case RoomActions.SET_ROOM_USERS:
+      roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
+      state.rooms[roomIndex].users = action.payload.users;
+      return {
+        ...state,
+        rooms: state.rooms,
+        activeRoom: state.rooms[roomIndex]
+      }
     default:
       return state;
   }

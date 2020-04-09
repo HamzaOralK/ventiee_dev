@@ -3,7 +3,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from 'src/app/dtos/user';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { Room } from 'src/app/dtos/room';
+import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromApp from '../../store/app.reducer';
 
 @Component({
   selector: 'event-info',
@@ -13,17 +17,21 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class EventInfoComponent implements OnInit {
 
   users: User[];
+  roomState: Observable<fromRoom.State>;
 
   constructor(
     private roomService: RoomService,
     private authService: AuthService,
     public dialogRef: MatDialogRef<any>,
+    private store: Store<fromApp.AppState>,
     @Inject(MAT_DIALOG_DATA) public data: {room: Room}
   ) { }
 
   ngOnInit(): void {
-    this.roomService.getRoomUsers(this.data.room._id).subscribe(p => {
-      this.users = p;
+    this.roomService.getRoomUsers(this.data.room);
+    this.roomState = this.store.select('roomState');
+    this.roomState.subscribe(p => {
+      this.users = p.activeRoom.users;
     });
   }
 

@@ -10,6 +10,7 @@ export const GET_ROOMS = 'GET_ROOMS';
 export const QUIT_ROOM = 'QUIT_ROOM';
 export const KICK_USER = 'KICK_USER';
 export const CHANGE_ACTIVE_ROOM = 'CHANGE_ACTIVE_ROOM';
+export const SET_ROOM_USERS = 'SET_ROOM_USERS';
 
 
 export class SendMessage implements Action {
@@ -47,4 +48,9 @@ export class ChangeActiveRoom implements Action {
   constructor(public payload: { roomId: string }) { }
 }
 
-export type RoomActions = SendMessage | GetMessage | GetRooms | JoinRoom | QuitRoom | KickUser | ChangeActiveRoom;
+export class SetRoomUsers implements Action {
+  readonly type = SET_ROOM_USERS;
+  constructor(public payload: { room: Room, users: User[] }) { }
+}
+
+export type RoomActions = SendMessage | GetMessage | GetRooms | JoinRoom | QuitRoom | KickUser | ChangeActiveRoom | SetRoomUsers;
