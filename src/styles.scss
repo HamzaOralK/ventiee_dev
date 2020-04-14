@@ -19,22 +19,31 @@ html, body {
   font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
-.scroll {
+.mat-tab-group {
+  height: calc(100% - 110px);
+}
+
+.mat-tab-body-content,
+.mat-tab-body-wrapper {
+  height: calc(100% - 80px);
+}
+
+.mat-tab-body-content, .scroll {
   scrollbar-color: gray;
   scroll-behavior: smooth;
   scrollbar-width: thin;
 }
 
-.scroll::-webkit-scrollbar {
+.mat-tab-body-content::-webkit-scrollbar, .scroll::-webkit-scrollbar {
   width: 10px;
 }
 
-.scroll::-webkit-scrollbar-thumb {
+.mat-tab-body-content::-webkit-scrollbar-thumb, .scroll::-webkit-scrollbar-thumb {
   background: #666;
   border-radius: 20px;
 }
 
-.scroll::-webkit-scrollbar-track {
+.mat-tab-body-content::-webkit-scrollbar-track, .scroll::-webkit-scrollbar-track {
   background: #ddd;
   border-radius: 20px;
 }

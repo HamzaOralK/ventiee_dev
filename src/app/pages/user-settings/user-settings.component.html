@@ -1,5 +1,7 @@
-<h2>{{'profileSettings' | ml}}</h2>
-<button (click)="submit($event)" mat-raised-button>{{'save' | ml}}</button>
+<div style="display: flex; flex-direction: row; align-items: center;">
+  <h2>{{'profileSettings' | ml}}</h2>
+  <button (click)="submit($event)" mat-raised-button style="height:30px; margin-left: 10px;">{{'save' | ml}}</button>
+</div>
 <form [formGroup]="profileForm" *ngIf="user">
   <mat-tab-group>
     <mat-tab label="Temel Ayarlar">

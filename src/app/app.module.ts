@@ -50,6 +50,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
@@ -65,6 +67,7 @@ import { PipesModule } from './shared/pipes/pipes.module';
 import { DirectivesModule } from './shared/directives/directives.module';
 import { EventsComponent } from './components/events/events.component';
 import { UsersCommentsComponent } from './pages/users-comments/users-comments.component';
+import { NewCommentComponent } from './pages/new-comment/new-comment.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +92,8 @@ import { UsersCommentsComponent } from './pages/users-comments/users-comments.co
     EventInfoComponent,
     UserProfileComponent,
     EventsComponent,
-    UsersCommentsComponent
+    UsersCommentsComponent,
+    NewCommentComponent
   ],
   imports: [
     BrowserModule,
@@ -117,6 +121,7 @@ import { UsersCommentsComponent } from './pages/users-comments/users-comments.co
     MatExpansionModule,
     MatListModule,
     MatCheckboxModule,
+    MatSelectModule,
     /** Additional */
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
     PickerModule,

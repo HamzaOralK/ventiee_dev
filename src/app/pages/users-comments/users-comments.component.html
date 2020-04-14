@@ -1,1 +1,14 @@
-<p>users-comments works!</p>
+<div class="comments">
+  <mat-card *ngFor="let userComment of userComments">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>{{userComment.user.nickname}}</mat-card-title>
+      <mat-card-subtitle>{{userComment.rating}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{userComment.comment}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

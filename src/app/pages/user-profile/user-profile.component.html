@@ -14,11 +14,10 @@
     </div>
 
   </div>
-  <mat-tab-group>
+  <mat-tab-group class="scroll">
     <mat-tab label="{{'profile' | ml}}">
-      <mat-card>
+      <mat-card style="word-break: break-all;">
         {{user.description ? user.description : 'noDesc' | ml }}
-        <!--  Benim hakkımda saçma sapan açıklamalar. -->
       </mat-card>
     </mat-tab>
     <mat-tab label="{{'events' | ml}}">
@@ -26,7 +25,8 @@
     </mat-tab>
     <mat-tab label="{{'comments' | ml}}">
       <mat-card>
-        Etkinlikler
+        <new-comment></new-comment>
+        <users-comments *ngIf="comments" [userComments]="comments"></users-comments>
       </mat-card>
     </mat-tab>
   </mat-tab-group>

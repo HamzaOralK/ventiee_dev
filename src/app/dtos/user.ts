@@ -1,5 +1,6 @@
 import { UserType, Gender, SchoolType, RelationshipStatus } from './enums';
 import { UserSettings } from './userSettings';
+import { Event } from './event';
 
 export class User {
   email: string;
@@ -18,5 +19,12 @@ export class User {
   relationshipStatus: RelationshipStatus;
   password:string;
   emailNotification: boolean;
+}
+
+export class UserComment {
+  event: Event;
+  user: User;
+  comment: string;
+  rating: number;
 }
 
