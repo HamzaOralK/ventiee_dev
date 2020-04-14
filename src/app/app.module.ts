@@ -68,6 +68,7 @@ import { DirectivesModule } from './shared/directives/directives.module';
 import { EventsComponent } from './components/events/events.component';
 import { UsersCommentsComponent } from './pages/users-comments/users-comments.component';
 import { NewCommentComponent } from './pages/new-comment/new-comment.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { NewCommentComponent } from './pages/new-comment/new-comment.component';
     UserProfileComponent,
     EventsComponent,
     UsersCommentsComponent,
-    NewCommentComponent
+    NewCommentComponent,
+    RatingComponent,
   ],
   imports: [
     BrowserModule,
@@ -133,8 +135,8 @@ import { NewCommentComponent } from './pages/new-comment/new-comment.component';
   exports: [],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

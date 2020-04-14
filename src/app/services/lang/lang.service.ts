@@ -29,6 +29,4 @@ export class LangService {
     return this.dictionary.find(l => l.key === key).value;
   }
 
-
-
 }
