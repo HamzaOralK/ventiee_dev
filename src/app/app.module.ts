@@ -63,6 +63,8 @@ import { EventCalendarModule } from './components/event-calendar/event-calendar.
 /** Shared Modules */
 import { PipesModule } from './shared/pipes/pipes.module';
 import { DirectivesModule } from './shared/directives/directives.module';
+import { EventsComponent } from './components/events/events.component';
+import { UsersCommentsComponent } from './pages/users-comments/users-comments.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +87,9 @@ import { DirectivesModule } from './shared/directives/directives.module';
     ChatRoomsComponent,
     ChattingComponent,
     EventInfoComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    EventsComponent,
+    UsersCommentsComponent
   ],
   imports: [
     BrowserModule,

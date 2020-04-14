@@ -29,7 +29,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       room.messages = dumMessages;
       state.rooms[roomIndex] = room;
       let unreadMessages = state.unreadMessages;
-      if(action.payload.message[0].user.id !== action.payload.user.id) {
+      if(action.payload.message[0].user._id !== action.payload.user._id) {
         unreadMessages++;
       }
       return {
@@ -57,7 +57,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       room = state.rooms.find(p => p._id === action.payload.room._id);
       return {
         ...state,
-        rooms: [...state.rooms, {...room, users: room.users.filter( p => p.id !== action.payload.user.id )}]
+        rooms: [...state.rooms, {...room, users: room.users.filter( p => p._id !== action.payload.user._id )}]
       }
     case RoomActions.CHANGE_ACTIVE_ROOM:
       room = state.rooms.find(p => p._id === action.payload.roomId);

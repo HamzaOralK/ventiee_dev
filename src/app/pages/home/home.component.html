@@ -10,9 +10,10 @@
 </mat-form-field>
 
 <div class="events scroll" *ngIf="(appWise | async).events.length > 0">
-  <mat-accordion>
+  <!-- <mat-accordion>
     <event-line *ngFor="let event of (appWise | async).events" [event]="event"></event-line>
-  </mat-accordion>
+  </mat-accordion> -->
+  <events [events]="(appWise | async).events"> </events>
 </div>
 
 <mat-card *ngIf="(appWise | async).events.length === 0">

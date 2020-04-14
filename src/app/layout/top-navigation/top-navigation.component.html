@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <mat-icon class="icon" [matBadge]="unreadMessages" matBadgeColor="warn" (click)="toggleLeftMenu()">menu</mat-icon>
+    <mat-icon *ngIf="user" class="icon" [matBadge]="unreadMessages" matBadgeColor="warn" (click)="toggleLeftMenu()">menu</mat-icon>
     <mat-icon class="icon" aria-hidden="false" routerLink="/home" (click)="getEvents()">home</mat-icon>
     <span>{{user?.name}}</span>
     <span class="spacer"></span>
@@ -8,7 +8,7 @@
       <button mat-button routerLink="/eventCalendar">
         <mat-icon>calendar_today</mat-icon>
       </button>
-      <button mat-button routerLink="/userSettings/{{user.id}}">
+      <button mat-button routerLink="/userSettings/{{user._id}}">
         <mat-icon>settings</mat-icon>
       </button>
       <button mat-button (click)="logOut()">

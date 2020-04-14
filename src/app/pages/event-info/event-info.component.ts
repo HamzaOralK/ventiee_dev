@@ -40,11 +40,11 @@ export class EventInfoComponent implements OnInit {
   }
 
   isKickable(user) {
-    return user._id !== this.authService.user.id;
+    return user._id !== this.authService.user._id;
   }
 
   isModerator() {
-    return this.data.room.moderatorUserId === this.authService.user.id;
+    return this.data.room.moderatorUserId === this.authService.user._id;
   }
 
   isUserModerator(user) {

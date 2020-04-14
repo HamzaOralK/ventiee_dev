@@ -11,7 +11,7 @@ export class User {
   school: string;
   birthday: Date;
   /* Userla id dönülecek */
-  id: string;
+  _id: string;
   userType: UserType;
   userSetting: UserSettings;
   gender: Gender;

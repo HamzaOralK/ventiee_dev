@@ -15,17 +15,16 @@
 
   </div>
   <mat-tab-group>
-    <mat-tab label="Profile">
+    <mat-tab label="{{'profile' | ml}}">
       <mat-card>
-        Benim hakkımda saçma sapan açıklamalar.
+        {{user.description ? user.description : 'noDesc' | ml }}
+        <!--  Benim hakkımda saçma sapan açıklamalar. -->
       </mat-card>
     </mat-tab>
-    <mat-tab label="Ektinlikleri">
-      <mat-card>
-        Etkinlikler
-      </mat-card>
+    <mat-tab label="{{'events' | ml}}">
+      <events [events]="events"></events>
     </mat-tab>
-    <mat-tab label="Son Yorumlar">
+    <mat-tab label="{{'comments' | ml}}">
       <mat-card>
         Etkinlikler
       </mat-card>

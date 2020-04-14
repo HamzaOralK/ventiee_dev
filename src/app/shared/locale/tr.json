@@ -2,6 +2,8 @@
     {"key": "login", "value": "Giriş"},
     {"key": "loginError", "value": "Giriş  yapamadınız. Bir problem oluştu."},
     {"key": "signup", "value": "Kayıt Ol"},
+    {"key": "signUpSuccess", "value": "Başarı ile kayıt olundu."},
+    {"key": "signUpError", "value": "Kayıt olurken bir hata oldu sanırım."},
     {"key": "searchforanevent", "value": "Bir etkinlik arayın!"},
     {"key": "noEventError", "value": "Aradığınız etkinlik bulunamadı. İsterseniz yaratın."},
     {"key": "createEvent", "value": "Etkinlik Yarat!"},
@@ -45,5 +47,10 @@
     {"key": "next", "value": "İlerisi"},
     {"key": "emailNotification", "value": "E-Mail Bildirimleri"},
     {"key": "save", "value": "Kaydet"},
-    {"key": "profileSettings", "value": "Profil Ayarları"}
+    {"key": "profileSettings", "value": "Profil Ayarları"},
+    {"key": "description", "value": "Açıklama"},
+    {"key": "noDesc", "value": "Bu kullanıcının açıklaması bulunmamakta."},
+    {"key": "profile", "value": "Profil"},
+    {"key": "events", "value": "Etkinlikleri"},
+    {"key": "comments", "value": "Yorumlar"}
 ]

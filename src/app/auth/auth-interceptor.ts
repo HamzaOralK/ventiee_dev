@@ -10,7 +10,10 @@ export class AuthInterceptor implements HttpInterceptor {
     let authInfo = JSON.parse(authInfoStr);
     let newRequest: HttpRequest<any>;
 
-    if (request.url !== CONFIG.serviceURL + '/user/login') {
+    let tokenizFreeUrls: string[] = [CONFIG.serviceURL + '/user/login', CONFIG.serviceURL + '/user/signup'];
+    let checkIndex = tokenizFreeUrls.findIndex(p => p === request.url);
+
+    if ( checkIndex === -1 ) {
       newRequest = request.clone({
         headers: request.headers.set("x-auth-token", authInfo.token)
       });

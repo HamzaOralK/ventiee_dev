@@ -69,7 +69,7 @@ export class CreateEventFormComponent implements OnInit {
     //console.log(this.placeInformation.value);
     let newEvent = new Event();
     newEvent.title = this.generalDescription.value.title;
-    newEvent.moderatorUserId = this.authService.user.id;
+    newEvent.moderatorUserId = this.authService.user._id;
     newEvent.peopleCount = this.generalDescription.value.peopleCount;
     let formStartDate: Date = new Date(this.timeInformation.value.startDate);
     let formStartTime: string = this.timeInformation.value.startTime;

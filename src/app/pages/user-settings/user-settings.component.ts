@@ -16,7 +16,8 @@ export class UserSettingsComponent implements OnInit {
     name: new FormControl('', [Validators.required, Validators.min(2)]),
     surname: new FormControl('', [Validators.required, Validators.min(2)]),
     emailNotification: new FormControl(false),
-    nickname: new FormControl('', [Validators.required, Validators.min(3)])
+    nickname: new FormControl('', [Validators.required, Validators.min(3)]),
+    description: new FormControl('', [Validators.max(140)])
   });
 
   constructor(
@@ -33,12 +34,12 @@ export class UserSettingsComponent implements OnInit {
       });
     });
   }
+
   submit(event) {
     event.preventDefault();
     console.log(this.profileForm.value);
     this.userService.updateUserById(this.user_id, this.profileForm.value).subscribe(p => {
       /** TODO: Change whole user with settings update. */
-      console.log(p);
     });
   }
 

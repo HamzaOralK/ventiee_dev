@@ -63,6 +63,11 @@ export class EventService {
       return this.http.get<Event>(url);
     }
 
+    getEventsByModId(userId: string) {
+      let url = CONFIG.serviceURL + '/events/get/' + userId;
+      return this.http.get<Event[]>(url);
+    }
+
     addEvent(event: Event) {
       return this.http.post<any>(CONFIG.serviceURL + "/event/add", event);
     }

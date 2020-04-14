@@ -8,9 +8,9 @@ import * as fromApp from '../../store/app.reducer';
 import { CONFIG } from '../../config';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RoomService } from '../dataServices/room/room.service';
 import { NotificationService } from '../notification/notification.service';
 import { LangService } from '../lang/lang.service';
+import { catchError, tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -40,7 +40,15 @@ export class AuthService {
   }
 
   signUp(user: User) {
-    return this.http.post(CONFIG.serviceURL + '/user/signup', user);
+    return this.http.post(CONFIG.serviceURL + '/user/signup', user).pipe(
+      tap(p => {
+        this.notificationService.notify(this.langService.get('signUpSuccess'));
+      }),
+      catchError(e => {
+        this.notificationService.notify(this.langService.get('signUpError'));
+        throw e;
+      })
+    );
   }
 
   loginUser(user: User) {

@@ -1,7 +1,8 @@
 <h2>{{'profileSettings' | ml}}</h2>
-<mat-tab-group>
-  <mat-tab label="Temel Ayarlar">
-    <form [formGroup]="profileForm" *ngIf="user" (ngSubmit)="submit($event)">
+<button (click)="submit($event)" mat-raised-button>{{'save' | ml}}</button>
+<form [formGroup]="profileForm" *ngIf="user">
+  <mat-tab-group>
+    <mat-tab label="Temel Ayarlar">
       <mat-form-field appearance="fill">
         <mat-label>{{'nickname' | ml}}</mat-label>
         <input matInput type="text" formControlName="nickname">
@@ -19,7 +20,12 @@
       <br>
       <mat-checkbox formControlName="emailNotification">{{'emailNotification' | ml}}</mat-checkbox>
       <br>
-      <button mat-raised-button>{{'save' | ml}}</button>
-    </form>
-  </mat-tab>
-</mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Profil Ayarları">
+      <mat-form-field appearance="fill">
+        <mat-label>{{'description' | ml}}</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </mat-tab>
+  </mat-tab-group>
+</form>
