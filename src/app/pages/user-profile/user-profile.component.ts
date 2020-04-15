@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/dataServices/user/user.service';
 import { User, UserComment } from 'src/app/dtos/user';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Event } from '../../dtos/event';
+import { Gender } from 'src/app/dtos/enums';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.userService.getUserById(p.get('id')).toPromise()
       .then(p => {
         this.user = p;
+        console.log(p);
         return p;
       })
       .then(user => {
@@ -54,6 +56,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.user = undefined;
+  }
+
+  get genders() {
+    return Gender;
   }
 
 }

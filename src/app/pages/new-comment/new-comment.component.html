@@ -1,7 +1,7 @@
-<h4>Leave a rating!</h4>
+<h4>{{'leavearating' | ml}}</h4>
 <mat-card class="form">
   <mat-form-field>
-    <mat-label>Event</mat-label>
+    <mat-label>{{'event' | ml}}</mat-label>
     <mat-select required>
       <mat-option value="volvo">Volvo</mat-option>
       <mat-option value="saab">Saab</mat-option>
@@ -9,12 +9,12 @@
       <mat-option value="audi">Audi</mat-option>
     </mat-select>
   </mat-form-field>
-  <div>
-    <span>Rating</span>
+  <div style="display: flex; flex-direction: row; align-items: center;">
+    <span>{{'rating' | ml}}</span>
     <rating (onRate)="onRate($event)"></rating>
   </div>
-  <mat-form-field class="example-full-width">
-    <mat-label>Leave a comment</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  <mat-form-field>
+    <mat-label>{{'leaveacomment' | ml}}</mat-label>
+    <textarea matInput placeholder="Çok eğlendim! Bir daha!"></textarea>
   </mat-form-field>
 </mat-card>

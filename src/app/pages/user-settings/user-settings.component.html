@@ -5,29 +5,72 @@
 <form [formGroup]="profileForm" *ngIf="user">
   <mat-tab-group>
     <mat-tab label="Temel Ayarlar">
-      <mat-form-field appearance="fill">
-        <mat-label>{{'nickname' | ml}}</mat-label>
-        <input matInput type="text" formControlName="nickname">
-      </mat-form-field>
-      <br>
-      <mat-form-field appearance="fill">
-        <mat-label>{{'name' | ml}}</mat-label>
-        <input matInput type="text" formControlName="name">
-      </mat-form-field>
-      <br>
-      <mat-form-field appearance="fill">
-        <mat-label>{{'surname' | ml}}</mat-label>
-        <input matInput type="text" formControlName="surname">
-      </mat-form-field>
-      <br>
-      <mat-checkbox formControlName="emailNotification">{{'emailNotification' | ml}}</mat-checkbox>
-      <br>
+      <mat-card class="settingsCard">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'nickname' | ml}}</mat-label>
+          <input matInput type="text" formControlName="nickname">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'name' | ml}}</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'surname' | ml}}</mat-label>
+          <input matInput type="text" formControlName="surname">
+        </mat-form-field>
+        <br>
+        <mat-checkbox formControlName="emailNotification">{{'emailNotification' | ml}}</mat-checkbox>
+        <br>
+      </mat-card>
     </mat-tab>
     <mat-tab label="Profil Ayarları">
-      <mat-form-field appearance="fill">
-        <mat-label>{{'description' | ml}}</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-      </mat-form-field>
+      <mat-card class="settingsCard">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'description' | ml}}</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'birthday' | ml}}</mat-label>
+          <input matInput [matDatepicker]="birthday" formControlName="birthday">
+          <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
+          <mat-datepicker #birthday></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'gender' | ml}}</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option *ngFor="let gender of genders" [value]="gender.value">
+              {{gender.key | ml}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'preferredGender' | ml}}</mat-label>
+          <mat-select formControlName="preferedGender">
+            <mat-option *ngFor="let gender of genders" [value]="gender.value">
+              {{gender.key | ml}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'schoolType' | ml}}</mat-label>
+          <mat-select formControlName="schoolType">
+            <mat-option *ngFor="let schoolType of schoolTypes" [value]="schoolType.value">
+              {{schoolType.key | ml}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'school' | ml}}</mat-label>
+          <input matInput type="text" formControlName="school">
+        </mat-form-field>
+      </mat-card>
     </mat-tab>
   </mat-tab-group>
 </form>

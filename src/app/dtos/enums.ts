@@ -5,13 +5,13 @@ export enum UserType {
 }
 
 export enum Gender {
-    Male = 1,
-    Female = 2,
-    Gay = 4,
-    Lesbian = 8,
-    Pangender = 16,
-    Bisexual = 32,
-    Asexual = 64
+    Male = 'Male',
+    Female = 'Female',
+    Gay = 'Gay',
+    Lesbian = 'Lesbian',
+    Pangender = 'Pangender',
+    Bisexual = 'Bisexual',
+    Asexual = 'Asexual'
 }
 
 export enum RoomType {
@@ -20,10 +20,10 @@ export enum RoomType {
 }
 
 export enum SchoolType {
-    Elementary = 1,
-    HighSchool = 2,
-    University = 4,
-    Pavement = 8
+  Elementary = "Elementary",
+  HighSchool = "HighSchool",
+  University = "University",
+  Pavement = "Pavement"
 }
 
 export enum RelationshipStatus {

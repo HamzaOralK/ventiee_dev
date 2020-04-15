@@ -9,8 +9,6 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { StoreModule } from '@ngrx/store';
 
 import { NgxMaskModule } from "ngx-mask";
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -126,8 +124,6 @@ import { RatingComponent } from './components/rating/rating.component';
     MatSelectModule,
     /** Additional */
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
-    PickerModule,
-    EmojiModule,
     EventCalendarModule,
     PipesModule,
     DirectivesModule

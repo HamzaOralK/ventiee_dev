@@ -36,6 +36,7 @@ export class SignUpFormComponent implements OnInit {
     user.nickname = this.signUp.value.nickname;
     user.email = this.signUp.value.email;
     user.password = this.signUp.value.password;
+    user.language = 'tr';
     this.authService.signUp(user).subscribe(p => {
       if(p["code"] === 200) {
         this.router.navigate(['/home']);

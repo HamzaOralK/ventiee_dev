@@ -4,17 +4,11 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import * as fromAuth from './services/auth/store/auth.reducer';
 import * as AuthActions from './services/auth/store/auth.actions';
 import * as fromApp from './store/app.reducer';
-import * as AppAction from './store/app.actions';
 import { Store } from '@ngrx/store';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CONFIG } from './config';
-import { Router } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
-import { EventService } from './services/dataServices/event/event-service.service';
 import { AppService } from './app.service';
-import { LangService } from './services/lang/lang.service';
-import { RoomService } from './services/dataServices/room/room.service';
-
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -44,9 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private appService: AppService,
-    private store: Store<fromApp.AppState>,
-    private router: Router,
-    private roomService: RoomService
+    private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit() {
@@ -77,10 +69,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   checkLocalStorage() {
     let str = window.localStorage.getItem(CONFIG.loginLocalStorageKey);
     if(str) {
-        this.authService.isLoggedIn = true;
-        this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));
-    } else {
-        this.router.navigate(['/home']);
+      this.authService.isLoggedIn = true;
+      this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));
     }
   }
 }

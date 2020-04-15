@@ -4,7 +4,6 @@
       <div class="header-image"></div>
       <h2>{{user.nickname}}</h2>
     </div>
-
     <div>
       <rating [rating]='3.69' [readonly]="true"></rating>
     </div>
@@ -13,7 +12,11 @@
   <mat-tab-group class="scroll">
     <mat-tab label="{{'profile' | ml}}">
       <mat-card style="word-break: break-all;">
-        {{user.description ? user.description : 'noDesc' | ml }}
+        <p *ngIf="user.gender"><b>{{'gender' | ml}}: </b>{{user.gender | ml}}</p>
+        <p *ngIf="user.preferedGender"><b>{{'preferredGender' | ml}}: </b>{{user.preferedGender | ml}}</p>
+        <p><b>{{'school' | ml}}: </b>{{user.schoolType | ml}}/{{user.school}}</p>
+        <p *ngIf="user.birthday"><b>{{'birthday' | ml}}: </b>{{user.birthday | date:'dd/MM'}}</p>
+        <p>{{user.description ? user.description : 'noDesc' | ml }}</p>
       </mat-card>
     </mat-tab>
     <mat-tab label="{{'events' | ml}}">
