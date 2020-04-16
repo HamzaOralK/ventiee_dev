@@ -25,7 +25,7 @@ export class UserSettingsComponent implements OnInit {
     description: new FormControl('', [Validators.max(140)]),
     birthday: new FormControl(),
     gender: new FormControl(),
-    preferedGender: new FormControl(),
+    preferredGender: new FormControl(),
     schoolType: new FormControl(),
     school: new FormControl()
   });

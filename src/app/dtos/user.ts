@@ -15,11 +15,11 @@ export class User {
   /* Userla id dönülecek */
   _id: string;
   userType: UserType;
-  userSetting: UserSettings;
   gender: Gender;
   relationshipStatus: RelationshipStatus;
   password:string;
   emailNotification: boolean;
+  preferredGender: Gender;
 }
 
 export class UserComment {

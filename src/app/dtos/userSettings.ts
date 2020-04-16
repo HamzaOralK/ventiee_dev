@@ -5,5 +5,5 @@ export class UserSettings {
     useNickname: boolean;
     theme: string;
     language: string;
-    preferedGender: Gender[];
+    preferredGender: Gender[];
 }

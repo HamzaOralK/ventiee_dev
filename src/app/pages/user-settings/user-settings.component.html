@@ -50,7 +50,7 @@
         <br>
         <mat-form-field appearance="outline">
           <mat-label>{{'preferredGender' | ml}}</mat-label>
-          <mat-select formControlName="preferedGender">
+          <mat-select formControlName="preferredGender">
             <mat-option *ngFor="let gender of genders" [value]="gender.value">
               {{gender.key | ml}}
             </mat-option>
