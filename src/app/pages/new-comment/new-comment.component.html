@@ -11,7 +11,7 @@
   </mat-form-field>
   <div style="display: flex; flex-direction: row; align-items: center;">
     <span>{{'rating' | ml}}</span>
-    <rating (onRate)="onRate($event)"></rating>
+    <rating (onRate)="onRate($event)" [readonly]="false"></rating>
   </div>
   <mat-form-field>
     <mat-label>{{'leaveacomment' | ml}}</mat-label>

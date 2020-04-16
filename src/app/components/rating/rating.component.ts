@@ -1,33 +1,45 @@
-import { Component, OnInit, EventEmitter, Output, Input, AfterViewInit, AfterContentInit, ElementRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, AfterViewInit, AfterContentInit, ElementRef, ViewContainerRef, ViewChildren, QueryList, Renderer2, ViewEncapsulation } from '@angular/core';
+import { COMMONS } from 'src/app/shared/commons';
 
 
 @Component({
   selector: "rating",
   templateUrl: "./rating.component.html",
-  styleUrls: ["./rating.component.scss"],
+  styleUrls: ["./rating.component.scss"]
 })
-export class RatingComponent implements OnInit, AfterContentInit {
+export class RatingComponent implements OnInit, AfterViewInit {
   @Input() rating: number;
   @Output("onRate") onRate = new EventEmitter();
   @Input() readonly = false;
+
+  @ViewChildren('star') star: QueryList<ElementRef>;
+  uuid: string;
+
   convertedRating: string;
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
+    this.uuid = COMMONS.generateUUID();
     if (this.rating) {
       this.convertedRating = (Math.round(this.rating * 2) / 2).toFixed(1);
       this.convertedRating = this.convertedRating.replace(".", "");
     }
   }
 
-  ngAfterContentInit() {
-    if(this.rating && this.convertedRating) {
-      var starElement: HTMLInputElement = this.elRef.nativeElement.querySelector("#star" + this.convertedRating);
-      starElement.checked = true;
+  ngAfterViewInit() {
+    if (this.rating && this.convertedRating) {
+        ((this.star.toArray() as ElementRef[]).find(p => p.nativeElement.id === 'star' + this.convertedRating + this.uuid).nativeElement as HTMLInputElement).checked = true;
     }
   }
 
   rate(rate: number) {
-    if(!this.readonly) this.onRate.emit(rate);
+    if(!this.readonly) {
+      (this.star.toArray() as ElementRef[]).forEach(p => {
+        p.nativeElement.checked= false;
+      });
+      let convertedRating = rate.toFixed(1).replace(".", "");
+      ((this.star.toArray() as ElementRef[]).find(p => p.nativeElement.id === 'star' + convertedRating + this.uuid).nativeElement as HTMLInputElement).checked = true;
+      this.onRate.emit(rate);
+    }
   }
 }
