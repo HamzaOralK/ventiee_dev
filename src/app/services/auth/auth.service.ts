@@ -93,6 +93,8 @@ export class AuthService {
   resend(resendInfo:{email: string, language: string}) {
     return this.http.post(CONFIG.serviceURL + '/resend', resendInfo).subscribe(p => {
       this.notificationService.notify('Yeni mail yollandı.');
+    }, e => {
+        if (e && e.error && e.error.msg === 'User already verified') this.router.navigate(['/login']);
     });
   }
 
