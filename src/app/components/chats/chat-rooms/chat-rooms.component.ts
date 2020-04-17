@@ -13,13 +13,10 @@ export class ChatRoomsComponent implements OnInit {
   @Input() room: Room;
 
   constructor(
-    private roomService: RoomService,
     private appService: AppService
   ) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   onCloseNav() {
     this.appService.closeNav();

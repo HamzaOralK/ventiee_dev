@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     let eventSearchSubscription = this.eventSearchText
       .pipe(debounceTime(500))
       .subscribe(p => {
-        this.eventService.getEvents(p)
+        // this.eventService.getEvents(p)
       });
     this.subscription.add(eventSearchSubscription);
   }

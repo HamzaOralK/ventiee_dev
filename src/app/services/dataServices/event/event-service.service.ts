@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
 import { Room } from 'src/app/dtos/room';
+import { Subscription } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 
@@ -19,6 +20,7 @@ export class EventService {
     auth: Observable<fromAuth.State>;
     roomState: Observable<fromRoom.State>;
     joinedRooms: Room[];
+    subscription = new Subscription();
 
     constructor(
       private http: HttpClient,
@@ -30,12 +32,11 @@ export class EventService {
 
       this.roomState.subscribe(p =>  {
         this.joinedRooms = p.rooms;
-      });
-
-      this.auth.subscribe(p => {
-        if(p.token && p.user && this.joinedRooms) {
-          this.getEvents();
-        }
+        this.auth.subscribe(p => {
+          if (p.token && p.user && this.joinedRooms.length > 0) {
+            this.getEvents();
+          }
+        });
       });
     }
 

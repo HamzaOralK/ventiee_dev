@@ -2,9 +2,10 @@
     <mat-card-header>
         <mat-card-title>{{room.title}}</mat-card-title>
     </mat-card-header>
-    <mat-card-content *ngIf="getLastMessageUser()">
-        <p style="text-overflow: ellipsis;overflow: hidden;max-width: 250px;">
-          <b>{{getLastMessageUser()}}:</b> {{getLastMessage()}}
-        </p>
+    <mat-card-content>
+      <div style="display: flex; flex-direction: column; justify-content: space-evenly;">
+        <span><b>{{'startDate' | ml}}:</b> {{room.startDate | date:'dd/MM/yyyy HH:mm'}}</span>
+        <span><b>{{'howmany' | ml}}:</b> {{room.peopleCount}}</span>
+      </div>
     </mat-card-content>
 </mat-card>

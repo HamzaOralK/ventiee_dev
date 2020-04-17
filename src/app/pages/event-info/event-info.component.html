@@ -1,5 +1,10 @@
 <div style="min-width: 360px;">
-  <h4>{{data.room.title}}</h4>
+  <mat-card>
+    <h4>{{data.room.title}}</h4>
+    <h5>{{'startDate' | ml}}: {{data.room.startDate | date:'dd/MM/yyyy HH:mm'}}</h5>
+    <h5>{{'endDate' | ml}}: {{data.room.endDate | date:'dd/MM/yyyy HH:mm'}}</h5>
+    <h5>{{'howmany' | ml}}: {{data.room.peopleCount}}</h5>
+  </mat-card>
 
   <div *ngFor="let user of users" class="text">
     <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)"></event-info-user>
