@@ -63,7 +63,12 @@ export class AuthService {
           this.store.dispatch(new AuthActions.LoginUser(p));
         }
       },
-      e => { this.notificationService.notify(this.langService.get('loginError'), 'OK')}
+      e => {
+        if (e.status === 400 && (e.error && e.error.msg === 'User is not verified')) {
+          this.router.navigate(['/resend', user.email]);
+        }
+        this.notificationService.notify(this.langService.get('loginError'), 'OK')
+      }
     );
   }
 
@@ -76,6 +81,13 @@ export class AuthService {
     window.localStorage.removeItem(CONFIG.loginLocalStorageKey);
     this.store.dispatch(new AuthActions.LogoutUser());
     this.router.navigate(['/home']).then(() => window.location.reload());
+  }
+
+  verifyUser(hash: string) {
+    return this.http.put(CONFIG.serviceURL + '/verify/'+ hash, {}).subscribe(p => {
+      console.log(p);
+      this.router.navigate(['/home']);
+    });
   }
 
 }

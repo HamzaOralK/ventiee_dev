@@ -1,0 +1,8 @@
+<form (ngSubmit)="resendEmail($event)">
+  <mat-form-field appearance="outline">
+    <mat-label>{{'email' | ml}}</mat-label>
+    <input matInput placeholder="{{'email' | ml}}" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button>{{'resendVerification' | ml}}</button>
+</form>

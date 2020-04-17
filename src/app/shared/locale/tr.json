@@ -36,6 +36,7 @@
     {"key": "password", "value": "Şifre"},
     {"key": "passwordRequired", "value": "Şifre zorunlu."},
     {"key": "birthday", "value": "Doğum Günü"},
+    {"key": "email", "value": "E-Mail"},
     {"key": "name", "value": "İsim"},
     {"key": "nameRequired", "value": "İsim zorunlu."},
     {"key": "surname", "value": "Soyisim"},
@@ -72,5 +73,6 @@
     {"key": "school", "value": "Hangi Okul?"},
     {"key": "leavearating", "value": "Bir Yorum Bırakın"},
     {"key": "rating", "value": "Puan"},
-    {"key": "leaveacomment", "value": "Yorum"}
+    {"key": "leaveacomment", "value": "Yorum"},
+    {"key": "resendVerification", "value": "Onaylama E-Mailini Tekrar Gönder!"}
 ]

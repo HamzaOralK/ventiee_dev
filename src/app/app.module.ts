@@ -67,6 +67,9 @@ import { EventsComponent } from './components/events/events.component';
 import { UsersCommentsComponent } from './pages/users-comments/users-comments.component';
 import { NewCommentComponent } from './pages/new-comment/new-comment.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { ResendComponent } from './pages/resend/resend.component';
+import { BaseComponent } from './components/base/base.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +97,9 @@ import { RatingComponent } from './components/rating/rating.component';
     UsersCommentsComponent,
     NewCommentComponent,
     RatingComponent,
+    ResendComponent,
+    BaseComponent,
+    VerifyComponent,
   ],
   imports: [
     BrowserModule,

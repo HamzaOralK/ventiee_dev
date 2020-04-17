@@ -9,11 +9,15 @@ import { CreateEventComponent } from './pages/create-event/create-event.componen
 import { AuthGuard } from './auth/auth.guard';
 import { ChattingComponent } from './pages/chatting/chatting.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { ResendComponent } from './pages/resend/resend.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignUpComponent},
+  { path: 'resend/:user', component: ResendComponent},
+  { path: 'verify/:hash', component: VerifyComponent},
   { path: 'event/:id', component: EventPageComponent, canActivate: [AuthGuard]},
   { path: 'room/:id', component: ChattingComponent, canActivate: [AuthGuard]},
   { path: 'profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
