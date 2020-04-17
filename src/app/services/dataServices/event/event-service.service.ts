@@ -33,7 +33,7 @@ export class EventService {
       });
 
       this.auth.subscribe(p => {
-        if(p.token && p.user) {
+        if(p.token && p.user && this.joinedRooms) {
           this.getEvents();
         }
       });

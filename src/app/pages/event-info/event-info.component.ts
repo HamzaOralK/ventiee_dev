@@ -1,33 +1,36 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from 'src/app/dtos/user';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { Room } from 'src/app/dtos/room';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromApp from '../../store/app.reducer';
+import { BaseComponent } from 'src/app/components/base/base.component';
 
 @Component({
   selector: 'event-info',
   templateUrl: './event-info.component.html',
   styleUrls: ['./event-info.component.scss']
 })
-export class EventInfoComponent implements OnInit {
+export class EventInfoComponent extends BaseComponent implements OnInit {
 
   users: User[];
   roomState: Observable<fromRoom.State>;
 
   constructor(
     private roomService: RoomService,
-    private authService: AuthService,
     public dialogRef: MatDialogRef<any>,
     private store: Store<fromApp.AppState>,
-    @Inject(MAT_DIALOG_DATA) public data: {room: Room}
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: {room: Room},
+    injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
     this.roomService.getRoomUsers(this.data.room);
     this.roomState = this.store.select('roomState');
     this.roomState.subscribe(p => {
@@ -39,19 +42,7 @@ export class EventInfoComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  isKickable(user) {
-    return user._id !== this.authService.user._id;
-  }
-
-  isModerator() {
-    return this.data.room.moderatorUserId === this.authService.user._id;
-  }
-
-  isUserModerator(user) {
-    return this.data.room.moderatorUserId === user._id;
-  }
-
-  kickUser(user: User) {
+  onKickUser(user: User) {
     console.log(user);
   }
 

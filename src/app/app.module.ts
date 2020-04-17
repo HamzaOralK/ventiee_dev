@@ -70,6 +70,7 @@ import { RatingComponent } from './components/rating/rating.component';
 import { ResendComponent } from './pages/resend/resend.component';
 import { BaseComponent } from './components/base/base.component';
 import { VerifyComponent } from './pages/verify/verify.component';
+import { EventInfoUserComponent } from './pages/event-info/event-info-user/event-info-user.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { VerifyComponent } from './pages/verify/verify.component';
     ResendComponent,
     BaseComponent,
     VerifyComponent,
+    EventInfoUserComponent,
   ],
   imports: [
     BrowserModule,

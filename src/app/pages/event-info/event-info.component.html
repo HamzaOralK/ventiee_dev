@@ -1,8 +1,7 @@
-<h4>{{data.room.title}}</h4>
-<div *ngFor="let user of users" class="text">
-  {{user.nickname}} <span *ngIf="isUserModerator(user)">(Moderatör)</span>
+<div style="min-width: 360px;">
+  <h4>{{data.room.title}}</h4>
 
-  <button mat-icon-button (click)="kickUser(user)" *ngIf="isKickable(user) && isModerator()">
-    <mat-icon>remove_circle_outline</mat-icon>
-  </button>
+  <div *ngFor="let user of users" class="text">
+    <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)"></event-info-user>
+  </div>
 </div>

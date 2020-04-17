@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
+
+.user {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  border-radius: 3px;
+  height: 40px;
+  padding: 5px;
+}
+
+.user:hover {
+  background-color: mat-color($app-accent, 200) !important;
+}
+
+.user-image {
+  width: 32px;
+  height: 32px;
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+  border-radius: 32px;
+}
