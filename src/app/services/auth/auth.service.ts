@@ -84,9 +84,15 @@ export class AuthService {
   }
 
   verifyUser(hash: string) {
-    return this.http.put(CONFIG.serviceURL + '/verify/'+ hash, {}).subscribe(p => {
-      console.log(p);
+    return this.http.post(CONFIG.serviceURL + '/verify/'+ hash, {}).subscribe(p => {
+      this.notificationService.notify('Profiliniz onaylandı.');
       this.router.navigate(['/home']);
+    });
+  }
+
+  resend(resendInfo:{email: string, language: string}) {
+    return this.http.post(CONFIG.serviceURL + '/resend', resendInfo).subscribe(p => {
+      this.notificationService.notify('Yeni mail yollandı.');
     });
   }
 

@@ -18,6 +18,7 @@ export class VerifyComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
       this.hash = p.get('hash');
+      this.authService.verifyUser(this.hash);
     });
     this.subscription.add(routeSubscription);
   }

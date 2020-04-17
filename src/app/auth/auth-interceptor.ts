@@ -18,8 +18,10 @@ export class AuthInterceptor implements HttpInterceptor {
     let tokenizFreeUrls: string[] = [
       CONFIG.serviceURL + "/user/login",
       CONFIG.serviceURL + "/user/signup",
+      CONFIG.serviceURL + "/resend",
+      CONFIG.serviceURL + "/verify",
     ];
-    let checkIndex = tokenizFreeUrls.findIndex((p) => p === request.url);
+    let checkIndex = tokenizFreeUrls.findIndex((p) => request.url.search(p) > -1);
 
     if (checkIndex === -1) {
       newRequest = request.clone({
