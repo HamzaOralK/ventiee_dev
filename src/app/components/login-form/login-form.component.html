@@ -18,6 +18,10 @@
       {{'passwordRequired' | ml}}
     </mat-error>
   </mat-form-field>
+  <div class="errors" *ngIf="login.status === 'VALID'">
+    <p *ngIf="error === 'LoginError'">Kullanıcı adı veya şifre yanlış.</p>
+    <p *ngIf="error === 'NotVerified'">Kullanıcı onaylanmamış.</p>
+  </div>
   <button mat-raised-button color="primary">{{'login' | ml}}</button>
 
 </form>

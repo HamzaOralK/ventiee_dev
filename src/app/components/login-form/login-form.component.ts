@@ -1,33 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { Observable } from 'rxjs';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
+import { BaseComponent } from '../base/base.component';
+
+export enum LoginError {
+  NotVerified = 'NotVerified',
+  LoginError = 'LoginError'
+}
 
 @Component({
   selector: 'login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent extends BaseComponent implements OnInit {
 
   auth: Observable<fromAuth.State>;
+  error: LoginError;
 
   login = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.min(5)])
   })
   constructor(
-    private authService: AuthService,
+    injector: Injector,
     private store: Store<fromApp.AppState>
   ) {
+    super(injector);
     this.auth = this.store.select('authState');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   get loginControls(): any {
     return this.login['controls'];
@@ -37,7 +46,15 @@ export class LoginFormComponent implements OnInit {
     let user = new User();
     user.email = this.login.value.email;
     user.password = this.login.value.password;
-    this.authService.loginUser(user);
+    let loginSubscription = this.authService.loginUser(user).subscribe(p => {
+
+      if(p === LoginError.LoginError) {
+        this.error = LoginError.LoginError;
+      } else if (p === LoginError.NotVerified) {
+        this.error = LoginError.NotVerified
+      }
+    });
+    this.subscription.add(loginSubscription);
   }
 
 }

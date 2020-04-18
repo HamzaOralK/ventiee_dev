@@ -1,0 +1,8 @@
+@import "src/mixins.scss";
+
+.info {
+    min-width: 500px;
+    @include for-size(phone-only) {
+        min-width: 360px;
+    }
+}

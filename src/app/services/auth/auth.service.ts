@@ -7,7 +7,7 @@ import * as fromAuth from '../auth/store/auth.reducer';
 import * as fromApp from '../../store/app.reducer';
 import { CONFIG } from '../../config';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { NotificationService } from '../notification/notification.service';
 import { LangService } from '../lang/lang.service';
 import { catchError, tap } from 'rxjs/operators';
@@ -52,8 +52,8 @@ export class AuthService {
   }
 
   loginUser(user: User) {
-    return this.http.post(CONFIG.serviceURL + '/user/login', user).subscribe(
-      (p: {token: string, user: User}) => {
+    return this.http.post(CONFIG.serviceURL + '/user/login', user).pipe(
+      tap((p: {token: string, user: User}) => {
         let user: User = p["user"];
         let token: string = p["token"];
         if (user && token) {
@@ -62,13 +62,15 @@ export class AuthService {
           this.router.navigate(['/home']);
           this.store.dispatch(new AuthActions.LoginUser(p));
         }
-      },
-      e => {
+      }),
+      catchError(e => {
         if (e.status === 400 && (e.error && e.error.msg === 'User is not verified')) {
           this.router.navigate(['/resend', user.email]);
+          return of('NotVerified');
         }
-        this.notificationService.notify(this.langService.get('loginError'), 'OK')
-      }
+        this.notificationService.notify(this.langService.get('loginError'), 'OK');
+        return of('LoginError');
+      })
     );
   }
 
