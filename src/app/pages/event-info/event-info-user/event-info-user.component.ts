@@ -22,7 +22,6 @@ export class EventInfoUserComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
   }
 
-
   isKickable(user) {
     return user._id !== this.authService.user._id;
   }

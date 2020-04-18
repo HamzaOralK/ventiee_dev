@@ -4,6 +4,10 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Subject } from 'rxjs';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { CustomDateFormatter } from '../custom-date-formatter.provider';
+import { Event } from 'src/app/dtos/event';
+import { MatDialog } from '@angular/material/dialog';
+import { EventCalendarInfoComponent } from '../event-calendar-info/event-calendar-info.component';
+import { EventInfoComponent } from 'src/app/pages/event-info/event-info.component';
 
 const colors: any = {
   red: {
@@ -19,6 +23,10 @@ const colors: any = {
     secondary: '#FDF1BA',
   },
 };
+
+export interface CustomCalendarEvent extends CalendarEvent {
+  eventInformation?: Event
+}
 
 @Component({
   selector: 'event-calendar',
@@ -69,25 +77,23 @@ export class EventCalendarComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
-
   events: CalendarEvent[] = [];
-
   activeDayIsOpen: boolean = false;
 
-  constructor(private roomService: RoomService) { }
+  constructor(private roomService: RoomService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.events = [];
     this.transformRooms();
-
   }
 
   transformRooms() {
     this.roomService.rooms.forEach(p => {
-      let ev: CalendarEvent = {
+      let ev: CustomCalendarEvent = {
         start: new Date(p.startDate),
         end: new Date(p.endDate),
-        title: p.title
+        title: p.title,
+        eventInformation: p
       };
       this.events.push(ev);
     });
@@ -107,11 +113,7 @@ export class EventCalendarComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({ event,  newStart, newEnd, }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -125,8 +127,21 @@ export class EventCalendarComponent implements OnInit {
     this.handleEvent('Dropped or resized', event);
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
+  handleEvent(action: string, event: CustomCalendarEvent): void {
+    console.log({ event, action });
     this.modalData = { event, action };
+    if (action === 'Clicked') {
+      this.openDialog(this.modalData);
+    }
+  }
+
+  openDialog(data: { action: string, event: CustomCalendarEvent}): void {
+    const dialogRef = this.dialog.open(EventInfoComponent, {
+      data: {room: data.event.eventInformation}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 
   addEvent(): void {

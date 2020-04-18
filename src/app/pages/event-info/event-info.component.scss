@@ -1,8 +1,16 @@
 @import "src/mixins.scss";
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
 
+/*
 .info {
     min-width: 500px;
     @include for-size(phone-only) {
         min-width: 360px;
     }
+}
+*/
+
+.warning {
+  background-color: mat-color($app-warn, 300) !important;
 }

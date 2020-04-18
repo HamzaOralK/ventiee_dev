@@ -5,11 +5,7 @@ import { AuthGuard } from 'src/app/auth/auth.guard';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    component: EventCalendarComponent,
-    canActivate: [AuthGuard]
-  }
+  { path: '', component: EventCalendarComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

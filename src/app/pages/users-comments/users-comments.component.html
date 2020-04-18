@@ -3,7 +3,10 @@
     <mat-card-header>
       <div mat-card-avatar class="header-image"></div>
       <mat-card-title>{{userComment.user.nickname}}</mat-card-title>
-      <mat-card-subtitle>{{userComment.rating}}</mat-card-subtitle>
+      <!-- <mat-card-subtitle>{{userComment.rating}}</mat-card-subtitle> -->
+      <mat-card-subtitle>
+        <rating [rating]="userComment.rating" [readonly]="true"></rating>
+      </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <p>

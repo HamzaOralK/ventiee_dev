@@ -34,7 +34,7 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
     this.roomService.getRoomUsers(this.data.room);
     this.roomState = this.store.select('roomState');
     this.roomState.subscribe(p => {
-      this.users = p.activeRoom.users;
+      if(p.activeRoom && p.activeRoom.users) this.users = p.activeRoom.users;
     });
     console.log(this.data);
   }
@@ -43,8 +43,20 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  isModerator() {
+    return this.data.room.moderatorUserId === this.authService.user._id;
+  }
+
   onKickUser(user: User) {
     console.log(user);
+  }
+
+  cancelEvent() {
+    console.log('this.cancelEvent');
+  }
+
+  dontJoin() {
+    console.log('this.cancelEvent');
   }
 
 }
