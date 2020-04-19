@@ -9,7 +9,7 @@
     </div>
 
   </div>
-  <mat-tab-group class="scroll">
+  <mat-tab-group class="scroll" style="z-index: 0; position: relative;">
     <mat-tab label="{{'profile' | ml}}">
       <mat-card style="word-break: break-all;">
         <p *ngIf="user.gender"><b>{{'gender' | ml}}: </b>{{user.gender | ml}}</p>

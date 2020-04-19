@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Event } from 'src/app/dtos/event';
@@ -30,7 +30,7 @@ export class CreateEventFormComponent implements OnInit {
   generalDescription = new FormGroup({
     id: new FormControl(""),
     title: new FormControl(""),
-    peopleCount: new FormControl()
+    peopleCount: new FormControl("", [Validators.min(3)])
   });
 
   timeInformation = new FormGroup({
@@ -51,7 +51,6 @@ export class CreateEventFormComponent implements OnInit {
   });
 
   constructor(
-    private _adapter: DateAdapter<any>,
     private eventService: EventService,
     private notificationService: NotificationService,
     private langService: LangService,
@@ -64,9 +63,6 @@ export class CreateEventFormComponent implements OnInit {
   }
 
   createEvent() {
-    //console.log(this.generalDescription.value);
-    //console.log(this.timeInformation.value);
-    //console.log(this.placeInformation.value);
     let newEvent = new Event();
     newEvent.title = this.generalDescription.value.title;
     newEvent.moderatorUserId = this.authService.user._id;
@@ -118,5 +114,9 @@ export class CreateEventFormComponent implements OnInit {
       });
     }
     console.log(newEvent);
+  }
+
+  formControls(formGroup: FormGroup): any {
+    return formGroup['controls'];
   }
 }

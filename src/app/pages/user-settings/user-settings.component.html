@@ -3,7 +3,7 @@
   <button (click)="submit($event)" mat-raised-button style="height:30px; margin-left: 10px;">{{'save' | ml}}</button>
 </div>
 <form [formGroup]="profileForm" *ngIf="user">
-  <mat-tab-group>
+  <mat-tab-group style="z-index: 0; position: relative;">
     <mat-tab label="Temel Ayarlar">
       <mat-card class="settingsCard">
         <mat-form-field appearance="outline">

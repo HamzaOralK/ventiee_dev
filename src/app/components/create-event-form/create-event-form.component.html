@@ -10,6 +10,9 @@
         <mat-form-field>
           <mat-label>{{'howmany' | ml}}</mat-label>
           <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" required appOnlyNumbers>
+          <mat-error *ngIf="formControls(generalDescription).peopleCount.hasError('min')">
+            {{'min3person' | ml}}
+          </mat-error>
         </mat-form-field>
         <div>
           <button mat-button matStepperNext>{{'next'| ml}}</button>
