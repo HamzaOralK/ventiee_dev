@@ -77,5 +77,8 @@
     {"key": "resendVerification", "value": "Onaylama E-Mailini Tekrar Gönder!"},
     {"key": "cancelEvent", "value": "Event'i İptal Et."},
     {"key": "dontGo", "value": "Event'e Katılma."},
-    {"key": "min3person", "value": "Event en az 3 kişilik olabilir."}
+    {"key": "min3person", "value": "Event en az 3 kişilik olabilir."},
+    {"key": "moreInfo", "value": "Ek bilgiler"},
+    {"key": "descMax", "value": "Açıklama karakter limitini geçtiniz."},
+    {"key": "userComments", "value": "Kullanıcı Yorumları"}
 ]

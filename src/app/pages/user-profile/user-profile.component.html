@@ -25,6 +25,7 @@
     <mat-tab label="{{'comments' | ml}}">
       <mat-card>
         <new-comment></new-comment>
+        <h2>{{'userComments' | ml}}</h2>
         <users-comments *ngIf="comments" [userComments]="comments"></users-comments>
       </mat-card>
     </mat-tab>

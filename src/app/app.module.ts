@@ -71,6 +71,7 @@ import { ResendComponent } from './pages/resend/resend.component';
 import { BaseComponent } from './components/base/base.component';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { EventInfoUserComponent } from './pages/event-info/event-info-user/event-info-user.component';
+import { LandingComponent } from './pages/home/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { EventInfoUserComponent } from './pages/event-info/event-info-user/event
     BaseComponent,
     VerifyComponent,
     EventInfoUserComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,

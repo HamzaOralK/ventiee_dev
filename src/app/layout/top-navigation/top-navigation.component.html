@@ -1,7 +1,12 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
   <mat-toolbar-row>
-    <mat-icon *ngIf="user" class="icon" [matBadge]="unreadMessages" matBadgeColor="warn" (click)="toggleLeftMenu()">menu</mat-icon>
-    <mat-icon class="icon" aria-hidden="false" routerLink="/home" (click)="getEvents()">home</mat-icon>
+
+    <img *ngIf="!user" style="height:32px; cursor: pointer;" [src]="'./assets/logo.png'" alt="ventiee_logo" routerLink="/home" (click)="getEvents()">
+    <mat-icon *ngIf="user" class="icon" [matBadge]="unreadMessages" matBadgeColor="accent" (click)="toggleLeftMenu()">menu</mat-icon>
+    <mat-icon *ngIf="user" class="icon" aria-hidden="false" routerLink="/home" (click)="getEvents()">
+      home
+    </mat-icon>
+
     <span>{{user?.name}}</span>
     <span class="spacer"></span>
     <ng-container *ngIf="user; else noUser" >

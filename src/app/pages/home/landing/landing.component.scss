@@ -1,0 +1,85 @@
+@import 'src/mixins.scss';
+
+.top {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 30px;
+  overflow: auto;
+  @include for-size(phone-only) {
+    flex-direction: column;
+  }
+  @include for-size(tablet-portrait-up) {
+    flex-direction: column;
+  }
+  @include for-size(tablet-landscape-up) {
+    flex-direction: row;
+  }
+}
+
+.desc {
+  width: 75%;
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("src/assets/backdrop.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  h1 {
+    margin: 0;
+    font-size: 48pt;
+    @include for-size(phone-only) {
+      font-size: 20pt;
+    }
+    @include for-size(tablet-portrait-up) {
+      font-size: 22pt;
+    }
+    @include for-size(tablet-landscape-up) {
+      font-size: 24pt;
+    }
+    @include for-size(desktop-up) {
+      font-size: 48pt;
+    }
+    @include for-size(big-desktop-up) {
+      font-size: 48pt;
+    }
+  }
+
+  @include for-size(tablet-portrait-up) {
+    width: 95%;
+    margin: 0 10px;
+  }
+  @include for-size(tablet-landscape-up) {
+    width: 60%;
+    margin: 0 10px;
+  }
+
+  @include for-size(phone-only) {
+    width: 95%;
+    margin: 0 10px;
+  }
+}
+
+.sign-up {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  h1 {
+    text-align: center;
+  }
+  @include for-size(tablet-portrait-up) {
+    width: 95%;
+    margin: 30px 10px;
+  }
+  @include for-size(tablet-landscape-up) {
+    width: 40%;
+    margin: 30px 10px;
+  }
+  @include for-size(phone-only) {
+    width: 95%;
+    margin: 30px 10px;
+  }
+}

@@ -51,7 +51,7 @@ h1 {
 .rating.edit:not(:checked)>label:hover,
 /* hover current star */
 .rating.edit:not(:checked)>label:hover~label {
-  color: #FFD700;
+  color: #FFD700 !important;
 }
 
 /* hover previous stars in list */
@@ -62,5 +62,5 @@ h1 {
 .rating.edit>label:hover~input:checked~label,
 /* lighten current selection */
 .rating.edit>input:checked~label:hover~label {
-  color: #FFED85;
+  color: #FFED85 !important;
 }

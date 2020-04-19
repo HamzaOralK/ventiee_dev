@@ -1,6 +1,6 @@
 <h4>{{'leavearating' | ml}}</h4>
 <mat-card class="form">
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>{{'event' | ml}}</mat-label>
     <mat-select required>
       <mat-option value="volvo">Volvo</mat-option>
@@ -13,7 +13,7 @@
     <span>{{'rating' | ml}}</span>
     <rating (onRate)="onRate($event)" [readonly]="false"></rating>
   </div>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>{{'leaveacomment' | ml}}</mat-label>
     <textarea matInput placeholder="Çok eğlendim! Bir daha!"></textarea>
   </mat-form-field>

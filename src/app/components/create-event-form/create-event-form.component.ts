@@ -30,6 +30,7 @@ export class CreateEventFormComponent implements OnInit {
   generalDescription = new FormGroup({
     id: new FormControl(""),
     title: new FormControl(""),
+    description: new FormControl("", [Validators.maxLength(100)]),
     peopleCount: new FormControl("", [Validators.min(3)])
   });
 

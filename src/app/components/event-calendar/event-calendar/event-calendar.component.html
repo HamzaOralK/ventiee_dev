@@ -4,15 +4,16 @@
       <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
     </div>
 
-    <div>
-      <button mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
-        {{'previous' | ml}}
+    <div class='buttons'>
+      <button mat-mini-fab color="warn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+        <mat-icon>arrow_back</mat-icon>
       </button>
-      <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate">
-        {{'today' | ml}}
+      <button mat-mini-fab mwlCalendarToday [(viewDate)]="viewDate">
+        <mat-icon>today</mat-icon>
       </button>
-      <button mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
-        {{'next' | ml}}
+      <button mat-mini-fab color="warn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">
+        <mat-icon>arrow_forward</mat-icon>
       </button>
     </div>
 

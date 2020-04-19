@@ -9,7 +9,12 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
 
+.buttons {
+  button {
+    margin-right: 5px;
+  }
 }
 
 :host ::ng-deep .cal-month-view .cal-header .cal-cell {

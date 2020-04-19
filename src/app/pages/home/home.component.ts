@@ -33,6 +33,9 @@ export class HomeComponent implements OnInit {
   ) {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
+    this.auth.subscribe(p => {
+      this.user = p.user;
+    });
   }
   ngOnInit(): void {
     let eventSearchSubscription = this.eventSearchText

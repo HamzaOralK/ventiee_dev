@@ -1,6 +1,6 @@
 <form [formGroup]="signUp" class="signUpForm" (submit)="onSubmit()">
 
-  <mat-form-field class="full-width">
+  <mat-form-field appearance="outline">
     <mat-label>E-Mail</mat-label>
     <input matInput formControlName="email">
     <mat-error *ngIf="signUpControls.email.hasError('email') && !signUpControls.email.hasError('required')">
@@ -11,7 +11,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
+  <mat-form-field appearance="outline">
     <mat-label>{{'name' | ml}}</mat-label>
     <input matInput type="text" formControlName="name">
     <mat-error *ngIf="signUpControls.name.hasError('required')">
@@ -19,7 +19,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
+  <mat-form-field appearance="outline">
     <mat-label>{{'surname' | ml}}</mat-label>
     <input matInput type="text" formControlName="surname">
     <mat-error *ngIf="signUpControls.surname.hasError('required')">
@@ -27,7 +27,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
+  <mat-form-field appearance="outline">
     <mat-label>{{'nickname' | ml}}</mat-label>
     <input matInput type="text" formControlName="nickname">
     <mat-error *ngIf="signUpControls.nickname.hasError('required')">
@@ -35,7 +35,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
+  <mat-form-field appearance="outline">
     <mat-label>{{'password' | ml}}</mat-label>
     <input matInput type="password" formControlName="password">
     <mat-error *ngIf="signUpControls.password.hasError('required')">

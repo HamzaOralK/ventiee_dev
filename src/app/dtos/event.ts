@@ -11,6 +11,7 @@ export class Event {
   longtitute: string;
   latitute: string;
   userName: string;
+  description: string;
 }
 
 export class MLocation {
