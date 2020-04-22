@@ -75,6 +75,7 @@ import { BaseComponent } from './components/base/base.component';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { EventInfoUserComponent } from './pages/event-info/event-info-user/event-info-user.component';
 import { LandingComponent } from './pages/home/landing/landing.component';
+import { VfooterComponent } from './layout/vfooter/vfooter.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { LandingComponent } from './pages/home/landing/landing.component';
     VerifyComponent,
     EventInfoUserComponent,
     LandingComponent,
+    VfooterComponent,
   ],
   imports: [
     BrowserModule,

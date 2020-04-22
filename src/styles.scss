@@ -6,10 +6,12 @@
 //@import '~@ctrl/ngx-emoji-mart/picker';
 
 html, body {
-    height:100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
+  height:100%;
+  width: 100%;
+  padding: 0;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 * {
@@ -17,8 +19,26 @@ html, body {
   color: mat-color($app-font, 500) !important;
 }
 
+footer {
+  width: 100%;
+  bottom: 0;
+  left: 0;
+
+  div:first-of-type {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: mat-color($app-primary, 200);
+    margin-top: 10px;
+    padding-bottom: 30px;
+    section {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
 .mat-tab-group {
-  height: calc(100% - 110px);
+  height: calc(100% - 70px);
 }
 
 .mat-tab-body-content,
