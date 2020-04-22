@@ -66,3 +66,24 @@ html, body {
 .mat-accordion .mat-expansion-panel {
   margin: 5px;
 }
+
+.timepicker__header {
+  background-color: mat-color($app-primary, 500) !important;
+}
+
+.warning {
+  background-color: mat-color($app-warn, 300) !important;
+  span {
+    color: mat-color($app-font, 50) !important;
+  }
+}
+
+.iconInfo {
+  background-color: mat-color($app-warn, 200);
+  padding: 10px;
+  border-radius: 10px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

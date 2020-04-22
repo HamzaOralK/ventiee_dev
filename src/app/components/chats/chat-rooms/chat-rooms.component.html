@@ -3,9 +3,21 @@
         <mat-card-title>{{room.title}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div style="display: flex; flex-direction: column; justify-content: space-evenly;">
-        <span><b>{{'startDate' | ml}}:</b> {{room.startDate | date:'dd/MM/yyyy HH:mm'}}</span>
-        <span><b>{{'howmany' | ml}}:</b> {{room.peopleCount}}</span>
+      <div style="display: flex;">
+        <!-- <span><b>{{'startDate' | ml}}:</b> {{room.startDate | date:'dd/MM/yyyy HH:mm'}}</span> -->
+        <!-- <span><b>{{'howmany' | ml}}:</b> {{room.peopleCount}}</span> -->
+        <div class="iconInfo">
+          <mat-icon>emoji_people</mat-icon>
+          {{room.userName}}
+        </div>
+        <div class="iconInfo">
+          <mat-icon>arrow_forward</mat-icon>
+          {{room.startDate | date:'dd/MM/yyyy'}}
+        </div>
+        <div class="iconInfo">
+          <mat-icon>people</mat-icon>
+          {{room.peopleCount}}
+        </div>
       </div>
     </mat-card-content>
 </mat-card>

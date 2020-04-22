@@ -9,6 +9,7 @@ import { HammerGestureConfig } from '@angular/platform-browser';
 import { CONFIG } from './config';
 import { AuthService } from './services/auth/auth.service';
 import { AppService } from './app.service';
+import { User } from './dtos/user';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -28,9 +29,9 @@ export class MyHammerConfig extends HammerGestureConfig {
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
-  title = "mitap";
   subscription = new Subscription();
   auth: Observable<fromAuth.State>;
+  user: User;
 
   swipeHammer: MyHammerConfig;
   mainTapHammer: HammerGestureConfig;
@@ -43,6 +44,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.auth = this.store.select("authState");
+    this.auth.subscribe(p => {
+      this.user = p.user;
+    })
     this.checkLocalStorage();
 
     let body = document.body;

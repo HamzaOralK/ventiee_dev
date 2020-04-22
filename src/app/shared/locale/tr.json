@@ -80,5 +80,7 @@
     {"key": "min3person", "value": "Event en az 3 kişilik olabilir."},
     {"key": "moreInfo", "value": "Ek bilgiler"},
     {"key": "descMax", "value": "Açıklama karakter limitini geçtiniz."},
-    {"key": "userComments", "value": "Kullanıcı Yorumları"}
+    {"key": "userComments", "value": "Kullanıcı Yorumları"},
+    {"key": "addTag", "value": "Tag Ekle..."}
+
 ]

@@ -1,11 +1,6 @@
 @import '~@angular/material/theming';
 @import '../../../theme.scss';
 
-.eventInfo mat-card {
-    margin: 5px 5px 0 5px;
-    background: mat-color($app-primary, 200) !important;
-    cursor: pointer;
-}
 h3 {
   margin-bottom: 0;
 }
@@ -18,6 +13,9 @@ mat-expansion-panel {
 .eventInfo {
   display: flex;
   flex-direction: column;
+  margin: 5px 5px 0 5px;
+  background: mat-color($app-primary, 200) !important;
+  cursor: pointer;
 }
 
 .titleImg {
@@ -26,15 +24,6 @@ mat-expansion-panel {
   padding: 5px;
   margin-right: 5px;
   width: 64px;
-}
-.titleInfo {
-  background-color: mat-color($app-warn, 200);
-  padding: 10px;
-  border-radius: 10px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .titleDesc {

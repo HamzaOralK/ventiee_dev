@@ -1,7 +1,8 @@
 <div class="app">
     <top-navigation></top-navigation>
     <div class="mainContainer">
-        <left-navigation></left-navigation>
+
+        <left-navigation *ngIf="user"></left-navigation>
         <main-page id="main" style="width: 100%"></main-page>
         <!-- <room-navigation style="height: 100%;" *ngIf="(auth | async).user"></room-navigation> -->
     </div>

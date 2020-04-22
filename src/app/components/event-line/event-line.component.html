@@ -16,15 +16,15 @@
         </div>
         <div>
           <div style="display: flex">
-            <div class="titleInfo">
+            <div class="iconInfo">
               <mat-icon>emoji_people</mat-icon>
               {{event.userName}}
             </div>
-            <div class="titleInfo">
+            <div class="iconInfo">
               <mat-icon>arrow_forward</mat-icon>
               {{event.startDate | date:'dd/MM/yyyy'}}
             </div>
-            <div class="titleInfo">
+            <div class="iconInfo">
               <mat-icon>people</mat-icon>
               {{event.peopleCount}}
             </div>
@@ -41,22 +41,16 @@
     <br>
     <button mat-raised-button color="accent" (click)="joinEvent()" style="margin: 10px 0">{{'join' | ml}}</button>
     <br>
-    <mat-card>
-      <div *ngIf="event" class="eventInfo">
-        <mat-card class="card">
-          <mat-card-header>
-            <mat-card-title>{{'moreInfo' | ml}}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-list role="list">
-              <mat-list-item role="listitem"> <b>{{ 'startTime' | ml}}:</b>&nbsp; {{ event.startDate | date:'HH:mm' }} </mat-list-item>
-              <mat-list-item role="listitem"> <b>{{ 'endDate' | ml}}: </b>&nbsp; {{ event.endDate | date:'dd/MM/yyyy HH:mm' }} </mat-list-item>
-              <mat-list-item role="listitem"> <b>{{ 'city' | ml}}: </b>&nbsp; {{  event.city }} </mat-list-item>
-              <mat-list-item role="listitem"> <b>{{ 'district' | ml}}: </b>&nbsp; {{  event.district }} </mat-list-item>
-              <mat-list-item role="listitem"> <b>{{ 'venue' | ml}}: </b>&nbsp; {{  event.venue }} </mat-list-item>
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
+    <mat-card class="eventInfo">
+      <div *ngIf="event">
+        <h2>{{'moreInfo' | ml}}</h2>
+        <mat-list role="list">
+          <mat-list-item role="listitem"> <b>{{ 'startTime' | ml}}:</b>&nbsp; {{ event.startDate | date:'HH:mm' }} </mat-list-item>
+          <mat-list-item role="listitem"> <b>{{ 'endDate' | ml}}: </b>&nbsp; {{ event.endDate | date:'dd/MM/yyyy HH:mm' }} </mat-list-item>
+          <mat-list-item role="listitem"> <b>{{ 'city' | ml}}: </b>&nbsp; {{  event.city }} </mat-list-item>
+          <mat-list-item role="listitem"> <b>{{ 'district' | ml}}: </b>&nbsp; {{  event.district }} </mat-list-item>
+          <mat-list-item role="listitem"> <b>{{ 'venue' | ml}}: </b>&nbsp; {{  event.venue }} </mat-list-item>
+        </mat-list>
       </div>
     </mat-card>
   </div>

@@ -21,8 +21,27 @@
             {{'descMax' | ml}}
           </mat-error>
         </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>{{'next'| ml}}</button>
+
+        <mat-form-field appearance="outline">
+          <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+              {{tag}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input [placeholder]="'addTag' | ml" #tagInput formControlName="tags" [matAutocomplete]="auto"
+              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+              {{tag}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+
+        <div class="actions">
+          <button mat-raised-button color="primary" matStepperNext>{{'next'| ml}}</button>
         </div>
       </form>
     </mat-step>
@@ -57,9 +76,9 @@
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate></mat-datepicker>
         </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>{{'back' | ml}}</button>
-          <button mat-button matStepperNext>{{'next' | ml}}</button>
+        <div class="actions">
+          <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
+          <button mat-raised-button color="primary" matStepperNext>{{'next' | ml}}</button>
         </div>
       </form>
     </mat-step>
@@ -93,9 +112,9 @@
             <input matInput formControlName="longtitute" appLowerCase>
           </mat-form-field>
         </div>
-        <div>
-          <button mat-button matStepperPrevious>{{'back' | ml}}</button>
-          <button mat-button (click)="createEvent()">{{'createEvent' | ml}}</button>
+        <div class="actions">
+          <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
+          <button mat-raised-button color="primary" (click)="createEvent()">{{'createEvent' | ml}}</button>
         </div>
       </form>
     </mat-step>

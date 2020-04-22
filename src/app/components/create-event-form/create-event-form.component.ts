@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -8,6 +9,10 @@ import { NotificationService } from 'src/app/services/notification/notification.
 import { LangService } from 'src/app/services/lang/lang.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: "create-event-form",
@@ -24,14 +29,28 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   ]
 })
 export class CreateEventFormComponent implements OnInit {
+
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  filteredTags: Observable<string[]>;
+  tags: string[] = ['Sokak'];
+  allTags: string[] = ['Alkollü', 'Konser', 'Oyun', 'Gezmece'];
+
   @Input() eventId: string;
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   isLinear = true;
   generalDescription = new FormGroup({
     id: new FormControl(""),
     title: new FormControl(""),
     description: new FormControl("", [Validators.maxLength(100)]),
-    peopleCount: new FormControl("", [Validators.min(3)])
+    peopleCount: new FormControl("", [Validators.min(3)]),
+    tags: new FormControl()
   });
 
   timeInformation = new FormGroup({
@@ -57,7 +76,11 @@ export class CreateEventFormComponent implements OnInit {
     private langService: LangService,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) {
+    this.filteredTags = this.generalDescription.controls["tags"].valueChanges.pipe(
+      startWith(null),
+      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
+  }
 
   ngOnInit(): void {
     this.generalDescription.patchValue({ id: this.eventId });
@@ -114,10 +137,45 @@ export class CreateEventFormComponent implements OnInit {
         }
       });
     }
-    console.log(newEvent);
   }
 
   formControls(formGroup: FormGroup): any {
     return formGroup['controls'];
   }
+
+  /** Tag Chips */
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allTags.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.tags.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(fruit: string): void {
+    const index = this.tags.indexOf(fruit);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.tags.push(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    //this.fruitCtrl.setValue(null);
+  }
+  /*******/
 }

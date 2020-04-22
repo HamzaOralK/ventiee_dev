@@ -21,6 +21,7 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
   roomState: Observable<fromRoom.State>;
 
   rooms: Room[];
+  filteredRooms: Room[];
 
   roomSearchText: Subject<string> = new Subject();
   subscription: Subscription = new Subscription();
@@ -43,6 +44,7 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.cdr.detectChanges();
     this.roomState.subscribe(p => {
       this.rooms = p.rooms;
+      this.filteredRooms = p.rooms;
     });
 
     this.auth.subscribe(p => {
@@ -53,7 +55,9 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.roomSearchText
       .pipe(debounceTime(500))
-      .subscribe(p => console.log(p));
+      .subscribe(p => {
+        this.filterRooms(p);
+      });
     this.subscription.add(this.roomSearchText);
 
   }
@@ -64,6 +68,14 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onChange(event: any) {
     this.roomSearchText.next(event.target.value);
+  }
+
+  filterRooms(roomTitle: string) {
+    if(roomTitle !== "" && roomTitle !== undefined) {
+      this.filteredRooms = this.rooms.filter(p => p.title.toLowerCase().search(roomTitle.toLowerCase()) > -1);
+    } else {
+      this.filteredRooms = this.rooms;
+    }
   }
 
   clearFilter() {

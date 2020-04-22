@@ -31,6 +31,7 @@ import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.com
 import { ChattingComponent } from './pages/chatting/chatting.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
+
 /** Material Components */
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -49,6 +50,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 /** Reducers */
@@ -132,6 +135,8 @@ import { LandingComponent } from './pages/home/landing/landing.component';
     MatListModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatChipsModule,
+    MatAutocompleteModule,
     /** Additional */
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
     EventCalendarModule,
