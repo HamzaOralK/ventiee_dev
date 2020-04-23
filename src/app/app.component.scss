@@ -1,16 +1,22 @@
 @import '~@angular/material/theming';
 @import '../theme.scss';
+@import "../mixins.scss";
+
 
 .app {
-  height: 100%;
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .mainContainer {
   display: flex;
-  height: 100%;
+  min-height: 100vh;
+}
+.main-page {
+  width: 100%
 }
 
 left-navigation {

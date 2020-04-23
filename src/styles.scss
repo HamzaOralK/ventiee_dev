@@ -25,6 +25,7 @@ footer {
   left: 0;
 
   div:first-of-type {
+    padding: 10px;
     display: flex;
     justify-content: space-evenly;
     background-color: mat-color($app-primary, 200);
