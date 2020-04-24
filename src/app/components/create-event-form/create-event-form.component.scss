@@ -1,3 +1,6 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
+
 .section {
   display: flex;
   align-items: center;
@@ -36,5 +39,9 @@ mat-horizontal-stepper {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+}
+
+.mat-chip.mat-standard-chip {
+  background-color: mat-color($app-primary, 500);
 }
 

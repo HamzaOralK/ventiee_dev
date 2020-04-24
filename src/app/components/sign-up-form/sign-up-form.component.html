@@ -1,4 +1,4 @@
-<form [formGroup]="signUp" class="signUpForm" (submit)="onSubmit()">
+<form [formGroup]="signUp" class="signUpForm" (submit)="onSubmit()" autocomplete="off">
 
   <mat-form-field appearance="outline">
     <mat-label>E-Mail</mat-label>
@@ -33,6 +33,15 @@
     <mat-error *ngIf="signUpControls.nickname.hasError('required')">
       {{'nicknameRequired' | ml}}
     </mat-error>
+    <mat-error *ngIf="signUpControls.nickname.hasError('minlength')">
+      {{'nicknameMinLength' | ml}}
+    </mat-error>
+    <mat-error *ngIf="signUpControls.nickname.hasError('maxlength')">
+      {{'nicknameMaxLength' | ml}}
+    </mat-error>
+    <mat-error *ngIf="signUpControls.nickname.hasError('pattern')">
+      {{'nicknamePattern' | ml}}
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -40,6 +49,9 @@
     <input matInput type="password" formControlName="password">
     <mat-error *ngIf="signUpControls.password.hasError('required')">
       {{'passwordRequired' | ml}}
+    </mat-error>
+    <mat-error *ngIf="signUpControls.password.hasError('pattern')">
+      {{'passwordPattern' | ml}}
     </mat-error>
   </mat-form-field>
   <button mat-raised-button color="primary" [disabled]="!signUp.valid">{{'signup' | ml}}</button>

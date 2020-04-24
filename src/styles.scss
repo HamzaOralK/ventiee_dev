@@ -12,6 +12,7 @@ html, body {
   margin-top: 0;
   margin-left: 0;
   margin-right: 0;
+  margin-bottom: 0;
 }
 
 * {
@@ -84,6 +85,10 @@ footer {
   color: mat-color($app-warn, 500) !important;
 }
 
+.mat-form-field-subscript-wrapper {
+  position: inherit !important;
+}
+
 .mat-accordion .mat-expansion-panel {
   margin: 5px;
 }
@@ -95,7 +100,7 @@ footer {
 .warning {
   background-color: mat-color($app-warn, 300) !important;
   span {
-    color: mat-color($app-font, 50) !important;
+    color: white !important;
   }
 }
 
@@ -107,4 +112,16 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.mat-form-field-flex {
+  background-color: white !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  box-shadow: 0 0 0 30px white inset !important;
 }

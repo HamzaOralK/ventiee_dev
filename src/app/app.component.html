@@ -1,9 +1,11 @@
-<div class="app scroll">
-  <top-navigation></top-navigation>
-  <div class="mainContainer">
-      <left-navigation *ngIf="user"></left-navigation>
-      <main-page id="main" class="main-page"></main-page>
-      <!-- <room-navigation style="height: 100%;" *ngIf="(auth | async).user"></room-navigation> -->
+<div>
+  <div class="app scroll">
+    <top-navigation></top-navigation>
+    <div [ngClass]="user ? 'mainContainerSystem' : 'mainContainerLanding'">
+        <left-navigation *ngIf="user"></left-navigation>
+        <main-page id="main" class="main-page"></main-page>
+        <!-- <room-navigation style="height: 100%;" *ngIf="(auth | async).user"></room-navigation> -->
+    </div>
   </div>
+  <vfooter *ngIf="!user"></vfooter>
 </div>
-<vfooter *ngIf="!user"></vfooter>

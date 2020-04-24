@@ -11,12 +11,20 @@
   overflow-y: auto;
 }
 
-.mainContainer {
-  display: flex;
-  min-height: 100vh;
+.mainContainerSystem {
+  display: inline-block;
+  // min-height: calc(100vh - 70px);
+  height: calc(100vh - 60px);
 }
+
+.mainContainerLanding {
+  display: inline-block;
+  height: auto;
+}
+
 .main-page {
-  width: 100%
+  width: 100%;
+  height: calc(100vh - 56px);
 }
 
 left-navigation {

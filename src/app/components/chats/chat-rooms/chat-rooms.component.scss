@@ -1,6 +1,6 @@
 .room {
     height: 80px;
-    padding: 3px;
+    padding: 10px;
     overflow: hidden;
     box-shadow: unset;
     border-bottom: 1px rgba(0, 0, 0, 0.14) solid;
@@ -9,6 +9,14 @@
 
 mat-card-subtitle {
     margin: 0;
+}
+
+.mat-card-header-text {
+  margin: 0 5px;
+}
+
+.mat-card-title {
+  margin: 10;
 }
 
 .image {

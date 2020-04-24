@@ -1,4 +1,4 @@
-<form [formGroup]="login" class="loginForm" (submit)="onSubmit()">
+<form [formGroup]="login" class="loginForm" (submit)="onSubmit()" autocomplete="off">
 
   <mat-form-field class="full-width" appearance="outline">
     <mat-label>E-Mail</mat-label>
@@ -22,6 +22,6 @@
     <p *ngIf="error === 'LoginError'">Kullanıcı adı veya şifre yanlış.</p>
     <p *ngIf="error === 'NotVerified'">Kullanıcı onaylanmamış.</p>
   </div>
-  <button mat-raised-button color="primary">{{'login' | ml}}</button>
+  <button mat-raised-button color="primary" [disabled]="!login.valid">{{'login' | ml}}</button>
 
 </form>
