@@ -6,25 +6,37 @@
     <mat-icon *ngIf="user" class="icon" aria-hidden="false" routerLink="/home" (click)="getEvents()">
       home
     </mat-icon>
-
-    <span>{{user?.name}}</span>
     <span class="spacer"></span>
     <ng-container *ngIf="user; else noUser" >
       <button mat-button routerLink="/eventCalendar">
         <mat-icon>calendar_today</mat-icon>
       </button>
-      <button mat-button routerLink="/userSettings/{{user._id}}">
-        <mat-icon>settings</mat-icon>
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" style="width:32px; height: 32px; border-radius: 16px;">
+        {{user?.name}}
       </button>
-      <button mat-button (click)="logOut()">
-        <mat-icon>exit_to_app</mat-icon>
-      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/profile', user._id]">
+          <mat-icon>face</mat-icon>
+          <span>{{ 'myProfile' | ml }}</span>
+        </button>
+        <button mat-menu-item routerLink="/userSettings/{{user._id}}">
+          <mat-icon>settings</mat-icon>
+          <span>{{'settings' | ml}}</span>
+        </button>
+        <button mat-menu-item (click)="logOut()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>{{'logout' | ml}}</span>
+        </button>
+      </mat-menu>
+
     </ng-container>
     <ng-template #noUser>
-      <button mat-stroked-button routerLink="/login">
+      <button class="action" mat-stroked-button routerLink="/login">
         {{'login' | ml}}
       </button>
-      <button mat-stroked-button routerLink="/signup">
+      <button class="action" mat-stroked-button routerLink="/signup">
         {{'signup' | ml}}
       </button>
     </ng-template>

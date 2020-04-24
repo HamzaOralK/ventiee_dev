@@ -9,8 +9,9 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+  <!-- {{page}} -->
 
-  <div class="events scroll" *ngIf="(appWise | async).events.length > 0">
+  <div class="events scroll" #eventScroll>
     <!-- <mat-accordion>
       <event-line *ngFor="let event of (appWise | async).events" [event]="event"></event-line>
     </mat-accordion> -->

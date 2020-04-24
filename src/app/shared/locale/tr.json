@@ -85,6 +85,10 @@
     {"key": "moreInfo", "value": "Ek bilgiler"},
     {"key": "descMax", "value": "Açıklama karakter limitini geçtiniz."},
     {"key": "userComments", "value": "Kullanıcı Yorumları"},
-    {"key": "addTag", "value": "Tag Ekle..."}
+    {"key": "addTag", "value": "Tag Ekle..."},
+    {"key": "logout", "value": "Çıkış"},
+    {"key": "myProfile", "value": "Profilim"},
+    {"key": "settings", "value": "Ayarlar"}
+
 
 ]

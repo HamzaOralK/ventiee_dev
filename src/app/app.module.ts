@@ -52,6 +52,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 /** Reducers */
@@ -139,6 +140,7 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
     MatSelectModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatMenuModule,
     /** Additional */
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
     EventCalendarModule,
