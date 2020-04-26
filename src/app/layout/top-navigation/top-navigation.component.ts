@@ -28,7 +28,6 @@ export class TopNavigationComponent implements OnInit {
   ngOnInit() {
     this.store.select('authState').subscribe(p => {
       this.user = p.user;
-      console.log(this.user);
     });
     this.store.select('roomState').subscribe(p => {
       this.unreadMessages = p.unreadMessages;

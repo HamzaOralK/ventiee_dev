@@ -115,14 +115,32 @@ export class RoomService implements OnDestroy {
   getRooms() {
     let url = CONFIG.serviceURL + "/jUser/getEvents/" + this.authService.user._id;
     this.http.get<any>(url).subscribe(res => {
-        let rooms = res as Room[]
-        for(let i = 0; i < rooms.length; i++) {
-            if (!rooms[i].messages) rooms[i].messages = [];
-        }
-        this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
+      let rooms = res as Room[];
+      for(let i = 0; i < rooms.length; i++) {
+        this.loadMessages(rooms[i]._id).toPromise().then((p: any[]) => {
+          /** Loads and formats messages */
+          p = p.map(e => this.formatLoadedMessages(e));
+          console.log(p);
+          rooms[i].messages = p as MMessage[];
+        });
+        //if (!rooms[i].messages) rooms[i].messages = [];
+      }
+      this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
     }, error => {
       this.authService.logoutUser();
     });
+  }
+
+  formatLoadedMessages(p: {_id: string, eventId: string, messageDate: string, text: string, userId: string, userName: string}) {
+    let m = new MMessage();
+    m._id = p._id;
+    m.eventId = p.eventId;
+    m.date = new Date(p.messageDate);
+    m.message = p.text;
+    m.user = new User();
+    m.user._id = p.userId;
+    m.user.nickname = p.userName;
+    return m;
   }
 
   getRoomUsers(room: Room) {
@@ -130,5 +148,10 @@ export class RoomService implements OnDestroy {
     this.http.get<User[]>(url).subscribe(p => {
       this.roomStore.dispatch(new RoomAction.SetRoomUsers({room: room, users: p}))
     });
+  }
+
+  loadMessages(roomId: string) {
+    let url = CONFIG.serviceURL + "/messages/" + roomId;
+    return this.http.get(url)
   }
 }

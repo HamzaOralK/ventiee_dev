@@ -22,8 +22,6 @@ export class SignUpFormComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)])
   })
 
-
-
   constructor(
     private authService: AuthService,
     private router: Router

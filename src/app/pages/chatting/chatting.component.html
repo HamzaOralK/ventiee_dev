@@ -13,8 +13,8 @@
       *ngFor="let message of activeRoom.messages; let i = index;">
       <div style="max-width: 65%; overflow: hidden;">
         <span
-          *ngIf="i > 0 && activeRoom.messages[i-1].user.email !== message.user.email && !isOwn(message)">{{message.user.name}}</span>
-        <span *ngIf="i === 0 && !isOwn(message)">{{message.user.name}}</span>
+          *ngIf="i > 0 && activeRoom.messages[i-1].user._id !== message.user._id && !isOwn(message)">{{message.user.nickname}}</span>
+        <span *ngIf="i === 0 && !isOwn(message)">{{message.user.nickname}}</span>
         <div class="message">
           <span class="messageText">{{message.message}}</span>
         </div>

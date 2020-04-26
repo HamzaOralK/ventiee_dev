@@ -12,7 +12,7 @@
         <mat-icon>calendar_today</mat-icon>
       </button>
 
-      <button mat-button [matMenuTriggerFor]="menu">
+      <button class="action" mat-stroked-button [matMenuTriggerFor]="menu">
         <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" style="width:32px; height: 32px; border-radius: 16px;">
         {{user?.name}}
       </button>
@@ -36,9 +36,7 @@
       <button class="action" mat-stroked-button routerLink="/login">
         {{'login' | ml}}
       </button>
-      <button class="action" mat-stroked-button routerLink="/signup">
-        {{'signup' | ml}}
-      </button>
+      <!-- <button class="action" mat-stroked-button routerLink="/signup">{{'signup' | ml}}</button> -->
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>

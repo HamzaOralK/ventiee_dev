@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges, OnDestroy, AfterViewInit } from '@angular/core';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import { Observable } from 'rxjs/internal/Observable';
@@ -29,6 +29,7 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
   subscription: Subscription;
 
   scroll: Boolean = true;
+  firstInit: Boolean = true;
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messages') messages: ElementRef;
@@ -48,10 +49,16 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.activatedRoute.paramMap.subscribe(p => {
       this.roomService.changeRoom(p.get('id'));
       this.activeRoom = this.roomService.activeRoom;
+      if (!this.activeRoom) this.router.navigate(['/home']);
+      this.firstInit = true;
     });
+
+    /*
     if (this.activeRoom === undefined) {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/home']);
     }
+    */
+
     let msgSubscription = this.roomService.msg.subscribe(p => {
       this.scroll = true;
     });
@@ -60,8 +67,11 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngAfterViewChecked() {
     if(this.scroll){
-      this.scrollToBottom();
-      this.scroll = false;
+      this.scrollToBottomCheck();
+      if(this.messages && this.firstInit) {
+        this.scrollToBottom();
+        this.firstInit = false;
+      }
     }
   }
 
@@ -88,10 +98,14 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
     (event.target as HTMLInputElement).value = '';
   }
 
-  scrollToBottom() {
-    if ((this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
-      this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
+  scrollToBottomCheck() {
+    if (this.messages && (this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
+      this.scrollToBottom();
     }
+  }
+
+  scrollToBottom() {
+    if(this.messages) this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
   }
 
   submit(event) {
@@ -99,7 +113,7 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   isOwn(message: MMessage) {
-    return message.user.email === this.user.email;
+    return message.user._id === this.user._id;
   }
 
   textareaFocus() {
