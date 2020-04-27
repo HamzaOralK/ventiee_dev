@@ -29,7 +29,6 @@ export class EventService {
     constructor(
       private http: HttpClient,
       private store: Store<fromApp.AppState>,
-      private roomStore: Store<fromRoom.State>,
       private authService: AuthService,
       private langService: LangService,
       private notificationService: NotificationService,

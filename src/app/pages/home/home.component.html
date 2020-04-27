@@ -1,14 +1,19 @@
 <ng-container *ngIf="user">
-  <mat-form-field appearance="fill" class="searchBox">
-    <mat-label>{{'searchforanevent' | ml}}</mat-label>
-    <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
-    <button mat-icon-button matPrefix (click)="createEvent()">
+  <div class="addEvent">
+    <button class="add" mat-raised-button color="accent" (click)="createEvent()">
       <mat-icon>add</mat-icon>
+      {{'addEvent' | ml}}
     </button>
-    <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
+
+    <mat-form-field appearance="outline" class="searchBox">
+      <mat-label>{{'searchforanevent' | ml}}</mat-label>
+      <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
+      <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
   <!-- {{page}} -->
 
   <div class="events scroll" #eventScroll>

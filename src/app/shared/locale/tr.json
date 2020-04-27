@@ -4,6 +4,7 @@
     {"key": "signup", "value": "Kayıt Ol"},
     {"key": "signUpSuccess", "value": "Başarı ile kayıt olundu."},
     {"key": "signUpError", "value": "Kayıt olurken bir hata oldu sanırım."},
+    {"key": "addEvent", "value": "Yeni!"},
     {"key": "searchforanevent", "value": "Bir Event arayın!"},
     {"key": "noEventError", "value": "Aradığınız Event bulunamadı. İsterseniz yaratın."},
     {"key": "createEvent", "value": "Event Yarat!"},

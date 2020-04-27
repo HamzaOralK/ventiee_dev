@@ -1,8 +1,22 @@
+.addEvent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .add {
+    margin-right: 5px
+  }
+}
+
 .searchBox {
   width: 100%;
-  margin-top: 10px;
 }
+
 .events {
   height: calc(100% - 170px);
   overflow-y: auto;
 }
+mat-form-field {
+  margin-bottom: -1.25em
+}
+
