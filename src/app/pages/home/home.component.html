@@ -15,15 +15,17 @@
     <!-- <mat-accordion>
       <event-line *ngFor="let event of (appWise | async).events" [event]="event"></event-line>
     </mat-accordion> -->
-    <events [events]="(appWise | async).events"> </events>
+    <events *ngIf="(appWise | async).events" [events]="(appWise | async).events"> </events>
+
+    <mat-card *ngIf="(appWise | async).events.length === 0">
+      {{'noEventError' | ml}}
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="createEvent()">{{'createEvent' | ml}}</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 
-  <mat-card *ngIf="(appWise | async).events.length === 0">
-    {{'noEventError' | ml}}
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="createEvent()">{{'createEvent' | ml}}</button>
-    </mat-card-actions>
-  </mat-card>
+
 </ng-container>
 <ng-container *ngIf="!user">
   <landing></landing>

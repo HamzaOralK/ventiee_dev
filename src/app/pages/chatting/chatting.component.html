@@ -8,15 +8,17 @@
     </button>
   </div>
 
-  <div #messages class="messages scroll" *ngIf="activeRoom">
-    <div class="all" [ngClass]="isOwn(message) ? 'own' : 'other' "
-      *ngFor="let message of activeRoom.messages; let i = index;">
-      <div style="max-width: 65%; overflow: hidden;">
-        <span
-          *ngIf="i > 0 && activeRoom.messages[i-1].user._id !== message.user._id && !isOwn(message)">{{message.user.nickname}}</span>
-        <span *ngIf="i === 0 && !isOwn(message)">{{message.user.nickname}}</span>
-        <div class="message">
-          <span class="messageText">{{message.message}}</span>
+  <div #messages class="messages scroll">
+    <div class="inner" *ngIf="activeRoom">
+      <div class="all" [ngClass]="isOwn(message) ? 'own' : 'other' "
+        *ngFor="let message of activeRoom.messages; let i = index;">
+        <div style="max-width: 65%; overflow: hidden;">
+          <span
+            *ngIf="i > 0 && activeRoom.messages[i-1].user._id !== message.user._id && !isOwn(message)">{{message.user.nickname}}</span>
+          <span *ngIf="i === 0 && !isOwn(message)">{{message.user.nickname}}</span>
+          <div class="message">
+            <span class="messageText">{{message.message}}</span>
+          </div>
         </div>
       </div>
     </div>

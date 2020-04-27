@@ -37,6 +37,13 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         rooms: [...state.rooms],
         unreadMessages:  unreadMessages
       }
+    case RoomActions.LOAD_MESSAGES:
+      roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
+      state.rooms[roomIndex].messages = action.payload.messages;
+      return {
+        ...state,
+        rooms: [...state.rooms]
+      }
     case RoomActions.GET_ROOMS:
       return {
         ...state,
@@ -60,10 +67,11 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         rooms: [...state.rooms, {...room, users: room.users.filter( p => p._id !== action.payload.user._id )}]
       }
     case RoomActions.CHANGE_ACTIVE_ROOM:
-      room = state.rooms.find(p => p._id === action.payload.roomId);
+      //room = state.rooms.find(p => p._id === action.payload.roomId);
+      roomIndex = state.rooms.findIndex(p => p._id === action.payload.roomId);
       return {
         ...state,
-        activeRoom: room
+        activeRoom: state.rooms[roomIndex]
       }
     case RoomActions.SET_ROOM_USERS:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);

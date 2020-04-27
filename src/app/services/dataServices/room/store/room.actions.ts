@@ -5,6 +5,7 @@ import { User } from 'src/app/dtos/user';
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_MESSAGE = 'GET_MESSAGE';
+export const LOAD_MESSAGES = 'LOAD_MESSAGES';
 export const JOIN_ROOM = 'JOIN_ROOM';
 export const GET_ROOMS = 'GET_ROOMS';
 export const QUIT_ROOM = 'QUIT_ROOM';
@@ -21,6 +22,11 @@ export class SendMessage implements Action {
 export class GetMessage implements Action {
   readonly type = GET_MESSAGE;
   constructor(public payload: { room: Room, messages?: MMessage }) { }
+}
+
+export class LoadMessages implements Action {
+  readonly type = LOAD_MESSAGES;
+  constructor(public payload: { room: Room, messages?: MMessage[] }) { }
 }
 
 export class GetRooms implements Action {
@@ -53,4 +59,4 @@ export class SetRoomUsers implements Action {
   constructor(public payload: { room: Room, users: User[] }) { }
 }
 
-export type RoomActions = SendMessage | GetMessage | GetRooms | JoinRoom | QuitRoom | KickUser | ChangeActiveRoom | SetRoomUsers;
+export type RoomActions = SendMessage | GetMessage | LoadMessages | GetRooms | JoinRoom | QuitRoom | KickUser | ChangeActiveRoom | SetRoomUsers;

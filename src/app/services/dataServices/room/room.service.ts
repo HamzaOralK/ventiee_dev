@@ -92,6 +92,9 @@ export class RoomService implements OnDestroy {
 
   changeRoom(roomId: string) {
     this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({roomId}));
+    let room = this.rooms.find(r => r._id === roomId);
+    if(!room.messages)
+      this.loadMessages(room);
   }
 
   joinRoom(room: Room) {
@@ -103,9 +106,7 @@ export class RoomService implements OnDestroy {
       joinDate: new Date()
     }
 
-    this.http.post<any>(url, postObj)
-    .subscribe(res => {
-        console.log(res);
+    this.http.post<any>(url, postObj).subscribe(res => {
         this.roomStore.dispatch(new RoomAction.JoinRoom({ room }));
         this.router.navigate(['/room/' + room._id]);
     }, e => console.log(e) );
@@ -116,15 +117,6 @@ export class RoomService implements OnDestroy {
     let url = CONFIG.serviceURL + "/jUser/getEvents/" + this.authService.user._id;
     this.http.get<any>(url).subscribe(res => {
       let rooms = res as Room[];
-      for(let i = 0; i < rooms.length; i++) {
-        this.loadMessages(rooms[i]._id).toPromise().then((p: any[]) => {
-          /** Loads and formats messages */
-          p = p.map(e => this.formatLoadedMessages(e));
-          console.log(p);
-          rooms[i].messages = p as MMessage[];
-        });
-        //if (!rooms[i].messages) rooms[i].messages = [];
-      }
       this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
     }, error => {
       this.authService.logoutUser();
@@ -150,8 +142,12 @@ export class RoomService implements OnDestroy {
     });
   }
 
-  loadMessages(roomId: string) {
-    let url = CONFIG.serviceURL + "/messages/" + roomId;
-    return this.http.get(url)
+  loadMessages(room: Room) {
+    let url = CONFIG.serviceURL + "/messages/" + room._id;
+    return this.http.get(url).subscribe((p: any[]) => {
+      console.log(p);
+      p = p.map(e => this.formatLoadedMessages(e));
+      this.roomStore.dispatch(new RoomAction.LoadMessages({room: room, messages: p}))
+    });
   }
 }

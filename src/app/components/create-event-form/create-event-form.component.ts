@@ -74,7 +74,6 @@ export class CreateEventFormComponent implements OnInit {
     private eventService: EventService,
     private notificationService: NotificationService,
     private langService: LangService,
-    private router: Router,
     private authService: AuthService
   ) {
     this.filteredTags = this.generalDescription.controls["tags"].valueChanges.pipe(
@@ -90,6 +89,7 @@ export class CreateEventFormComponent implements OnInit {
     let newEvent = new Event();
     newEvent.title = this.generalDescription.value.title;
     newEvent.moderatorUserId = this.authService.user._id;
+    newEvent.userName = this.authService.user.nickname;
     newEvent.peopleCount = this.generalDescription.value.peopleCount;
     let formStartDate: Date = new Date(this.timeInformation.value.startDate);
     let formStartTime: string = this.timeInformation.value.startTime;
@@ -126,16 +126,7 @@ export class CreateEventFormComponent implements OnInit {
     ) {
       this.notificationService.notify(this.langService.get("timeError"), "OK");
     } else {
-      this.eventService.addEvent(newEvent).subscribe(p => {
-        if (p.msg === "Event successfully saved") {
-          this.notificationService.notify(
-            this.langService.get("eventCreateSuccess"),
-            "OK"
-          );
-          /** TODO: /event/add olduktan sonra idsinin dönmesi ve adamın eventlerine eklenmesi */
-          this.router.navigate(["/event/5e484a779be75f28e860bdef"]);
-        }
-      });
+      this.eventService.addEvent(newEvent);
     }
   }
 

@@ -68,7 +68,7 @@ export class AuthService {
           this.router.navigate(['/resend', user.email]);
           return of('NotVerified');
         }
-        this.notificationService.notify(this.langService.get('loginError'), 'OK');
+        //this.notificationService.notify(this.langService.get('loginError'), 'OK');
         return of('LoginError');
       })
     );

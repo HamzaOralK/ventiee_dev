@@ -51,21 +51,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    (this.eventScroll.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
-      let scrollHeight = (this.eventScroll.nativeElement as HTMLLIElement).scrollHeight;
-      let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
-      let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
-      if (scrollHeight - (scrollTop + offsetHeight) < 1 ) {
-        this.page++;
-        /** TODO: Get more events. */
-      }
-      /*
-      this.eventService.getEvents()
-      console.log((this.eventScroll.nativeElement as HTMLLIElement).scrollHeight);
-      console.log((this.eventScroll.nativeElement as HTMLLIElement).scrollTop);
-      console.log((this.eventScroll.nativeElement as HTMLLIElement).offsetHeight);
-      */
-    });
+    if(this.eventScroll) {
+      (this.eventScroll.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
+        let scrollHeight = (this.eventScroll.nativeElement as HTMLLIElement).scrollHeight;
+        let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
+        let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
+        if (scrollHeight - (scrollTop + offsetHeight) < 1 ) {
+          this.page++;
+          /** TODO: Get more events. */
+        }
+        /*
+        this.eventService.getEvents()
+        console.log((this.eventScroll.nativeElement as HTMLLIElement).scrollHeight);
+        console.log((this.eventScroll.nativeElement as HTMLLIElement).scrollTop);
+        console.log((this.eventScroll.nativeElement as HTMLLIElement).offsetHeight);
+        */
+      });
+    }
   }
 
   ngOnDestroy() {

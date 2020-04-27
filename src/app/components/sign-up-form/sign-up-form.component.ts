@@ -11,15 +11,13 @@ import { Router } from '@angular/router';
 })
 export class SignUpFormComponent implements OnInit {
   unamePattern = "^[a-zA-Z]{1,}[a-zA-Z0-9_]+[0-9]*$";
-  // 1 büyükharf, 1 küçükharf, 1 sayı, minimum 8 karakter
-  passwordPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$';
 
   signUp = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     surname: new FormControl('', [Validators.required, Validators.minLength(2)]),
     nickname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern(this.unamePattern)]),
-    password: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)])
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
   })
 
   constructor(

@@ -8,11 +8,15 @@ import * as fromApp from '../../../store/app.reducer';
 import * as AppActitons from '../../../store/app.actions';
 import * as fromAuth from '../../auth/store/auth.reducer';
 import * as fromRoom from '../../../services/dataServices/room/store/room.reducer';
+import * as RoomActions from '../../../services/dataServices/room/store/room.actions';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
 import { Room } from 'src/app/dtos/room';
 import { Subscription } from 'rxjs';
+import { LangService } from '../../lang/lang.service';
+import { NotificationService } from '../../notification/notification.service';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 
@@ -25,7 +29,11 @@ export class EventService {
     constructor(
       private http: HttpClient,
       private store: Store<fromApp.AppState>,
-      private authService: AuthService
+      private roomStore: Store<fromRoom.State>,
+      private authService: AuthService,
+      private langService: LangService,
+      private notificationService: NotificationService,
+      private router: Router
     ) {
       this.auth = this.store.select('authState');
       this.roomState = this.store.select('roomState');
@@ -33,7 +41,7 @@ export class EventService {
       this.roomState.subscribe(p =>  {
         this.joinedRooms = p.rooms;
         this.auth.subscribe(p => {
-          if (p.token && p.user && this.joinedRooms.length > 0) {
+          if (p.token && p.user) {
             this.getEvents();
           }
         });
@@ -70,7 +78,13 @@ export class EventService {
     }
 
     addEvent(event: Event) {
-      return this.http.post<any>(CONFIG.serviceURL + "/event/add", event);
+      return this.http.post<any>(CONFIG.serviceURL + "/event/add", event).subscribe(p => {
+        if (p._id) {
+          this.store.dispatch(new RoomActions.JoinRoom({room: event as Room}));
+          this.notificationService.notify(this.langService.get("eventCreateSuccess"), "OK");
+          this.router.navigate(["/room/" + p._id]);
+        }
+      });
     }
 
 }

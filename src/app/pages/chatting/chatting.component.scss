@@ -17,6 +17,10 @@
   max-height: calc(100% - 190px);
   overflow-y: auto;
   position: absolute;
+  .inner {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .own, .all {

@@ -11,7 +11,8 @@ export class NotificationService {
     if(!action) action = "OK";
     this._snackBar.open(message, action, {
       duration: 4000,
-      verticalPosition: 'top'
+      verticalPosition: 'top',
+      panelClass: ['ventiee-snackbar']
     });
   }
 }
