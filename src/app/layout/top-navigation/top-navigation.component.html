@@ -14,7 +14,7 @@
 
       <button class="action" mat-stroked-button [matMenuTriggerFor]="menu">
         <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" style="width:32px; height: 32px; border-radius: 16px;">
-        {{user?.name}}
+        {{user?.nickname}}
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item [routerLink]="['/profile', user._id]">

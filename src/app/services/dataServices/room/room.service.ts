@@ -13,6 +13,9 @@ import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
+import { NotificationService } from '../../notification/notification.service';
+import { LangService } from '../../lang/lang.service';
+import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +39,9 @@ export class RoomService implements OnDestroy {
     private store: Store<fromApp.AppState>,
     private roomStore: Store<fromRoom.State>,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService,
+    private mlPipe: MultiLanguagePipe
   ) {
     this.msg = new Subject();
     this.subscription = new Subscription();
@@ -142,10 +147,20 @@ export class RoomService implements OnDestroy {
     });
   }
 
+  kickUser(eventId: string, userId: string) {
+    let url = CONFIG.serviceURL + "/jUser/kick";
+    let sendObj = {eventId, userId}
+    this.http.post(url, sendObj).subscribe(p => {
+      let room = this.rooms.find(p => p._id === eventId);
+      let users = this.rooms.find(p => p._id === eventId).users.filter(u => u._id !== userId);
+      this.roomStore.dispatch(new RoomAction.KickUser({room, userId}))
+      this.notificationService.notify(this.mlPipe.transform('userKicked'));
+    });
+  }
+
   loadMessages(room: Room) {
     let url = CONFIG.serviceURL + "/messages/" + room._id;
     return this.http.get(url).subscribe((p: any[]) => {
-      console.log(p);
       p = p.map(e => this.formatLoadedMessages(e));
       this.roomStore.dispatch(new RoomAction.LoadMessages({room: room, messages: p}))
     });

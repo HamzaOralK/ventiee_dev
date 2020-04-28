@@ -90,7 +90,6 @@
     {"key": "addTag", "value": "Tag Ekle..."},
     {"key": "logout", "value": "Çıkış"},
     {"key": "myProfile", "value": "Profilim"},
-    {"key": "settings", "value": "Ayarlar"}
-
-
+    {"key": "settings", "value": "Ayarlar"},
+    {"key": "userKicked", "value": "Kullanıcı atıldı!"}
 ]

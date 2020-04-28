@@ -10,6 +10,7 @@ import { MultiLanguagePipe } from './multi-language.pipe';
   ],
   exports: [
     MultiLanguagePipe
-  ]
+  ],
+  providers: [MultiLanguagePipe],
 })
 export class PipesModule { }

@@ -46,7 +46,7 @@ export class QuitRoom implements Action {
 
 export class KickUser implements Action {
   readonly type = KICK_USER;
-  constructor(public payload: { room: Room, user?: User }) { }
+  constructor(public payload: { room: Room, userId?: string }) { }
 }
 
 export class ChangeActiveRoom implements Action {
