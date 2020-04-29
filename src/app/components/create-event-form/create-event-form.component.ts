@@ -105,25 +105,28 @@ export class CreateEventFormComponent implements OnInit {
       formStartMin
     );
     newEvent.startDate = startDate;
-    let formEndDate: Date = new Date(this.timeInformation.value.endDate);
-    let formEndTime: string = this.timeInformation.value.endTime;
-    let formEndHour: number = parseInt(formEndTime.split(":")[0]);
-    let formEndMin: number = parseInt(formEndTime.split(":")[1]);
-    let endDate: Date = new Date(
-      formEndDate.getFullYear(),
-      formEndDate.getMonth(),
-      formEndDate.getDate(),
-      formEndHour,
-      formEndMin
-    );
-    newEvent.endDate = endDate;
+    let formEndDate: Date;
+    let formEndTime: string;
+    let formEndHour: number = 0;
+    let formEndMin: number = 0;
+    if(this.timeInformation.value.endDate) formEndDate = new Date(this.timeInformation.value.endDate);
+    if (this.timeInformation.value.endTime) {
+      formEndTime = this.timeInformation.value.endTime;
+      formEndHour = parseInt(formEndTime.split(":")[0]);
+      formEndMin = parseInt(formEndTime.split(":")[1]);
+    }
+    let endDate: Date;
+    if(formEndDate) {
+      endDate = new Date(formEndDate.getFullYear(), formEndDate.getMonth(), formEndDate.getDate(), formEndHour, formEndMin);
+      newEvent.endDate = endDate;
+    }
     newEvent.venue = this.placeInformation.value.venue;
     newEvent.city = this.placeInformation.value.location.city;
     newEvent.district = this.placeInformation.value.location.district;
     newEvent.latitute = this.placeInformation.value.location.latitute;
     newEvent.longtitute = this.placeInformation.value.location.longtitute;
     if (
-      newEvent.startDate > newEvent.endDate ||
+      (newEvent.endDate && newEvent.startDate > newEvent.endDate) ||
       newEvent.startDate < new Date()
     ) {
       this.notificationService.notify(this.langService.get("timeError"), "OK");
@@ -155,6 +158,10 @@ export class CreateEventFormComponent implements OnInit {
     reader.onload = (_event) => {
       this.imgURL = reader.result;
     }
+  }
+
+  getTitle() {
+    return this.generalDescription.get("title").value;
   }
 
   /** Tag Chips */

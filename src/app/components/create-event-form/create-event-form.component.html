@@ -3,12 +3,16 @@
     <img [src]="imgURL">
     <button mat-raised-button class="button" (click)="uploadImg(fileInput)">Resim Yükle</button>
   </div>
+  <div>
+    <h1 *ngIf="getTitle()">{{ getTitle() }}</h1>
+    <h1 *ngIf="!getTitle()">{{ 'newEvent' | ml }}</h1>
+  </div>
 </div>
 <input #fileInput type="file" accept='image/*' (change)="preview(fileInput.files)" style="display: none;" />
 <div class="stepper">
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="generalDescription">
-      <form [formGroup]="generalDescription">
+      <form [formGroup]="generalDescription" autocomplete="off">
         <ng-template matStepLabel>{{'event' | ml }}</ng-template>
         <mat-form-field appearance="outline">
           <mat-label>{{'title'| ml}}</mat-label>
@@ -65,7 +69,7 @@
         <div class="space"></div>
         <mat-form-field appearance="outline">
           <mat-label>{{'startDate' | ml}}</mat-label>
-          <input matInput [matDatepicker]="startDate" formControlName="startDate" required>
+          <input matInput [matDatepicker]="startDate" formControlName="startDate" required (click)="startDate.open()">
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
@@ -73,13 +77,13 @@
         <mat-form-field appearance="outline">
           <mat-label>{{'endTime' | ml}}</mat-label>
           <!-- <input matInput type="time"  placeholder="HH:mm"> -->
-          <input matInput formControlName="endTime" [ngxTimepicker]="endTime" [format]="24" readonly required>
+          <input matInput formControlName="endTime" [ngxTimepicker]="endTime" [format]="24" readonly>
           <ngx-material-timepicker #endTime></ngx-material-timepicker>
         </mat-form-field>
         <div class="space"></div>
         <mat-form-field appearance="outline">
           <mat-label>{{'endDate' | ml}}</mat-label>
-          <input matInput [matDatepicker]="endDate" formControlName="endDate" required>
+          <input matInput [matDatepicker]="endDate" formControlName="endDate" (click)="endDate.open()">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate></mat-datepicker>
         </mat-form-field>

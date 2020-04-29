@@ -1,13 +1,17 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarDateFormatter, DAYS_OF_WEEK } from 'angular-calendar';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { CustomDateFormatter } from '../custom-date-formatter.provider';
 import { Event } from 'src/app/dtos/event';
 import { MatDialog } from '@angular/material/dialog';
-import { EventCalendarInfoComponent } from '../event-calendar-info/event-calendar-info.component';
 import { EventInfoComponent } from 'src/app/pages/event-info/event-info.component';
+import * as fromRoom from '../../../services/dataServices/room/store/room.reducer';
+import * as fromAuth from '../../../services/auth/store/auth.reducer';
+import * as fromApp from "../../../store/app.reducer";
+import { Store } from '@ngrx/store';
+
 
 const colors: any = {
   red: {
@@ -80,23 +84,37 @@ export class EventCalendarComponent implements OnInit {
   events: CalendarEvent[] = [];
   activeDayIsOpen: boolean = false;
 
-  constructor(private roomService: RoomService, public dialog: MatDialog) { }
+  roomState: Observable<fromRoom.State>;
+
+  constructor(
+    private roomService: RoomService,
+    private store: Store<fromApp.AppState>,
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.events = [];
-    this.transformRooms();
+    this.roomState = this.store.select("roomState");
+    this.roomState.subscribe(p => {
+      if(p.rooms.length > 0) {
+        this.transformRooms();
+        this.cdr.detectChanges();
+      }
+    })
   }
 
   transformRooms() {
     this.roomService.rooms.forEach(p => {
       let ev: CustomCalendarEvent = {
         start: new Date(p.startDate),
-        end: new Date(p.endDate),
+        end: p.endDate ? new Date(p.endDate) : undefined,
         title: p.title,
         eventInformation: p
       };
       this.events.push(ev);
     });
+    this.refresh.next(true);
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -128,7 +146,6 @@ export class EventCalendarComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CustomCalendarEvent): void {
-    console.log({ event, action });
     this.modalData = { event, action };
     if (action === 'Clicked') {
       this.openDialog(this.modalData);

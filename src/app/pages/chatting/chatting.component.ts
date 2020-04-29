@@ -69,7 +69,6 @@ export class ChattingComponent implements OnInit, OnDestroy {
     });
     this.subscription.add(stateSub);
 
-
     let msgSubscription = this.roomService.msg.subscribe(p => { });
     this.subscription.add(msgSubscription);
   }

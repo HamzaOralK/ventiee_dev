@@ -36,7 +36,6 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
     this.roomState.subscribe(p => {
       if(p.activeRoom && p.activeRoom.users) this.users = p.activeRoom.users;
     });
-    console.log(this.data);
   }
 
   onNoClick(): void {

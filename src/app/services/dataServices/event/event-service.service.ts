@@ -79,7 +79,8 @@ export class EventService {
     addEvent(event: Event) {
       return this.http.post<any>(CONFIG.serviceURL + "/event/add", event).subscribe(p => {
         if (p._id) {
-          this.store.dispatch(new RoomActions.JoinRoom({room: event as Room}));
+          let room = { ...event, _id: p._id };
+          this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room}));
           this.notificationService.notify(this.langService.get("eventCreateSuccess"), "OK");
           this.router.navigate(["/room/" + p._id]);
         }

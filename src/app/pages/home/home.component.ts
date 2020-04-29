@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('eventScroll') eventScroll: ElementRef;
 
   constructor(
-    private eventService: EventService,
     private store: Store<fromApp.AppState>,
     private router: Router
   ) {
@@ -84,8 +83,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   createEvent() {
-    let id = COMMONS.generateUUID();
     this.store.dispatch(new AppAction.ToggleLeftNav(false));
-    this.router.navigate(["/createEvent/" + id]);
+    this.router.navigate(["/createEvent"]);
   }
 }

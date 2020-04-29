@@ -46,7 +46,10 @@
         <h2>{{'moreInfo' | ml}}</h2>
         <mat-list role="list">
           <mat-list-item role="listitem"> <b>{{ 'startTime' | ml}}:</b>&nbsp; {{ event.startDate | date:'HH:mm' }} </mat-list-item>
-          <mat-list-item role="listitem"> <b>{{ 'endDate' | ml}}: </b>&nbsp; {{ event.endDate | date:'dd/MM/yyyy HH:mm' }} </mat-list-item>
+          <mat-list-item role="listitem" *ngIf="event.endDate">
+            <b>{{ 'endDate' | ml}}: </b>&nbsp;
+            {{ event.endDate | date:'dd/MM/yyyy HH:mm' }}
+          </mat-list-item>
           <mat-list-item role="listitem"> <b>{{ 'city' | ml}}: </b>&nbsp; {{  event.city }} </mat-list-item>
           <mat-list-item role="listitem"> <b>{{ 'district' | ml}}: </b>&nbsp; {{  event.district }} </mat-list-item>
           <mat-list-item role="listitem"> <b>{{ 'venue' | ml}}: </b>&nbsp; {{  event.venue }} </mat-list-item>

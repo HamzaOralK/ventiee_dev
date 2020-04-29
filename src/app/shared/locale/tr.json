@@ -94,5 +94,6 @@
     {"key": "userKicked", "value": "Kullanıcı atıldı!"},
     {"key": "invited", "value": "Davetliler"},
     {"key": "waiting", "value": "Kabul bekleyenler"},
-    {"key": "inroom", "value": "Odadakiler"}
+    {"key": "inroom", "value": "Odadakiler"},
+    {"key": "newEvent", "value": "Yeni Event"}
 ]

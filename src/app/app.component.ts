@@ -14,7 +14,7 @@ import { User } from './dtos/user';
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
     // override hammerjs default configuration
-    'pan': { threshold: 150 },
+    'pan': { threshold: 100, direction: 4 },
     'swipe': {
       velocity: 10000,
       threshold: 10000,

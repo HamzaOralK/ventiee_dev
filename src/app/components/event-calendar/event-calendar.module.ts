@@ -10,13 +10,12 @@ import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { registerLocaleData } from '@angular/common';
 import localeTr from '@angular/common/locales/tr';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
-import { EventCalendarInfoComponent } from './event-calendar-info/event-calendar-info.component';
 import { MatIconModule } from '@angular/material/icon';
 
 registerLocaleData(localeTr);
 
 @NgModule({
-  declarations: [EventCalendarComponent, EventCalendarInfoComponent],
+  declarations: [EventCalendarComponent],
   imports: [
     CommonModule,
     EventCalendarRoutingModule,
@@ -30,7 +29,6 @@ registerLocaleData(localeTr);
       useFactory: adapterFactory
     }),
   ],
-  exports: [EventCalendarComponent],
-  entryComponents: [EventCalendarInfoComponent]
+  exports: [EventCalendarComponent]
 })
 export class EventCalendarModule { }
