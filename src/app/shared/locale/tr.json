@@ -91,5 +91,8 @@
     {"key": "logout", "value": "Çıkış"},
     {"key": "myProfile", "value": "Profilim"},
     {"key": "settings", "value": "Ayarlar"},
-    {"key": "userKicked", "value": "Kullanıcı atıldı!"}
+    {"key": "userKicked", "value": "Kullanıcı atıldı!"},
+    {"key": "invited", "value": "Davetliler"},
+    {"key": "waiting", "value": "Kabul bekleyenler"},
+    {"key": "inroom", "value": "Odadakiler"}
 ]

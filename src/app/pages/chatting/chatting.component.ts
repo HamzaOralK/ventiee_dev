@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import * as fromApp from "../../store/app.reducer";
@@ -22,7 +22,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './chatting.component.html',
   styleUrls: ['./chatting.component.scss']
 })
-export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class ChattingComponent implements OnInit, OnDestroy {
 
   roomState: Observable<fromRoom.State>;
   authState: Observable<fromAuth.State>;
@@ -39,6 +39,8 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messages') messages: ElementRef;
+  @ViewChildren("messagesContainer") messagesContainer: QueryList<ElementRef>;
+
 
   constructor(
     private roomService: RoomService,
@@ -56,33 +58,29 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.subscription = new Subscription();
 
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
-        this.roomService.changeRoom(p.get('id'));
+      this.roomService.changeRoom(p.get('id'));
+      this.scroll = true;
     });
     this.subscription.add(routeSubscription);
 
     let stateSub = this.roomState.subscribe(p => {
       this.activeRoom = p.activeRoom;
       if (!this.activeRoom) this.router.navigate(['/home']);
-      if(this.activeRoom) this.scrollToBottom();
     });
     this.subscription.add(stateSub);
 
 
-    let msgSubscription = this.roomService.msg.subscribe(p => {
-      this.scroll = true;
-    });
+    let msgSubscription = this.roomService.msg.subscribe(p => { });
     this.subscription.add(msgSubscription);
   }
 
-  ngAfterViewChecked() {
-    if(this.scroll){
-      /*
-      if(this.messages && this.firstInit) {
-        this.scrollToBottom();
-        this.firstInit = false;
-      }
-      */
-    }
+
+  ngAfterViewInit() {
+    this.scrollToBottom();
+    this.messagesContainer.changes.subscribe((list: QueryList<ElementRef>) => {
+      this.scrollToBottomCheck();
+      this.scroll = false;
+    });
   }
 
   ngOnDestroy() {
@@ -109,9 +107,14 @@ export class ChattingComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   scrollToBottomCheck() {
-    if ((this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
+    if(!this.scroll) {
+      if ((this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
+        this.scrollToBottom();
+      }
+    } else {
       this.scrollToBottom();
     }
+
   }
 
   scrollToBottom() {

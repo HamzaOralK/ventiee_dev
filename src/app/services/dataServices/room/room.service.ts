@@ -98,7 +98,7 @@ export class RoomService implements OnDestroy {
   changeRoom(roomId: string) {
     this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({roomId}));
     let room = this.rooms.find(r => r._id === roomId);
-    if(!room.messages)
+    if(room && !room.messages)
       this.loadMessages(room);
   }
 
@@ -162,7 +162,8 @@ export class RoomService implements OnDestroy {
     let url = CONFIG.serviceURL + "/messages/" + room._id;
     return this.http.get(url).subscribe((p: any[]) => {
       p = p.map(e => this.formatLoadedMessages(e));
-      this.roomStore.dispatch(new RoomAction.LoadMessages({room: room, messages: p}))
+      this.roomStore.dispatch(new RoomAction.LoadMessages({room: room, messages: p}));
+      this.msg.next(undefined);
     });
   }
 }

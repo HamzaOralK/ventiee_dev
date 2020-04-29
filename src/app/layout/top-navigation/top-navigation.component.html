@@ -1,42 +1,44 @@
 <mat-toolbar>
-  <mat-toolbar-row>
-
-    <img *ngIf="!user" style="height:32px; cursor: pointer;" [src]="'./assets/logo.png'" alt="ventiee_logo" routerLink="/home" (click)="getEvents()">
-    <mat-icon *ngIf="user" class="icon" [matBadge]="unreadMessages" matBadgeColor="accent" (click)="toggleLeftMenu()">menu</mat-icon>
-    <mat-icon *ngIf="user" class="icon" aria-hidden="false" routerLink="/home" (click)="getEvents()">
-      home
-    </mat-icon>
-    <span class="spacer"></span>
-    <ng-container *ngIf="user; else noUser" >
-      <button mat-button routerLink="/eventCalendar">
-        <mat-icon>calendar_today</mat-icon>
-      </button>
-
-      <button class="action" mat-stroked-button [matMenuTriggerFor]="menu">
-        <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" style="width:32px; height: 32px; border-radius: 16px;">
-        {{user?.nickname}}
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/profile', user._id]">
-          <mat-icon>face</mat-icon>
-          <span>{{ 'myProfile' | ml }}</span>
-        </button>
-        <button mat-menu-item routerLink="/userSettings/{{user._id}}">
-          <mat-icon>settings</mat-icon>
-          <span>{{'settings' | ml}}</span>
-        </button>
-        <button mat-menu-item (click)="logOut()">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>{{'logout' | ml}}</span>
-        </button>
-      </mat-menu>
-
-    </ng-container>
-    <ng-template #noUser>
-      <button class="action" mat-stroked-button routerLink="/login">
-        {{'login' | ml}}
-      </button>
-      <!-- <button class="action" mat-stroked-button routerLink="/signup">{{'signup' | ml}}</button> -->
-    </ng-template>
+    <mat-toolbar-row>
+        <img *ngIf="!user" style="height:32px; cursor: pointer;" [src]="'./assets/logo.png'" alt="ventiee_logo"
+          routerLink="/home" (click)="getEvents()">
+        <mat-icon *ngIf="user" class="icon" [matBadge]="unreadMessages" matBadgeColor="accent" (click)="toggleLeftMenu()">
+          menu
+        </mat-icon>
+        <mat-icon *ngIf="user" class="icon" aria-hidden="false" routerLink="/home" (click)="getEvents()">
+          home
+        </mat-icon>
+        <span class="spacer"></span>
+        <ng-container *ngIf="user; else noUser">
+            <button mat-button routerLink="/eventCalendar">
+                <mat-icon>calendar_today</mat-icon>
+            </button>
+            <button class="action" mat-stroked-button [matMenuTriggerFor]="menu">
+                <img src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                  style="width:32px; height: 32px; border-radius: 16px;">
+                {{user?.nickname}}
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/profile', user._id]">
+                    <mat-icon>face</mat-icon>
+                    <span>{{ 'myProfile' | ml }}</span>
+                </button>
+                <button mat-menu-item routerLink="/userSettings/{{user._id}}">
+                    <mat-icon>settings</mat-icon>
+                    <span>{{'settings' | ml}}</span>
+                </button>
+                <button mat-menu-item (click)="logOut()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>{{'logout' | ml}}</span>
+                </button>
+            </mat-menu>
+        </ng-container>
+        <ng-template #noUser>
+            <!-- <button mat-raised-button>Blog</button> -->
+            <button class="action" mat-stroked-button routerLink="/login">
+                {{'login' | ml}}
+            </button>
+            <!-- <button class="action" mat-stroked-button routerLink="/signup">{{'signup' | ml}}</button> -->
+        </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
