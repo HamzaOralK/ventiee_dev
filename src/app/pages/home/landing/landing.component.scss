@@ -6,14 +6,12 @@
   justify-content: space-between;
   margin-top: 30px;
   overflow: auto;
-  @include for-size(phone-only) {
+  flex-direction: row;
+  @include media-breakpoint(xs) {
     flex-direction: column;
   }
-  @include for-size(tablet-portrait-up) {
+  @include media-breakpoint(sm) {
     flex-direction: column;
-  }
-  @include for-size(tablet-landscape-up) {
-    flex-direction: row;
   }
 }
 
@@ -31,33 +29,33 @@
   h1 {
     margin: 0;
     font-size: 48pt;
-    @include for-size(phone-only) {
+    @include media-breakpoint(xs) {
       font-size: 20pt;
     }
-    @include for-size(tablet-portrait-up) {
+    @include media-breakpoint(sm) {
       font-size: 22pt;
     }
-    @include for-size(tablet-landscape-up) {
+    @include media-breakpoint(md) {
       font-size: 24pt;
     }
-    @include for-size(desktop-up) {
+    @include for-size(lg) {
       font-size: 36pt;
     }
-    @include for-size(big-desktop-up) {
+    @include for-size(xl) {
       font-size: 48pt;
     }
   }
 
-  @include for-size(tablet-portrait-up) {
+  @include media-breakpoint(sm) {
     width: 95%;
     margin: 0 10px;
   }
-  @include for-size(tablet-landscape-up) {
+  @include media-breakpoint(md) {
     width: 60%;
     margin: 0 10px;
   }
 
-  @include for-size(phone-only) {
+  @include media-breakpoint(xs) {
     width: 95%;
     margin: 0 10px;
   }
@@ -70,15 +68,15 @@
   h1 {
     text-align: center;
   }
-  @include for-size(tablet-portrait-up) {
+  @include media-breakpoint(sm) {
     width: 95%;
     margin: 30px 10px;
   }
-  @include for-size(tablet-landscape-up) {
+  @include media-breakpoint(md) {
     width: 40%;
     margin: 30px 10px;
   }
-  @include for-size(phone-only) {
+  @include media-breakpoint(xs) {
     width: 95%;
     margin: 30px 10px;
   }

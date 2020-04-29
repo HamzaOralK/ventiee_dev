@@ -7,7 +7,6 @@ import { Event } from 'src/app/dtos/event';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { LangService } from 'src/app/services/lang/lang.service';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -29,7 +28,8 @@ import { MatChipInputEvent } from '@angular/material/chips';
   ]
 })
 export class CreateEventFormComponent implements OnInit {
-
+  public imagePath;
+  imgURL: any;
 
   visible = true;
   selectable = true;
@@ -43,6 +43,7 @@ export class CreateEventFormComponent implements OnInit {
   @Input() eventId: string;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('fileInput') fileInput: HTMLInputElement;
 
   isLinear = true;
   generalDescription = new FormGroup({
@@ -83,6 +84,7 @@ export class CreateEventFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.generalDescription.patchValue({ id: this.eventId });
+    this.imgURL = "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
   }
 
   createEvent() {
@@ -132,6 +134,27 @@ export class CreateEventFormComponent implements OnInit {
 
   formControls(formGroup: FormGroup): any {
     return formGroup['controls'];
+  }
+
+  uploadImg(fileInput: HTMLInputElement) {
+    fileInput.click();
+  }
+
+  preview(files) {
+    if (files.length === 0)
+      return;
+
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+    }
   }
 
   /** Tag Chips */

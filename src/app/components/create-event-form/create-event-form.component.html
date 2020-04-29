@@ -1,3 +1,10 @@
+<div class="topContainer">
+  <div class="imageContainer">
+    <img [src]="imgURL">
+    <button mat-raised-button class="button" (click)="uploadImg(fileInput)">Resim Yükle</button>
+  </div>
+</div>
+<input #fileInput type="file" accept='image/*' (change)="preview(fileInput.files)" style="display: none;" />
 <div class="stepper">
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="generalDescription">
