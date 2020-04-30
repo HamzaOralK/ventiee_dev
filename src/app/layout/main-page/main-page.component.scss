@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-@import '../../../theme.scss';
+@import 'src/theme.scss';
 
 $break-small: 600px;
 $break-middle: 640px;
@@ -27,7 +27,7 @@ router-outlet + * {
   }
 
   @media screen and (min-width: $break-large) {
-    width: calc(100% - 600px);
+    width: calc(100% - 300px);
   }
 
 }

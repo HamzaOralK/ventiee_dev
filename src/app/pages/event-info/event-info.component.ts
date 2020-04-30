@@ -31,7 +31,6 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.roomService.getRoomUsers(this.data.room);
     this.roomState = this.store.select('roomState');
     this.roomState.subscribe(p => {
       if(p.activeRoom && p.activeRoom.users) this.users = p.activeRoom.users;

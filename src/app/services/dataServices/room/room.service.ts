@@ -100,6 +100,7 @@ export class RoomService implements OnDestroy {
     let room = this.rooms.find(r => r._id === roomId);
     if(room && !room.messages)
       this.loadMessages(room);
+      this.getRoomUsers(room);
   }
 
   joinRoom(room: Room) {

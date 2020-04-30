@@ -134,12 +134,23 @@ export class ChattingComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-
     const dialogRef = this.dialog.open(EventInfoComponent, {
       data: { room: this.activeRoom }
     });
-
     dialogRef.afterClosed().subscribe(result => { });
   }
+
+  onKickUser(user: User) {
+    this.roomService.kickUser(this.activeRoom._id, user._id);
+  }
+
+  isModerator() {
+    return this.activeRoom.moderatorUserId === this.authService.user._id;
+  }
+
+  isKickable(user) {
+    return user._id !== this.authService.user._id;
+  }
+
 
 }

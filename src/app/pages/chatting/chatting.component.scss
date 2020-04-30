@@ -1,22 +1,71 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
+@import 'src/mixins.scss';
+
+$usersFullWidth: 300px;
+
+.top {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  .users {
+    height: 100%;
+    width: #{$usersFullWidth};
+    border-radius: 15px 0 0 15px;
+    background-color: mat-color($app-accent);
+    display: block;
+    @include media-breakpoint(xs) {
+      display: none;
+    }
+
+    @include media-breakpoint(sm) {
+      display: none;
+    }
+    .userImage {
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+    }
+  }
+}
+
 .roomInfo {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .messageEntry {
-  width: 98%;
+  width: calc(98% - #{$usersFullWidth});
   //height: 80px;
   position: absolute;
   bottom: 0;
+  @include media-breakpoint(xs) {
+    width: 98%;
+  }
+  @include media-breakpoint(sm) {
+    width: 98%;
+  }
 }
 
 .messages {
-  width: 100%;
-  max-height: calc(100% - 190px);
+  width: calc(100% - #{$usersFullWidth});
+  max-height: calc(100% - 120px);
   overflow-y: auto;
   position: absolute;
+  @include media-breakpoint(xs) {
+    width: 100%;
+    max-height: calc(100% - 180px);
+  }
+
+  @include media-breakpoint(sm) {
+    width: 100%;
+    max-height: calc(100% - 180px);
+  }
   .inner {
     display: flex;
     flex-direction: column;
@@ -29,6 +78,7 @@
 
 .own {
   flex-direction: row-reverse;
+  text-align: right;
   .message {
     min-height: 30px;
     background-color: #6edc5b;
@@ -43,6 +93,7 @@
 }
 
 .other {
+  text-align: left;
   .message {
     min-height: 30px;
     background-color: #f4fc54;
@@ -63,4 +114,19 @@
 
 .scroll {
   scroll-behavior: unset !important;
+}
+
+.noDesktop {
+  display: none;
+  @include media-breakpoint(xs) {
+    display: flex;
+  }
+
+  @include media-breakpoint(sm) {
+    display: flex;
+  }
+}
+
+.messageDate {
+  font-size: 8px;
 }
