@@ -5,7 +5,8 @@
       <div mat-subheader>
         <div class="roomInfo" *ngIf="activeRoom">
           <span class="text">
-            <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp;
+            <b>{{'event' | ml}}:</b> {{activeRoom.title}}<br>
+            <b>{{'time' | ml}}:</b>{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
           </span>
           <button mat-icon-button (click)="openDialog()">
             <mat-icon>event_note</mat-icon>
@@ -27,7 +28,7 @@
   <div style="padding: 5px; width: 100%;">
     <div class="roomInfo noDesktop" *ngIf="activeRoom">
       <span class="text">
-        <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp;
+        <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp; / {{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
       </span>
       <button mat-icon-button (click)="openDialog()">
         <mat-icon>event_note</mat-icon>
