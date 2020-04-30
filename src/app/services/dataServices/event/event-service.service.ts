@@ -25,6 +25,7 @@ export class EventService {
     roomState: Observable<fromRoom.State>;
     joinedRooms: Room[];
     subscription = new Subscription();
+    events: any[];
 
     constructor(
       private http: HttpClient,
@@ -39,11 +40,6 @@ export class EventService {
 
       this.roomState.subscribe(p =>  {
         this.joinedRooms = p.rooms;
-        this.auth.subscribe(p => {
-          if (p.token && p.user) {
-            this.getEvents();
-          }
-        });
       });
     }
 

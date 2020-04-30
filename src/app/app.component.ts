@@ -10,6 +10,7 @@ import { CONFIG } from './config';
 import { AuthService } from './services/auth/auth.service';
 import { AppService } from './app.service';
 import { User } from './dtos/user';
+import { EventService } from './services/dataServices/event/event-service.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private appService: AppService,
+    private eventService: EventService,
     private store: Store<fromApp.AppState>
   ) {}
 
@@ -46,6 +48,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.auth = this.store.select("authState");
     this.auth.subscribe(p => {
       this.user = p.user;
+      if (this.user) this.eventService.getEvents();
     })
     this.checkLocalStorage();
 
