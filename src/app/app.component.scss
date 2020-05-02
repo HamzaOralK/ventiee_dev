@@ -14,7 +14,14 @@
 .mainContainerSystem {
   display: inline-block;
   // min-height: calc(100vh - 70px);
-  height: calc(100vh - 70px);
+  height: calc(100vh - 85px);
+  @include media-breakpoint(xs) {
+    height: calc(100vh - 90px);
+  }
+
+  @include media-breakpoint(sm) {
+    height: calc(100vh - 90px);
+  }
 }
 
 .mainContainerLanding {
