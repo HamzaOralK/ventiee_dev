@@ -135,7 +135,11 @@ input:-webkit-autofill:active {
 
 .mat-form-field-label {
   mat-label {
-    color: mat-color($app-font, 100) !important;
+    color: mat-color($app-font, 300) !important;
   }
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: mat-color($app-font, 500) !important;
 }
 
