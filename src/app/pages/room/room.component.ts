@@ -9,7 +9,7 @@ import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MMessage } from 'src/app/dtos/message';
 import { COMMONS } from 'src/app/shared/commons';
-import { User } from 'src/app/dtos/user';
+import { User, Color } from 'src/app/dtos/user';
 import { Room } from 'src/app/dtos/room';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -18,11 +18,11 @@ import { EventInfoComponent } from '../event-info/event-info.component';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'chatting',
-  templateUrl: './chatting.component.html',
-  styleUrls: ['./chatting.component.scss']
+  selector: 'room',
+  templateUrl: './room.component.html',
+  styleUrls: ['./room.component.scss']
 })
-export class ChattingComponent implements OnInit, OnDestroy {
+export class RoomComponent implements OnInit, OnDestroy {
 
   roomState: Observable<fromRoom.State>;
   authState: Observable<fromAuth.State>;
@@ -65,7 +65,19 @@ export class ChattingComponent implements OnInit, OnDestroy {
 
     let stateSub = this.roomState.subscribe(p => {
       this.activeRoom = p.activeRoom;
-      if (!this.activeRoom) this.router.navigate(['/home']);
+      console.log(this.activeRoom);
+      if(this.activeRoom) {
+        if(this.activeRoom.users && this.activeRoom.users.length >= 1) {
+          this.activeRoom.users.map(user => {
+            if(!user.color) {
+              let color = new Color(this.getRandom(255), this.getRandom(255), this.getRandom(255), 1);
+              user.color = color
+            }
+            return user;
+          });
+        }
+      }
+      else this.router.navigate(['/home']);
     });
     this.subscription.add(stateSub);
 
@@ -144,12 +156,27 @@ export class ChattingComponent implements OnInit, OnDestroy {
     this.roomService.kickUser(this.activeRoom._id, user._id);
   }
 
-  isModerator() {
-    return this.activeRoom.moderatorUserId === this.authService.user._id;
+  isModerator(user: User) {
+    return user._id === this.authService.user._id;
   }
 
   isKickable(user) {
     return user._id !== this.authService.user._id;
+  }
+
+  getRandom(number: number) {
+    return Math.floor(Math.random() * number);
+  }
+
+  getColor(user: User) {
+    if(this.activeRoom.users && user && user._id) {
+      let userCurrent = this.activeRoom.users.find(u => u._id === user._id);
+      if (userCurrent) {
+        let color = userCurrent.color;
+        return 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')';
+      }
+      else return 'rgba(145,145,145,1)';
+    }
   }
 
 

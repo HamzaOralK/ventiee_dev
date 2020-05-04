@@ -1,5 +1,13 @@
 @import '~@angular/material/theming';
 @import 'src/theme.scss';
+@import "src/mixins.scss";
+
+.logo {
+  height: 32px;
+  @include media-breakpoint(xs) {
+    height: 16px
+  }
+}
 
 mat-toolbar {
   background-color: mat-color($app-background, 100) !important;
@@ -7,7 +15,6 @@ mat-toolbar {
 
 .icon {
   margin: 0 14px;
-  cursor: pointer;
 }
 
 .spacer {
@@ -29,3 +36,5 @@ mat-toolbar {
   text-overflow: clip;
   overflow: hidden;
 }
+
+

@@ -66,6 +66,9 @@ $usersFullWidth: 330px;
     width: 100%;
     max-height: calc(100% - 180px);
   }
+  .user {
+    font-weight: bold;
+  }
   .inner {
     display: flex;
     flex-direction: column;
@@ -96,7 +99,7 @@ $usersFullWidth: 330px;
   text-align: left;
   .message {
     min-height: 30px;
-    background-color: #f4fc54;
+    background-color: beige;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;

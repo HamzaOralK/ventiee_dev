@@ -28,7 +28,7 @@ import { CreateEventComponent } from "./pages/create-event/create-event.componen
 import { CreateEventFormComponent } from "./components/create-event-form/create-event-form.component";
 import { ChatsComponent } from './components/chats/chats.component';
 import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
-import { ChattingComponent } from './pages/chatting/chatting.component';
+import { RoomComponent } from './pages/room/room.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 
@@ -97,7 +97,7 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
     CreateEventFormComponent,
     ChatsComponent,
     ChatRoomsComponent,
-    ChattingComponent,
+    RoomComponent,
     EventInfoComponent,
     UserProfileComponent,
     EventsComponent,

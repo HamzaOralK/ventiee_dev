@@ -17,7 +17,10 @@ html, body {
 
 * {
   font-family: Roboto,"Helvetica Neue",sans-serif;
-  color: mat-color($app-font, 500) !important;
+}
+
+.c-ptr {
+  cursor: pointer;
 }
 
 footer {
@@ -129,3 +132,10 @@ input:-webkit-autofill:active {
 .ventiee-snackbar {
   background: mat-color($app-primary, 300) !important;
 }
+
+.mat-form-field-label {
+  mat-label {
+    color: mat-color($app-font, 100) !important;
+  }
+}
+

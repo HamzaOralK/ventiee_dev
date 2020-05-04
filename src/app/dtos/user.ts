@@ -20,6 +20,12 @@ export class User {
   password:string;
   emailNotification: boolean;
   preferredGender: Gender;
+  color: Color;
+}
+
+export class Color {
+  constructor(public r: number, public g: number, public b: number, public a: number) {}
+
 }
 
 export class UserComment {
