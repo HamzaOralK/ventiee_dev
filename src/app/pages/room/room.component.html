@@ -13,16 +13,18 @@
           </button>
         </div>
       </div>
-      <mat-list-item *ngFor="let user of activeRoom.users">
-        <img mat-list-icon class="userImage" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
-        <div mat-line [ngStyle]="{'color': getColor(user)}"><b>{{user.nickname}}</b></div>
-        <div mat-line *ngIf="isModerator(user)">{{'organisator' | ml}}</div>
-        <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="['/profile', user._id]">{{'showProfile' | ml}}</button>
-          <button mat-menu-item *ngIf="isModerator(user) && isKickable(user)" (click)="onKickUser(user)">{{'kickUser' | ml}}</button>
-        </mat-menu>
-      </mat-list-item>
+      <ng-container *ngIf="activeRoom && activeRoom.users">
+        <mat-list-item *ngFor="let user of activeRoom.users">
+          <img mat-list-icon class="userImage" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+          <div mat-line [ngStyle]="{'color': getColor(user)}"><b>{{user.nickname}}</b></div>
+          <div mat-line *ngIf="isModerator(user)">{{'organisator' | ml}}</div>
+          <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/profile', user._id]">{{'showProfile' | ml}}</button>
+            <button mat-menu-item *ngIf="isModerator(user) && isKickable(user)" (click)="onKickUser(user)">{{'kickUser' | ml}}</button>
+          </mat-menu>
+        </mat-list-item>
+      </ng-container>
     </mat-list>
   </div>
   <div style="padding: 5px; width: 100%;">

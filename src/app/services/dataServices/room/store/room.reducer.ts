@@ -70,10 +70,12 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       }
     case RoomActions.CHANGE_ACTIVE_ROOM:
       //room = state.rooms.find(p => p._id === action.payload.roomId);
+      room = undefined;
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.roomId);
+      if(roomIndex > -1) room = state.rooms[roomIndex];
       return {
         ...state,
-        activeRoom: state.rooms[roomIndex]
+        activeRoom: room
       }
     case RoomActions.SET_ROOM_USERS:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);

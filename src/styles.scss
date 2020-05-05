@@ -131,6 +131,7 @@ input:-webkit-autofill:active {
 
 .ventiee-snackbar {
   background: mat-color($app-primary, 300) !important;
+  color: mat-color($app-font,500) !important;
 }
 
 .mat-form-field-label {

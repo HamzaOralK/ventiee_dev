@@ -41,13 +41,13 @@ export class RoomComponent implements OnInit, OnDestroy {
   @ViewChild('messages') messages: ElementRef;
   @ViewChildren("messagesContainer") messagesContainer: QueryList<ElementRef>;
 
-
   constructor(
     private roomService: RoomService,
     private _ngZone: NgZone,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private store: Store<fromApp.AppState>,
+    private roomStore: Store<fromRoom.State>,
     private router: Router,
     public dialog: MatDialog
   ) { }
@@ -58,26 +58,31 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.subscription = new Subscription();
 
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
-      this.roomService.changeRoom(p.get('id'));
+      this.roomId = p.get('id');
+      this.roomService.changeRoom(this.roomId);
       this.scroll = true;
+      this.scrollToBottom();
     });
     this.subscription.add(routeSubscription);
 
-    let stateSub = this.roomState.subscribe(p => {
-      this.activeRoom = p.activeRoom;
-      console.log(this.activeRoom);
-      if(this.activeRoom) {
-        if(this.activeRoom.users && this.activeRoom.users.length >= 1) {
-          this.activeRoom.users.map(user => {
-            if(!user.color) {
-              let color = new Color(this.getRandom(255), this.getRandom(255), this.getRandom(255), 1);
-              user.color = color
-            }
-            return user;
-          });
+    let stateSub = this.store.select("roomState").subscribe(p => {
+      if (p.rooms.length > 0) {
+        if((!this.activeRoom || this.activeRoom._id !== p.activeRoom._id) && !p.activeRoom) {
+          this.roomService.changeRoom(this.roomId);
+        }
+        else if (p.activeRoom) {
+          this.activeRoom = p.activeRoom;
+          if(this.activeRoom.users && this.activeRoom.users.length >= 1) {
+            this.activeRoom.users.map(user => {
+              if(!user.color) {
+                let color = new Color(this.getRandom(255), this.getRandom(255), this.getRandom(255), 1);
+                user.color = color
+              }
+              return user;
+            });
+          }
         }
       }
-      else this.router.navigate(['/home']);
     });
     this.subscription.add(stateSub);
 
@@ -87,15 +92,18 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 
   ngAfterViewInit() {
-    this.scrollToBottom();
+
     this.messagesContainer.changes.subscribe((list: QueryList<ElementRef>) => {
       this.scrollToBottomCheck();
-      this.scroll = false;
+      if(this.scroll && list.length > 0) {
+        this.scroll = false;
+      }
     });
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+
   }
 
   triggerResize() {
@@ -125,7 +133,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     } else {
       this.scrollToBottom();
     }
-
   }
 
   scrollToBottom() {

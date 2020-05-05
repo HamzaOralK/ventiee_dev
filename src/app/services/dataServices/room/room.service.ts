@@ -97,10 +97,17 @@ export class RoomService implements OnDestroy {
 
   changeRoom(roomId: string) {
     this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({roomId}));
-    let room = this.rooms.find(r => r._id === roomId);
-    if(room && !room.messages)
-      this.loadMessages(room);
-      this.getRoomUsers(room);
+    if(this.rooms) {
+      let room = this.rooms.find(r => r._id === roomId);
+      if(room && !room.messages) {
+        this.loadMessages(room);
+        this.getRoomUsers(room);
+      }
+    }
+  }
+
+  emptyActiveRoom() {
+    this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({roomId: undefined}))
   }
 
   joinRoom(room: Room) {
@@ -115,7 +122,9 @@ export class RoomService implements OnDestroy {
     this.http.post<any>(url, postObj).subscribe(res => {
         this.roomStore.dispatch(new RoomAction.JoinRoom({ room }));
         this.router.navigate(['/room/' + room._id]);
-    }, e => console.log(e) );
+    }, e => {
+      this.notificationService.notify(this.mlPipe.transform(e.error.code));
+    });
 
   }
 
@@ -124,6 +133,9 @@ export class RoomService implements OnDestroy {
     this.http.get<any>(url).subscribe(res => {
       let rooms = res as Room[];
       this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
+      rooms.forEach(r => {
+        this.joinSocketRoom(r._id);
+      });
     }, error => {
       this.authService.logoutUser();
     });
@@ -167,4 +179,9 @@ export class RoomService implements OnDestroy {
       this.msg.next(undefined);
     });
   }
+
+  joinSocketRoom(roomName: string) {
+    this.socket.emit('joinRoom', roomName, (args) => { });
+  }
+
 }

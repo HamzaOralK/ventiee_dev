@@ -8,8 +8,8 @@ export class NotificationService {
   constructor(private _snackBar: MatSnackBar) {}
 
   notify(message: string, action?: string) {
-    if(!action) action = "OK";
-    this._snackBar.open(message, action, {
+    // if(!action) action = "OK";
+    this._snackBar.open(message, undefined, {
       duration: 4000,
       verticalPosition: 'top',
       panelClass: ['ventiee-snackbar']

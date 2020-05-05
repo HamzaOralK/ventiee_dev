@@ -1,4 +1,5 @@
 [
+    {"key": "E17", "value": "Bu Event'e zaten katılmışsınız."},
     {"key": "login", "value": "Giriş"},
     {"key": "loginError", "value": "Giriş  yapamadınız. Bir problem oluştu."},
     {"key": "signup", "value": "Kayıt Ol"},
