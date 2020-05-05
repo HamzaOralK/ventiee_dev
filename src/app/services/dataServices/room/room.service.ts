@@ -61,9 +61,7 @@ export class RoomService implements OnDestroy {
           reconnectionDelayMax: 5000,
           reconnectionAttempts: Infinity
         });
-        this.getMessagesSubscription = this.getMessages().subscribe((message: string) => {
-          console.log(message);
-        }, e => console.log(e));
+        this.getMessagesSubscription = this.getMessages().subscribe((message: string) => { }, e => console.log(e));
         this.subscription.add(this.getMessagesSubscription);
         this.connected = true;
       }
@@ -121,6 +119,7 @@ export class RoomService implements OnDestroy {
 
     this.http.post<any>(url, postObj).subscribe(res => {
         this.roomStore.dispatch(new RoomAction.JoinRoom({ room }));
+        this.joinSocketRoom(room._id);
         this.router.navigate(['/room/' + room._id]);
     }, e => {
       this.notificationService.notify(this.mlPipe.transform(e.error.code));
