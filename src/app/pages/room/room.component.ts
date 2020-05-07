@@ -7,7 +7,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/internal/operators/take';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MMessage } from 'src/app/dtos/message';
+import { MMessage, MessageType } from 'src/app/dtos/message';
 import { COMMONS } from 'src/app/shared/commons';
 import { User, Color } from 'src/app/dtos/user';
 import { Room } from 'src/app/dtos/room';
@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EventInfoComponent } from '../event-info/event-info.component';
 import { Store } from '@ngrx/store';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'room',
@@ -120,6 +121,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       message.user = this.user;
       message.eventId = this.activeRoom._id;
       message.isRead = false;
+      message.type = MessageType.Message;
       this.roomService.sendMessage(this.activeRoom, message);
     };
     (event.target as HTMLInputElement).value = '';
