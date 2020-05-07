@@ -41,7 +41,7 @@
         <div #messagesContainer class="all" [ngClass]="isOwn(message) ? 'own' : 'other' " *ngFor="let message of activeRoom.messages; let i = index;">
           <div style="max-width: 65%; overflow: hidden;">
             <span *ngIf="i === 0 && !isOwn(message)" [ngStyle]="{'color': getColor(message.user)}" class="user">{{message.user.nickname}}</span>
-            <span *ngIf="i > 0 && activeRoom.messages[i-1].user._id !== message.user._id && !isOwn(message)" [ngStyle]="{'color': getColor(message.user)}">{{message.user.nickname}}</span>
+            <span *ngIf="i > 0 && activeRoom.messages[i-1].user._id !== message.user._id && !isOwn(message)" [ngStyle]="{'color': getColor(message.user)}" class="user">{{message.user.nickname}}</span>
             <div class="message">
               <span class="messageText">{{message.message}}</span><br>
               <span class="messageDate">{{message.date | date:'dd/MM/yyyy HH:mm'}}</span>

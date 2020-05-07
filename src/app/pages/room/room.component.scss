@@ -4,6 +4,10 @@
 
 $usersFullWidth: 330px;
 
+.user {
+  font-weight: bold;
+}
+
 .top {
   display: flex;
   flex-direction: row;
@@ -65,9 +69,6 @@ $usersFullWidth: 330px;
   @include media-breakpoint(sm) {
     width: 100%;
     max-height: calc(100% - 180px);
-  }
-  .user {
-    font-weight: bold;
   }
   .inner {
     display: flex;
