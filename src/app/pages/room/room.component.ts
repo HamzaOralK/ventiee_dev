@@ -112,7 +112,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   sendMessage(event: InputEvent) {
     let value = (event.target as HTMLInputElement).value;
-    if(value) {
+    if(value.trim().length > 0) {
       let message = new MMessage();
       message._id = COMMONS.generateUUID();
       message.date = new Date();
@@ -163,8 +163,12 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.roomService.kickUser(this.activeRoom._id, user._id);
   }
 
-  isModerator(user: User) {
-    return user._id === this.authService.user._id;
+  isModerator() {
+    return this.user._id === this.activeRoom.moderatorUserId;
+  }
+
+  isLineModerator(user: User) {
+    return user._id === this.activeRoom.moderatorUserId;
   }
 
   isKickable(user) {
@@ -186,5 +190,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     }
   }
 
-
+  leaveRoom() {
+    this.roomService.leaveRoom(this.activeRoom._id, this.user._id);
+  }
 }

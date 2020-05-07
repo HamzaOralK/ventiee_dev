@@ -99,5 +99,6 @@
     {"key": "waiting", "value": "Kabul bekleyenler"},
     {"key": "inroom", "value": "Odadakiler"},
     {"key": "newEvent", "value": "Yeni Event"},
-    {"key": "users", "value": "Buradakiler"}
+    {"key": "users", "value": "Buradakiler"},
+    {"key": "joinedNotification", "value": " konuşmaya katıldı."}
 ]

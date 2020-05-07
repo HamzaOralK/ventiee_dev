@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
 @import 'src/theme.scss';
+@import 'src/mixins.scss';
 
 $break-small: 600px;
 $break-middle: 640px;
@@ -18,16 +19,22 @@ $break-large: 1200px;
 router-outlet + * {
   position: relative;
   height: 100%;
-  @media screen and (max-width: $break-small) {
+  width: calc(100% - 100px);
+  @include media-breakpoint(xs) {
     width: 100%;
   }
 
-  @media screen and (min-width: $break-middle) {
-    width: calc(100% - 100px);
+  @include media-breakpoint(sm) {
+    width: 100%;
   }
 
-  @media screen and (min-width: $break-large) {
+  @include media-breakpoint(lg) {
     width: calc(100% - 300px);
   }
+
+  @include media-breakpoint(xl) {
+    width: calc(100% - 300px);
+  }
+
 
 }

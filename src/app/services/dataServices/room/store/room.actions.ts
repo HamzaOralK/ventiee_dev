@@ -7,9 +7,11 @@ export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_MESSAGE = 'GET_MESSAGE';
 export const LOAD_MESSAGES = 'LOAD_MESSAGES';
 export const JOIN_ROOM = 'JOIN_ROOM';
+export const INSERT_USER = 'INSERT_USER';
 export const GET_ROOMS = 'GET_ROOMS';
 export const QUIT_ROOM = 'QUIT_ROOM';
 export const KICK_USER = 'KICK_USER';
+export const LEAVE_ROOM = 'LEAVE_ROOM';
 export const CHANGE_ACTIVE_ROOM = 'CHANGE_ACTIVE_ROOM';
 export const SET_ROOM_USERS = 'SET_ROOM_USERS';
 
@@ -39,8 +41,13 @@ export class JoinRoom implements Action {
   constructor(public payload: { room: Room }) { }
 }
 
-export class QuitRoom implements Action {
-  readonly type = QUIT_ROOM;
+export class InsertUser implements Action {
+  readonly type = INSERT_USER;
+  constructor(public payload: { roomId: string, user: User }) { }
+}
+
+export class LeaveRoom implements Action {
+  readonly type = LEAVE_ROOM;
   constructor(public payload: { room: Room }) { }
 }
 
@@ -59,4 +66,5 @@ export class SetRoomUsers implements Action {
   constructor(public payload: { room: Room, users: User[] }) { }
 }
 
-export type RoomActions = SendMessage | GetMessage | LoadMessages | GetRooms | JoinRoom | QuitRoom | KickUser | ChangeActiveRoom | SetRoomUsers;
+export type RoomActions = SendMessage | GetMessage | LoadMessages | GetRooms | JoinRoom | LeaveRoom |
+            KickUser | ChangeActiveRoom | SetRoomUsers | InsertUser;

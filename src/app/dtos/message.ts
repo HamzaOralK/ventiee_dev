@@ -8,4 +8,11 @@ export class MMessage {
     event: Event;
     eventId: string;
     isRead: boolean;
+    type: MessageType;
+}
+
+
+export enum MessageType {
+  Message,
+  NewUser
 }

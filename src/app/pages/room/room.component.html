@@ -11,23 +11,26 @@
           <button mat-icon-button (click)="openDialog()">
             <mat-icon>event_note</mat-icon>
           </button>
+          <button mat-icon-button (click)="leaveRoom()">
+            <mat-icon>clear</mat-icon>
+          </button>
         </div>
       </div>
       <ng-container *ngIf="activeRoom && activeRoom.users">
         <mat-list-item *ngFor="let user of activeRoom.users">
           <img mat-list-icon class="userImage" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
           <div mat-line [ngStyle]="{'color': getColor(user)}"><b>{{user.nickname}}</b></div>
-          <div mat-line *ngIf="isModerator(user)">{{'organisator' | ml}}</div>
+          <div mat-line *ngIf="isLineModerator(user)">{{'organisator' | ml}}</div>
           <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/profile', user._id]">{{'showProfile' | ml}}</button>
-            <button mat-menu-item *ngIf="isModerator(user) && isKickable(user)" (click)="onKickUser(user)">{{'kickUser' | ml}}</button>
+            <button mat-menu-item *ngIf="isModerator() && isKickable(user)" (click)="onKickUser(user)">{{'kickUser' | ml}}</button>
           </mat-menu>
         </mat-list-item>
       </ng-container>
     </mat-list>
   </div>
-  <div style="padding: 5px; width: 100%;">
+  <div style="padding: 5px;">
     <div class="roomInfo noDesktop" *ngIf="activeRoom">
       <span class="text">
         <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp; / {{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
@@ -38,15 +41,24 @@
     </div>
     <div #messages class="messages scroll">
       <div class="inner" *ngIf="activeRoom">
-        <div #messagesContainer class="all" [ngClass]="isOwn(message) ? 'own' : 'other' " *ngFor="let message of activeRoom.messages; let i = index;">
-          <div style="max-width: 65%; overflow: hidden;">
-            <span *ngIf="i === 0 && !isOwn(message)" [ngStyle]="{'color': getColor(message.user)}" class="user">{{message.user.nickname}}</span>
-            <span *ngIf="i > 0 && activeRoom.messages[i-1].user._id !== message.user._id && !isOwn(message)" [ngStyle]="{'color': getColor(message.user)}" class="user">{{message.user.nickname}}</span>
-            <div class="message">
-              <span class="messageText">{{message.message}}</span><br>
-              <span class="messageDate">{{message.date | date:'dd/MM/yyyy HH:mm'}}</span>
+        <div #messagesContainer class="all" *ngFor="let message of activeRoom.messages; let i = index;">
+          <div [ngClass]="isOwn(message) ? 'own' : 'other'" *ngIf="message.type === 0">
+            <div style="max-width: 65%; overflow: hidden;">
+              <span *ngIf="i === 0 && !isOwn(message)" [ngStyle]="{'color': getColor(message.user)}" class="user">{{message.user.nickname}}</span>
+              <span *ngIf="i > 0 && activeRoom.messages[i-1].user._id !== message.user._id && !isOwn(message)" [ngStyle]="{'color': getColor(message.user)}" class="user">{{message.user.nickname}}</span>
+              <div class="message">
+                <span class="messageText">{{message.message}}</span><br>
+                <span class="messageDate">{{message.date | date:'dd/MM/yyyy HH:mm'}}</span>
+              </div>
             </div>
           </div>
+
+          <div *ngIf="message.type === 1" style="width: 100%; display: flex; justify-content: center; margin: 10px">
+            <div class="notification">
+              {{message.user.nickname}} {{'joinedNotification' | ml}}
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

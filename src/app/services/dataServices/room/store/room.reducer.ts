@@ -56,7 +56,13 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         activeRoom: action.payload.room,
         rooms: [...state.rooms, action.payload.room]
       }
-    case RoomActions.QUIT_ROOM:
+    case RoomActions.INSERT_USER:
+      room = state.rooms.find(p => p._id === action.payload.roomId);
+      if(room.users && room.users.findIndex(u => u._id === action.payload.user._id) === -1) room.users.push(action.payload.user);
+      return {
+        ...state
+      }
+    case RoomActions.LEAVE_ROOM:
       return {
         ...state,
         rooms: state.rooms.filter(p => p._id !== action.payload.room._id)

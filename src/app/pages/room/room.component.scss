@@ -2,7 +2,7 @@
 @import 'src/theme.scss';
 @import 'src/mixins.scss';
 
-$usersFullWidth: 330px;
+$usersFullWidth: 300px;
 
 .user {
   font-weight: bold;
@@ -76,8 +76,9 @@ $usersFullWidth: 330px;
   }
 }
 
-.own, .all {
-  width: 100%; display: flex;
+.own, .all, .other {
+  width: 100%;
+  display: flex;
 }
 
 .own {
@@ -137,4 +138,13 @@ $usersFullWidth: 330px;
 
 :host ::ng-deep .mat-form-field-wrapper {
   padding-bottom: 0 !important;
+}
+.notification {
+  width: 60%;
+  display: flex;
+  background-color: mat-color($app-primary);
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
