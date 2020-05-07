@@ -2,7 +2,7 @@ import { User } from './user';
 
 export class MMessage {
     _id:string;
-    user: User;
+    user: Partial<User>;
     date: Date;
     message: string;
     event: Event;

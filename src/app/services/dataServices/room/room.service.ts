@@ -215,7 +215,7 @@ export class RoomService implements OnDestroy {
     if(isInsert) {
       type = MessageType.NewUser;
     }
-    let socketObj = { user: { _id: this.user._id, nickname: this.user.nickname }, eventId: roomId, type, date: new Date(), text: '~'};
+    let socketObj: Partial<MMessage> = { user: { _id: this.user._id, nickname: this.user.nickname }, eventId: roomId, type, date: new Date(), message: '~!~'};
     this.socket.emit('joinRoom', roomId, socketObj);
   }
 
