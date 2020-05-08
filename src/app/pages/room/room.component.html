@@ -59,6 +59,18 @@
             </div>
           </div>
 
+          <div *ngIf="message.type === 2" style="width: 100%; display: flex; justify-content: center; margin: 10px">
+            <div class="notification">
+              {{message.user.nickname}} {{'leftNotification' | ml}}
+            </div>
+          </div>
+
+          <div *ngIf="message.type === 3" style="width: 100%; display: flex; justify-content: center; margin: 10px">
+            <div class="notification">
+              {{message.user.nickname}} {{'kickedNotification' | ml}}
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

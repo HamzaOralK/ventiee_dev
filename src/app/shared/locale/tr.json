@@ -100,5 +100,8 @@
     {"key": "inroom", "value": "Odadakiler"},
     {"key": "newEvent", "value": "Yeni Event"},
     {"key": "users", "value": "Buradakiler"},
-    {"key": "joinedNotification", "value": " konuşmaya katıldı."}
+    {"key": "joinedNotification", "value": " konuşmaya katıldı."},
+    {"key": "leftNotification", "value": " konuşmadan ayrıldı."},
+    {"key": "kickedNotification", "value": " konuşmadan atıldı."}
+
 ]

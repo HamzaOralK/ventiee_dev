@@ -30,7 +30,7 @@ export class TopNavigationComponent implements OnInit {
       this.user = p.user;
     });
     this.store.select('roomState').subscribe(p => {
-      this.unreadMessages = p.unreadMessages;
+      if(p) this.unreadMessages = p.unreadMessages;
     });
   }
 

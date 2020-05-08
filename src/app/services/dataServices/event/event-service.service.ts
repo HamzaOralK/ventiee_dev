@@ -38,8 +38,8 @@ export class EventService {
       this.auth = this.store.select('authState');
       this.roomState = this.store.select('roomState');
 
-      this.roomState.subscribe(p =>  {
-        this.joinedRooms = p.rooms;
+      this.roomState.subscribe(p => {
+        if(p) this.joinedRooms = p.rooms;
       });
     }
 

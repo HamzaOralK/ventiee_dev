@@ -48,7 +48,7 @@ export class InsertUser implements Action {
 
 export class LeaveRoom implements Action {
   readonly type = LEAVE_ROOM;
-  constructor(public payload: { room: Room }) { }
+  constructor(public payload: { room: Partial<Room> }) { }
 }
 
 export class KickUser implements Action {

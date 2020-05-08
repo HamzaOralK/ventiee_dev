@@ -162,7 +162,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   onKickUser(user: User) {
-    this.roomService.kickUser(this.activeRoom._id, user._id);
+    this.roomService.kickUser(this.activeRoom._id, {_id: user._id, nickname: user.nickname});
   }
 
   isModerator() {

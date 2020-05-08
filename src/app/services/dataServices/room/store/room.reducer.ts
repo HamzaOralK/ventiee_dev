@@ -24,20 +24,23 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       }
     case RoomActions.SEND_MESSAGE:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
-      room = state.rooms[roomIndex];
-      if(!room.messages) room.messages = [];
-      let dumMessages = [...room.messages, ...action.payload.message];
-      room.messages = dumMessages;
-      state.rooms[roomIndex] = room;
-      let unreadMessages = state.unreadMessages;
-      if(action.payload.message[0].user._id !== action.payload.user._id) {
-        unreadMessages++;
+      if(roomIndex > -1) {
+        room = state.rooms[roomIndex];
+        if(!room.messages) room.messages = [];
+        let dumMessages = [...room.messages, ...action.payload.message];
+        room.messages = dumMessages;
+        state.rooms[roomIndex] = room;
+        let unreadMessages = state.unreadMessages;
+        if(action.payload.message[0].user._id !== action.payload.user._id) {
+          unreadMessages++;
+        }
+        return {
+          ...state,
+          rooms: [...state.rooms],
+          unreadMessages: unreadMessages
+        }
       }
-      return {
-        ...state,
-        rooms: [...state.rooms],
-        unreadMessages:  unreadMessages
-      }
+      break;
     case RoomActions.LOAD_MESSAGES:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
       state.rooms[roomIndex].messages = action.payload.messages;
@@ -69,7 +72,9 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       }
     case RoomActions.KICK_USER:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
-      state.rooms[roomIndex].users = state.rooms[roomIndex].users.filter(u => u._id !== action.payload.userId);
+      if (roomIndex > -1 && state.rooms[roomIndex].users) {
+        state.rooms[roomIndex].users = state.rooms[roomIndex].users.filter(u => u._id !== action.payload.userId);
+      }
       return {
         ...state,
         rooms: [...state.rooms]

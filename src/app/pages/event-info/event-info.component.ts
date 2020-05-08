@@ -46,7 +46,7 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
   }
 
   onKickUser(user: User) {
-    this.roomService.kickUser(this.data.room._id, user._id);
+    this.roomService.kickUser(this.data.room._id, {_id: user._id, nickname: user.nickname});
   }
 
   cancelEvent() {
