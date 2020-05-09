@@ -15,21 +15,12 @@ import { AppComponent } from './app.component';
 import { TopNavigationComponent } from './layout/top-navigation/top-navigation.component';
 import { LeftNavigationComponent } from './layout/left-navigation/left-navigation.component';
 import { MainPageComponent } from './layout/main-page/main-page.component';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { SignUpComponent } from './pages/sign-up/sign-up.component';
-import { EventLineComponent } from './components/event-line/event-line.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
+import { SignUpComponent } from './pages/sign-up/sign-up/sign-up.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
-import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
-import { RoomNavigationComponent } from "./layout/room-navigation/room-navigation.component";
-import { CreateEventComponent } from "./pages/create-event/create-event.component";
-import { CreateEventFormComponent } from "./components/create-event-form/create-event-form.component";
+import { UserSettingsComponent } from './pages/user-settings/user-settings/user-settings.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
-import { RoomComponent } from './pages/room/room.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile/user-profile.component';
 
 
 /** Material Components */
@@ -41,8 +32,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
@@ -50,33 +39,30 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { EventInfoComponent } from './pages/event-info/event-info.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 /** Reducers */
 import * as fromApp from './store/app.reducer';
 
-/** TimePicker */
-import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
-import { EventInfoComponent } from './pages/event-info/event-info.component';
-import { AuthInterceptor } from './auth/auth-interceptor';
-import { EventCalendarModule } from './components/event-calendar/event-calendar.module';
-
 /** Shared Modules */
 import { PipesModule } from './shared/pipes/pipes.module';
 import { DirectivesModule } from './shared/directives/directives.module';
-import { EventsComponent } from './components/events/events.component';
-import { UsersCommentsComponent } from './pages/users-comments/users-comments.component';
-import { NewCommentComponent } from './pages/new-comment/new-comment.component';
+import { UsersCommentsComponent } from './components/users-comments/users-comments.component';
+import { NewCommentComponent } from './components/new-comment/new-comment.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { ResendComponent } from './pages/resend/resend.component';
 import { BaseComponent } from './components/base/base.component';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { EventInfoUserComponent } from './pages/event-info/event-info-user/event-info-user.component';
-import { LandingComponent } from './pages/home/landing/landing.component';
 import { VfooterComponent } from './layout/vfooter/vfooter.component';
+import { EventsModule } from './components/events/events.module';
+import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -84,31 +70,14 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
     TopNavigationComponent,
     LeftNavigationComponent,
     MainPageComponent,
-    HomeComponent,
-    LoginComponent,
-    SignUpComponent,
-    EventLineComponent,
-    LoginFormComponent,
-    SignUpFormComponent,
     EventPageComponent,
-    UserSettingsComponent,
-    RoomNavigationComponent,
-    CreateEventComponent,
-    CreateEventFormComponent,
     ChatsComponent,
     ChatRoomsComponent,
-    RoomComponent,
     EventInfoComponent,
-    UserProfileComponent,
-    EventsComponent,
-    UsersCommentsComponent,
-    NewCommentComponent,
-    RatingComponent,
     ResendComponent,
     BaseComponent,
     VerifyComponent,
     EventInfoUserComponent,
-    LandingComponent,
     VfooterComponent,
   ],
   imports: [
@@ -120,6 +89,7 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
     FormsModule,
     NgxMaskModule,
     StoreModule.forRoot(fromApp.appReducer),
+    NgxMaterialTimepickerModule.setLocale("tr-TR"),
     /** Material Components */
     MatSidenavModule,
     MatToolbarModule,
@@ -129,8 +99,6 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
     MatInputModule,
     MatCardModule,
     MatTabsModule,
-    MatDatepickerModule,
-    MatMomentDateModule,
     MatStepperModule,
     MatBadgeModule,
     MatSnackBarModule,
@@ -138,14 +106,13 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
     MatListModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatChipsModule,
     MatAutocompleteModule,
     MatMenuModule,
     /** Additional */
-    NgxMaterialTimepickerModule.setLocale("tr-TR"),
-    EventCalendarModule,
     PipesModule,
-    DirectivesModule
+    DirectivesModule,
+    EventsModule,
+    SignUpFormModule,
   ],
   exports: [],
   providers: [

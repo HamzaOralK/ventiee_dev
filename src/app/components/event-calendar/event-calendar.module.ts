@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import localeTr from '@angular/common/locales/tr';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 registerLocaleData(localeTr);
 
@@ -24,11 +25,12 @@ registerLocaleData(localeTr);
     PipesModule,
     DirectivesModule,
     MatIconModule,
+    MatDialogModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
   ],
-  exports: [EventCalendarComponent]
+  // exports: [EventCalendarComponent]
 })
 export class EventCalendarModule { }

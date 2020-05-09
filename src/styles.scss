@@ -76,6 +76,7 @@ footer {
 }
 
 .cal-month-view .cal-open-day-events {
+  color: mat-color($app-font, 500) !important;
   background-color: mat-color($app-background, 500);
   box-shadow: inset 0 0 15px 0 mat-color($app-primary, 500);
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/dataServices/user/user.service';
 import { User, UserComment } from 'src/app/dtos/user';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
-import { Event } from '../../dtos/event';
+import { Event } from '../../../dtos/event';
 import { Gender } from 'src/app/dtos/enums';
 
 

@@ -1,15 +1,13 @@
 import { Component, OnInit, ViewEncapsulation, HostListener, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store } from '@ngrx/store';
-import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { COMMONS } from 'src/app/shared/commons';
 import { Router } from '@angular/router';
-import * as fromAuth from "../../services/auth/store/auth.reducer";
-import * as fromApp from "../../store/app.reducer";
-import * as AppAction from "../../store/app.actions";
+import * as fromAuth from "../../../services/auth/store/auth.reducer";
+import * as fromApp from "../../../store/app.reducer";
+import * as AppAction from "../../../store/app.actions";
 import { User } from 'src/app/dtos/user';
 
 @Component({
@@ -59,12 +57,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.page++;
           /** TODO: Get more events. */
         }
-        /*
-        this.eventService.getEvents()
-        console.log((this.eventScroll.nativeElement as HTMLLIElement).scrollHeight);
-        console.log((this.eventScroll.nativeElement as HTMLLIElement).scrollTop);
-        console.log((this.eventScroll.nativeElement as HTMLLIElement).offsetHeight);
-        */
       });
     }
   }

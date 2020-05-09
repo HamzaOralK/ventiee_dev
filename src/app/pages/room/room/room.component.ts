@@ -1,7 +1,7 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef, AfterViewChecked, OnChanges, SimpleChanges, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
-import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
-import * as fromAuth from '../../services/auth/store/auth.reducer';
-import * as fromApp from "../../store/app.reducer";
+import { Component, OnInit, NgZone, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList } from '@angular/core';
+import * as fromRoom from '../../../services/dataServices/room/store/room.reducer';
+import * as fromAuth from '../../../services/auth/store/auth.reducer';
+import * as fromApp from "../../../store/app.reducer";
 import { Observable } from 'rxjs/internal/Observable';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/internal/operators/take';
@@ -14,9 +14,8 @@ import { Room } from 'src/app/dtos/room';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { EventInfoComponent } from '../event-info/event-info.component';
+import { EventInfoComponent } from '../../event-info/event-info.component';
 import { Store } from '@ngrx/store';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'room',

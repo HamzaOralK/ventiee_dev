@@ -17,9 +17,6 @@
   <!-- {{page}} -->
 
   <div class="events scroll" #eventScroll>
-    <!-- <mat-accordion>
-      <event-line *ngFor="let event of (appWise | async).events" [event]="event"></event-line>
-    </mat-accordion> -->
     <events *ngIf="(appWise | async).events" [events]="(appWise | async).events"> </events>
 
     <mat-card *ngIf="(appWise | async).events.length === 0">

@@ -4,7 +4,6 @@
     <div [ngClass]="user ? 'mainContainerSystem' : 'mainContainerLanding'">
         <left-navigation *ngIf="user"></left-navigation>
         <main-page id="main" class="main-page"></main-page>
-        <!-- <room-navigation style="height: 100%;" *ngIf="(auth | async).user"></room-navigation> -->
     </div>
   </div>
   <vfooter *ngIf="!user"></vfooter>
