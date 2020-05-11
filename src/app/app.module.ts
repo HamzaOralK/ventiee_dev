@@ -15,13 +15,9 @@ import { AppComponent } from './app.component';
 import { TopNavigationComponent } from './layout/top-navigation/top-navigation.component';
 import { LeftNavigationComponent } from './layout/left-navigation/left-navigation.component';
 import { MainPageComponent } from './layout/main-page/main-page.component';
-import { SignUpComponent } from './pages/sign-up/sign-up/sign-up.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
-import { UserSettingsComponent } from './pages/user-settings/user-settings/user-settings.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile/user-profile.component';
-
 
 /** Material Components */
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -51,9 +47,6 @@ import * as fromApp from './store/app.reducer';
 /** Shared Modules */
 import { PipesModule } from './shared/pipes/pipes.module';
 import { DirectivesModule } from './shared/directives/directives.module';
-import { UsersCommentsComponent } from './components/users-comments/users-comments.component';
-import { NewCommentComponent } from './components/new-comment/new-comment.component';
-import { RatingComponent } from './components/rating/rating.component';
 import { ResendComponent } from './pages/resend/resend.component';
 import { BaseComponent } from './components/base/base.component';
 import { VerifyComponent } from './pages/verify/verify.component';
@@ -62,7 +55,6 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
 import { EventsModule } from './components/events/events.module';
 import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
