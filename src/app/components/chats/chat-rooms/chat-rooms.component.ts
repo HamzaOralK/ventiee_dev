@@ -15,9 +15,7 @@ export class ChatRoomsComponent implements OnInit {
     private appService: AppService
   ) { }
 
-  ngOnInit(): void {
-    console.log(this.room);
-  }
+  ngOnInit(): void { }
 
   onCloseNav() {
     this.appService.closeNav();

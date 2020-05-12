@@ -35,14 +35,18 @@
       <span class="text">
         <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp; / {{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
       </span>
+      <span class="spacer"></span>
       <button mat-icon-button (click)="openDialog()">
         <mat-icon>event_note</mat-icon>
+      </button>
+      <button mat-icon-button (click)="leaveRoom()">
+        <mat-icon>clear</mat-icon>
       </button>
     </div>
     <div #messages class="messages scroll">
       <div class="inner" *ngIf="activeRoom">
         <div #messagesContainer class="all" *ngFor="let message of activeRoom.messages; let i = index;">
-          <div [ngClass]="isOwn(message) ? 'own' : 'other'" *ngIf="message.type === 0">
+          <div [ngClass]="isOwn(message) ? 'own' : 'other'" *ngIf="message.type === undefined">
             <div style="max-width: 65%; overflow: hidden;">
 
               <span *ngIf="i === 0 && !isOwn(message)" [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">{{message.roomUser.user.nickname}}</span>

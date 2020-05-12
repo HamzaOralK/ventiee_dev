@@ -8,9 +8,8 @@ import { take } from 'rxjs/internal/operators/take';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { ActivatedRoute } from '@angular/router';
 import { MMessage, MessageType } from 'src/app/dtos/message';
-import { COMMONS } from 'src/app/shared/commons';
-import { User, Color } from 'src/app/dtos/user';
-import { Room, RoomUser } from 'src/app/dtos/room';
+import { User } from 'src/app/dtos/user';
+import { Room, RoomUser, Color } from 'src/app/dtos/room';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -72,9 +71,9 @@ export class RoomComponent implements OnInit, OnDestroy {
           this.activeRoom = p.activeRoom;
           if(this.activeRoom.users && this.activeRoom.users.length >= 1) {
             this.activeRoom.users.map(ru => {
-              if(!ru.user.color) {
+              if(!ru.color) {
                 let color = new Color(this.getRandom(255), this.getRandom(255), this.getRandom(255), 1);
-                ru.user.color = color
+                ru.color = color
               }
               return ru.user;
             });
@@ -118,7 +117,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       message.roomUser.user = this.user;
       message.eventId = this.activeRoom._id;
       message.isRead = false;
-      message.type = MessageType.Message;
+      message.type = undefined;
       this.roomService.sendMessage(this.activeRoom, message);
     };
     (event.target as HTMLInputElement).value = '';
@@ -182,7 +181,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     if(this.activeRoom.users && user && user._id) {
       let userCurrent = this.activeRoom.users.find(u => u.user._id === user._id);
       if (userCurrent) {
-        let color = userCurrent.user.color;
+        let color = userCurrent.color;
         return 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')';
       }
       else return 'rgba(145,145,145,1)';

@@ -151,7 +151,6 @@ export class RoomService implements OnDestroy {
     }
 
     this.http.post<any>(url, postObj).subscribe(res => {
-      console.log(res);
       this.roomStore.dispatch(new RoomAction.JoinRoom({ room: res.obj }));
       this.joinSocketRoom(room._id, true);
       this.router.navigate(['/room/' + room._id]);
@@ -174,7 +173,7 @@ export class RoomService implements OnDestroy {
     });
   }
 
-  formatLoadedMessages(p: {_id: string, eventId: string, messageDate: string, text: string, userId: string, userName: string, type: number}) {
+  formatLoadedMessages(p: {_id: string, eventId: string, messageDate: string, text: string, userId: string, userName: string, type: number, user: User}) {
     let m = new MMessage();
     m._id = p._id;
     m.eventId = p.eventId;
@@ -182,8 +181,7 @@ export class RoomService implements OnDestroy {
     m.message = p.text;
     m.roomUser = new RoomUser();
     m.roomUser.user = new User();
-    m.roomUser.user._id = p.userId;
-    m.roomUser.user.nickname = p.userName;
+    m.roomUser.user = p.user;
     m.type = p.type;
     return m;
   }
@@ -234,12 +232,12 @@ export class RoomService implements OnDestroy {
   }
 
   joinSocketRoom(roomId: string, isInsert = false) {
-    let type: MessageType;
+    let type: MessageType = undefined;
     if(isInsert) {
       type = MessageType.NewUser;
     }
     let socketObj: Partial<MMessage> = {
-      roomUser: {user: { _id: this.user._id, nickname: this.user.nickname }},
+      roomUser: { user: { _id: this.user._id, nickname: this.user.nickname } },
       eventId: roomId,
       type,
       date: new Date(),
