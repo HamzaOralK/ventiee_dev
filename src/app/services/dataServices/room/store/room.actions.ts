@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { MMessage } from '../../../../dtos/message';
-import { Room } from '../../../../dtos/room';
-import { User } from 'src/app/dtos/user';
+import { Room, RoomUser } from '../../../../dtos/room';
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_MESSAGE = 'GET_MESSAGE';
@@ -18,7 +17,7 @@ export const SET_ROOM_USERS = 'SET_ROOM_USERS';
 
 export class SendMessage implements Action {
   readonly type = SEND_MESSAGE;
-  constructor(public payload: { room: Room, user: User, message?: MMessage[] }) { }
+  constructor(public payload: { room: Room, roomUser: RoomUser, message?: MMessage[] }) { }
 }
 
 export class GetMessage implements Action {
@@ -43,7 +42,7 @@ export class JoinRoom implements Action {
 
 export class InsertUser implements Action {
   readonly type = INSERT_USER;
-  constructor(public payload: { roomId: string, user: User }) { }
+  constructor(public payload: { roomId: string, roomUser: RoomUser }) { }
 }
 
 export class LeaveRoom implements Action {
@@ -53,7 +52,7 @@ export class LeaveRoom implements Action {
 
 export class KickUser implements Action {
   readonly type = KICK_USER;
-  constructor(public payload: { room: Room, userId?: string }) { }
+  constructor(public payload: { room: Room, roomUserId?: string }) { }
 }
 
 export class ChangeActiveRoom implements Action {
@@ -63,7 +62,7 @@ export class ChangeActiveRoom implements Action {
 
 export class SetRoomUsers implements Action {
   readonly type = SET_ROOM_USERS;
-  constructor(public payload: { room: Room, users: User[] }) { }
+  constructor(public payload: { room: Room, roomUsers: RoomUser[] }) { }
 }
 
 export type RoomActions = SendMessage | GetMessage | LoadMessages | GetRooms | JoinRoom | LeaveRoom |

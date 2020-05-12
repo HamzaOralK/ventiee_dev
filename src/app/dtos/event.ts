@@ -1,7 +1,8 @@
+import { User } from './user';
+
 export class Event {
   _id: string;
   title: string;
-  moderatorUserId: string;
   peopleCount: number;
   startDate: Date;
   endDate: Date;
@@ -10,7 +11,8 @@ export class Event {
   city: string;
   longtitute: string;
   latitute: string;
-  userName: string;
+  moderatorUser: User;
+  moderatorUserId: string;
   description: string;
 }
 

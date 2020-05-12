@@ -1,8 +1,8 @@
-import { User } from './user';
+import { RoomUser } from './room';
 
 export class MMessage {
   _id:string;
-  user: Partial<User>;
+  roomUser: Partial<RoomUser>;
   date: Date;
   message: string;
   event: Event;

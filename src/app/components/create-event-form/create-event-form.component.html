@@ -125,7 +125,7 @@
         </div>
         <div class="actions">
           <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
-          <button mat-raised-button color="primary" (click)="createEvent()">{{'createEvent' | ml}}</button>
+          <button mat-raised-button color="primary" [disabled]="!checkValid()" (click)="createEvent()">{{'createEvent' | ml}}</button>
         </div>
       </form>
     </mat-step>

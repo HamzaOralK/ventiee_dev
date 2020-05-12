@@ -6,11 +6,11 @@ import { Observable } from 'rxjs/internal/Observable';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/internal/operators/take';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MMessage, MessageType } from 'src/app/dtos/message';
 import { COMMONS } from 'src/app/shared/commons';
 import { User, Color } from 'src/app/dtos/user';
-import { Room } from 'src/app/dtos/room';
+import { Room, RoomUser } from 'src/app/dtos/room';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -47,8 +47,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private store: Store<fromApp.AppState>,
-    private roomStore: Store<fromRoom.State>,
-    private router: Router,
     public dialog: MatDialog
   ) { }
 
@@ -73,12 +71,12 @@ export class RoomComponent implements OnInit, OnDestroy {
         else if (p.activeRoom) {
           this.activeRoom = p.activeRoom;
           if(this.activeRoom.users && this.activeRoom.users.length >= 1) {
-            this.activeRoom.users.map(user => {
-              if(!user.color) {
+            this.activeRoom.users.map(ru => {
+              if(!ru.user.color) {
                 let color = new Color(this.getRandom(255), this.getRandom(255), this.getRandom(255), 1);
-                user.color = color
+                ru.user.color = color
               }
-              return user;
+              return ru.user;
             });
           }
         }
@@ -86,7 +84,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
     this.subscription.add(stateSub);
 
-    let msgSubscription = this.roomService.msg.subscribe(p => { });
+    let msgSubscription = this.roomService.msg.subscribe(p => {   });
     this.subscription.add(msgSubscription);
   }
 
@@ -114,10 +112,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     let value = (event.target as HTMLInputElement).value;
     if(value.trim().length > 0) {
       let message = new MMessage();
-      message._id = COMMONS.generateUUID();
       message.date = new Date();
       message.message = value;
-      message.user = this.user;
+      message.roomUser = new RoomUser();
+      message.roomUser.user = this.user;
       message.eventId = this.activeRoom._id;
       message.isRead = false;
       message.type = MessageType.Message;
@@ -145,7 +143,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   isOwn(message: MMessage) {
-    return message.user._id === this.user._id;
+    return message.roomUser.user._id === this.user._id;
   }
 
   textareaFocus() {
@@ -165,11 +163,11 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   isModerator() {
-    return this.user._id === this.activeRoom.moderatorUserId;
+    return this.user._id === this.activeRoom.moderatorUser._id;
   }
 
   isLineModerator(user: User) {
-    return user._id === this.activeRoom.moderatorUserId;
+    return user._id === this.activeRoom.moderatorUser._id;
   }
 
   isKickable(user) {
@@ -182,9 +180,9 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   getColor(user: User) {
     if(this.activeRoom.users && user && user._id) {
-      let userCurrent = this.activeRoom.users.find(u => u._id === user._id);
+      let userCurrent = this.activeRoom.users.find(u => u.user._id === user._id);
       if (userCurrent) {
-        let color = userCurrent.color;
+        let color = userCurrent.user.color;
         return 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')';
       }
       else return 'rgba(145,145,145,1)';

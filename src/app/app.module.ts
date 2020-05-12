@@ -54,7 +54,6 @@ import { EventInfoUserComponent } from './pages/event-info/event-info-user/event
 import { VfooterComponent } from './layout/vfooter/vfooter.component';
 import { EventsModule } from './components/events/events.module';
 import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -81,7 +80,6 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     FormsModule,
     NgxMaskModule,
     StoreModule.forRoot(fromApp.appReducer),
-    NgxMaterialTimepickerModule.setLocale("tr-TR"),
     /** Material Components */
     MatSidenavModule,
     MatToolbarModule,

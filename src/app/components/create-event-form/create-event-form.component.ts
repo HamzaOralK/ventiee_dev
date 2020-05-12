@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { User } from 'src/app/dtos/user';
 
 @Component({
   selector: "create-event-form",
@@ -90,8 +91,10 @@ export class CreateEventFormComponent implements OnInit {
   createEvent() {
     let newEvent = new Event();
     newEvent.title = this.generalDescription.value.title;
+    newEvent.moderatorUser = new User();
+    newEvent.moderatorUser._id = this.authService.user._id;
+    newEvent.moderatorUser.nickname = this.authService.user.nickname;
     newEvent.moderatorUserId = this.authService.user._id;
-    newEvent.userName = this.authService.user.nickname;
     newEvent.peopleCount = this.generalDescription.value.peopleCount;
     let formStartDate: Date = new Date(this.timeInformation.value.startDate);
     let formStartTime: string = this.timeInformation.value.startTime;
@@ -125,14 +128,16 @@ export class CreateEventFormComponent implements OnInit {
     newEvent.district = this.placeInformation.value.location.district;
     newEvent.latitute = this.placeInformation.value.location.latitute;
     newEvent.longtitute = this.placeInformation.value.location.longtitute;
-    if (
-      (newEvent.endDate && newEvent.startDate > newEvent.endDate) ||
-      newEvent.startDate < new Date()
-    ) {
+    if ( (newEvent.endDate && newEvent.startDate > newEvent.endDate) || newEvent.startDate < new Date() ) {
       this.notificationService.notify(this.langService.get("timeError"), "OK");
     } else {
       this.eventService.addEvent(newEvent);
     }
+  }
+
+  checkValid(): boolean {
+
+    return this.generalDescription.valid && this.timeInformation.valid && this.placeInformation.valid;
   }
 
   formControls(formGroup: FormGroup): any {

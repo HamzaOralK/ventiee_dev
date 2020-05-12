@@ -74,6 +74,7 @@ export class EventService {
 
     addEvent(event: Event) {
       return this.http.post<any>(CONFIG.serviceURL + "/event/add", event).subscribe(p => {
+        console.log(p);
         if (p._id) {
           let room = { ...event, _id: p._id };
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room}));

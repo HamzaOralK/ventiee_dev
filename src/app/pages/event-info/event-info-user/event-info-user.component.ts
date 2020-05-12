@@ -27,11 +27,11 @@ export class EventInfoUserComponent extends BaseComponent implements OnInit {
   }
 
   isModerator() {
-    return this.room.moderatorUserId === this.authService.user._id;
+    return this.room.moderatorUser._id === this.authService.user._id;
   }
 
   isUserModerator(user) {
-    return this.room.moderatorUserId === user._id;
+    return this.room.moderatorUser._id === user._id;
   }
 
   kickUser(user: User) {

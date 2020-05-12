@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Room } from 'src/app/dtos/room';
+import { Room, RoomUser } from 'src/app/dtos/room';
 import { Store } from '@ngrx/store';
 import * as fromRoom from './store/room.reducer';
 import * as fromApp from '../../../store/app.reducer';
@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
 import { NotificationService } from '../../notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
-import { COMMONS } from 'src/app/shared/commons';
 
 @Injectable({
   providedIn: 'root'
@@ -87,15 +86,7 @@ export class RoomService implements OnDestroy {
           this.insertMessage(message, observer);
         });
         this.socket.on('leaveRoom', (message: any) => {
-          this.insertMessage(message, observer);
-          if(message["message"].type === MessageType.KickUser && message["message"].user._id === this.user._id) {
-            let room = this.rooms.find(r => r._id === message["message"].eventId);
-            this.notificationService.notify(room.title + " Event'inden kovuldun.");
-            this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
-            if(this.router.url === '/room/' + message["message"].eventId) {
-              this.router.navigate(["/home"]);
-            }
-          }
+          this.processLeaveRoom(message, observer);
         });
         this.socket.on('kickPerson', (message: {personToKick: string, roomToLeave: string}) => {
           if (message.personToKick === this.user._id) this.processKick(message.roomToLeave, message.personToKick);
@@ -104,15 +95,27 @@ export class RoomService implements OnDestroy {
     });
   }
 
+  private processLeaveRoom(message: any, observer: any) {
+    this.insertMessage(message, observer);
+    if (message["message"].type === MessageType.KickUser && (message["message"] as MMessage).roomUser.user._id === this.user._id) {
+      let room = this.rooms.find(r => r._id === (message["message"] as MMessage).eventId);
+      this.notificationService.notify(room.title + " Event'inden kovuldun.");
+      this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
+      if (this.router.url === '/room/' + (message["message"] as MMessage).eventId) {
+        this.router.navigate(["/home"]);
+      }
+    }
+  }
+
   private insertMessage(message: Object, observer: any) {
     let incMessage = message['message'] as MMessage;
     let room = this.rooms.find(p => p._id === incMessage.eventId);
     if(room) {
-      this.roomStore.dispatch(new RoomAction.SendMessage({ room: room, user: this.user, message: [incMessage] }));
+      this.roomStore.dispatch(new RoomAction.SendMessage({ room: room, roomUser: {user: this.user}, message: [incMessage] }));
       if (incMessage.type === MessageType.NewUser) {
-        this.roomStore.dispatch(new RoomAction.InsertUser({ roomId: room._id, user: message["message"].user }));
+        this.roomStore.dispatch(new RoomAction.InsertUser({ roomId: room._id, roomUser: message["message"].roomUser }));
       } else if (incMessage.type === MessageType.LeaveRoom || incMessage.type === MessageType.KickUser) {
-        this.roomStore.dispatch(new RoomAction.KickUser({ room, userId: message["message"].user._id }));
+        this.roomStore.dispatch(new RoomAction.KickUser({ room, roomUserId: message["message"].roomUser.user._id }));
       }
       observer.next(message);
       this.msg.next(message as MMessage);
@@ -148,6 +151,7 @@ export class RoomService implements OnDestroy {
     }
 
     this.http.post<any>(url, postObj).subscribe(res => {
+      console.log(res);
       this.roomStore.dispatch(new RoomAction.JoinRoom({ room: res.obj }));
       this.joinSocketRoom(room._id, true);
       this.router.navigate(['/room/' + room._id]);
@@ -176,17 +180,18 @@ export class RoomService implements OnDestroy {
     m.eventId = p.eventId;
     m.date = new Date(p.messageDate);
     m.message = p.text;
-    m.user = new User();
-    m.user._id = p.userId;
-    m.user.nickname = p.userName;
+    m.roomUser = new RoomUser();
+    m.roomUser.user = new User();
+    m.roomUser.user._id = p.userId;
+    m.roomUser.user.nickname = p.userName;
     m.type = p.type;
     return m;
   }
 
   getRoomUsers(room: Room) {
     let url = CONFIG.serviceURL + "/jUser/get/" + room._id;
-    this.http.get<User[]>(url).subscribe(p => {
-      this.roomStore.dispatch(new RoomAction.SetRoomUsers({room: room, users: p}))
+    this.http.get<RoomUser[]>(url).subscribe(p => {
+      this.roomStore.dispatch(new RoomAction.SetRoomUsers({room: room, roomUsers: p}))
     });
   }
 
@@ -234,7 +239,7 @@ export class RoomService implements OnDestroy {
       type = MessageType.NewUser;
     }
     let socketObj: Partial<MMessage> = {
-      user: { _id: this.user._id, nickname: this.user.nickname },
+      roomUser: {user: { _id: this.user._id, nickname: this.user.nickname }},
       eventId: roomId,
       type,
       date: new Date(),
@@ -244,9 +249,9 @@ export class RoomService implements OnDestroy {
   }
 
   leaveSocketRoom(roomId: string, type: MessageType) {
-    let postUser = { _id: this.user._id, nickname: this.user.nickname };
+    let postUser = { user: { _id: this.user._id, nickname: this.user.nickname }};
     let socketObj: Partial<MMessage> = {
-      user: postUser,
+      roomUser: postUser,
       eventId: roomId,
       type,
       date: new Date(),

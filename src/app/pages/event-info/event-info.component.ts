@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from 'src/app/dtos/user';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
-import { Room } from 'src/app/dtos/room';
+import { Room, RoomUser } from 'src/app/dtos/room';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -16,7 +16,7 @@ import { BaseComponent } from 'src/app/components/base/base.component';
 })
 export class EventInfoComponent extends BaseComponent implements OnInit {
 
-  users: User[];
+  users: RoomUser[];
   roomState: Observable<fromRoom.State>;
 
   constructor(
@@ -42,7 +42,7 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
   }
 
   isModerator() {
-    return this.data.room.moderatorUserId === this.authService.user._id;
+    return this.data.room.moderatorUser._id === this.authService.user._id;
   }
 
   onKickUser(user: User) {

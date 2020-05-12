@@ -31,7 +31,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         room.messages = dumMessages;
         state.rooms[roomIndex] = room;
         let unreadMessages = state.unreadMessages;
-        if(action.payload.message[0].user._id !== action.payload.user._id) {
+        if(action.payload.message[0].roomUser.user._id !== action.payload.roomUser.user._id) {
           unreadMessages++;
         }
         return {
@@ -61,7 +61,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       }
     case RoomActions.INSERT_USER:
       room = state.rooms.find(p => p._id === action.payload.roomId);
-      if(room.users && room.users.findIndex(u => u._id === action.payload.user._id) === -1) room.users.push(action.payload.user);
+      if(room.users && room.users.findIndex(u => u.user._id === action.payload.roomUser.user._id) === -1) room.users.push(action.payload.roomUser);
       return {
         ...state
       }
@@ -73,7 +73,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
     case RoomActions.KICK_USER:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
       if (roomIndex > -1 && state.rooms[roomIndex].users) {
-        state.rooms[roomIndex].users = state.rooms[roomIndex].users.filter(u => u._id !== action.payload.userId);
+        state.rooms[roomIndex].users = state.rooms[roomIndex].users.filter(u => u.user._id !== action.payload.roomUserId);
       }
       return {
         ...state,
@@ -90,7 +90,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       }
     case RoomActions.SET_ROOM_USERS:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
-      state.rooms[roomIndex].users = action.payload.users;
+      state.rooms[roomIndex].users = action.payload.roomUsers;
       return {
         ...state,
         rooms: state.rooms,

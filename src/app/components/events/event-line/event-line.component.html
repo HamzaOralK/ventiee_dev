@@ -18,7 +18,7 @@
           <div style="display: flex">
             <div class="iconInfo">
               <mat-icon>emoji_people</mat-icon>
-              {{event.userName}}
+              {{event.moderatorUser.nickname}}
             </div>
             <div class="iconInfo">
               <mat-icon>arrow_forward</mat-icon>
@@ -34,9 +34,9 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
   <div>
-    <div class="line" routerLink="/profile/{{event.moderatorUserId}}">
+    <div class="line" routerLink="/profile/{{event.moderatorUser._id}}">
       <div mat-card-avatar class="header-image"></div>
-      <p> <b>{{'organisator' | ml}}: {{event.userName}}</b></p>
+      <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
     </div>
     <br>
     <button mat-raised-button color="accent" (click)="joinEvent()" style="margin: 10px 0">{{'join' | ml}}</button>

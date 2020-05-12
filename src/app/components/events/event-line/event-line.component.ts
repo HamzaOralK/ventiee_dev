@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Event } from 'src/app/dtos/event';
 import { Room } from 'src/app/dtos/room';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 
 @Component({

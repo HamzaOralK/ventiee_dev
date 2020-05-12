@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Room } from 'src/app/dtos/room';
-import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -16,7 +15,9 @@ export class ChatRoomsComponent implements OnInit {
     private appService: AppService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log(this.room);
+  }
 
   onCloseNav() {
     this.appService.closeNav();
@@ -29,9 +30,9 @@ export class ChatRoomsComponent implements OnInit {
 
   getLastMessageUser() {
     if (this.room.messages && this.room.messages[this.room.messages.length - 1]) {
-      if (this.room.messages[this.room.messages.length - 1].user.nickname)
-        return this.room.messages[this.room.messages.length - 1].user.nickname
-      else return this.room.messages[this.room.messages.length - 1].user.name
+      if (this.room.messages[this.room.messages.length - 1].roomUser.user.nickname)
+        return this.room.messages[this.room.messages.length - 1].roomUser.user.nickname
+      else return this.room.messages[this.room.messages.length - 1].roomUser.user.name
     } else {
       return '';
     };
