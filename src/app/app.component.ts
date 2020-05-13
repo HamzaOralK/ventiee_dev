@@ -48,7 +48,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.auth = this.store.select("authState");
     this.auth.subscribe(p => {
       this.user = p.user;
-      if (this.user) this.eventService.getEvents();
+      if (this.user) this.eventService.getEvents().subscribe();
     })
     this.checkLocalStorage();
 

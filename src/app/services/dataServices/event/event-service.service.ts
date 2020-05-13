@@ -10,7 +10,7 @@ import * as fromAuth from '../../auth/store/auth.reducer';
 import * as fromRoom from '../../../services/dataServices/room/store/room.reducer';
 import * as RoomActions from '../../../services/dataServices/room/store/room.actions';
 import { Observable } from 'rxjs/internal/Observable';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
 import { Room } from 'src/app/dtos/room';
 import { Subscription } from 'rxjs';
@@ -27,6 +27,8 @@ export class EventService {
     subscription = new Subscription();
     events: any[];
 
+    _pageNo: number;
+
     constructor(
       private http: HttpClient,
       private store: Store<fromApp.AppState>,
@@ -37,30 +39,57 @@ export class EventService {
     ) {
       this.auth = this.store.select('authState');
       this.roomState = this.store.select('roomState');
+      this._pageNo = 1;
 
       this.roomState.subscribe(p => {
         if(p) this.joinedRooms = p.rooms;
       });
     }
 
-    getEvents(eventTitle: string = undefined) {
+    getEvents() {
       let url = CONFIG.serviceURL + '/events';
-      this.http.get<Event[]>(url)
-        .pipe(catchError(err => {
-          throw err
-        }))
-        .subscribe(
-          (result: any) => {
-            let r = result.filter((elem) => !this.joinedRooms.find(({ _id }) => elem._id === _id));
-            this.store.dispatch(new AppActitons.GetEvents(Object.values(r)));
-          },
-          error => {
-            if(error.status === 401) {
-              this.authService.logoutUser();
-            }
+      return this.http.get<Event[]>(url, {
+        params: {
+          pageNo: "1"
+        }
+      })
+      .pipe(
+        map((result: any) => {
+          this._pageNo = 2;
+          let r = result.filter((elem) => !this.joinedRooms.find(({ _id }) => elem._id === _id));
+          this.store.dispatch(new AppActitons.GetEvents(Object.values(r)));
+        }),
+        catchError(error => {
+          if (error.status === 401) {
+            this.authService.logoutUser();
           }
-        );
+          throw error;
+        })
+      );
     }
+
+  loadMoreEvents() {
+    let url = CONFIG.serviceURL + '/events';
+    return this.http.get<Event[]>(url, {
+      params: {
+        pageNo: this._pageNo.toString()
+      }
+    })
+    .pipe(
+      map((result: any) => {
+        let r = result.filter((elem) => !this.joinedRooms.find(({ _id }) => elem._id === _id));
+        this.store.dispatch(new AppActitons.LoadMoreEvents(Object.values(r)));
+        if(r && r.length > 0)
+          this._pageNo++;
+      }),
+      catchError(error => {
+        if (error.status === 401) {
+          this.authService.logoutUser();
+        }
+        throw error;
+      })
+    );
+  }
 
     getEventById(id: string) {
       let url = CONFIG.serviceURL + '/event/get/' + id;

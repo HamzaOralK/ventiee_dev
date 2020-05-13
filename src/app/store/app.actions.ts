@@ -3,6 +3,7 @@ import { Event } from '../dtos/event'
 export const TOGGLE_LEFT_NAV = 'TOGGLE_LEFT_NAV';
 export const TOGGLE_ROOM_NAV = 'TOGGLE_ROOM_NAV';
 export const GET_EVENTS = 'GET_EVENTS';
+export const LOAD_MORE_EVENTS = 'LOAD_MORE_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
 
 export class ToggleLeftNav implements Action {
@@ -20,9 +21,15 @@ export class GetEvents implements Action {
   constructor(public payload: Event[]) {}
 }
 
+export class LoadMoreEvents implements Action {
+  readonly type = LOAD_MORE_EVENTS;
+  constructor(public payload: Event[]) {}
+}
+
 export class AddEvent implements Action {
   readonly type = ADD_EVENT;
   constructor(public payload: Event) { }
 }
 
-export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | AddEvent;
+
+export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | AddEvent;

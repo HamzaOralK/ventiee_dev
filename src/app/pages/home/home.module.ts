@@ -12,6 +12,7 @@ import { EventsModule } from 'src/app/components/events/events.module';
 import { SignUpFormModule } from 'src/app/components/sign-up-form/sign-up-form.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatButtonModule } from '@angular/material/button';
     EventsModule,
     SignUpFormModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
 })
 export class HomeModule { }

@@ -9,6 +9,7 @@ import * as fromAuth from "../../../services/auth/store/auth.reducer";
 import * as fromApp from "../../../store/app.reducer";
 import * as AppAction from "../../../store/app.actions";
 import { User } from 'src/app/dtos/user';
+import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 
 @Component({
   selector: "home",
@@ -23,13 +24,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   subscription: Subscription = new Subscription();
   value: string = "";
   user: User;
-  page: number = 0;
+
+  _loading: boolean = false;
 
   @ViewChild('eventScroll') eventScroll: ElementRef;
 
   constructor(
     private store: Store<fromApp.AppState>,
-    private router: Router
+    private router: Router,
+    private eventService: EventService
   ) {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
@@ -54,8 +57,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
         let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
         if (scrollHeight - (scrollTop + offsetHeight) < 1 ) {
-          this.page++;
-          /** TODO: Get more events. */
+          this._loading = true;
+          this.eventService.loadMoreEvents().subscribe(() => {
+            this._loading = false;
+          });
         }
       });
     }

@@ -132,7 +132,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("gone");
     this.subscription.unsubscribe();
   }
 

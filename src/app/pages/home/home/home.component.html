@@ -18,7 +18,7 @@
 
   <div class="events scroll" #eventScroll>
     <events *ngIf="(appWise | async).events" [events]="(appWise | async).events"> </events>
-
+    <mat-spinner *ngIf="_loading"></mat-spinner>
     <mat-card *ngIf="(appWise | async).events.length === 0">
       {{'noEventError' | ml}}
       <mat-card-actions>

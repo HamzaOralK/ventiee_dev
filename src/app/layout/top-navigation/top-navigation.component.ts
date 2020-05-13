@@ -43,7 +43,7 @@ export class TopNavigationComponent implements OnInit {
   }
 
   getEvents() {
-    this.eventService.getEvents();
+    this.eventService.getEvents().subscribe();
   }
 
 }

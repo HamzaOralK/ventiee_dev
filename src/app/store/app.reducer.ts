@@ -46,7 +46,12 @@ export function appWiseReducer(state = initialState, action: AppActions.AppActio
     case AppActions.GET_EVENTS:
       return {
         ...state,
-        events: [...action.payload]
+        events: action.payload
+      }
+    case AppActions.LOAD_MORE_EVENTS:
+      return {
+        ...state,
+        events: [...state.events, ...action.payload]
       }
     case AppActions.ADD_EVENT:
       return {
