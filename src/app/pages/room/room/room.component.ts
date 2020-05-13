@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import * as fromRoom from '../../../services/dataServices/room/store/room.reducer';
 import * as fromAuth from '../../../services/auth/store/auth.reducer';
 import * as fromApp from "../../../store/app.reducer";
@@ -53,7 +53,9 @@ export class RoomComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private store: Store<fromApp.AppState>,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public cdr: ChangeDetectorRef
+
   ) { }
 
   ngOnInit(): void {
@@ -106,6 +108,7 @@ export class RoomComponent implements OnInit, OnDestroy {
           }
         }
       }
+      this.cdr.detectChanges();
     });
     this.subscription.add(stateSub);
 
@@ -139,8 +142,9 @@ export class RoomComponent implements OnInit, OnDestroy {
     this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
   }
 
-  sendMessage(event: InputEvent) {
-    let value = (event.target as HTMLInputElement).value;
+  sendMessage(event: Partial<InputEvent>) {
+    let value: string = (event.target as HTMLInputElement).value;
+
     if(value.trim().length > 0) {
       let message = new MMessage();
       message.date = new Date();
@@ -171,6 +175,8 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   submit(event) {
     event.preventDefault();
+    let dumEvent = { target: event.target[0] }
+    this.sendMessage(dumEvent);
   }
 
   isOwn(message: MMessage) {
