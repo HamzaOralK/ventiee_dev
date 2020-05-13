@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [UserSettingsComponent],
@@ -29,7 +30,8 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatCardModule
+    MatCardModule,
+    MatCheckboxModule
   ]
 })
 

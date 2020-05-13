@@ -102,6 +102,6 @@
     {"key": "users", "value": "Buradakiler"},
     {"key": "joinedNotification", "value": " konuşmaya katıldı."},
     {"key": "leftNotification", "value": " konuşmadan ayrıldı."},
-    {"key": "kickedNotification", "value": " konuşmadan atıldı."}
-
+    {"key": "kickedNotification", "value": " konuşmadan atıldı."},
+    {"key": "User successfully updated", "value": "Başarı ile güncellendi."}
 ]

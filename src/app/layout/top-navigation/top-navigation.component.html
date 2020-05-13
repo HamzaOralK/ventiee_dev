@@ -1,20 +1,15 @@
 <mat-toolbar>
     <mat-toolbar-row>
         <img class="logo c-ptr" [src]="'./assets/logo.png'" alt="ventiee_logo" routerLink="/home">
-        <mat-icon *ngIf="user" class="icon c-ptr" [matBadge]="unreadMessages" matBadgeColor="accent" (click)="toggleLeftMenu()">
-          menu
-        </mat-icon>
-        <mat-icon *ngIf="user" class="icon c-ptr" aria-hidden="false" routerLink="/home" (click)="getEvents()">
-          home
-        </mat-icon>
+        <mat-icon *ngIf="user" class="icon c-ptr" [matBadge]="unreadMessages" matBadgeColor="accent" (click)="toggleLeftMenu()">menu</mat-icon>
+        <mat-icon *ngIf="user" class="icon c-ptr" aria-hidden="false" routerLink="/home" (click)="getEvents()">home</mat-icon>
         <span class="spacer"></span>
         <ng-container *ngIf="user; else noUser">
             <button mat-button routerLink="/eventCalendar">
                 <mat-icon>calendar_today</mat-icon>
             </button>
             <button class="action" mat-stroked-button [matMenuTriggerFor]="menu">
-                <img src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-                  style="width:32px; height: 32px; border-radius: 16px;">
+                <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" style="width:32px; height: 32px; border-radius: 16px;">
                 {{user?.nickname}}
             </button>
             <mat-menu #menu="matMenu">
@@ -22,7 +17,7 @@
                     <mat-icon>face</mat-icon>
                     <span>{{ 'myProfile' | ml }}</span>
                 </button>
-                <button mat-menu-item routerLink="/userSettings/{{user._id}}">
+                <button mat-menu-item [routerLink]="['/userSettings', user._id]">
                     <mat-icon>settings</mat-icon>
                     <span>{{'settings' | ml}}</span>
                 </button>

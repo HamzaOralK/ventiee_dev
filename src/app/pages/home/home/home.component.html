@@ -14,8 +14,6 @@
     </mat-form-field>
   </div>
 
-  <!-- {{page}} -->
-
   <div class="events scroll" #eventScroll>
     <events *ngIf="(appWise | async).events" [events]="(appWise | async).events"> </events>
     <mat-spinner *ngIf="_loading"></mat-spinner>

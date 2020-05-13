@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'event/:id', component: EventPageComponent, canActivate: [AuthGuard]},
   { path: 'room/:id', loadChildren: () => import('./pages/room/room.module').then(m => m.RoomModule), canActivate: [AuthGuard]},
   { path: 'profile/:id', loadChildren: () => import('./pages/user-profile/user-profile.module').then(m => m.UserProfileModule), canActivate: [AuthGuard]},
-  { path: 'userSettings/:id', loadChildren: () => import('./pages/user-settings/user-settings.module'), canActivate: [AuthGuard]},
+  { path: 'userSettings/:id', loadChildren: () => import('./pages/user-settings/user-settings.module').then(m => m.UserSettingsModule), canActivate: [AuthGuard]},
   { path: 'createEvent', loadChildren: () => import('./pages/create-event/create-event.module').then(m => m.CreateEventModule), canActivate: [AuthGuard]},
   { path: 'eventCalendar', loadChildren: () => import('./components/event-calendar/event-calendar.module').then(m => m.EventCalendarModule), canActivate: [AuthGuard]},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
