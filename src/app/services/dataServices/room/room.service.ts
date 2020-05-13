@@ -222,14 +222,17 @@ export class RoomService implements OnDestroy {
     });
   }
 
-  loadMessages(room: Room) {
+  loadMessages(room: Room, pageNo: number = 1) {
     let url = CONFIG.serviceURL + "/messages/" + room._id;
-    return this.http.get(url).subscribe((p: any[]) => {
+    return this.http.get(url, {params: {
+      pageNo: pageNo.toString()
+    }}).subscribe((p: any[]) => {
       p = p.map(e => this.formatLoadedMessages(e));
       this.roomStore.dispatch(new RoomAction.LoadMessages({room: room, messages: p}));
       this.msg.next(undefined);
     });
   }
+  // messages/: id ? pageNo = 1
 
   joinSocketRoom(roomId: string, isInsert = false) {
     let type: MessageType = undefined;

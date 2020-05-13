@@ -23,6 +23,10 @@ import { Store } from '@ngrx/store';
 })
 export class RoomComponent implements OnInit, OnDestroy {
 
+  _loading: boolean = false;
+
+  pageNo: number;
+
   roomState: Observable<fromRoom.State>;
   authState: Observable<fromAuth.State>;
 
@@ -36,9 +40,12 @@ export class RoomComponent implements OnInit, OnDestroy {
   roomId: string;
   routeSubscription: Subscription;
 
+  previousScrollHeightMinusTop: number;
+
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messages') messages: ElementRef;
-  @ViewChildren("messagesContainer") messagesContainer: QueryList<ElementRef>;
+  @ViewChildren('messagesContainer') messagesContainer: QueryList<ElementRef>;
+  @ViewChild('scrollElement') scrollElement: ElementRef;
 
   constructor(
     private roomService: RoomService,
@@ -50,11 +57,14 @@ export class RoomComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.pageNo = 1;
+
     this.user = this.authService.user;
     this.roomState = this.store.select('roomState');
     this.subscription = new Subscription();
 
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
+      this.pageNo = 1;
       this.roomId = p.get('id');
       this.roomService.changeRoom(this.roomId);
       this.scroll = true;
@@ -62,18 +72,34 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
     this.subscription.add(routeSubscription);
 
+    let msgSubscription = this.roomService.msg.subscribe(p => {
+      let scrollHeight: number;
+      setTimeout(() => {
+        scrollHeight = (this.messages.nativeElement as HTMLLIElement).scrollHeight;
+      });
+      if (this.messages && this._loading)
+        setTimeout(() => {
+          (this.messages.nativeElement as HTMLLIElement).scrollTop = scrollHeight - this.previousScrollHeightMinusTop;
+        });
+      this._loading = false;
+    });
+    this.subscription.add(msgSubscription);
+  }
+
+
+  ngAfterViewInit() {
+
     let stateSub = this.store.select("roomState").subscribe(p => {
       if (p.rooms.length > 0) {
-        if((!this.activeRoom || this.activeRoom._id !== p.activeRoom._id) && !p.activeRoom) {
+        if ((!this.activeRoom || this.activeRoom._id !== p.activeRoom._id) && !p.activeRoom) {
           this.roomService.changeRoom(this.roomId);
         }
         else if (p.activeRoom) {
           this.activeRoom = p.activeRoom;
-          if(this.activeRoom.users && this.activeRoom.users.length >= 1) {
+          if (this.activeRoom.users && this.activeRoom.users.length >= 1) {
             this.activeRoom.users.map(ru => {
-              if(!ru.color) {
-                let color = new Color(this.getRandom(255), this.getRandom(255), this.getRandom(255), 1);
-                ru.color = color
+              if (!ru.color) {
+                ru.color = new Color(this.getRandom(255), this.getRandom(255), this.getRandom(255), 1);
               }
               return ru.user;
             });
@@ -83,24 +109,31 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
     this.subscription.add(stateSub);
 
-    let msgSubscription = this.roomService.msg.subscribe(p => {   });
-    this.subscription.add(msgSubscription);
-  }
-
-
-  ngAfterViewInit() {
-
-    this.messagesContainer.changes.subscribe((list: QueryList<ElementRef>) => {
+    let containerSub = this.messagesContainer.changes.subscribe((list: QueryList<ElementRef>) => {
       this.scrollToBottomCheck();
       if(this.scroll && list.length > 0) {
         this.scroll = false;
       }
     });
+    this.subscription.add(containerSub);
+
+    if (this.messages) {
+      (this.messages.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
+        let scrollHeight = (this.messages.nativeElement as HTMLLIElement).scrollHeight;
+        let scrollTop = (this.messages.nativeElement as HTMLLIElement).scrollTop;
+        if(scrollHeight > 0 && scrollTop === 0 ) {
+          this.pageNo++;
+          this._loading = true;
+          this.previousScrollHeightMinusTop = scrollHeight - scrollTop;
+          this.roomService.loadMessages(this.activeRoom, this.pageNo);
+        }
+      });
+    }
   }
 
   ngOnDestroy() {
+    console.log("gone");
     this.subscription.unsubscribe();
-
   }
 
   triggerResize() {

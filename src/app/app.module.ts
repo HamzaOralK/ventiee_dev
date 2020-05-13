@@ -37,6 +37,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
@@ -98,6 +99,7 @@ import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module'
     MatSelectModule,
     MatAutocompleteModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
     /** Additional */
     PipesModule,
     DirectivesModule,

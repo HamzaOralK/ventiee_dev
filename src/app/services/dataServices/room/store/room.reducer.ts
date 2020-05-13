@@ -43,7 +43,11 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       break;
     case RoomActions.LOAD_MESSAGES:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
-      state.rooms[roomIndex].messages = action.payload.messages;
+      if (state.rooms[roomIndex].messages)
+        state.rooms[roomIndex].messages = [...action.payload.messages, ...state.rooms[roomIndex].messages];
+      else {
+        state.rooms[roomIndex].messages = action.payload.messages;
+      }
       return {
         ...state,
         rooms: [...state.rooms]

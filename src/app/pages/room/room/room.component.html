@@ -44,8 +44,11 @@
       </button>
     </div>
     <div #messages class="messages scroll">
-      <div class="inner" *ngIf="activeRoom">
-        <div #messagesContainer class="all" *ngFor="let message of activeRoom.messages; let i = index;">
+      <div #scrollElement class="inner" *ngIf="activeRoom">
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <mat-spinner *ngIf="_loading"></mat-spinner>
+        </div>
+        <div #messagesContainer class="messageWrapper" *ngFor="let message of activeRoom.messages; let i = index;">
           <div [ngClass]="isOwn(message) ? 'own' : 'other'" *ngIf="message.type === undefined">
             <div style="max-width: 65%; overflow: hidden;">
 
