@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     let eventSearchSubscription = this.eventSearchText
       .pipe(debounceTime(500))
       .subscribe(p => {
-        if(p && p.length > 3) {
+        if(p && p.length >= 3) {
           this.eventService.getEvents(p).subscribe();
         } else if(p === "") {
           this.eventService.getEvents().subscribe();
