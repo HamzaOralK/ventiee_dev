@@ -1,13 +1,17 @@
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { CONFIG } from '../config';
 import { tap } from 'rxjs/internal/operators/tap';
-import { Router } from '@angular/router';
-import { Injector, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { AuthService } from '../services/auth/auth.service';
+import { NotificationService } from '../services/notification/notification.service';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private notificationService: NotificationService
+  ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     //return next.handle(request);
@@ -38,8 +42,10 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error instanceof HttpErrorResponse) {
             if (error.status !== 401) {
               return;
+            } else if (error.status === 401) {
+              this.notificationService.notify('tokenError');
+              this.authService.logoutUser();
             }
-            this.router.navigate(["home"]);
           }
         }
       )

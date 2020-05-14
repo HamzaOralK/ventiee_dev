@@ -23,6 +23,8 @@
     {"key": "endDate", "value": "Bitiş Tarihi"},
     {"key": "organisator", "value": "Organizatör"},
     {"key": "timeError", "value": "Tarihte bir sıkıntı var."},
+    {"key": "startDateGtThanEndDate", "value": "Başlangıç tarihi bitiş tarihinden büyüktür."},
+    {"key": "startDateGtThanNow", "value": "Başlangıç tarihi geçmiş bir tarih olamaz."},
     {"key": "place", "value": "Yer"},
     {"key": "where", "value": "Nerede"},
     {"key": "city", "value": "İl"},
@@ -103,5 +105,6 @@
     {"key": "joinedNotification", "value": " konuşmaya katıldı."},
     {"key": "leftNotification", "value": " konuşmadan ayrıldı."},
     {"key": "kickedNotification", "value": " konuşmadan atıldı."},
-    {"key": "User successfully updated", "value": "Başarı ile güncellendi."}
+    {"key": "User successfully updated", "value": "Başarı ile güncellendi."},
+    {"key": "tokenError", "value": "İşlem süreniz sona erdi. Bir daha giriş yapın!"}
 ]

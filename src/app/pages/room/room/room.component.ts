@@ -90,6 +90,15 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 
   ngAfterViewInit() {
+    let containerSub = this.messagesContainer.changes.subscribe(
+      (list: QueryList<ElementRef>) => {
+        this.scrollToBottomCheck();
+        if (this.scroll && list.length > 0) {
+          this.scroll = false;
+        }
+      }
+    );
+    this.subscription.add(containerSub);
 
     let stateSub = this.store.select("roomState").subscribe(p => {
       if (p.rooms.length > 0) {
@@ -112,13 +121,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
     this.subscription.add(stateSub);
 
-    let containerSub = this.messagesContainer.changes.subscribe((list: QueryList<ElementRef>) => {
-      this.scrollToBottomCheck();
-      if(this.scroll && list.length > 0) {
-        this.scroll = false;
-      }
-    });
-    this.subscription.add(containerSub);
+
 
     if (this.messages) {
       (this.messages.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
@@ -229,4 +232,12 @@ export class RoomComponent implements OnInit, OnDestroy {
   leaveRoom() {
     this.roomService.leaveRoom(this.activeRoom._id, this.user._id);
   }
+
+  getOnlyDate(date: Date): string {
+    var d = date.getDate().toString();
+    var m = (date.getMonth() + 1).toString(); // Since getMonth() returns month from 0-11 not 1-12
+    var y = date.getFullYear().toString();
+    return d+"/"+m+"/"+y;
+  }
+
 }

@@ -48,39 +48,44 @@
         <div style="display: flex; justify-content: center; align-items: center;">
           <mat-spinner *ngIf="_loading"></mat-spinner>
         </div>
-        <div #messagesContainer class="messageWrapper" *ngFor="let message of activeRoom.messages; let i = index;">
-          <div [ngClass]="isOwn(message) ? 'own' : 'other'" *ngIf="message.type === undefined">
-            <div style="max-width: 65%; overflow: hidden;">
+        <ng-container *ngFor="let message of activeRoom.messages; let i = index;">
+          <div *ngIf="i > 0 && getOnlyDate(activeRoom.messages[i-1].date) !== getOnlyDate(message.date)" class="mContainer">
 
-              <span *ngIf="i === 0 && !isOwn(message)" [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">{{message.roomUser.user.nickname}}</span>
-              <span *ngIf="i > 0 && activeRoom.messages[i-1].roomUser.user._id !== message.roomUser.user._id && !isOwn(message)"
-                [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">{{message.roomUser.user.nickname}}</span>
-              <div class="message">
-                <span class="messageText">{{message.message}}</span><br>
-                <span class="messageDate">{{message.date | date:'dd/MM/yyyy HH:mm'}}</span>
+            <span class="date">{{getOnlyDate(message.date)}}</span>
+          </div>
+
+          <div #messagesContainer class="messageWrapper">
+            <div [ngClass]="isOwn(message) ? 'own' : 'other'" *ngIf="message.type === undefined">
+              <div style="max-width: 65%; overflow: hidden;">
+                <span *ngIf="i === 0 && !isOwn(message)" [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">{{message.roomUser.user.nickname}}</span>
+                <span *ngIf="i > 0 && activeRoom.messages[i-1].roomUser.user._id !== message.roomUser.user._id && !isOwn(message)"
+                  [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">{{message.roomUser.user.nickname}}</span>
+                <div class="message">
+                  <span class="messageText">{{message.message}}</span><br>
+                  <span class="messageDate">{{message.date | date:'dd/MM/yyyy HH:mm'}}</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="message.type === 1" class="mContainer">
+              <div class="notification">
+                {{message.roomUser.user.nickname}} {{'joinedNotification' | ml}}
+              </div>
+            </div>
+            <div *ngIf="message.type === 2" class="mContainer">
+              <div class="notification">
+                {{message.roomUser.user.nickname}} {{'leftNotification' | ml}}
+              </div>
+            </div>
+            <div *ngIf="message.type === 3" class="mContainer">
+              <div class="notification">
+                {{message.roomUser.user.nickname}} {{'kickedNotification' | ml}}
               </div>
             </div>
           </div>
+        </ng-container>
 
-          <div *ngIf="message.type === 1" style="width: 100%; display: flex; justify-content: center; margin: 10px">
-            <div class="notification">
-              {{message.roomUser.user.nickname}} {{'joinedNotification' | ml}}
-            </div>
-          </div>
 
-          <div *ngIf="message.type === 2" style="width: 100%; display: flex; justify-content: center; margin: 10px">
-            <div class="notification">
-              {{message.roomUser.user.nickname}} {{'leftNotification' | ml}}
-            </div>
-          </div>
 
-          <div *ngIf="message.type === 3" style="width: 100%; display: flex; justify-content: center; margin: 10px">
-            <div class="notification">
-              {{message.roomUser.user.nickname}} {{'kickedNotification' | ml}}
-            </div>
-          </div>
-
-        </div>
       </div>
     </div>
     <form (submit)="submit($event)" (keyup.enter)="sendMessage($event)" (keydown.enter)="$event.preventDefault()" class="sendMessageForm">

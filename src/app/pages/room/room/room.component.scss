@@ -167,3 +167,22 @@ $usersFullWidth: 300px;
 .spacer {
   flex: 1 1 auto;
 }
+
+.date {
+  min-width: 300px;
+  text-align: center;
+  height: 40px;
+  vertical-align: middle;
+  line-height: 40px;
+  background: mat-color($app-primary);
+  color: mat-color($app-font);
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -89,8 +89,7 @@ export class CreateEventFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.generalDescription.patchValue({ id: this.eventId });
-    this.imgURL =
-      "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
+    this.imgURL = "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
   }
 
   createEvent() {
@@ -142,11 +141,10 @@ export class CreateEventFormComponent implements OnInit {
     newEvent.district = this.placeInformation.value.location.district;
     newEvent.latitute = this.placeInformation.value.location.latitute;
     newEvent.longtitute = this.placeInformation.value.location.longtitute;
-    if (
-      (newEvent.endDate && newEvent.startDate > newEvent.endDate) ||
-      newEvent.startDate < new Date()
-    ) {
-      this.notificationService.notify(this.langService.get("timeError"), "OK");
+    if (newEvent.endDate && newEvent.startDate > newEvent.endDate) {
+      this.notificationService.notify(this.langService.get("startDateGtThanEndDate"), "OK");
+    } else if (newEvent.startDate < new Date()) {
+      this.notificationService.notify(this.langService.get("startDateGtThanNow"), "OK");
     } else {
       this.eventService.addEvent(newEvent);
     }
