@@ -23,10 +23,10 @@ import { User } from 'src/app/dtos/user';
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
-  ]
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
 })
 export class CreateEventFormComponent implements OnInit {
   public imagePath;
@@ -38,28 +38,29 @@ export class CreateEventFormComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   filteredTags: Observable<string[]>;
-  tags: string[] = ['Sokak'];
-  allTags: string[] = ['Alkollü', 'Konser', 'Oyun', 'Gezmece'];
+  allTags: string[] = ["Alkollü", "Konser", "Oyun", "Gezmece"];
 
   @Input() eventId: string;
-  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  @ViewChild('fileInput') fileInput: HTMLInputElement;
+  @ViewChild("tagInput") tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild("auto") matAutocomplete: MatAutocomplete;
+  @ViewChild("fileInput") fileInput: HTMLInputElement;
 
   isLinear = true;
+
+  tagFilter = new FormControl();
+
   generalDescription = new FormGroup({
-    id: new FormControl(""),
     title: new FormControl(""),
     description: new FormControl("", [Validators.maxLength(100)]),
     peopleCount: new FormControl("", [Validators.min(3)]),
-    tags: new FormControl()
+    tags: new FormControl([], [Validators.required])
   });
 
   timeInformation = new FormGroup({
     startTime: new FormControl(),
     startDate: new FormControl(),
     endTime: new FormControl(),
-    endDate: new FormControl()
+    endDate: new FormControl(),
   });
 
   placeInformation = new FormGroup({
@@ -68,8 +69,8 @@ export class CreateEventFormComponent implements OnInit {
       district: new FormControl(""),
       city: new FormControl(""),
       longtitute: new FormControl(""),
-      latitute: new FormControl("")
-    })
+      latitute: new FormControl(""),
+    }),
   });
 
   constructor(
@@ -78,14 +79,18 @@ export class CreateEventFormComponent implements OnInit {
     private langService: LangService,
     private authService: AuthService
   ) {
-    this.filteredTags = this.generalDescription.controls["tags"].valueChanges.pipe(
+    this.filteredTags = this.tagFilter.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
+      map((fruit: string | null) => {
+        return fruit ? this._filter(fruit) : this.allTags.slice();
+      })
+    );
   }
 
   ngOnInit(): void {
     this.generalDescription.patchValue({ id: this.eventId });
-    this.imgURL = "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
+    this.imgURL =
+      "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
   }
 
   createEvent() {
@@ -96,6 +101,8 @@ export class CreateEventFormComponent implements OnInit {
     newEvent.moderatorUser.nickname = this.authService.user.nickname;
     newEvent.moderatorUserId = this.authService.user._id;
     newEvent.peopleCount = this.generalDescription.value.peopleCount;
+    newEvent.tags = this.generalDescription.value.tags;
+    newEvent.description = this.generalDescription.value.description;
     let formStartDate: Date = new Date(this.timeInformation.value.startDate);
     let formStartTime: string = this.timeInformation.value.startTime;
     let formStartHour: number = parseInt(formStartTime.split(":")[0]);
@@ -112,15 +119,22 @@ export class CreateEventFormComponent implements OnInit {
     let formEndTime: string;
     let formEndHour: number = 0;
     let formEndMin: number = 0;
-    if(this.timeInformation.value.endDate) formEndDate = new Date(this.timeInformation.value.endDate);
+    if (this.timeInformation.value.endDate)
+      formEndDate = new Date(this.timeInformation.value.endDate);
     if (this.timeInformation.value.endTime) {
       formEndTime = this.timeInformation.value.endTime;
       formEndHour = parseInt(formEndTime.split(":")[0]);
       formEndMin = parseInt(formEndTime.split(":")[1]);
     }
     let endDate: Date;
-    if(formEndDate) {
-      endDate = new Date(formEndDate.getFullYear(), formEndDate.getMonth(), formEndDate.getDate(), formEndHour, formEndMin);
+    if (formEndDate) {
+      endDate = new Date(
+        formEndDate.getFullYear(),
+        formEndDate.getMonth(),
+        formEndDate.getDate(),
+        formEndHour,
+        formEndMin
+      );
       newEvent.endDate = endDate;
     }
     newEvent.venue = this.placeInformation.value.venue;
@@ -128,7 +142,10 @@ export class CreateEventFormComponent implements OnInit {
     newEvent.district = this.placeInformation.value.location.district;
     newEvent.latitute = this.placeInformation.value.location.latitute;
     newEvent.longtitute = this.placeInformation.value.location.longtitute;
-    if ( (newEvent.endDate && newEvent.startDate > newEvent.endDate) || newEvent.startDate < new Date() ) {
+    if (
+      (newEvent.endDate && newEvent.startDate > newEvent.endDate) ||
+      newEvent.startDate < new Date()
+    ) {
       this.notificationService.notify(this.langService.get("timeError"), "OK");
     } else {
       this.eventService.addEvent(newEvent);
@@ -136,12 +153,15 @@ export class CreateEventFormComponent implements OnInit {
   }
 
   checkValid(): boolean {
-
-    return this.generalDescription.valid && this.timeInformation.valid && this.placeInformation.valid;
+    return (
+      this.generalDescription.valid &&
+      this.timeInformation.valid &&
+      this.placeInformation.valid
+    );
   }
 
   formControls(formGroup: FormGroup): any {
-    return formGroup['controls'];
+    return formGroup["controls"];
   }
 
   uploadImg(fileInput: HTMLInputElement) {
@@ -149,8 +169,7 @@ export class CreateEventFormComponent implements OnInit {
   }
 
   preview(files) {
-    if (files.length === 0)
-      return;
+    if (files.length === 0) return;
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
@@ -162,17 +181,23 @@ export class CreateEventFormComponent implements OnInit {
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
       this.imgURL = reader.result;
-    }
+    };
   }
 
-  getTitle() {
+  get title() {
     return this.generalDescription.get("title").value;
   }
 
   /** Tag Chips */
+  get tags() {
+    return this.generalDescription.get("tags");
+  }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.allTags.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.allTags.filter(
+      (fruit) => fruit.toLowerCase().indexOf(filterValue) === 0
+    );
   }
 
   add(event: MatChipInputEvent): void {
@@ -180,28 +205,35 @@ export class CreateEventFormComponent implements OnInit {
     const value = event.value;
 
     // Add our fruit
-    if ((value || '').trim()) {
-      this.tags.push(value.trim());
+    if ((value || "").trim()) {
+      let prevValue = this.tags.value;
+      prevValue.push(value);
+      this.tags.setValue(prevValue);
     }
 
     // Reset the input value
     if (input) {
-      input.value = '';
+      input.value = "";
     }
+    this.generalDescription.controls["tags"].updateValueAndValidity();
   }
 
   remove(fruit: string): void {
-    const index = this.tags.indexOf(fruit);
+    const index = this.tags.value.indexOf(fruit);
 
     if (index >= 0) {
-      this.tags.splice(index, 1);
+      let prevValue = this.tags.value;
+      prevValue.splice(index, 1);
+      this.tags.setValue(prevValue);
     }
+    this.generalDescription.controls["tags"].updateValueAndValidity();
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
-    this.tagInput.nativeElement.value = '';
-    //this.fruitCtrl.setValue(null);
+    this.tags.value.push(event.option.viewValue);
+    this.tagInput.nativeElement.value = "";
+    this.generalDescription.controls["tags"].updateValueAndValidity();
   }
   /*******/
+
 }

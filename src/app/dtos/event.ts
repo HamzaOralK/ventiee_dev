@@ -14,6 +14,7 @@ export class Event {
   moderatorUser: User;
   moderatorUserId: string;
   description: string;
+  tags: string[];
 }
 
 export class MLocation {

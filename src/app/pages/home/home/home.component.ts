@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   user: User;
 
   _loading: boolean = false;
+  _isAll: boolean = false;
 
   @ViewChild('eventScroll') eventScroll: ElementRef;
 
@@ -45,7 +46,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
     let eventSearchSubscription = this.eventSearchText
       .pipe(debounceTime(500))
       .subscribe(p => {
-        // this.eventService.getEvents(p)
+        if(p && p.length > 3) {
+          this.eventService.getEvents(p).subscribe();
+        } else if(p === "") {
+          this.eventService.getEvents().subscribe();
+        }
+
       });
     this.subscription.add(eventSearchSubscription);
   }
@@ -57,10 +63,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
         let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
         let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
         if (scrollHeight - (scrollTop + offsetHeight) < 1 ) {
-          this._loading = true;
-          this.eventService.loadMoreEvents().subscribe(() => {
-            this._loading = false;
-          });
+          if(!this._isAll) {
+            this._loading = true;
+            this.eventService.loadMoreEvents().subscribe((p) => {
+              if(p.length === 0) {
+                this._isAll = true;
+              }
+              this._loading = false;
+            });
+          }
         }
       });
     }

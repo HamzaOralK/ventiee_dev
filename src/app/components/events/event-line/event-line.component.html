@@ -5,12 +5,17 @@
         <div style="display: flex;">
           <img class="titleImg" [src]="'./assets/logo.png'">
           <div style="display: flex; flex-direction: column;">
-            <h3>
-              {{event.title}}
-            </h3>
-            <div class="titleDesc">
-              <!-- {{event.description}} -->
-              TestTest
+            <div class="headerInfo">
+              <h3>
+                {{event.title}}
+              </h3>
+              <div *ngFor="let tag of event.tags" class="tag">
+                {{tag}}
+              </div>
+            </div>
+
+            <div class="titleDesc" *ngIf="event.description">
+              {{event.description}}
             </div>
           </div>
         </div>
