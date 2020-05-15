@@ -1,10 +1,10 @@
 <div class="user">
   <div style="display: flex; align-items: center;">
     <div class="user-image"></div>
-    {{user.nickname}} <span *ngIf="isUserModerator(user)">(Moderatör)</span>
+    {{user.user.nickname}} <span *ngIf="isUserModerator(user.user)">(Moderatör)</span>
   </div>
   <div>
-    <button mat-icon-button (click)="kickUser(user)" *ngIf="isKickable(user) && isModerator()">
+    <button mat-icon-button (click)="kickUser(user.user)" *ngIf="isKickable(user.user) && isModerator()">
       <mat-icon>remove_circle_outline</mat-icon>
     </button>
   </div>

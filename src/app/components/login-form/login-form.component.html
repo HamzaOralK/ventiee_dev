@@ -24,5 +24,9 @@
     <p *ngIf="error === 'NotVerified'">Kullanıcı onaylanmamış.</p>
   </div>
   <button mat-raised-button color="primary" [disabled]="!login.valid">{{'login' | ml}}</button>
+  <div class="actions">
+    <a class="c-ptr" routerLink="/forgotPassword">{{'forgotPassword' | ml}}</a>
+    <a class="c-ptr" routerLink="/signup">{{'signup' | ml}}</a>
+  </div>
 
 </form>

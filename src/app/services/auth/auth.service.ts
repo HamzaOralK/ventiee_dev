@@ -100,4 +100,8 @@ export class AuthService {
     });
   }
 
+  sendForgotMail(sendInfo: { email: string }) {
+
+  }
+
 }

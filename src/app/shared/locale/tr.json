@@ -106,5 +106,11 @@
     {"key": "leftNotification", "value": " konuşmadan ayrıldı."},
     {"key": "kickedNotification", "value": " konuşmadan atıldı."},
     {"key": "User successfully updated", "value": "Başarı ile güncellendi."},
-    {"key": "tokenError", "value": "İşlem süreniz sona erdi. Bir daha giriş yapın!"}
+    {"key": "tokenError", "value": "İşlem süreniz sona erdi. Bir daha giriş yapın!"},
+    {"key": "forgotPassword", "value": "Şifremi unuttum!"},
+    {"key": "forgotPasswordInfo", "value": "Şifre değiştirmek istediğiniz e-mail adresini giriniz."},
+    {"key": "send", "value": "Yolla"},
+    {"key": "newPasswordInfo", "value": "Yeni şifrenizi aşağıda giriniz!"},
+    {"key": "newPassword", "value": "Yeni şifre"},
+    {"key": "newPasswordConfirm", "value": "Tekrar Yeni şifrenizi giriniz!"}
 ]

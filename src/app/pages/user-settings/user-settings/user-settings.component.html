@@ -4,27 +4,6 @@
 </div>
 <form [formGroup]="profileForm" *ngIf="user">
   <mat-tab-group style="z-index: 0; position: relative;">
-    <mat-tab label="Temel Ayarlar">
-      <mat-card class="settingsCard">
-        <mat-form-field appearance="outline">
-          <mat-label>{{'nickname' | ml}}</mat-label>
-          <input matInput type="text" formControlName="nickname">
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="outline">
-          <mat-label>{{'name' | ml}}</mat-label>
-          <input matInput type="text" formControlName="name">
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="outline">
-          <mat-label>{{'surname' | ml}}</mat-label>
-          <input matInput type="text" formControlName="surname">
-        </mat-form-field>
-        <br>
-        <mat-checkbox formControlName="emailNotification" ngDefaultControl>{{'emailNotification' | ml}}</mat-checkbox>
-        <br>
-      </mat-card>
-    </mat-tab>
     <mat-tab label="Profil Ayarları">
       <mat-card class="settingsCard">
         <mat-form-field appearance="outline">
@@ -70,6 +49,29 @@
           <mat-label>{{'school' | ml}}</mat-label>
           <input matInput type="text" formControlName="school">
         </mat-form-field>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Temel Ayarlar">
+      <mat-card class="settingsCard">
+        <!--
+          <mat-form-field appearance="outline">
+            <mat-label>{{'nickname' | ml}}</mat-label>
+            <input matInput type="text" formControlName="nickname">
+          </mat-form-field>
+        -->
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'name' | ml}}</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'surname' | ml}}</mat-label>
+          <input matInput type="text" formControlName="surname">
+        </mat-form-field>
+        <br>
+        <mat-checkbox formControlName="emailNotification" ngDefaultControl>{{'emailNotification' | ml}}</mat-checkbox>
+        <br>
       </mat-card>
     </mat-tab>
   </mat-tab-group>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from 'src/app/components/base/base.component';
-import { Room } from 'src/app/dtos/room';
+import { Room, RoomUser } from 'src/app/dtos/room';
 import { User } from 'src/app/dtos/user';
 
 @Component({
@@ -11,7 +11,7 @@ import { User } from 'src/app/dtos/user';
 export class EventInfoUserComponent extends BaseComponent implements OnInit {
 
   @Input() room: Room;
-  @Input() user: User;
+  @Input() user: RoomUser;
   @Output() onKickUser = new EventEmitter();
 
   constructor(injector: Injector) {
@@ -34,7 +34,7 @@ export class EventInfoUserComponent extends BaseComponent implements OnInit {
     return this.room.moderatorUser._id === user._id;
   }
 
-  kickUser(user: User) {
+  kickUser(user: Partial<User>) {
     this.onKickUser.emit(user);
   }
 

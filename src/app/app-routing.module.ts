@@ -9,6 +9,8 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'signup', loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule)},
+  { path: 'forgotPassword', loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)},
+  { path: 'newPassword/:token', loadChildren: () => import('./pages/new-password/new-password.module').then(m => m.NewPasswordModule)},
   { path: 'resend/:user', component: ResendComponent},
   { path: 'verify/:hash', component: VerifyComponent},
   { path: 'event/:id', component: EventPageComponent, canActivate: [AuthGuard]},
