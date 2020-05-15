@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { NotificationService } from '../services/notification/notification.service';
 
-
 @Injectable()
+
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
@@ -22,6 +22,8 @@ export class AuthInterceptor implements HttpInterceptor {
     let tokenizFreeUrls: string[] = [
       CONFIG.serviceURL + "/user/login",
       CONFIG.serviceURL + "/user/signup",
+      CONFIG.serviceURL + "/user/forgotPass",
+      CONFIG.serviceURL + "/resetPassword",
       CONFIG.serviceURL + "/resend",
       CONFIG.serviceURL + "/verify",
     ];

@@ -11,9 +11,15 @@
 <input #fileInput type="file" accept='image/*' (change)="preview(fileInput.files)" style="display: none;" />
 <div class="stepper">
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="generalDescription">
+    <mat-step [stepControl]="generalDescription" #stepper>
       <form [formGroup]="generalDescription" autocomplete="off">
         <ng-template matStepLabel>{{'event' | ml }}</ng-template>
+
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="type">
+          <mat-button-toggle value="meeting">{{'meeting' | ml}}</mat-button-toggle>
+          <mat-button-toggle value="conversation">{{'conversation' | ml}}</mat-button-toggle>
+        </mat-button-toggle-group>
+
         <mat-form-field appearance="outline">
           <mat-label>{{'title'| ml}}</mat-label>
           <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required appLowerCase>
@@ -88,12 +94,13 @@
         </mat-form-field>
         <div class="actions">
           <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
-          <button mat-raised-button color="primary" matStepperNext>{{'next' | ml}}</button>
+          <button mat-raised-button color="primary" matStepperNext *ngIf="eventType === 'meeting'">{{'next' | ml}}</button>
+          <button mat-raised-button color="primary" *ngIf="eventType !== 'meeting'" [disabled]="!checkValid()" (click)="createEvent()">{{'createEvent' | ml}}</button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="placeInformation">
+    <mat-step [stepControl]="placeInformation" *ngIf="eventType === 'meeting'">
       <form [formGroup]="placeInformation">
         <ng-template matStepLabel>{{'place' | ml}}</ng-template>
         <mat-form-field appearance="outline">

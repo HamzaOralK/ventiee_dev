@@ -9,8 +9,8 @@ import { CONFIG } from '../../config';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { NotificationService } from '../notification/notification.service';
-import { LangService } from '../lang/lang.service';
 import { catchError, tap } from 'rxjs/operators';
+import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 
 
 @Injectable({
@@ -28,7 +28,7 @@ export class AuthService {
     private store: Store < fromApp.AppState > ,
     private router: Router,
     private notificationService: NotificationService,
-    private langService: LangService
+    private ml: MultiLanguagePipe
   ) {
     this.auth = this.store.select('authState');
     this.auth.subscribe(p => {
@@ -42,10 +42,10 @@ export class AuthService {
   signUp(user: User) {
     return this.http.post(CONFIG.serviceURL + '/user/signup', user).pipe(
       tap(p => {
-        this.notificationService.notify(this.langService.get('signUpSuccess'));
+        this.notificationService.notify(this.ml.transform('signUpSuccess'));
       }),
       catchError(e => {
-        this.notificationService.notify(this.langService.get('signUpError'));
+        this.notificationService.notify(this.ml.transform('signUpError'));
         throw e;
       })
     );
@@ -87,21 +87,35 @@ export class AuthService {
 
   verifyUser(hash: string) {
     return this.http.post(CONFIG.serviceURL + '/verify/'+ hash, {}).subscribe(p => {
-      this.notificationService.notify('Profiliniz onaylandı.');
+      this.notificationService.notify(this.ml.transform('verified'));
       this.router.navigate(['/home']);
     });
   }
 
   resend(resendInfo:{email: string, language: string}) {
     return this.http.post(CONFIG.serviceURL + '/resend', resendInfo).subscribe(p => {
-      this.notificationService.notify('Yeni mail yollandı.');
+      this.notificationService.notify(this.ml.transform('mailSent'));
     }, e => {
         if (e && e.error && e.error.msg === 'User already verified') this.router.navigate(['/login']);
     });
   }
 
-  sendForgotMail(sendInfo: { email: string }) {
+  sendForgotMail(sendInfo: { email: string, language: string }) {
+    return this.http.post(CONFIG.serviceURL + '/user/forgotPass', sendInfo).subscribe(p => {
+      this.notificationService.notify(this.ml.transform('resetPassMailSent'));
+      this.router.navigate(['/home']);
+    }, e => {
+      console.log(e);
+    });
+  }
 
+  resetPassword(token: string, password: string) {
+    return this.http.post(CONFIG.serviceURL + '/resetPassword/' + token, { password }).subscribe(p => {
+      this.notificationService.notify(this.ml.transform('resetSuccesfull'));
+      this.router.navigate(['/login']);
+    }, e => {
+      console.log(e);
+    });
   }
 
 }

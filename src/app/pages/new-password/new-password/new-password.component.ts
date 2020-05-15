@@ -40,7 +40,6 @@ export class NewPasswordComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
       this.token = p.get('token');
-      console.log(this.token);
     });
     this.subscription.add(routeSubscription);
   }
@@ -50,7 +49,8 @@ export class NewPasswordComponent extends BaseComponent implements OnInit {
   }
 
   newPassword(event) {
-
+    if(event) event.preventDefault();
+    this.authService.resetPassword(this.token, this.passwordChange.value['newPassword']);
   }
 
 }

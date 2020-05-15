@@ -112,5 +112,11 @@
     {"key": "send", "value": "Yolla"},
     {"key": "newPasswordInfo", "value": "Yeni şifrenizi aşağıda giriniz!"},
     {"key": "newPassword", "value": "Yeni şifre"},
-    {"key": "newPasswordConfirm", "value": "Tekrar Yeni şifrenizi giriniz!"}
+    {"key": "newPasswordConfirm", "value": "Tekrar Yeni şifrenizi giriniz!"},
+    {"key": "verified", "value": "Profiliniz onaylandı."},
+    {"key": "mailSent", "value": "Yeni e-mail yollandı."},
+    {"key": "resetPassMailSent", "value": "Şifre yenileme  e-mailiniz yollandı."},
+    {"key": "resetSuccesfull", "value": "Şifreniz yenilendi."},
+    {"key": "conversation", "value": "Konuşmaca"},
+    {"key": "meeting", "value": "Buluşmaca"}
 ]

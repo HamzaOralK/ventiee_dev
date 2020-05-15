@@ -13,6 +13,7 @@ import { startWith, map } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { User } from 'src/app/dtos/user';
+import { MatHorizontalStepper } from '@angular/material/stepper';
 
 @Component({
   selector: "create-event-form",
@@ -44,6 +45,7 @@ export class CreateEventFormComponent implements OnInit {
   @ViewChild("tagInput") tagInput: ElementRef<HTMLInputElement>;
   @ViewChild("auto") matAutocomplete: MatAutocomplete;
   @ViewChild("fileInput") fileInput: HTMLInputElement;
+  @ViewChild('stepper') stepper: MatHorizontalStepper;
 
   isLinear = true;
 
@@ -53,7 +55,8 @@ export class CreateEventFormComponent implements OnInit {
     title: new FormControl(""),
     description: new FormControl("", [Validators.maxLength(100)]),
     peopleCount: new FormControl("", [Validators.min(3)]),
-    tags: new FormControl([], [Validators.required])
+    tags: new FormControl([], [Validators.required]),
+    type: new FormControl('meeting', [Validators.required])
   });
 
   timeInformation = new FormGroup({
@@ -90,6 +93,10 @@ export class CreateEventFormComponent implements OnInit {
   ngOnInit(): void {
     this.generalDescription.patchValue({ id: this.eventId });
     this.imgURL = "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
+  }
+
+  get eventType(): string {
+    return this.generalDescription.controls["type"].value;
   }
 
   createEvent() {
@@ -136,11 +143,13 @@ export class CreateEventFormComponent implements OnInit {
       );
       newEvent.endDate = endDate;
     }
-    newEvent.venue = this.placeInformation.value.venue;
-    newEvent.city = this.placeInformation.value.location.city;
-    newEvent.district = this.placeInformation.value.location.district;
-    newEvent.latitute = this.placeInformation.value.location.latitute;
-    newEvent.longtitute = this.placeInformation.value.location.longtitute;
+    if(this.eventType === 'meeting') {
+      newEvent.venue = this.placeInformation.value.venue;
+      newEvent.city = this.placeInformation.value.location.city;
+      newEvent.district = this.placeInformation.value.location.district;
+      newEvent.latitute = this.placeInformation.value.location.latitute;
+      newEvent.longtitute = this.placeInformation.value.location.longtitute;
+    }
     if (newEvent.endDate && newEvent.startDate > newEvent.endDate) {
       this.notificationService.notify(this.langService.get("startDateGtThanEndDate"), "OK");
     } else if (newEvent.startDate < new Date()) {
@@ -151,11 +160,9 @@ export class CreateEventFormComponent implements OnInit {
   }
 
   checkValid(): boolean {
-    return (
-      this.generalDescription.valid &&
-      this.timeInformation.valid &&
-      this.placeInformation.valid
-    );
+    if(this.eventType === 'meeting')
+      return (this.generalDescription.valid && this.timeInformation.valid && this.placeInformation.valid);
+    else return (this.generalDescription.valid && this.timeInformation.valid);
   }
 
   formControls(formGroup: FormGroup): any {
