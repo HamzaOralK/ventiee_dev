@@ -118,5 +118,6 @@
     {"key": "resetPassMailSent", "value": "Şifre yenileme  e-mailiniz yollandı."},
     {"key": "resetSuccesfull", "value": "Şifreniz yenilendi."},
     {"key": "conversation", "value": "Konuşmaca"},
-    {"key": "meeting", "value": "Buluşmaca"}
+    {"key": "meeting", "value": "Buluşmaca"},
+    {"key": "tags", "value": "Tagler"}
 ]

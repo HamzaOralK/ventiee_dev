@@ -3,7 +3,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { Event } from 'src/app/dtos/event';
+import { Event, EventType } from 'src/app/dtos/event';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { LangService } from 'src/app/services/lang/lang.service';
@@ -14,6 +14,7 @@ import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material
 import { MatChipInputEvent } from '@angular/material/chips';
 import { User } from 'src/app/dtos/user';
 import { MatHorizontalStepper } from '@angular/material/stepper';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: "create-event-form",
@@ -36,10 +37,13 @@ export class CreateEventFormComponent implements OnInit {
   visible = true;
   selectable = true;
   removable = true;
+
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   filteredTags: Observable<string[]>;
   allTags: string[] = ["Alkollü", "Konser", "Oyun", "Gezmece"];
+
+  smallScreen: boolean;
 
   @Input() eventId: string;
   @ViewChild("tagInput") tagInput: ElementRef<HTMLInputElement>;
@@ -55,9 +59,10 @@ export class CreateEventFormComponent implements OnInit {
     title: new FormControl(""),
     description: new FormControl("", [Validators.maxLength(100)]),
     peopleCount: new FormControl("", [Validators.min(3)]),
-    tags: new FormControl([], [Validators.required]),
     type: new FormControl('meeting', [Validators.required])
   });
+
+  tags =  new FormControl([], [Validators.required]);
 
   timeInformation = new FormGroup({
     startTime: new FormControl(),
@@ -80,14 +85,23 @@ export class CreateEventFormComponent implements OnInit {
     private eventService: EventService,
     private notificationService: NotificationService,
     private langService: LangService,
-    private authService: AuthService
+    private authService: AuthService,
+    private breakpointObserver: BreakpointObserver
   ) {
+    /*
     this.filteredTags = this.tagFilter.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => {
         return fruit ? this._filter(fruit) : this.allTags.slice();
       })
     );
+    */
+    breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small
+    ]).subscribe(result => {
+      this.smallScreen = result.matches;
+    });
   }
 
   ngOnInit(): void {
@@ -109,6 +123,7 @@ export class CreateEventFormComponent implements OnInit {
     newEvent.peopleCount = this.generalDescription.value.peopleCount;
     newEvent.tags = this.generalDescription.value.tags;
     newEvent.description = this.generalDescription.value.description;
+    newEvent.type = this.generalDescription.value.type;
     let formStartDate: Date = new Date(this.timeInformation.value.startDate);
     let formStartTime: string = this.timeInformation.value.startTime;
     let formStartHour: number = parseInt(formStartTime.split(":")[0]);
@@ -193,7 +208,24 @@ export class CreateEventFormComponent implements OnInit {
     return this.generalDescription.get("title").value;
   }
 
+  addRemoveTag(tag: string) {
+    let value: string[] = this.tags.value;
+    let index = value.findIndex(p => p === tag);
+    if(index === -1) {
+      value.push(tag);
+      this.tags.setValue(value);
+    } else {
+      value.splice(index,1);
+      this.tags.setValue(value);
+    }
+  }
+
+  isSelectedTag(tag: string) {
+    return (this.tags.value as string[]).find(p => p === tag);
+  }
+
   /** Tag Chips */
+  /*
   get tags() {
     return this.generalDescription.get("tags");
   }
@@ -239,6 +271,7 @@ export class CreateEventFormComponent implements OnInit {
     this.tagInput.nativeElement.value = "";
     this.generalDescription.controls["tags"].updateValueAndValidity();
   }
+  */
   /*******/
 
 }

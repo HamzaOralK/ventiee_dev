@@ -15,6 +15,7 @@ export class Event {
   moderatorUserId: string;
   description: string;
   tags: string[];
+  type: EventType;
 }
 
 export class MLocation {
@@ -22,4 +23,9 @@ export class MLocation {
   city: string;
   long: string;
   lat: string;
+}
+
+export enum EventType {
+  meeting = 'meeting',
+  conversation = 'conversation'
 }

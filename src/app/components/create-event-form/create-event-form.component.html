@@ -10,8 +10,9 @@
 </div>
 <input #fileInput type="file" accept='image/*' (change)="preview(fileInput.files)" style="display: none;" />
 <div class="stepper">
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="generalDescription" #stepper>
+  <ng-template [ngIf]="smallScreen" [ngIfElse]="bigScreen">
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="generalDescription">
       <form [formGroup]="generalDescription" autocomplete="off">
         <ng-template matStepLabel>{{'event' | ml }}</ng-template>
 
@@ -39,27 +40,22 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-chip-list #chipList aria-label="Tag selection" ngDefaultControl  formControlName="tags">
-            <mat-chip *ngFor="let tag of tags.value" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
-              {{tag}}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input placeholder="{{ 'addTag' | ml }}" #tagInput [matAutocomplete]="auto" [formControl]="tagFilter"
-              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event)">
-          </mat-chip-list>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-              {{tag}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-
         <div class="actions">
           <button mat-raised-button color="primary" matStepperNext>{{'next'| ml}}</button>
         </div>
       </form>
+    </mat-step>
+    <mat-step [stepControl]="tags">
+      <ng-template matStepLabel>{{'tags' | ml}}</ng-template>
+      <div>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
+          <div *ngFor="let tag of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tag)}" (click)="addRemoveTag(tag)">{{tag}}</div>
+        </div>
+        <div class="actions">
+          <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
+          <button mat-raised-button color="primary" matStepperNext>{{'next' | ml}}</button>
+        </div>
+      </div>
     </mat-step>
 
     <mat-step [stepControl]="timeInformation">
@@ -135,5 +131,137 @@
         </div>
       </form>
     </mat-step>
-  </mat-horizontal-stepper>
+  </mat-vertical-stepper>
+  </ng-template>
+
+
+
+  <!-- Üstteki ile aynı. -->
+  <ng-template #bigScreen>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="generalDescription">
+        <form [formGroup]="generalDescription" autocomplete="off">
+          <ng-template matStepLabel>{{'event' | ml }}</ng-template>
+
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="type">
+            <mat-button-toggle value="meeting">{{'meeting' | ml}}</mat-button-toggle>
+            <mat-button-toggle value="conversation">{{'conversation' | ml}}</mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{'title'| ml}}</mat-label>
+            <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required appLowerCase>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'howmany' | ml}}</mat-label>
+            <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" required appOnlyNumbers>
+            <mat-error *ngIf="formControls(generalDescription).peopleCount.hasError('min')">
+              {{'min3person' | ml}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'description' | ml}}</mat-label>
+            <input matInput placeholder="{{'description' | ml}}" formControlName="description" required>
+            <mat-error *ngIf="formControls(generalDescription).description.hasError('maxlength')">
+              {{'descMax' | ml}}
+            </mat-error>
+          </mat-form-field>
+
+          <div class="actions">
+            <button mat-raised-button color="primary" matStepperNext>{{'next'| ml}}</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="tags">
+        <ng-template matStepLabel>{{'tags' | ml}}</ng-template>
+        <div>
+          <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
+            <div *ngFor="let tag of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tag)}"
+              (click)="addRemoveTag(tag)">{{tag}}</div>
+          </div>
+          <div class="actions">
+            <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
+            <button mat-raised-button color="primary" matStepperNext>{{'next' | ml}}</button>
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="timeInformation">
+        <form [formGroup]="timeInformation">
+          <ng-template matStepLabel>{{'time' | ml}}</ng-template>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'startTime' | ml}}</mat-label>
+            <!-- <input matInput type="time"  placeholder="HH:mm"> -->
+            <input matInput formControlName="startTime" [ngxTimepicker]="startTime" [format]="24" readonly required>
+            <ngx-material-timepicker #startTime></ngx-material-timepicker>
+          </mat-form-field>
+          <div class="space"></div>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'startDate' | ml}}</mat-label>
+            <input matInput [matDatepicker]="startDate" formControlName="startDate" required (click)="startDate.open()">
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+          <div class="space"></div>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'endTime' | ml}}</mat-label>
+            <!-- <input matInput type="time"  placeholder="HH:mm"> -->
+            <input matInput formControlName="endTime" [ngxTimepicker]="endTime" [format]="24" readonly>
+            <ngx-material-timepicker #endTime></ngx-material-timepicker>
+          </mat-form-field>
+          <div class="space"></div>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'endDate' | ml}}</mat-label>
+            <input matInput [matDatepicker]="endDate" formControlName="endDate" (click)="endDate.open()">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field>
+          <div class="actions">
+            <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
+            <button mat-raised-button color="primary" matStepperNext
+              *ngIf="eventType === 'meeting'">{{'next' | ml}}</button>
+            <button mat-raised-button color="primary" *ngIf="eventType !== 'meeting'" [disabled]="!checkValid()"
+              (click)="createEvent()">{{'createEvent' | ml}}</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="placeInformation" *ngIf="eventType === 'meeting'">
+        <form [formGroup]="placeInformation">
+          <ng-template matStepLabel>{{'place' | ml}}</ng-template>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'where' | ml}}</mat-label>
+            <input matInput formControlName="venue" appLowerCase required>
+          </mat-form-field>
+          <div class="container" formGroupName="location">
+            <h3>{{'address' | ml}}</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'city' | ml}}</mat-label>
+              <input matInput formControlName="city" appLowerCase required>
+            </mat-form-field>
+            <div class="space"></div>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'district' | ml}}</mat-label>
+              <input matInput formControlName="district" appLowerCase required>
+            </mat-form-field>
+            <div class="space"></div>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'lat' | ml}}</mat-label>
+              <input matInput formControlName="latitute" appLowerCase>
+            </mat-form-field>
+            <div class="space"></div>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'long' | ml}}</mat-label>
+              <input matInput formControlName="longtitute" appLowerCase>
+            </mat-form-field>
+          </div>
+          <div class="actions">
+            <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
+            <button mat-raised-button color="primary" [disabled]="!checkValid()"
+              (click)="createEvent()">{{'createEvent' | ml}}</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </ng-template>
 </div>

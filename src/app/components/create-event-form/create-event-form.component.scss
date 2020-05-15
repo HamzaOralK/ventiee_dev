@@ -72,3 +72,14 @@ mat-horizontal-stepper {
   background-color: mat-color($app-primary, 500);
 }
 
+.tag {
+  background-color: mat-color($app-font, 100);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.tagSelected {
+  background-color: mat-color($app-primary, 500);
+}
+
