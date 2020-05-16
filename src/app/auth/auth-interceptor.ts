@@ -4,13 +4,15 @@ import { tap } from 'rxjs/internal/operators/tap';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { NotificationService } from '../services/notification/notification.service';
+import { MultiLanguagePipe } from '../shared/pipes/multi-language.pipe';
 
 @Injectable()
 
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private ml: MultiLanguagePipe
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
@@ -45,7 +47,7 @@ export class AuthInterceptor implements HttpInterceptor {
             if (error.status !== 401) {
               return;
             } else if (error.status === 401) {
-              this.notificationService.notify('tokenError');
+              this.notificationService.notify(this.ml.transform('tokenError'));
               this.authService.logoutUser();
             }
           }

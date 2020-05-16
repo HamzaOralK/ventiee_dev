@@ -3,7 +3,7 @@
     {"key": "login", "value": "Giriş"},
     {"key": "loginError", "value": "Giriş  yapamadınız. Bir problem oluştu."},
     {"key": "signup", "value": "Kayıt Ol"},
-    {"key": "signUpSuccess", "value": "Başarı ile kayıt olundu."},
+    {"key": "signUpSuccess", "value": "Başarı ile kayıt olundu, onay e-maili yollandı."},
     {"key": "signUpError", "value": "Kayıt olurken bir hata oldu sanırım."},
     {"key": "addEvent", "value": "Yeni!"},
     {"key": "searchforanevent", "value": "Bir Ventiee arayın!"},

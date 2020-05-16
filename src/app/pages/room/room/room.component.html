@@ -11,7 +11,7 @@
           <button mat-icon-button (click)="openDialog()">
             <mat-icon>event_note</mat-icon>
           </button>
-          <button mat-icon-button (click)="leaveRoom()">
+          <button mat-icon-button (click)="leaveRoom()" *ngIf="!isModerator()">
             <mat-icon>clear</mat-icon>
           </button>
         </div>
@@ -83,8 +83,6 @@
             </div>
           </div>
         </ng-container>
-
-
 
       </div>
     </div>
