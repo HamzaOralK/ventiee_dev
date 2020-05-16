@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './login-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { PasswordFormElementModule } from '../password-form-element/password-form-element.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    PasswordFormElementModule
   ],
   exports: [
     LoginFormComponent

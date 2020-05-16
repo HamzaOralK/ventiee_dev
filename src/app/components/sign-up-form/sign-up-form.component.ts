@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class SignUpFormComponent implements OnInit {
   unamePattern = "^[a-zA-Z]{1,}[a-zA-Z0-9_]+[0-9]*$";
+  showPassword: boolean = false;
 
   signUp = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -45,5 +46,11 @@ export class SignUpFormComponent implements OnInit {
       }
     });
   }
+
+  changeShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+
 
 }

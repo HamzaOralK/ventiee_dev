@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NewPasswordFormModule } from 'src/app/components/new-password-form/new-password-form.module';
 
 @NgModule({
   declarations: [UserSettingsComponent],
@@ -31,7 +32,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NewPasswordFormModule
   ]
 })
 

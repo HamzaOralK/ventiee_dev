@@ -4,11 +4,7 @@ import { NewPasswordComponent } from './new-password/new-password.component';
 import { NewPasswordRoutingModule } from './new-password-routing.module';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-
+import { NewPasswordFormModule } from 'src/app/components/new-password-form/new-password-form.module';
 
 
 @NgModule({
@@ -20,11 +16,7 @@ import { MatInputModule } from '@angular/material/input';
     NewPasswordRoutingModule,
     PipesModule,
     DirectivesModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule
+    NewPasswordFormModule
   ]
 })
 export class NewPasswordModule { }

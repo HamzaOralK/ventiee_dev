@@ -11,13 +11,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width" appearance="outline">
-    <mat-label>{{'password' | ml}}</mat-label>
-    <input matInput type="password" formControlName="password">
-    <mat-error *ngIf="loginControls.password.hasError('required')">
-      {{'passwordRequired' | ml}}
-    </mat-error>
-  </mat-form-field>
+  <password-form-element [formControl]="loginControls.password" ngDefaultControl></password-form-element>
 
   <div class="errors" *ngIf="login.status === 'VALID'">
     <p *ngIf="error === 'LoginError'">Kullanıcı adı veya şifre yanlış.</p>

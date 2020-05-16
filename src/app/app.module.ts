@@ -56,6 +56,7 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
 import { EventsModule } from './components/events/events.module';
 import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,7 @@ import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module'
     BaseComponent,
     VerifyComponent,
     EventInfoUserComponent,
-    VfooterComponent,
+    VfooterComponent
   ],
   imports: [
     BrowserModule,

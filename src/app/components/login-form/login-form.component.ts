@@ -21,6 +21,7 @@ export class LoginFormComponent extends BaseComponent implements OnInit {
 
   auth: Observable<fromAuth.State>;
   error: LoginError;
+  showPassword: boolean = false;
 
   login = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -55,6 +56,10 @@ export class LoginFormComponent extends BaseComponent implements OnInit {
       }
     });
     this.subscription.add(loginSubscription);
+  }
+
+  changeShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 
 }
