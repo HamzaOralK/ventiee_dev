@@ -23,7 +23,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>{{'title'| ml}}</mat-label>
-          <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required appLowerCase>
+          <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>{{'howmany' | ml}}</mat-label>
@@ -133,8 +133,6 @@
     </mat-step>
   </mat-vertical-stepper>
   </ng-template>
-
-
 
   <!-- Üstteki ile aynı. -->
   <ng-template #bigScreen>

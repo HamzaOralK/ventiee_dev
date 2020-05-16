@@ -234,6 +234,10 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   getOnlyDate(date: Date): string {
+    if(!(date instanceof Date)) {
+      date = new Date(date);
+    }
+
     var d = date.getDate().toString();
     var m = (date.getMonth() + 1).toString(); // Since getMonth() returns month from 0-11 not 1-12
     var y = date.getFullYear().toString();
