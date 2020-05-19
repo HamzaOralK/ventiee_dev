@@ -10,6 +10,7 @@ import * as fromApp from "../../../store/app.reducer";
 import * as AppAction from "../../../store/app.actions";
 import { User } from 'src/app/dtos/user';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: "home",
@@ -33,7 +34,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private store: Store<fromApp.AppState>,
     private router: Router,
-    private eventService: EventService
+    private eventService: EventService,
+    private appService: AppService
   ) {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
@@ -93,5 +95,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   createEvent() {
     this.store.dispatch(new AppAction.ToggleLeftNav(false));
     this.router.navigate(["/createEvent"]);
+  }
+
+  get smallScreen() {
+    return this.appService.smallScreen;
   }
 }

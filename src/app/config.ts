@@ -1,5 +1,5 @@
 export const CONFIG = {
-    //serviceURL: 'https://angular-http-acab3.firebaseio.com',
-    serviceURL: 'http://api.ventiee.com',
-    loginLocalStorageKey: "authInformation"
+  // serviceURL: 'http://52.146.59.22:3001',
+  serviceURL: 'http://api.ventiee.com',
+  loginLocalStorageKey: "authInformation"
 }

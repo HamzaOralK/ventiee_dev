@@ -13,6 +13,7 @@ import { SignUpFormModule } from 'src/app/components/sign-up-form/sign-up-form.m
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ChatsModule } from 'src/app/components/chats/chats.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SignUpFormModule,
     MatInputModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ChatsModule
   ],
 })
 export class HomeModule { }

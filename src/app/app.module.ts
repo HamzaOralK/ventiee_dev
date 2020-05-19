@@ -16,8 +16,8 @@ import { TopNavigationComponent } from './layout/top-navigation/top-navigation.c
 import { LeftNavigationComponent } from './layout/left-navigation/left-navigation.component';
 import { MainPageComponent } from './layout/main-page/main-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
-import { ChatsComponent } from './components/chats/chats.component';
-import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
+// import { ChatsComponent } from './components/chats/chats.component';
+// import { ChatRoomsComponent } from './components/chats/chat-rooms/chat-rooms.component';
 
 /** Material Components */
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -55,6 +55,7 @@ import { EventInfoUserComponent } from './pages/event-info/event-info-user/event
 import { VfooterComponent } from './layout/vfooter/vfooter.component';
 import { EventsModule } from './components/events/events.module';
 import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module';
+import { ChatsModule } from './components/chats/chats.module';
 
 
 @NgModule({
@@ -64,8 +65,8 @@ import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module'
     LeftNavigationComponent,
     MainPageComponent,
     EventPageComponent,
-    ChatsComponent,
-    ChatRoomsComponent,
+    // ChatsComponent,
+    // ChatRoomsComponent,
     EventInfoComponent,
     ResendComponent,
     BaseComponent,
@@ -106,6 +107,7 @@ import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module'
     DirectivesModule,
     EventsModule,
     SignUpFormModule,
+    ChatsModule
   ],
   exports: [],
   providers: [

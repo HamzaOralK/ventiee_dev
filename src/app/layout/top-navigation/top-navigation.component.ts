@@ -7,6 +7,8 @@ import * as fromAuth from '../../services/auth/store/auth.reducer';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'top-navigation',
@@ -22,7 +24,8 @@ export class TopNavigationComponent implements OnInit {
   constructor(
     private store: Store<fromApp.AppState>,
     private authService: AuthService,
-    private eventService: EventService
+    private eventService: EventService,
+    private appService: AppService
   ) { }
 
   ngOnInit() {
@@ -44,6 +47,10 @@ export class TopNavigationComponent implements OnInit {
 
   getEvents() {
     this.eventService.getEvents().subscribe();
+  }
+
+  get smallScreen() {
+    return this.appService.smallScreen;
   }
 
 }

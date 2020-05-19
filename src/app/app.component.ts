@@ -11,6 +11,7 @@ import { AuthService } from './services/auth/auth.service';
 import { AppService } from './app.service';
 import { User } from './dtos/user';
 import { EventService } from './services/dataServices/event/event-service.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -41,7 +42,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private authService: AuthService,
     private appService: AppService,
     private eventService: EventService,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromApp.AppState>,
   ) {}
 
   ngOnInit() {
@@ -67,6 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     mainTapHammer.on("tap", () => {
       this.appService.closeNav();
     });
+
   }
 
   ngAfterViewInit() { }

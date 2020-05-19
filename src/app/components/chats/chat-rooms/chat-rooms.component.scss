@@ -7,6 +7,12 @@
     margin-bottom: 10px
 }
 
+.roomTitle {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 mat-card-subtitle {
     margin: 0;
 }

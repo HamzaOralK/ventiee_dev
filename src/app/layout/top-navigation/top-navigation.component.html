@@ -1,7 +1,7 @@
 <mat-toolbar>
     <mat-toolbar-row>
         <img class="logo c-ptr" [src]="'./assets/logo.png'" alt="ventiee_logo" routerLink="/home">
-        <mat-icon *ngIf="user" class="icon c-ptr" [matBadge]="unreadMessages" matBadgeColor="accent" (click)="toggleLeftMenu()">menu</mat-icon>
+        <mat-icon *ngIf="user && smallScreen" class="icon c-ptr" [matBadge]="unreadMessages" matBadgeColor="accent" (click)="toggleLeftMenu()">menu</mat-icon>
         <mat-icon *ngIf="user" class="icon c-ptr" aria-hidden="false" routerLink="/home" (click)="getEvents()">home</mat-icon>
         <span class="spacer"></span>
         <ng-container *ngIf="user; else noUser">

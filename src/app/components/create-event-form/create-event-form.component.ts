@@ -116,12 +116,9 @@ export class CreateEventFormComponent implements OnInit {
   createEvent() {
     let newEvent = new Event();
     newEvent.title = this.generalDescription.value.title.trim();
-    newEvent.moderatorUser = new User();
-    newEvent.moderatorUser._id = this.authService.user._id;
-    newEvent.moderatorUser.nickname = this.authService.user.nickname;
     newEvent.moderatorUserId = this.authService.user._id;
     newEvent.peopleCount = this.generalDescription.value.peopleCount;
-    newEvent.tags = this.generalDescription.value.tags;
+    newEvent.tags = this.tags.value;
     newEvent.description = this.generalDescription.value.description.trim();
     newEvent.type = this.generalDescription.value.type;
     let formStartDate: Date = new Date(this.timeInformation.value.startDate);
