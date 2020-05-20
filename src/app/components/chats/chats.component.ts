@@ -41,11 +41,11 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.cdr.detectChanges();
     this.roomState.subscribe(p => {
       if(p) {
         this.rooms = p.rooms;
         this.filteredRooms = p.rooms;
+        this.cdr.detectChanges();
       }
     });
 

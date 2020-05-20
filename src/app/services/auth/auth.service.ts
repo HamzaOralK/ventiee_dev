@@ -5,12 +5,12 @@ import { User } from 'src/app/dtos/user';
 import * as AuthActions from '../auth/store/auth.actions';
 import * as fromAuth from '../auth/store/auth.reducer';
 import * as fromApp from '../../store/app.reducer';
-import { CONFIG } from '../../config';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { NotificationService } from '../notification/notification.service';
 import { catchError, tap } from 'rxjs/operators';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   signUp(user: User) {
-    return this.http.post(CONFIG.serviceURL + '/user/signup', user).pipe(
+    return this.http.post(environment.serviceURL + '/user/signup', user).pipe(
       tap(p => {
         this.notificationService.notify(this.ml.transform('signUpSuccess'));
       }),
@@ -52,12 +52,12 @@ export class AuthService {
   }
 
   loginUser(user: User) {
-    return this.http.post(CONFIG.serviceURL + '/user/login', user).pipe(
+    return this.http.post(environment.serviceURL + '/user/login', user).pipe(
       tap((p: {token: string, user: User}) => {
         let user: User = p["user"];
         let token: string = p["token"];
         if (user && token) {
-          window.localStorage.setItem(CONFIG.loginLocalStorageKey, JSON.stringify(p));
+          window.localStorage.setItem(environment.loginLocalStorageKey, JSON.stringify(p));
           this.isLoggedIn = true;
           this.router.navigate(['/home']);
           this.store.dispatch(new AuthActions.LoginUser(p));
@@ -80,20 +80,20 @@ export class AuthService {
 
   logoutUser() {
     this.isLoggedIn = false;
-    window.localStorage.removeItem(CONFIG.loginLocalStorageKey);
+    window.localStorage.removeItem(environment.loginLocalStorageKey);
     this.store.dispatch(new AuthActions.LogoutUser());
     this.router.navigate(['/home']).then(() => window.location.reload());
   }
 
   verifyUser(hash: string) {
-    return this.http.post(CONFIG.serviceURL + '/verify/'+ hash, {}).subscribe(p => {
+    return this.http.post(environment.serviceURL + '/verify/'+ hash, {}).subscribe(p => {
       this.notificationService.notify(this.ml.transform('verified'));
       this.router.navigate(['/home']);
     });
   }
 
   resend(resendInfo:{email: string, language: string}) {
-    return this.http.post(CONFIG.serviceURL + '/resend', resendInfo).subscribe(p => {
+    return this.http.post(environment.serviceURL + '/resend', resendInfo).subscribe(p => {
       this.notificationService.notify(this.ml.transform('mailSent'));
     }, e => {
         if (e && e.error && e.error.msg === 'User already verified') this.router.navigate(['/login']);
@@ -101,7 +101,7 @@ export class AuthService {
   }
 
   sendForgotMail(sendInfo: { email: string, language: string }) {
-    return this.http.post(CONFIG.serviceURL + '/user/forgotPass', sendInfo).subscribe(p => {
+    return this.http.post(environment.serviceURL + '/user/forgotPass', sendInfo).subscribe(p => {
       this.notificationService.notify(this.ml.transform('resetPassMailSent'));
       this.router.navigate(['/home']);
     }, e => {
@@ -110,7 +110,7 @@ export class AuthService {
   }
 
   resetPassword(token: string, password: string) {
-    return this.http.post(CONFIG.serviceURL + '/resetPassword/' + token, { password }).subscribe(p => {
+    return this.http.post(environment.serviceURL + '/resetPassword/' + token, { password }).subscribe(p => {
       this.notificationService.notify(this.ml.transform('resetSuccesfull'));
       this.router.navigate(['/login']);
     }, e => {

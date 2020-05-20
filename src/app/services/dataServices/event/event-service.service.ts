@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Event } from '../../../dtos/event';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { CONFIG } from '../../../config';
 
 import * as fromApp from '../../../store/app.reducer';
 import * as AppActitons from '../../../store/app.actions';
@@ -17,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { LangService } from '../../lang/lang.service';
 import { NotificationService } from '../../notification/notification.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: "root" })
 export class EventService {
@@ -46,7 +46,7 @@ export class EventService {
   }
 
   getEvents(search?: string) {
-    let url = CONFIG.serviceURL + "/events";
+    let url = environment.serviceURL + "/events";
     let params: { pageNo: string; search?: string } = {
       pageNo: "1",
     };
@@ -79,7 +79,7 @@ export class EventService {
   }
 
   loadMoreEvents(search?: string) {
-    let url = CONFIG.serviceURL + "/events";
+    let url = environment.serviceURL + "/events";
     let params: { pageNo: string; search?: string } = {
       pageNo: this._pageNo.toString()
     };
@@ -115,18 +115,19 @@ export class EventService {
   }
 
   getEventById(id: string) {
-    let url = CONFIG.serviceURL + "/event/get/" + id;
+    let url = environment.serviceURL + "/event/get/" + id;
     return this.http.get<Event>(url);
   }
 
   getEventsByModId(userId: string) {
-    let url = CONFIG.serviceURL + "/events/get/" + userId;
+    let url = environment.serviceURL + "/events/get/" + userId;
     return this.http.get<Event[]>(url);
   }
 
   addEvent(event: Event) {
+    let url = environment.serviceURL + "/event/add";
     return this.http
-      .post<any>(CONFIG.serviceURL + "/event/add", event)
+      .post<any>(url, event)
       .subscribe((p) => {
         if (p._id) {
           let room = { ...event, _id: p._id };
@@ -139,4 +140,10 @@ export class EventService {
         }
       });
   }
+
+  getTags() {
+    let url = environment.serviceURL + "/tags";
+    return this.http.get(url);
+  }
+
 }

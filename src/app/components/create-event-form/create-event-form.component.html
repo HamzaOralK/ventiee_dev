@@ -174,8 +174,8 @@
         <ng-template matStepLabel>{{'tags' | ml}}</ng-template>
         <div>
           <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
-            <div *ngFor="let tag of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tag)}"
-              (click)="addRemoveTag(tag)">{{tag}}</div>
+            <div *ngFor="let tagObject of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}"
+              (click)="addRemoveTag(tagObject.tag)">{{tagObject.tag}}</div>
           </div>
           <div class="actions">
             <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>

@@ -1,6 +1,6 @@
 <ng-container *ngIf="user">
   <div class="page">
-  <div class="rooms scroll" [ngStyle]="{'display': smallScreen ? 'none' : 'block' }">
+    <div class="rooms scroll" [ngStyle]="{'display': smallScreen ? 'none' : 'block' }">
       <chats></chats>
     </div>
     <div class="wholeEvents">
@@ -35,5 +35,5 @@
 
 </ng-container>
 <ng-container *ngIf="!user">
-  <landing></landing>
+  <landing style="height: 100%; width: 100%;"></landing>
 </ng-container>

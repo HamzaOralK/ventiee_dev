@@ -27,6 +27,21 @@ mat-form-field {
   flex-direction: row;
   height: 100%;
   justify-content: space-evenly;
+  @include media-breakpoint(xs) {
+    width: 100%;
+  }
+
+  @include media-breakpoint(sm) {
+    width: 100%;
+  }
+
+  @include media-breakpoint(lg) {
+    width: calc(100% - 300px);
+  }
+
+  @include media-breakpoint(xl) {
+    width: calc(100% - 300px);
+  }
   .rooms {
     overflow-y: scroll;
     overflow-x: hidden;

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/dtos/user';
-import { CONFIG } from 'src/app/config';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/internal/operators/catchError';
@@ -11,6 +10,7 @@ import * as fromAuth from '../../auth/store/auth.reducer';
 import * as fromApp from '../../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -27,12 +27,12 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<User> {
-    let url = CONFIG.serviceURL + '/user/get/' + id;
+    let url = environment.serviceURL + '/user/get/' + id;
     return this.http.get<User>(url).pipe(catchError(err => {throw err}));
   }
 
   updateUserById(id: string, user: User) {
-    let url = CONFIG.serviceURL + '/user/update/' + id;
+    let url = environment.serviceURL + '/user/update/' + id;
     return this.http.post(url, user)
     .pipe(
       tap(p => {

@@ -6,12 +6,11 @@ import * as AuthActions from './services/auth/store/auth.actions';
 import * as fromApp from './store/app.reducer';
 import { Store } from '@ngrx/store';
 import { HammerGestureConfig } from '@angular/platform-browser';
-import { CONFIG } from './config';
 import { AuthService } from './services/auth/auth.service';
 import { AppService } from './app.service';
 import { User } from './dtos/user';
 import { EventService } from './services/dataServices/event/event-service.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { environment } from 'src/environments/environment';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -76,7 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {}
 
   checkLocalStorage() {
-    let str = window.localStorage.getItem(CONFIG.loginLocalStorageKey);
+    let str = window.localStorage.getItem(environment.loginLocalStorageKey);
     if(str) {
       this.authService.isLoggedIn = true;
       this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));

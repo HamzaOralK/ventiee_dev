@@ -3,16 +3,14 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { Event, EventType } from 'src/app/dtos/event';
+import { Event } from 'src/app/dtos/event';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { LangService } from 'src/app/services/lang/lang.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { User } from 'src/app/dtos/user';
+
+import { MatAutocomplete } from '@angular/material/autocomplete';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
@@ -41,7 +39,7 @@ export class CreateEventFormComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   filteredTags: Observable<string[]>;
-  allTags: string[] = ["Alkollü", "Konser", "Oyun", "Gezmece"];
+  allTags: {tag: string}[];
 
   smallScreen: boolean;
 
@@ -102,6 +100,10 @@ export class CreateEventFormComponent implements OnInit {
     ]).subscribe(result => {
       this.smallScreen = result.matches;
     });
+
+    this.eventService.getTags().subscribe((p: {tag: string}[]) => {
+      this.allTags = p;
+    })
   }
 
   ngOnInit(): void {

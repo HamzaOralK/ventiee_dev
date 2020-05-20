@@ -6,7 +6,6 @@ import * as fromApp from '../../../store/app.reducer';
 import * as RoomAction from './store/room.actions';
 import { MMessage, MessageType } from 'src/app/dtos/message';
 import * as io from 'socket.io-client';
-import { CONFIG } from 'src/app/config';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
@@ -15,6 +14,14 @@ import { Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
 import { NotificationService } from '../../notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
+import { environment } from 'src/environments/environment';
+
+const MESSAGE_TO_CLIENT = 'messageToClient';
+const JOIN_ROOM = 'joinRoom';
+const LEAVE_ROOM = 'leaveRoom';
+const KICK_PERSON = 'kickPerson';
+const CANCEL_EVENT = 'cancelEvent';
+
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +63,7 @@ export class RoomService implements OnDestroy {
 
       if(this.user && !this.connected) {
         this.getRooms();
-        this.socket = io(CONFIG.serviceURL, {
+        this.socket = io(environment.serviceURL, {
           reconnection: true,
           reconnectionDelay: 1000,
           reconnectionDelayMax: 5000,
@@ -68,7 +75,7 @@ export class RoomService implements OnDestroy {
       }
     })
 
-    this.url = CONFIG.serviceURL;
+    this.url = environment.serviceURL;
   }
 
   ngOnDestroy() {
@@ -79,18 +86,22 @@ export class RoomService implements OnDestroy {
   getMessages() {
     return Observable.create((observer) => {
       if(this.socket) {
-        this.socket.on('messageToClient', (message: Object) => {
+        this.socket.on(MESSAGE_TO_CLIENT, (message: Object) => {
           this.insertMessage(message, observer);
         });
-        this.socket.on('joinRoom', (message: any)=> {
+        this.socket.on(JOIN_ROOM, (message: any)=> {
           this.insertMessage(message, observer);
         });
-        this.socket.on('leaveRoom', (message: any) => {
+        this.socket.on(LEAVE_ROOM, (message: any) => {
           this.processLeaveRoom(message, observer);
         });
-        this.socket.on('kickPerson', (message: {personToKick: string, roomToLeave: string}) => {
+        this.socket.on(KICK_PERSON, (message: {personToKick: string, roomToLeave: string}) => {
           if (message.personToKick === this.user._id) this.processKick(message.roomToLeave, message.personToKick);
         });
+        this.socket.on(CANCEL_EVENT, (message) => {
+          // console.log(message.message)
+          this.processCancelEvent(message.message);
+        })
       }
     });
   }
@@ -142,7 +153,7 @@ export class RoomService implements OnDestroy {
   }
 
   joinRoom(room: Room) {
-    let url = CONFIG.serviceURL + '/jUser/add';
+    let url = environment.serviceURL + '/jUser/add';
 
     let postObj = {
       eventId: room._id,
@@ -161,7 +172,7 @@ export class RoomService implements OnDestroy {
   }
 
   getRooms() {
-    let url = CONFIG.serviceURL + "/jUser/getEvents/" + this.authService.user._id;
+    let url = environment.serviceURL + "/jUser/getEvents/" + this.authService.user._id;
     this.http.get<any>(url).subscribe(res => {
       let rooms = res as Room[];
       this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
@@ -187,14 +198,14 @@ export class RoomService implements OnDestroy {
   }
 
   getRoomUsers(room: Room) {
-    let url = CONFIG.serviceURL + "/jUser/get/" + room._id;
+    let url = environment.serviceURL + "/jUser/get/" + room._id;
     this.http.get<RoomUser[]>(url).subscribe(p => {
       this.roomStore.dispatch(new RoomAction.SetRoomUsers({room: room, roomUsers: p}))
     });
   }
 
   kickUser(eventId: string, user: {_id: string, nickname: string}) {
-    let url = CONFIG.serviceURL + "/jUser/kick";
+    let url = environment.serviceURL + "/jUser/kick";
     let sendObj = {eventId, userId: user._id}
     this.http.post(url, sendObj).subscribe(p => {
       let room = this.rooms.find(p => p._id === eventId);
@@ -204,7 +215,7 @@ export class RoomService implements OnDestroy {
   }
 
   processKick(eventId: string, userId: string, type: MessageType = MessageType.KickUser) {
-    let url = CONFIG.serviceURL + "/jUser/leave";
+    let url = environment.serviceURL + "/jUser/leave";
     let sendObj = { eventId, userId }
     this.http.post(url, sendObj).subscribe(p => {
       this.leaveSocketRoom(eventId, type);
@@ -212,7 +223,7 @@ export class RoomService implements OnDestroy {
   }
 
   leaveRoom(eventId: string, userId: string, type: MessageType = MessageType.LeaveRoom) {
-    let url = CONFIG.serviceURL + "/jUser/leave";
+    let url = environment.serviceURL + "/jUser/leave";
     let sendObj = { eventId, userId }
     this.http.post(url, sendObj).subscribe(p => {
       let room = this.rooms.find(p => p._id === eventId);
@@ -223,7 +234,7 @@ export class RoomService implements OnDestroy {
   }
 
   loadMessages(room: Room, pageNo: number = 1) {
-    let url = CONFIG.serviceURL + "/messages/" + room._id;
+    let url = environment.serviceURL + "/messages/" + room._id;
     return this.http.get(url, {params: {
       pageNo: pageNo.toString()
     }}).subscribe((p: any[]) => {
@@ -246,7 +257,7 @@ export class RoomService implements OnDestroy {
       date: new Date(),
       message: '~!~'
     };
-    this.socket.emit('joinRoom', roomId, socketObj);
+    this.socket.emit(JOIN_ROOM, roomId, socketObj);
   }
 
   leaveSocketRoom(roomId: string, type: MessageType) {
@@ -258,11 +269,25 @@ export class RoomService implements OnDestroy {
       date: new Date(),
       message: '~!~'
     };
-    this.socket.emit('leaveRoom', roomId, socketObj);
+    this.socket.emit(LEAVE_ROOM, roomId, socketObj);
   }
 
   kickSocketRoom(roomId: string, user?: Partial<User>) {
-    this.socket.emit('kickPerson', user._id, roomId);
+    this.socket.emit(KICK_PERSON, user._id, roomId);
+  }
+
+  cancelEvent(roomId: string) {
+    this.socket.emit(CANCEL_EVENT, roomId, roomId);
+  }
+
+  processCancelEvent(roomId: string) {
+    let room = this.rooms.find(p => p._id === roomId);
+    this.notificationService.notify(room.title + " iptal edildi.");
+    this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
+    if (this.router.url === '/room/' + roomId) {
+      this.router.navigate(["/home"]);
+    }
+
   }
 
 }

@@ -1,10 +1,10 @@
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { CONFIG } from '../config';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { NotificationService } from '../services/notification/notification.service';
 import { MultiLanguagePipe } from '../shared/pipes/multi-language.pipe';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 
@@ -17,17 +17,17 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     //return next.handle(request);
-    let authInfoStr = localStorage.getItem(CONFIG.loginLocalStorageKey);
+    let authInfoStr = localStorage.getItem(environment.loginLocalStorageKey);
     let authInfo = JSON.parse(authInfoStr);
     let newRequest: HttpRequest<any>;
 
     let tokenizFreeUrls: string[] = [
-      CONFIG.serviceURL + "/user/login",
-      CONFIG.serviceURL + "/user/signup",
-      CONFIG.serviceURL + "/user/forgotPass",
-      CONFIG.serviceURL + "/resetPassword",
-      CONFIG.serviceURL + "/resend",
-      CONFIG.serviceURL + "/verify",
+      environment.serviceURL + "/user/login",
+      environment.serviceURL + "/user/signup",
+      environment.serviceURL + "/user/forgotPass",
+      environment.serviceURL + "/resetPassword",
+      environment.serviceURL + "/resend",
+      environment.serviceURL + "/verify",
     ];
     let checkIndex = tokenizFreeUrls.findIndex((p) => request.url.search(p) > -1);
 

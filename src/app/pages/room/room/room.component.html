@@ -14,6 +14,9 @@
           <button mat-icon-button (click)="leaveRoom()" *ngIf="!isModerator()">
             <mat-icon>clear</mat-icon>
           </button>
+          <button mat-icon-button (click)="cancelEvent()" *ngIf="isModerator()">
+            <mat-icon>block</mat-icon>
+          </button>
         </div>
       </div>
       <ng-container *ngIf="activeRoom && activeRoom.users">

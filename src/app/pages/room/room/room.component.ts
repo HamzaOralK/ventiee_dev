@@ -233,6 +233,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.roomService.leaveRoom(this.activeRoom._id, this.user._id);
   }
 
+  cancelEvent() {
+    this.roomService.cancelEvent(this.activeRoom._id);
+  }
+
   getOnlyDate(date: Date): string {
     if(!(date instanceof Date)) {
       date = new Date(date);
