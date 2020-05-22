@@ -14,9 +14,11 @@
   position: relative;
   @include media-breakpoint(xs) {
     flex-direction: column;
+    padding: 30px 30px;
   }
   @include media-breakpoint(sm) {
     flex-direction: column;
+    padding: 50px 50px;
   }
 }
 
