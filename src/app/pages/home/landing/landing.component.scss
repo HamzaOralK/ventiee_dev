@@ -4,14 +4,14 @@
 
 .backgrounds {
   display: flex;
-  width: 100%;
-  height: 110vh;
+  padding: 100px 100px;
   justify-content: space-evenly;
   overflow: hidden;
   flex-direction: row;
-  background-size: cover;
+  background-size: 100% 99%;
   background-repeat: no-repeat;
   align-items: center;
+  position: relative;
   @include media-breakpoint(xs) {
     flex-direction: column;
   }
@@ -20,36 +20,53 @@
   }
 }
 
-.cs {
-  height: 700px;
+.cs-h {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
+.cs-v {
+  // max-height: 70%;
+  max-height: 600px;
   width: auto;
+  border: 0;
+}
+
+.section {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cn {
+  position: relative;
+  color: white;
+  width: 48%;
+  -webkit-flex: 0 1 auto;
+  -moz-box-flex: 0;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   @include media-breakpoint(xs) {
-    height: 300px;
+    width: 100%;
   }
-
   @include media-breakpoint(sm) {
-    height: 400px;
+    width: 100%;
   }
-
   @include media-breakpoint(md) {
-    height: 500px;
+    width: 100%;
   }
 }
 
 .top {
   background-image: url("src/assets/background.png");
   margin-bottom: 10px;
-  .section {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   .cn {
-    position: relative;
-    color: white;
-
     img {
       position: relative;
     }
@@ -59,28 +76,13 @@
       max-width: 42%;
       max-height: 54%;
       position: absolute;
-      top: 56%;
+      top: 46%;
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
       -moz-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
       -o-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      @include media-breakpoint(xs) {
-        max-width: 40%;
-        top: 70%;
-        left: 53%;
-      }
-      @include media-breakpoint(sm) {
-        max-width: 33%;
-        top: 63%;
-        left: 53%;
-      }
-      @include media-breakpoint(md) {
-        max-width: 33%;
-        top: 60%;
-        left: 53%;
-      }
     }
   }
 }
@@ -88,14 +90,6 @@
 .middle {
   // background-image: url("src/assets/background_2.png");
   margin-bottom: 10px;
-  .section {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .cn {
     position: relative;
     color: mat-color($app-font, 500);
@@ -107,48 +101,23 @@
     .innerText {
       width: 100%;
       height: 100%;
-      max-width: 42%;
+      max-width: 60%;
       max-height: 54%;
       position: absolute;
-      top: 52%;
+      top: 40%;
       left: 45%;
       -webkit-transform: translate(-50%, -50%);
       -moz-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
       -o-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-
-      @include media-breakpoint(xs) {
-        max-width: 41%;
-        top: 63%;
-        left: 53%;
-      }
-
-      @include media-breakpoint(sm) {
-        max-width: 33%;
-        top: 59%;
-        left: 51%;
-      }
-
-      @include media-breakpoint(md) {
-        max-width: 33%;
-        top: 55%;
-        left: 52%;
-      }
     }
   }
 }
 
 .bottom {
   background-image: url("src/assets/background_3.png");
-  .section {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
+  margin-bottom: -10px;
   .cn {
     position: relative;
     color: mat-color($app-font, 500);
@@ -160,34 +129,16 @@
     .innerText {
       width: 100%;
       height: 100%;
-      max-width: 42%;
+      max-width: 60%;
       max-height: 54%;
       position: absolute;
-      top: 59%;
-      left: 38%;
+      top: 48%;
+      left: 49%;
       -webkit-transform: translate(-50%, -50%);
       -moz-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
       -o-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-
-      @include media-breakpoint(xs) {
-        max-width: 45%;
-        top: 70%;
-        left: 45%;
-      }
-
-      @include media-breakpoint(sm) {
-        max-width: 33%;
-        top: 65%;
-        left: 45%;
-      }
-
-      @include media-breakpoint(md) {
-        max-width: 33%;
-        top: 63%;
-        left: 47%;
-      }
     }
   }
 }

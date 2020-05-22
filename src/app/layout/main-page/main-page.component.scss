@@ -14,7 +14,7 @@ $break-large: 1200px;
   height: 100%;
   justify-content: center;
   background-color: mat-color($app-background, 100) !important;
-  // background-color: #eeeeee !important;
+  overflow: hidden;
 }
 
 router-outlet + * {
