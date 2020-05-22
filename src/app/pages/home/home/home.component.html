@@ -1,9 +1,11 @@
 <ng-container *ngIf="user">
   <div class="page">
-    <div class="rooms scroll" [ngStyle]="{'display': smallScreen ? 'none' : 'block' }">
+    <div class="rooms" [ngStyle]="{'display': smallScreen ? 'none' : 'block' }">
+      <h1>{{'myEvents' | ml}}</h1>
       <chats></chats>
     </div>
     <div class="wholeEvents">
+      <h1>{{'event' | ml}}</h1>
       <div class="addEvent">
         <button class="add" mat-raised-button color="accent" (click)="createEvent()">
           <mat-icon>add</mat-icon>

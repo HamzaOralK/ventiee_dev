@@ -38,6 +38,15 @@ router-outlet + * {
   }
 }
 
+router-outlet + home,
+router-outlet + create-event,
+router-outlet + user-profile {
+  background-image: url("src/assets/main_bg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+}
+
 router-outlet + home {
   width: 100%;
   display: flex;

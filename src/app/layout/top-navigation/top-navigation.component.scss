@@ -37,4 +37,16 @@ mat-toolbar {
   overflow: hidden;
 }
 
+.username {
+  margin-left: 5px;
+  font-weight: 600;
+  color: mat-color($app-font, 500) !important;
+}
+
+.userpic {
+  width:32px;
+  height: 32px;
+  border-radius: 16px;
+}
+
 

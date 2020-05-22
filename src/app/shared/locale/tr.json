@@ -120,5 +120,7 @@
     {"key": "resetSuccesfull", "value": "Şifreniz yenilendi."},
     {"key": "conversation", "value": "Konuşmaca"},
     {"key": "meeting", "value": "Buluşmaca"},
-    {"key": "tags", "value": "Tagler"}
+    {"key": "tags", "value": "Tagler"},
+    {"key": "myEvents", "value": "Ventieelerim"}
+
 ]

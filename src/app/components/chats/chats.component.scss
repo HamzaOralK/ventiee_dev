@@ -1,5 +1,11 @@
 chat-rooms {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.chats {
+  overflow-y: auto;
+  overflow-X: hidden;
+  height: calc(100% - 160px);
 }
 
 .searchBox {

@@ -1,10 +1,10 @@
-<mat-form-field appearance="fill" class="searchBox">
+<mat-form-field appearance="outline" class="searchBox">
   <mat-label>{{'searchchats' | ml}}</mat-label>
   <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
   <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
-<div *ngFor="let room of filteredRooms">
-  <chat-rooms [room]="room"></chat-rooms>
+<div class="scroll chats">
+  <chat-rooms *ngFor="let room of filteredRooms" [room]="room"></chat-rooms>
 </div>

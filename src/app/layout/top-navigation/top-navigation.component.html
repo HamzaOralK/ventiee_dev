@@ -7,19 +7,27 @@
     </mat-icon>
     <span class="spacer"></span>
     <ng-container *ngIf="user; else noUser">
+
+      <button mat-button [routerLink]="['/profile', user._id]">
+        <img class="userpic" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+        <span class="username">{{user?.nickname}}</span>
+      </button>
+
       <button mat-button routerLink="/eventCalendar">
         <mat-icon>calendar_today</mat-icon>
       </button>
-      <button class="action" mat-stroked-button [matMenuTriggerFor]="menu">
-        <img src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-          style="width:32px; height: 32px; border-radius: 16px;">
-        {{user?.nickname}}
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon style="font-size: 36px; height: 36px; width: 36px;">keyboard_arrow_down</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/profile', user._id]">
+        <!--
+        <button mat-menu-item>
           <mat-icon>face</mat-icon>
           <span>{{ 'myProfile' | ml }}</span>
         </button>
+        -->
+
         <button mat-menu-item [routerLink]="['/userSettings', user._id]">
           <mat-icon>settings</mat-icon>
           <span>{{'settings' | ml}}</span>

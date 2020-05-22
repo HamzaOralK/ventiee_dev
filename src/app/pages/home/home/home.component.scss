@@ -15,7 +15,7 @@
 }
 
 .events {
-  height: calc(100% - 100px);
+  height: calc(100% - 140px);
   overflow-y: auto;
 }
 mat-form-field {
@@ -26,7 +26,8 @@ mat-form-field {
   display: flex;
   flex-direction: row;
   height: 100%;
-  justify-content: space-evenly;
+  justify-content: space-around;
+
   @include media-breakpoint(xs) {
     width: 100%;
   }
@@ -43,11 +44,10 @@ mat-form-field {
     width: calc(100% - 300px);
   }
   .rooms {
-    overflow-y: scroll;
-    overflow-x: hidden;
     flex-basis: 0;
     flex-grow: 0.5;
     display: block;
+    margin-right: 30px;
   }
   .wholeEvents {
     flex-basis: 0;
