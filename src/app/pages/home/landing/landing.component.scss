@@ -26,6 +26,7 @@
   max-width: 100%;
   height: auto;
   border: 0;
+  object-fit: contain;
 }
 
 .cs-v {
@@ -33,6 +34,7 @@
   max-height: 600px;
   width: auto;
   border: 0;
+  object-fit: contain;
 }
 
 
@@ -64,54 +66,50 @@
   @include media-breakpoint(md) {
     width: 100%;
   }
+  .innerText {
+    max-width: 62%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px white solid;
+    border-radius: 30px;
+    padding: 30px;
+  }
 }
 
-.innerText {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+.innerSection {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  margin-bottom: 20px;
+    @include media-breakpoint(xs) {
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+
+    @include media-breakpoint(sm) {
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
 }
+
 
 .top {
   background-image: url("src/assets/background.png");
   margin-bottom: 10px;
-  .cn {
-    img {
-      position: relative;
-    }
-    .innerText {
-      max-width: 42%;
-      max-height: 54%;
-      top: 46%;
-      left: 50%;
-    }
-  }
 }
 
 .middle {
   // background-image: url("src/assets/background_2.png");
   margin-bottom: 10px;
+  .innerSection {
+    flex-direction: column;
+    align-items: center;
+  }
   .cn {
-    position: relative;
-    color: mat-color($app-font, 500);
-
-    img {
-      position: relative;
-    }
-
+    color: black;
     .innerText {
-      max-width: 60%;
-      max-height: 54%;
-      top: 32%;
-      left: 45%;
+      border: 1px mat-color($app-font) solid;
     }
   }
 }
@@ -119,42 +117,23 @@
 .bottom {
   background-image: url("src/assets/background_3.png");
   margin-bottom: -10px;
-  .cn {
-    position: relative;
-    color: mat-color($app-font, 500);
 
-    img {
-      position: relative;
-    }
-
-    .innerText {
-      max-width: 60%;
-      max-height: 54%;
-      top: 48%;
-      left: 49%;
-    }
+  .innerText {
+    max-width: 100%;
+  }
+  .section {
+    flex-direction: column;
+    justify-content: center;
   }
 }
 
-// .hide {
+// p {
+//   display: inline;
 //   @include media-breakpoint(xs) {
-//     display: none !important;
-//   }
-//   @include media-breakpoint(sm) {
 //     display: none !important;
 //   }
 //   @include media-breakpoint(md) {
 //     display: none !important;
 //   }
+
 // }
-
-p {
-  display: inline;
-  @include media-breakpoint(xs) {
-    display: none !important;
-  }
-  @include media-breakpoint(md) {
-    display: none !important;
-  }
-
-}
