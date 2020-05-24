@@ -1,4 +1,4 @@
-<div *ngIf="user">
+<div *ngIf="user" class="profile">
   <div class="profile-header">
     <div class="top">
       <div class="header-image"></div>
@@ -19,7 +19,9 @@
       </mat-card>
     </mat-tab>
     <mat-tab label="{{'events' | ml}}">
-      <events [events]="events"></events>
+      <div class="scroll">
+        <events [events]="events"></events>
+      </div>
     </mat-tab>
     <mat-tab label="{{'comments' | ml}}">
       <mat-card>

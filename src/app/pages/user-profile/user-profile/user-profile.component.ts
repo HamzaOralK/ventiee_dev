@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/dataServices/user/user.service';
 import { User, UserComment } from 'src/app/dtos/user';
@@ -22,7 +22,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private eventService: EventService
+    private eventService: EventService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +44,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
           comment.rating = 5;
           this.comments = [];
           this.comments.push(comment);
+          this.cdr.detectChanges();
         });
       });
     });

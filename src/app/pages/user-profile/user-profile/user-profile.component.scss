@@ -6,6 +6,12 @@
   border-radius: 32px;
 }
 
+.profile {
+  height: 99%;
+  display: flex;
+  flex-direction: column;
+}
+
 .profile-header {
   display: flex;
   margin-top: 10px;

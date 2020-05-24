@@ -1,10 +1,10 @@
-<div>
+<div style="height: 100%; width: 100%;">
   <div class="app scroll">
     <top-navigation></top-navigation>
     <div [ngClass]="user ? 'mainContainerSystem' : 'mainContainerLanding'">
         <left-navigation *ngIf="user"></left-navigation>
         <main-page id="main" class="main-page"></main-page>
     </div>
+    <vfooter *ngIf="!user"></vfooter>
   </div>
-  <vfooter *ngIf="!user"></vfooter>
 </div>

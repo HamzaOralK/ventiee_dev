@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import * as fromAuth from './services/auth/store/auth.reducer';
 import * as AuthActions from './services/auth/store/auth.actions';
 import * as fromApp from './store/app.reducer';
+import * as Hammer from 'hammerjs';
 import { Store } from '@ngrx/store';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { AuthService } from './services/auth/auth.service';
@@ -15,12 +16,14 @@ import { environment } from 'src/environments/environment';
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
     // override hammerjs default configuration
-    'pan': { threshold: 100, direction: 4 },
+    'pan': { threshold: 100, direction: Hammer.DIRECTION_HORIZONTAL },
     'swipe': {
       velocity: 10000,
       threshold: 10000,
-      direction: 4
-    }
+      direction: Hammer.DIRECTION_HORIZONTAL
+    },
+    'pinch': { enable: false },
+    'rotate': { enable: false }
   }
 }
 
@@ -67,6 +70,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     mainTapHammer.on("tap", () => {
       this.appService.closeNav();
     });
+
 
   }
 

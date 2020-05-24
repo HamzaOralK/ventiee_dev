@@ -1,24 +1,25 @@
 <div class="top">
   <div class="users">
     <!-- <p *ngFor="let user of activeRoom.users">{{user.nickname}}</p> -->
+    <div class="roomInfo" *ngIf="activeRoom">
+      <span class="text">
+        <b>{{'event' | ml}}:</b>&nbsp;{{activeRoom.title}}<br>
+        <b>{{'time' | ml}}:</b>&nbsp;{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
+      </span>
+      <button mat-icon-button (click)="openDialog()">
+        <mat-icon>event_note</mat-icon>
+      </button>
+      <button mat-icon-button (click)="leaveRoom()" *ngIf="!isModerator()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <button mat-icon-button (click)="cancelEvent()" *ngIf="isModerator()">
+        <mat-icon>block</mat-icon>
+      </button>
+    </div>
     <mat-list>
-      <div mat-subheader>
-        <div class="roomInfo" *ngIf="activeRoom">
-          <span class="text">
-            <b>{{'event' | ml}}:</b>&nbsp;{{activeRoom.title}}<br>
-            <b>{{'time' | ml}}:</b>&nbsp;{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
-          </span>
-          <button mat-icon-button (click)="openDialog()">
-            <mat-icon>event_note</mat-icon>
-          </button>
-          <button mat-icon-button (click)="leaveRoom()" *ngIf="!isModerator()">
-            <mat-icon>clear</mat-icon>
-          </button>
-          <button mat-icon-button (click)="cancelEvent()" *ngIf="isModerator()">
-            <mat-icon>block</mat-icon>
-          </button>
-        </div>
-      </div>
+      <!-- <div mat-subheader>
+
+      </div> -->
       <ng-container *ngIf="activeRoom && activeRoom.users">
         <mat-list-item *ngFor="let roomUser of activeRoom.users">
           <img mat-list-icon class="userImage" src="https://material.angular.io/assets/img/examples/shiba1.jpg">

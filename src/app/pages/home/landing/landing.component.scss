@@ -153,5 +153,8 @@ p {
   @include media-breakpoint(xs) {
     display: none !important;
   }
+  @include media-breakpoint(md) {
+    display: none !important;
+  }
 
 }

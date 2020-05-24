@@ -13,6 +13,14 @@ html, body {
   margin-left: 0;
   margin-right: 0;
   margin-bottom: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+body {
+  position: relative;
 }
 
 * {
@@ -33,7 +41,6 @@ footer {
     display: flex;
     justify-content: space-evenly;
     background-color: mat-color($app-primary, 200);
-    // margin-top: 10px;
     padding-bottom: 30px;
     section {
       display: flex;
@@ -43,18 +50,25 @@ footer {
 }
 
 .mat-tab-group {
-  height: calc(100% - 70px);
+  // height: calc(100% - 70px);
+  // height: auto !important;
+  height: 100%
 }
 
 .mat-tab-body-content,
 .mat-tab-body-wrapper {
-  height: calc(100% - 80px);
+  // height: calc(100% - 80px);
+  height: 100%
 }
 
 .mat-tab-body-content, .scroll {
   scrollbar-color: gray;
   scroll-behavior: smooth;
   scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translateZ(0);
+  -webkit-overflow-scroll: touch;
+  overflow-y: auto !important;
 }
 
 .mat-tab-body-content::-webkit-scrollbar, .scroll::-webkit-scrollbar {
