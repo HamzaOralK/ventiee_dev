@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChatsModule } from 'src/app/components/chats/chats.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ChatsModule } from 'src/app/components/chats/chats.module';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatTabsModule,
     ChatsModule
   ],
 })

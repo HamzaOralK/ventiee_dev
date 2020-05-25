@@ -1,4 +1,4 @@
-<div style="height: 100%; overflow-y: auto; overflow-x: hidden;">
+<div class="mainCreateForm scroll">
 <div class="topContainer">
   <div class="imageContainer">
     <img [src]="imgURL">
@@ -234,16 +234,47 @@
           </mat-form-field>
           <div class="container" formGroupName="location">
             <h3>{{'address' | ml}}</h3>
+
+            <!--
             <mat-form-field appearance="outline">
               <mat-label>{{'city' | ml}}</mat-label>
               <input matInput formControlName="city" appLowerCase required>
             </mat-form-field>
+            -->
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{'city' | ml}}</mat-label>
+              <mat-select formControlName="city" (selectionChange)="cityChanged($event)">
+                <mat-option>&nbsp;</mat-option>
+                <mat-option *ngFor="let city of cities" [value]="city.name">
+                  {{city.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+
             <div class="space"></div>
+            <!--
             <mat-form-field appearance="outline">
               <mat-label>{{'district' | ml}}</mat-label>
               <input matInput formControlName="district" appLowerCase required>
             </mat-form-field>
+            -->
+            <mat-form-field appearance="outline">
+              <mat-label>{{'district' | ml}}</mat-label>
+              <mat-select formControlName="district">
+                <mat-option>&nbsp;</mat-option>
+                <mat-option *ngFor="let district of districts" [value]="district.name">
+                  {{district.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
             <div class="space"></div>
+
+
+            <!--
             <mat-form-field appearance="outline">
               <mat-label>{{'lat' | ml}}</mat-label>
               <input matInput formControlName="latitute" appLowerCase>
@@ -253,6 +284,7 @@
               <mat-label>{{'long' | ml}}</mat-label>
               <input matInput formControlName="longtitute" appLowerCase>
             </mat-form-field>
+            -->
           </div>
           <div class="actions">
             <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>

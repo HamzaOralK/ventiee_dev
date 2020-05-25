@@ -14,17 +14,23 @@ mat-expansion-panel {
 
 .headerInfo {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.tag {
-  background-color: mat-color($app-accent);
-  color: mat-color($app-font, 500);
-  border-radius: 10px;
-  height: 20px;
-  padding: 10px;
-  margin-right: 5px;
+.tags {
+
+  display: flex;
+  margin-bottom: 10px;
+  .tag {
+    background-color: mat-color($app-accent);
+    color: mat-color($app-font, 500);
+    border-radius: 10px;
+    height: 20px;
+    padding: 10px;
+    margin-right: 5px;
+  }
+
 }
 
 .eventInfo {
@@ -36,11 +42,12 @@ mat-expansion-panel {
 }
 
 .titleImg {
-  height: 64px;
+  height: auto;
   cursor: pointer;
   padding: 5px;
   margin-right: 5px;
   width: 64px;
+  object-fit: contain;
 }
 
 .titleDesc {
@@ -50,10 +57,16 @@ mat-expansion-panel {
 .header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
+  margin-right: 10px;
 }
 
 .line {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  margin-bottom: 20px;
+  button {
+    margin-left: 30px;
+  }
+
 }

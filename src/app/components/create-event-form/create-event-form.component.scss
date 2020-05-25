@@ -83,3 +83,8 @@ mat-horizontal-stepper {
   background-color: mat-color($app-primary, 500);
 }
 
+.mainCreateForm {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

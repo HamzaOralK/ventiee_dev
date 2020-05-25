@@ -15,12 +15,13 @@ $break-large: 1200px;
   justify-content: center;
   background-color: mat-color($app-background, 100) !important;
   overflow: hidden;
+
 }
 
 router-outlet + * {
   position: relative;
   height: 100%;
-  width: calc(100% - 100px);
+  width: 100%;
   @include media-breakpoint(xs) {
     width: 100%;
   }
@@ -30,18 +31,17 @@ router-outlet + * {
   }
 
   @include media-breakpoint(lg) {
-    width: calc(100% - 300px);
+    width: 100%;
   }
 
   @include media-breakpoint(xl) {
-    width: calc(100% - 300px);
+    width: 100%;
   }
 }
 
 router-outlet + home,
 router-outlet + create-event,
 router-outlet + user-profile {
-  background-image: url("src/assets/main_bg.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position-y: bottom;

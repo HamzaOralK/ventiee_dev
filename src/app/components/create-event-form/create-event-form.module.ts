@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSelectModule } from '@angular/material/select';
 /** TimePicker */
 
 @NgModule({
@@ -36,6 +37,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatDatepickerModule,
     MatMomentDateModule,
     MatButtonToggleModule,
+    MatSelectModule,
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
   ],
   exports: [ CreateEventFormComponent ]

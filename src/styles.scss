@@ -159,3 +159,7 @@ input:-webkit-autofill:active {
   color: mat-color($app-font, 500) !important;
 }
 
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: mat-color($app-font, 500) !important;
+}
+

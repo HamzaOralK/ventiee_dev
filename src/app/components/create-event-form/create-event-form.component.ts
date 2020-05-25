@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, } from '@angular/material-moment-adapter';
@@ -8,11 +8,14 @@ import { EventService } from 'src/app/services/dataServices/event/event-service.
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { LangService } from 'src/app/services/lang/lang.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { MatAutocomplete } from '@angular/material/autocomplete';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { PlaceService } from 'src/app/services/dataServices/place/place.service';
+import { BaseComponent } from '../base/base.component';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: "create-event-form",
@@ -28,7 +31,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
 })
-export class CreateEventFormComponent implements OnInit {
+export class CreateEventFormComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
+
+
   public imagePath;
   imgURL: any;
 
@@ -42,6 +48,11 @@ export class CreateEventFormComponent implements OnInit {
   allTags: {tag: string}[];
 
   smallScreen: boolean;
+
+  /** Adres bloğu */
+  states: any[];
+  cities: {name: string, city_code: string}[] = [];
+  districts: {id: number, latitude: string, longitude: string, name: string}[] = [];
 
   @Input() eventId: string;
   @ViewChild("tagInput") tagInput: ElementRef<HTMLInputElement>;
@@ -84,31 +95,40 @@ export class CreateEventFormComponent implements OnInit {
     private notificationService: NotificationService,
     private langService: LangService,
     private authService: AuthService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private placeService: PlaceService
   ) {
-    /*
-    this.filteredTags = this.tagFilter.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) => {
-        return fruit ? this._filter(fruit) : this.allTags.slice();
-      })
-    );
-    */
+    this.subscription = new Subscription();
+
     breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small
     ]).subscribe(result => {
       this.smallScreen = result.matches;
     });
-
-    this.eventService.getTags().subscribe((p: {tag: string}[]) => {
-      this.allTags = p;
-    })
   }
 
   ngOnInit(): void {
     this.generalDescription.patchValue({ id: this.eventId });
     this.imgURL = "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
+
+    let tagSub = this.eventService.getTags().subscribe((p: { tag: string }[]) => {
+      this.allTags = p;
+    });
+    this.subscription.add(tagSub);
+
+    let placeSub = this.placeService.getCountySubDivs().subscribe(p => {
+      if(p.cities) {
+        this.cities = p.cities;
+      }
+    });
+
+    this.subscription.add(placeSub);
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   get eventType(): string {
@@ -223,54 +243,17 @@ export class CreateEventFormComponent implements OnInit {
     return (this.tags.value as string[]).find(p => p === tag);
   }
 
-  /** Tag Chips */
-  /*
-  get tags() {
-    return this.generalDescription.get("tags");
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.allTags.filter(
-      (fruit) => fruit.toLowerCase().indexOf(filterValue) === 0
-    );
-  }
-
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our fruit
-    if ((value || "").trim()) {
-      let prevValue = this.tags.value;
-      prevValue.push(value);
-      this.tags.setValue(prevValue);
+  cityChanged(event: MatSelectChange) {
+    if(event.value) {
+      this.placeService.getDistricts(event.value).subscribe(p => {
+        this.districts = p;
+      })
+    }
+    else {
+      this.districts = [];
+      this.placeInformation.controls["location"].patchValue({district: undefined});
     }
 
-    // Reset the input value
-    if (input) {
-      input.value = "";
-    }
-    this.generalDescription.controls["tags"].updateValueAndValidity();
   }
-
-  remove(fruit: string): void {
-    const index = this.tags.value.indexOf(fruit);
-
-    if (index >= 0) {
-      let prevValue = this.tags.value;
-      prevValue.splice(index, 1);
-      this.tags.setValue(prevValue);
-    }
-    this.generalDescription.controls["tags"].updateValueAndValidity();
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.value.push(event.option.viewValue);
-    this.tagInput.nativeElement.value = "";
-    this.generalDescription.controls["tags"].updateValueAndValidity();
-  }
-  */
-  /*******/
 
 }

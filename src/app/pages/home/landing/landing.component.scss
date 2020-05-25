@@ -30,7 +30,6 @@
 }
 
 .cs-v {
-  // max-height: 70%;
   max-height: 600px;
   width: auto;
   border: 0;
@@ -57,15 +56,19 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+
   @include media-breakpoint(xs) {
     width: 100%;
   }
+
   @include media-breakpoint(sm) {
     width: 100%;
   }
+
   @include media-breakpoint(md) {
     width: 100%;
   }
+
   .innerText {
     max-width: 62%;
     display: flex;
@@ -100,7 +103,6 @@
 }
 
 .middle {
-  // background-image: url("src/assets/background_2.png");
   margin-bottom: 10px;
   .innerSection {
     flex-direction: column;
@@ -126,14 +128,3 @@
     justify-content: center;
   }
 }
-
-// p {
-//   display: inline;
-//   @include media-breakpoint(xs) {
-//     display: none !important;
-//   }
-//   @include media-breakpoint(md) {
-//     display: none !important;
-//   }
-
-// }
