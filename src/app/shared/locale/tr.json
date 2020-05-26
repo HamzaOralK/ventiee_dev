@@ -121,6 +121,10 @@
     {"key": "conversation", "value": "Konuşmaca"},
     {"key": "meeting", "value": "Buluşmaca"},
     {"key": "tags", "value": "Tagler"},
+    {"key": "info", "value": "Bilgi"},
+    {"key": "quit", "value": "Çık"},
+    {"key": "cancel", "value": "İptal"},
     {"key": "myEvents", "value": "Ventieelerim"}
+
 
 ]

@@ -6,15 +6,15 @@
         <b>{{'event' | ml}}:</b>&nbsp;{{activeRoom.title}}<br>
         <b>{{'time' | ml}}:</b>&nbsp;{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
       </span>
-      <button mat-raised-button (click)="openDialog()" style="margin-right: 5px;">
+      <button mat-raised-button color="primary" (click)="openDialog()" style="margin-right: 5px;">
         <mat-icon>event_note</mat-icon>
         {{'info' | ml}}
       </button>
-      <button mat-raised-button (click)="leaveRoom()" *ngIf="!isModerator()">
+      <button mat-raised-button color="primary" (click)="leaveRoom()" *ngIf="!isModerator()">
         <mat-icon>clear</mat-icon>
         {{'quit' | ml}}
       </button>
-      <button mat-raised-button (click)="cancelEvent()" *ngIf="isModerator()">
+      <button mat-raised-button color="primary" (click)="cancelEvent()" *ngIf="isModerator()">
         <mat-icon>block</mat-icon>
         {{'cancel' | ml}}
       </button>

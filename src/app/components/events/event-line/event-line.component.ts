@@ -35,6 +35,7 @@ export class EventLineComponent implements OnInit {
     userNewRoom._id = this.event._id;
     this.roomService.joinRoom(userNewRoom).subscribe(p => {
       if(this.appService.smallScreen) {
+        this.roomService.changeRoom(this.event._id);
         this.router.navigate(['/room/' + this.event._id]);
       } else {
         this.onJoin.emit(this.event);
