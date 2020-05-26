@@ -5,6 +5,7 @@ export const TOGGLE_ROOM_NAV = 'TOGGLE_ROOM_NAV';
 export const GET_EVENTS = 'GET_EVENTS';
 export const LOAD_MORE_EVENTS = 'LOAD_MORE_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
+export const FILTER_EVENT = 'FILTER_EVENT';
 
 export class ToggleLeftNav implements Action {
   readonly type = TOGGLE_LEFT_NAV;
@@ -31,5 +32,10 @@ export class AddEvent implements Action {
   constructor(public payload: Event) { }
 }
 
+export class FilterEvent implements Action {
+  readonly type = FILTER_EVENT;
+  constructor(public payload: Event) { }
+}
 
-export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | AddEvent;
+
+export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | AddEvent | FilterEvent;

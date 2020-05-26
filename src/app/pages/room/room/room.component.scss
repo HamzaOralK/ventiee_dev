@@ -2,7 +2,7 @@
 @import 'src/theme.scss';
 @import 'src/mixins.scss';
 
-$usersFullWidth: 300px;
+$usersFullWidth: 220px;
 
 .user {
   font-weight: bold;
@@ -13,12 +13,15 @@ $usersFullWidth: 300px;
   flex-direction: row;
   height: 100%;
   width: 100%;
+  position: relative;
+  justify-content: center;
   .users {
     height: 99%;
     width: #{$usersFullWidth};
     border-radius: 15px 0 0 15px;
     background-color: mat-color($app-accent);
-    display: block;
+    display: flex;
+    flex-direction: column;
     @include media-breakpoint(xs) {
       display: none;
     }
@@ -39,16 +42,25 @@ $usersFullWidth: 300px;
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
-  width: 100%;
+  width: 90%;
   padding-left: 20px;
+
   .text {
     width: 65%;
     color: mat-color($app-font);
+    display: none;
+    @include media-breakpoint(xs) {
+      display: inline;
+    }
+    @include media-breakpoint(sm) {
+      display: inline;
+    }
   }
 }
 
 .sendMessageForm {
-  width: calc(100% - #{$usersFullWidth});
+  // width: calc(100% - #{$usersFullWidth});
+  width: 100%;
   position: absolute;
   bottom: 15px;
   display: flex;
@@ -74,10 +86,12 @@ $usersFullWidth: 300px;
 }
 
 .messages {
-  width: calc(100% - #{$usersFullWidth});
+  // width: calc(100% - #{$usersFullWidth});
+  width: 100%;
   max-height: calc(100% - 120px);
   overflow-y: auto;
   position: absolute;
+  overflow-x: hidden;
   @include media-breakpoint(xs) {
     width: 100%;
     max-height: calc(100% - 180px);
@@ -187,4 +201,16 @@ $usersFullWidth: 300px;
   width: 100%;
   display: flex;
   justify-content: center;
+}
+.control {
+  padding: 5px;
+  width: 50%;
+  position: relative;
+  @include media-breakpoint(xs) {
+    width: 100%;
+  }
+
+  @include media-breakpoint(sm) {
+    width: 100%;
+  }
 }

@@ -8,8 +8,10 @@ h3 {
 }
 
 mat-expansion-panel {
-  margin: 1px;
-  background-color: mat-color($app-primary, 50) !important;
+  margin: 10px;
+  // background-color: mat-color($app-accent, 600) !important;
+  // background-color: mat-color($app-primary, 300) !important;
+
 }
 
 .headerInfo {
@@ -39,6 +41,7 @@ mat-expansion-panel {
   margin: 5px 5px 0 5px;
   background: mat-color($app-primary, 200) !important;
   cursor: pointer;
+
 }
 
 .titleImg {
@@ -58,6 +61,10 @@ mat-expansion-panel {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
   margin-right: 10px;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 32px;
 }
 
 .line {

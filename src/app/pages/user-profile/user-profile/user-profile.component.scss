@@ -1,3 +1,5 @@
+@import 'src/mixins.scss';
+
 .header-image {
   width: 64px;
   height: 64px;
@@ -17,7 +19,21 @@
   margin-top: 10px;
   flex-direction: column;
   .top {
+    justify-content: center;
     display: flex;
+  }
+}
+
+events {
+  min-width: 700px;
+  @include media-breakpoint(xs) {
+    width: 95%;
+    min-width: 95%;
+  }
+
+  @include media-breakpoint(sm) {
+    width: 95%;
+    min-width: 95%;
   }
 }
 

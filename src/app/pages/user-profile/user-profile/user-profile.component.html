@@ -4,11 +4,11 @@
       <div class="header-image"></div>
       <h2>{{user.nickname}}</h2>
     </div>
-    <div>
+    <div style="display: flex; justify-content: center;">
       <rating [rating]='3.5' [readonly]="true"></rating>
     </div>
   </div>
-  <mat-tab-group class="scroll" style="z-index: 0; position: relative;">
+  <mat-tab-group class="scroll" style="z-index: 0; position: relative;" mat-align-tabs="center">
     <mat-tab label="{{'profile' | ml}}">
       <mat-card style="word-break: break-all;">
         <p *ngIf="user.gender"><b>{{'gender' | ml}}: </b>{{user.gender | ml}}</p>
@@ -19,7 +19,7 @@
       </mat-card>
     </mat-tab>
     <mat-tab label="{{'events' | ml}}">
-      <div class="scroll">
+      <div class="scroll" style="width: 100%; display: flex; justify-content: center;">
         <events [events]="events"></events>
       </div>
     </mat-tab>

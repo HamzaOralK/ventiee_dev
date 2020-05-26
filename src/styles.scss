@@ -72,17 +72,17 @@ footer {
 }
 
 .mat-tab-body-content::-webkit-scrollbar, .scroll::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 .mat-tab-body-content::-webkit-scrollbar-thumb, .scroll::-webkit-scrollbar-thumb {
   background: #666;
-  border-radius: 20px;
+  border-radius: 5px;
 }
 
 .mat-tab-body-content::-webkit-scrollbar-track, .scroll::-webkit-scrollbar-track {
   background: #ddd;
-  border-radius: 20px;
+  border-radius: 5px;
 }
 
 .mat-icon {
@@ -107,9 +107,9 @@ footer {
   position: inherit !important;
 }
 
-.mat-accordion .mat-expansion-panel {
-  margin: 5px;
-}
+// .mat-accordion .mat-expansion-panel {
+//   margin: 5px;
+// }
 
 .timepicker__header {
   background-color: mat-color($app-primary, 500) !important;
@@ -123,13 +123,16 @@ footer {
 }
 
 .iconInfo {
-  background-color: mat-color($app-warn, 200);
-  padding: 10px;
+  // background-color: mat-color($app-warn, 200);
+  padding: 15px 15px 15px 0;
   border-radius: 10px;
   margin-right: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 300;
+  color: mat-color($app-font, 300);
+  // margin-bottom: 5px;
 }
 
 .mat-form-field-flex {
@@ -163,3 +166,11 @@ input:-webkit-autofill:active {
   color: mat-color($app-font, 500) !important;
 }
 
+.cal-month-view .cal-header .cal-cell {
+  padding: 5px;
+  font-size: 12px;
+  overflow: unset;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+}

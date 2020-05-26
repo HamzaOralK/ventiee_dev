@@ -30,6 +30,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule
+  ],
+  exports: [
+    RoomComponent
   ]
 })
 

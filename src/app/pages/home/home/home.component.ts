@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, HostListener, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/internal/Subject';
@@ -11,12 +11,15 @@ import * as AppAction from "../../../store/app.actions";
 import { User } from 'src/app/dtos/user';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { AppService } from 'src/app/app.service';
+import { Room } from 'src/app/dtos/room';
+import { MatTabGroup } from '@angular/material/tabs/tab-group';
+import { RoomService } from 'src/app/services/dataServices/room/room.service';
 
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  // encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   auth: Observable<fromAuth.State>;
@@ -25,17 +28,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
   subscription: Subscription = new Subscription();
   value: string = "";
   user: User;
+  activeRoom: Room;
 
   _loading: boolean = false;
   _isAll: boolean = false;
 
   @ViewChild('eventScroll') eventScroll: ElementRef;
+  @ViewChild('tabs', { static: false }) tabGroup: MatTabGroup;
 
   constructor(
     private store: Store<fromApp.AppState>,
     private router: Router,
     private eventService: EventService,
-    private appService: AppService
+    private appService: AppService,
+    private roomService: RoomService
   ) {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
@@ -56,6 +62,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
       });
     this.subscription.add(eventSearchSubscription);
+    this.store.select("roomState").subscribe(p => {
+      this.activeRoom = p.activeRoom;
+    });
   }
 
   ngAfterViewInit() {
@@ -99,5 +108,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   get smallScreen() {
     return this.appService.smallScreen;
+  }
+
+  onJoinEvent(event: any) {
+    this.tabGroup.selectedIndex = 1;
+    this.store.dispatch(new AppAction.FilterEvent(event));
+    this.roomService.changeRoom(event._id);
   }
 }

@@ -1,16 +1,37 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
+@import 'src/mixins.scss';
+
 .room {
-    height: 80px;
+    height: 60px;
     padding: 10px;
     overflow: hidden;
     // box-shadow: unset;
     // border-bottom: 1px rgba(0, 0, 0, 0.14) solid;
-    margin-bottom: 10px
+    // margin-bottom: 10px;
+    // background-color: mat-color($app-accent, 100);
+    border-bottom: 1px solid mat-color($app-font, 100);
+    display: flex;
+}
+
+.room:hover {
+  background-color: mat-color($app-font, 100);
+}
+
+.titleImg {
+  height: auto;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 5px;
+  width: 64px;
+  object-fit: contain;
 }
 
 .roomTitle {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  margin-bottom: 0 !important;
 }
 
 mat-card-subtitle {
@@ -28,4 +49,8 @@ mat-card-subtitle {
 .image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
+}
+
+.selected {
+  background-color: mat-color($app-primary, 200) !important;
 }

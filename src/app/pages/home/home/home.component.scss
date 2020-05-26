@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
 @import 'src/mixins.scss';
 
 .addEvent {
@@ -6,7 +8,9 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
+  height: 70px;
   .add {
+    margin-top: 4px;
     margin-right: 5px
   }
 }
@@ -23,35 +27,101 @@ mat-form-field {
 }
 
 .page {
-  display: flex;
-  flex-direction: row;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: space-around;
   height: 98%;
-  width: 95%;
-  justify-content: space-around;
+  width: 70%;
+  @include media-breakpoint(xs) {
+    width: 95%;
+  }
 
+  @include media-breakpoint(sm) {
+    width: 95%;
+  }
+
+  @include media-breakpoint(md) {
+    width: 95%;
+  }
+
+  @include media-breakpoint(lg) {
+    width: 95%;
+  }
   .rooms {
-    flex-basis: 0;
-    flex-grow: 0.5;
-    display: block;
-    margin-right: 30px;
-    width: 33%;
+    // flex-basis: 0;
+    // flex-grow: 0.25;
+    // padding: 10px;
+    // background-color: mat-color($app-accent, 600);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    border: 2px solid mat-color($app-accent, 500);
+    border-radius: 15px;
+    height: calc(100% - 4px);
+    padding: 0 10px;
+    @include media-breakpoint(xs) {
+      display: block;
+    }
+
+    @include media-breakpoint(sm) {
+      display: block;
+    }
+
+    @include media-breakpoint(md) {
+      justify-content: space-between;
+    }
   }
   .wholeEvents {
-    flex-basis: 0;
-    flex-grow: 1;
+    // flex-basis: 0;
+    // flex-grow: 0.5;
+    // background-color: mat-color($app-accent, 100);
     overflow: hidden;
-    width: 66%;
+    border: 2px solid mat-color($app-accent, 500);
+    border-radius: 10px;
+    height: calc(100% - 4px);
+
     @include media-breakpoint(xs) {
       width: 95%;
+      margin-left: 0;
+      flex-grow: 1;
     }
 
     @include media-breakpoint(sm) {
       width: 95%;
+      margin-left: 0;
+      flex-grow: 1;
     }
+
+    @include media-breakpoint(md) {
+      flex-grow: 0.7;
+    }
+
+    @include media-breakpoint(lg) {
+      flex-grow: 0.5;
+    }
+
   }
+
 }
 
 landing {
   width: 100%;
 }
+
+room {
+  display: block;
+  width: 100%;
+  @include media-breakpoint(xs) {
+    display: none;
+  }
+
+  @include media-breakpoint(sm) {
+    display: none;
+  }
+
+  @include media-breakpoint(md) {
+    width: 60%;
+  }
+}
+
 

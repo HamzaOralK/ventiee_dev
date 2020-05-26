@@ -62,7 +62,7 @@
     {"key": "description", "value": "Açıklama"},
     {"key": "noDesc", "value": "Bu kullanıcının açıklaması bulunmamakta."},
     {"key": "profile", "value": "Profil"},
-    {"key": "events", "value": "Ventieeleri"},
+    {"key": "events", "value": "Ventieeler"},
     {"key": "comments", "value": "Yorumlar"},
     {"key": "gender", "value": "Cinsiyet"},
     {"key": "preferredGender", "value": "Tercih Edilen Cinsiyet"},

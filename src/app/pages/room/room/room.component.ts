@@ -65,14 +65,14 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.roomState = this.store.select('roomState');
     this.subscription = new Subscription();
 
-    let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
-      this.pageNo = 1;
-      this.roomId = p.get('id');
-      this.roomService.changeRoom(this.roomId);
-      this.scroll = true;
-      this.scrollToBottom();
-    });
-    this.subscription.add(routeSubscription);
+     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
+       if (this.roomId) this.roomService.changeRoom(this.roomId);
+       this.pageNo = 1;
+       this.roomId = p.get('id');
+       this.scroll = true;
+       this.scrollToBottom();
+     });
+     this.subscription.add(routeSubscription);
 
     let msgSubscription = this.roomService.msg.subscribe(p => {
       let scrollHeight: number;
@@ -90,8 +90,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 
   ngAfterViewInit() {
-    let containerSub = this.messagesContainer.changes.subscribe(
-      (list: QueryList<ElementRef>) => {
+    let containerSub = this.messagesContainer.changes.subscribe((list: QueryList<ElementRef>) => {
         this.scrollToBottomCheck();
         if (this.scroll && list.length > 0) {
           this.scroll = false;
@@ -99,8 +98,8 @@ export class RoomComponent implements OnInit, OnDestroy {
       }
     );
     this.subscription.add(containerSub);
-
     let stateSub = this.store.select("roomState").subscribe(p => {
+      this.scroll = true;
       if (p.rooms.length > 0) {
         if ((!this.activeRoom || this.activeRoom._id !== p.activeRoom._id) && !p.activeRoom) {
           this.roomService.changeRoom(this.roomId);
@@ -116,12 +115,13 @@ export class RoomComponent implements OnInit, OnDestroy {
             });
           }
         }
+        if (this.activeRoom && this.activeRoom._id !== p.activeRoom._id) {
+
+        }
       }
       this.cdr.detectChanges();
     });
     this.subscription.add(stateSub);
-
-
 
     if (this.messages) {
       (this.messages.nativeElement as HTMLLIElement).addEventListener('scroll', () => {

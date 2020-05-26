@@ -6,14 +6,17 @@
         <b>{{'event' | ml}}:</b>&nbsp;{{activeRoom.title}}<br>
         <b>{{'time' | ml}}:</b>&nbsp;{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
       </span>
-      <button mat-icon-button (click)="openDialog()">
+      <button mat-raised-button (click)="openDialog()" style="margin-right: 5px;">
         <mat-icon>event_note</mat-icon>
+        {{'info' | ml}}
       </button>
-      <button mat-icon-button (click)="leaveRoom()" *ngIf="!isModerator()">
+      <button mat-raised-button (click)="leaveRoom()" *ngIf="!isModerator()">
         <mat-icon>clear</mat-icon>
+        {{'quit' | ml}}
       </button>
-      <button mat-icon-button (click)="cancelEvent()" *ngIf="isModerator()">
+      <button mat-raised-button (click)="cancelEvent()" *ngIf="isModerator()">
         <mat-icon>block</mat-icon>
+        {{'cancel' | ml}}
       </button>
     </div>
     <mat-list>
@@ -34,7 +37,7 @@
       </ng-container>
     </mat-list>
   </div>
-  <div style="padding: 5px;">
+  <div class="control">
     <div class="roomInfo noDesktop" *ngIf="activeRoom">
       <span class="text">
         <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp; / {{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}

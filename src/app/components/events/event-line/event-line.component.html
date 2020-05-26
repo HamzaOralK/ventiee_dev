@@ -3,7 +3,7 @@
     <mat-panel-title>
       <div style="display: flex; flex-direction: column;">
         <div style="display: flex;">
-          <img class="titleImg" [src]="'./assets/logo.png'">
+          <img class="titleImg" [src]="'./assets/no_img.png'">
           <div style="display: flex; flex-direction: column; justify-content: center;">
             <div class="headerInfo">
               <h3>
@@ -19,10 +19,12 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
   <div>
-    <div class="line" routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser">
-      <div mat-card-avatar class="header-image"></div>
-      <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
-      <button mat-raised-button color="primary" (click)="joinEvent()">
+    <div class="line">
+      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex;">
+        <div class="header-image"></div>
+        <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
+      </div>
+      <button mat-raised-button color="primary" (click)="joinEvent()" *ngIf="checkJoinable()">
         <mat-icon>
           playlist_add
         </mat-icon>
@@ -36,7 +38,7 @@
         {{tag}}
       </div>
     </div>
-    <div style="display: flex; flex-direction: row;">
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
       <div class="iconInfo">
         <mat-icon>arrow_forward</mat-icon>
         {{event.startDate | date:'dd/MM/yyyy HH:mm'}}

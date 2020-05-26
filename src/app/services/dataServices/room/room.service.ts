@@ -15,6 +15,7 @@ import { Subscription, Subject } from 'rxjs';
 import { NotificationService } from '../../notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
+import { tap, catchError } from 'rxjs/operators';
 
 const MESSAGE_TO_CLIENT = 'messageToClient';
 const JOIN_ROOM = 'joinRoom';
@@ -161,14 +162,12 @@ export class RoomService implements OnDestroy {
       joinDate: new Date()
     }
 
-    this.http.post<any>(url, postObj).subscribe(res => {
-      this.roomStore.dispatch(new RoomAction.JoinRoom({ room: res.obj }));
-      this.joinSocketRoom(room._id, true);
-      this.router.navigate(['/room/' + room._id]);
-    }, e => {
-      this.notificationService.notify(this.mlPipe.transform(e.error.code));
-    });
-
+    return this.http.post<any>(url, postObj).pipe(
+      tap(p => {
+        this.roomStore.dispatch(new RoomAction.JoinRoom({ room: p.obj }));
+        this.joinSocketRoom(room._id, true);
+      })
+    );
   }
 
   getRooms() {

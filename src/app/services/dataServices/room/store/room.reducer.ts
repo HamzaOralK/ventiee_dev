@@ -53,10 +53,13 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         rooms: [...state.rooms]
       }
     case RoomActions.GET_ROOMS:
-      return {
-        ...state,
-        rooms: [...state.rooms, ...action.payload.rooms]
+      if (action.payload.rooms.length > 0) {
+        return {
+          ...state,
+          rooms: [...state.rooms, ...action.payload.rooms]
+        }
       }
+      break;
     case RoomActions.JOIN_ROOM:
       return {
         ...state,
@@ -72,7 +75,8 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
     case RoomActions.LEAVE_ROOM:
       return {
         ...state,
-        rooms: state.rooms.filter(p => p._id !== action.payload.room._id)
+        rooms: state.rooms.filter(p => p._id !== action.payload.room._id),
+        activeRoom: undefined
       }
     case RoomActions.KICK_USER:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);

@@ -31,6 +31,6 @@ registerLocaleData(localeTr);
       useFactory: adapterFactory
     }),
   ],
-  // exports: [EventCalendarComponent]
+  exports: [EventCalendarComponent]
 })
 export class EventCalendarModule { }

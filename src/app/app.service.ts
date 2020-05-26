@@ -19,7 +19,7 @@ export class AppService {
 
     this.breakpointObserver.observe([
       Breakpoints.XSmall,
-      Breakpoints.Small
+      Breakpoints.Small,
     ]).subscribe(result => {
       this.smallScreen = result.matches;
     });

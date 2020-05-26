@@ -1,3 +1,3 @@
 <mat-accordion>
-  <event-line *ngFor="let event of events" [event]="event"></event-line>
+  <event-line *ngFor="let event of events" [event]="event" (onJoin)="onJoin($event)"></event-line>
 </mat-accordion>

@@ -1,39 +1,47 @@
 <ng-container *ngIf="user">
   <div class="page">
-    <div class="rooms" [ngStyle]="{'display': smallScreen ? 'none' : 'block' }">
-      <h1>{{'myEvents' | ml}}</h1>
-      <chats></chats>
-    </div>
-    <div class="wholeEvents">
-      <div style="height: 100%; display: flex; flex-direction: column;">
-        <h1>{{'event' | ml}}</h1>
-        <div class="addEvent">
-          <button class="add" mat-raised-button color="primary" (click)="createEvent()">
-            <mat-icon>add</mat-icon>
-            {{'addEvent' | ml}}
-          </button>
 
-          <mat-form-field appearance="outline" class="searchBox">
-            <mat-label>{{'searchforanevent' | ml}}</mat-label>
-            <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
-            <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
+    <mat-tab-group #tabs>
+      <mat-tab label="{{'events' | ml}}">
+        <div class="wholeEvents">
+          <div style="height: 100%; display: flex; flex-direction: column; padding: 0 10px;">
+            <div class="addEvent">
+              <button class="add" mat-fab color="primary" (click)="createEvent()">
+                <mat-icon>add</mat-icon>
+                <!-- {{'addEvent' | ml}} -->
+              </button>
+              <mat-form-field class="searchBox">
+                <mat-label>{{'searchforanevent' | ml}}</mat-label>
+                <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
+                <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div class="events scroll" #eventScroll>
+              <events *ngIf="(appWise | async).events" [events]="(appWise | async).events"
+                (onJoinEvent)="onJoinEvent($event)">
+              </events>
+              <mat-spinner *ngIf="_loading"></mat-spinner>
+              <mat-card *ngIf="(appWise | async).events.length === 0">
+                {{'noEventError' | ml}}
+                <mat-card-actions>
+                  <button mat-raised-button color="primary" (click)="createEvent()">{{'createEvent' | ml}}</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
         </div>
 
-        <div class="events scroll" #eventScroll>
-          <events *ngIf="(appWise | async).events" [events]="(appWise | async).events"> </events>
-          <mat-spinner *ngIf="_loading"></mat-spinner>
-          <mat-card *ngIf="(appWise | async).events.length === 0">
-            {{'noEventError' | ml}}
-            <mat-card-actions>
-              <button mat-raised-button color="primary" (click)="createEvent()">{{'createEvent' | ml}}</button>
-            </mat-card-actions>
-          </mat-card>
+      </mat-tab>
+      <mat-tab label="{{'myEvents' | ml}}">
+        <div class="rooms">
+          <chats></chats>
+          <room *ngIf="activeRoom" class="room"></room>
         </div>
-      </div>
-    </div>
+      </mat-tab>
+    </mat-tab-group>
+
   </div>
 
 
