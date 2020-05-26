@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onJoinEvent(event: any) {
-    this.tabGroup.selectedIndex = 1;
+    this.tabGroup.selectedIndex = 0;
     this.store.dispatch(new AppAction.FilterEvent(event));
     this.roomService.changeRoom(event._id);
   }

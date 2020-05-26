@@ -124,4 +124,12 @@ room {
   }
 }
 
+:host ::ng-deep .top {
+  justify-content: flex-end !important;
+}
+
+:host ::ng-deep .control {
+  width: 70% !important;
+}
+
 

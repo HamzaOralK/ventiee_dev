@@ -88,7 +88,7 @@ $usersFullWidth: 220px;
 .messages {
   // width: calc(100% - #{$usersFullWidth});
   width: 100%;
-  max-height: calc(100% - 120px);
+  max-height: calc(100% - 130px);
   overflow-y: auto;
   position: absolute;
   overflow-x: hidden;
