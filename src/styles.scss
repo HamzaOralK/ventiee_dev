@@ -174,3 +174,10 @@ input:-webkit-autofill:active {
   display: block;
   white-space: nowrap;
 }
+
+.hidden {
+  display: none;
+}
+.showFlex {
+  display: flex;
+}

@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EventInfoComponent } from '../../event-info/event-info.component';
 import { Store } from '@ngrx/store';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'room',
@@ -52,10 +53,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     private _ngZone: NgZone,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
+    private appService: AppService,
     private store: Store<fromApp.AppState>,
     public dialog: MatDialog,
-    public cdr: ChangeDetectorRef
-
+    public cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -246,6 +247,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     var m = (date.getMonth() + 1).toString(); // Since getMonth() returns month from 0-11 not 1-12
     var y = date.getFullYear().toString();
     return d+"/"+m+"/"+y;
+  }
+
+  get isSmallScreen() {
+    return this.appService.smallScreen;
   }
 
 }

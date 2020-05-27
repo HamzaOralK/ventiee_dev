@@ -46,14 +46,13 @@ $usersFullWidth: 220px;
   padding-left: 20px;
 
   .text {
-    width: 65%;
     color: mat-color($app-font);
-    display: none;
-    @include media-breakpoint(xs) {
-      display: inline;
-    }
-    @include media-breakpoint(sm) {
-      display: inline;
+    display: flex;
+    align-items: center;
+    div {
+      display: flex;
+      align-items: center;
+      margin-left: 15px;
     }
   }
 }
@@ -153,7 +152,7 @@ $usersFullWidth: 220px;
 }
 
 .noDesktop {
-  display: none;
+  display: flex;
   @include media-breakpoint(xs) {
     display: flex;
   }

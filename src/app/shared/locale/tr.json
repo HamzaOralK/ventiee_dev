@@ -124,7 +124,6 @@
     {"key": "info", "value": "Bilgi"},
     {"key": "quit", "value": "Çık"},
     {"key": "cancel", "value": "İptal"},
-    {"key": "myEvents", "value": "Ventieelerim"}
-
-
+    {"key": "myEvents", "value": "Ventieelerim"},
+    {"key": "leaveEvent", "value": "Ayrıl"}
 ]

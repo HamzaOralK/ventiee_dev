@@ -2,10 +2,10 @@
   <div class="users">
     <!-- <p *ngFor="let user of activeRoom.users">{{user.nickname}}</p> -->
     <div class="roomInfo" *ngIf="activeRoom">
-      <span class="text">
+      <!-- <span class="text">
         <b>{{'event' | ml}}:</b>&nbsp;{{activeRoom.title}}<br>
         <b>{{'time' | ml}}:</b>&nbsp;{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
-      </span>
+      </span> -->
       <button mat-raised-button color="primary" (click)="openDialog()" style="margin-right: 5px;">
         <mat-icon>event_note</mat-icon>
         {{'info' | ml}}
@@ -39,16 +39,23 @@
   </div>
   <div class="control">
     <div class="roomInfo noDesktop" *ngIf="activeRoom">
-      <span class="text">
-        <b>{{'event' | ml}}:</b> {{activeRoom.title}}&nbsp; / {{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
+      <span class="text c-ptr" (click)="openDialog()">
+        <b>{{'event' | ml}}:</b> {{activeRoom.title}}
+        <div>
+          <mat-icon>arrow_forward</mat-icon>{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
+        </div>
       </span>
       <span class="spacer"></span>
-      <button mat-icon-button (click)="openDialog()">
-        <mat-icon>event_note</mat-icon>
-      </button>
-      <button mat-icon-button (click)="leaveRoom()">
-        <mat-icon>clear</mat-icon>
-      </button>
+      <div [ngClass]="!isSmallScreen ? 'hidden' : 'showFlex'">
+        <!-- <button mat-flat-button color="accent" (click)="openDialog()">
+          <mat-icon>event_note</mat-icon>
+          {{'info' | ml}}
+        </button> -->
+        <button mat-flat-button color="accent" (click)="leaveRoom()">
+          <mat-icon>clear</mat-icon>
+          {{'leaveEvent' | ml}}
+        </button>
+      </div>
     </div>
     <div #messages class="messages scroll">
       <div #scrollElement class="inner" *ngIf="activeRoom">
