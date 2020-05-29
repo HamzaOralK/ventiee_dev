@@ -11,12 +11,14 @@ import * as RoomActions from '../../../services/dataServices/room/store/room.act
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
-import { Room } from 'src/app/dtos/room';
+import { Room, RoomUser, Color } from 'src/app/dtos/room';
 import { Subscription } from 'rxjs';
 import { LangService } from '../../lang/lang.service';
 import { NotificationService } from '../../notification/notification.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { User } from 'src/app/dtos/user';
+import { COMMONS } from 'src/app/shared/commons';
 
 @Injectable({ providedIn: "root" })
 export class EventService {
@@ -27,6 +29,7 @@ export class EventService {
   events: any[];
 
   _pageNo: number;
+  user: User;
 
   constructor(
     private http: HttpClient,
@@ -37,6 +40,11 @@ export class EventService {
     private router: Router
   ) {
     this.auth = this.store.select("authState");
+    this.auth.subscribe(p => {
+      if(p.user) {
+        this.user = p.user;
+      }
+    })
     this.roomState = this.store.select("roomState");
     this._pageNo = 1;
 
@@ -130,7 +138,13 @@ export class EventService {
       .post<any>(url, event)
       .subscribe((p) => {
         if (p._id) {
-          let room = { ...event, _id: p._id };
+          let room: Room = { ...event, _id: p._id, users: [], messages: [] };
+          room.moderatorUser = new User();
+          room.moderatorUser = this.user;
+          let roomUser = new RoomUser();
+          roomUser.user = this.user;
+          roomUser.color = new Color(COMMONS.getRandom(255), COMMONS.getRandom(255), COMMONS.getRandom(255), 1);
+          room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
           this.notificationService.notify(
             this.langService.get("eventCreateSuccess"),

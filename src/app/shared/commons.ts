@@ -8,4 +8,8 @@ export namespace COMMONS {
   export function getEnumArray(enm: any) {
     return Object.entries(enm).map(([key, value]) => ({ key, value }));
   }
+
+  export function getRandom(number: number) {
+    return Math.floor(Math.random() * number);
+  }
 }

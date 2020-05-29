@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EventInfoComponent } from '../../event-info/event-info.component';
 import { Store } from '@ngrx/store';
 import { AppService } from 'src/app/app.service';
+import { COMMONS } from 'src/app/shared/commons';
 
 @Component({
   selector: 'room',
@@ -102,7 +103,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     let stateSub = this.store.select("roomState").subscribe(p => {
       this.scroll = true;
       if (p.rooms.length > 0) {
-        if ((!this.activeRoom || this.activeRoom._id !== p.activeRoom._id) && !p.activeRoom) {
+        if ((!this.activeRoom || (p.activeRoom && this.activeRoom._id !== p.activeRoom._id)) && !p.activeRoom) {
           this.roomService.changeRoom(this.roomId);
         }
         else if (p.activeRoom) {
@@ -110,13 +111,13 @@ export class RoomComponent implements OnInit, OnDestroy {
           if (this.activeRoom.users && this.activeRoom.users.length >= 1) {
             this.activeRoom.users.map(ru => {
               if (!ru.color) {
-                ru.color = new Color(this.getRandom(255), this.getRandom(255), this.getRandom(255), 1);
+                ru.color = new Color(COMMONS.getRandom(255), COMMONS.getRandom(255), COMMONS.getRandom(255), 1);
               }
               return ru.user;
             });
           }
         }
-        if (this.activeRoom && this.activeRoom._id !== p.activeRoom._id) {
+        if (this.activeRoom && p.activeRoom && this.activeRoom._id !== p.activeRoom._id) {
 
         }
       }
@@ -215,9 +216,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     return user._id !== this.authService.user._id;
   }
 
-  getRandom(number: number) {
-    return Math.floor(Math.random() * number);
-  }
 
   getColor(user: User) {
     if(this.activeRoom.users && user && user._id) {
