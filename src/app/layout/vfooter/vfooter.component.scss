@@ -4,10 +4,12 @@
 
 a:link {
   text-decoration: none;
+  color: mat-color($app-font, 500);
 }
 
 a:visited {
   text-decoration: none;
+  color: mat-color($app-font, 500);
 }
 
 a:hover {
@@ -16,4 +18,19 @@ a:hover {
 
 a:active {
   text-decoration: underline;
+}
+
+.contact{
+  display: flex;
+  flex-direction: column;
+  mat-icon {
+    padding-right: 5px;
+  }
+  div {
+    display: flex;
+    padding: 5px !important;
+    justify-content: flex-start;
+    align-items: center;
+
+  }
 }
