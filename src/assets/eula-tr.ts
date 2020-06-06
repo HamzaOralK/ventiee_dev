@@ -38,4 +38,20 @@ export const eula_tr = `<p>ventiee'yi ziyaretiniz ve ventiee içeriğini kullan�
 
 <p>maze software, gerekli gördüğü takdirde belli kişilerin, kurumların, ip numaralarının veya ip bloklarının ventiee'ye erişimini geçici veya kalıcı olarak durdurma hakkını saklı tutar.</p>
 
-<p>sitenin virüs ve sair zararlı içerik barındırmaması için özen sarf edilmekle birlikte, gelişen teknoloji, teknik sorun ve diğer nedenlerle bilgisayarınıza virüs, trojan gibi zararlı yazılımların bulaşması ihtimali bulunmaktadır. bu gibi risklere karşı antivirüs programları ve benzeri uygulamalar kullanmanızı tavsiye ederiz. sitemizde gezinmeniz dolayısıyla karşılaşabileceğiniz yazılımsal ve donanımsal dahil olmak üzere hiçbir zarara ilişkin sorumluluk kabul etmemekteyiz. bu nedenlerle sitemizden talepte bulunmayacağınızı peşinen kabul etmektesiniz.</p>`;
+<p>sitenin virüs ve sair zararlı içerik barındırmaması için özen sarf edilmekle birlikte, gelişen teknoloji, teknik sorun ve diğer nedenlerle bilgisayarınıza virüs, trojan gibi zararlı yazılımların bulaşması ihtimali bulunmaktadır. bu gibi risklere karşı antivirüs programları ve benzeri uygulamalar kullanmanızı tavsiye ederiz. sitemizde gezinmeniz dolayısıyla karşılaşabileceğiniz yazılımsal ve donanımsal dahil olmak üzere hiçbir zarara ilişkin sorumluluk kabul etmemekteyiz. bu nedenlerle sitemizden talepte bulunmayacağınızı peşinen kabul etmektesiniz.</p>
+
+<h3>işleyiş ve sorumluluklarınız<h3>
+
+<p>oluşturduğunuz içerik ventiee kurallarına ve hukuka uygun olmak zorundadır. oluşturduğunuz içerik tüm sorumluluğu size ait olmak üzere ve hiçbir ön denetime tabi olmadan yayına girdiğinden, oluşturduğunuz içeriğin hukuka aykırı olmadığından lütfen emin olun. içerik yayına alındığı anda hukuki sorumluluğunuz başladığından, oluşturduğunuz içeriğin daha sonra tarafınızca veya şikayet/haberdar edilme vs. üzerine ventiee tarafından silinmiş olması sorumluluğunuzu ortadan kaldırmayacaktır.</p>
+
+<p>ventiee kuralları, ventiee silinme sebepleri ve diğer yaptırımlar kullanıcılara site üzerinden duyurulmaktadır, bunların takibi sizin sorumluluğunuzdadır.</p>
+
+<p>ventieeleriniz ventiee kurallarına uygun olmaması nedeniyle veya hukuka aykırı olması sebebiyle yayından kaldırılabilir. kurallara veya hukuka aykırılıklar nedeniyle yazarlığınız geçici olarak durdurulabilir veya kullanıcı hesabınız kapatılabilir. diğer tüm haklarımız saklıdır.</p>
+
+<p>gerekli gördüğümüz takdirde ve hiçbir gerekçe göstermeksizin dilediğimiz içeriği kısmen veya tamamen yayından kaldırma, yazarlığınızı iptal etme, kullanıcı kaydınızı silme haklarını saklı tutmaktayız.</p>
+
+<p>hesabınızın güvenliğine ilişkin tüm sorumluluk size aittir. şifrenizi kolay tahmin edilemeyecek şekilde oluşturmanızı ve üçüncü kişilerle paylaşmamanızı, üçüncü kişilere ait web sitelerine ve/veya mobil uygulamalara kullanıcı adı ve şifrenizi girmemenizi tavsiye ederiz.</p>
+
+<p>ventiee'ye vermiş olduğunuz bilgilerinizin güvenliği için ventiee elinden gelen özeni göstermektedir ancak ventiee’nin özen yükümlülüğünden başka yükümlülüğünün olmadığını, barındırma hizmeti ve benzeri hizmet veren firmaların güvenliği sağlayamaması veya ventiee’ye yasadışı olarak erişilerek bilgilerin ele geçirilmesi gibi hallerde doğrudan ya da dolaylı hiçbir zarara ilişkin sorumluluk kabul etmemekteyiz.</p>
+
+<p>her ne kadar düzenli olarak yedekleme yapıyor olsak da, sitedeki verilerinizin (organizasyonlar, mesajlar, notlar ve benzeri her türlü içerik) kısmen veya tamamen kaybolmayacağına ilişkin hiçbir taahhütte bulunmamaktayız. ayrıca bu verileri kalıcı olarak silme hakkını da saklı tutmaktayız. bu nedenle herhangi bir sebeple yaşanacak veri kaybı veya bozulması halinde hiçbir şekilde sorumluluk kabul etmemekteyiz. veri kaybı yaşama gibi bir endişeniz varsa ventşee’deki verilerinizi kendi imkanlarınızla yedeklemenizi öneririz.</p>`;
