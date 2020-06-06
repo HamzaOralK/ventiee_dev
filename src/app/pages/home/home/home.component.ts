@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
     this.subscription.add(eventSearchSubscription);
     this.store.select("roomState").subscribe(p => {
-      this.activeRoom = p.activeRoom;
+      if(p) this.activeRoom = p.activeRoom;
     });
   }
 

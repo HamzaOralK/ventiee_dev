@@ -1,3 +1,4 @@
+<div style="min-width: 300px;">
 <mat-form-field class="searchBox">
   <mat-label>{{'searchchats' | ml}}</mat-label>
   <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
@@ -5,6 +6,12 @@
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
-<div class="scroll chats">
+<div class="scroll chats" *ngIf="filteredRooms.length > 0">
   <chat-rooms *ngFor="let room of filteredRooms" [room]="room"></chat-rooms>
+</div>
+
+<div class="scroll chats" *ngIf="filteredRooms.length === 0">
+  <p>Bir ventiee'niz olmadığını görüyorum.</p>
+</div>
+
 </div>

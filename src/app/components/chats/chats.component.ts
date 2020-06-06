@@ -21,7 +21,7 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
   roomState: Observable<fromRoom.State>;
 
   rooms: Room[];
-  filteredRooms: Room[];
+  filteredRooms: Room[] = [];
 
   roomSearchText: Subject<string> = new Subject();
   subscription: Subscription = new Subscription();
