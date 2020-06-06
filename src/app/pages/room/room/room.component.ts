@@ -216,6 +216,13 @@ export class RoomComponent implements OnInit, OnDestroy {
     return user._id !== this.authService.user._id;
   }
 
+  leaveRoom() {
+    this.roomService.leaveRoom(this.activeRoom._id, this.user._id);
+  }
+
+  cancelEvent() {
+    this.roomService.cancelEvent(this.activeRoom._id);
+  }
 
   getColor(user: User) {
     if(this.activeRoom.users && user && user._id) {
@@ -228,13 +235,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     }
   }
 
-  leaveRoom() {
-    this.roomService.leaveRoom(this.activeRoom._id, this.user._id);
-  }
-
-  cancelEvent() {
-    this.roomService.cancelEvent(this.activeRoom._id);
-  }
 
   getOnlyDate(date: Date): string {
     if(!(date instanceof Date)) {

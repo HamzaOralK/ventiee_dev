@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { GenericModalComponent } from '../generic-modal/generic-modal.component';
+import { eula_tr } from "src/assets/eula-tr";
 
 @Component({
   selector: 'sign-up-form',
@@ -18,12 +21,14 @@ export class SignUpFormComponent implements OnInit {
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     surname: new FormControl('', [Validators.required, Validators.minLength(2)]),
     nickname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern(this.unamePattern)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+    eulaStatus: new FormControl(false, [Validators.requiredTrue])
   })
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void { }
@@ -49,6 +54,13 @@ export class SignUpFormComponent implements OnInit {
 
   changeShowPassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(GenericModalComponent, {
+      data: { htmlTemplate: eula_tr }
+    });
+    dialogRef.afterClosed().subscribe(result => {});
   }
 
 

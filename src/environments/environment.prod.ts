@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  serviceURL: 'http://api.ventiee.com',
+  serviceURL: 'https://api.ventiee.com',
   loginLocalStorageKey: "authInformation"
 };

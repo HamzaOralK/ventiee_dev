@@ -57,7 +57,6 @@ import { EventsModule } from './components/events/events.module';
 import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module';
 import { ChatsModule } from './components/chats/chats.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,8 +64,6 @@ import { ChatsModule } from './components/chats/chats.module';
     LeftNavigationComponent,
     MainPageComponent,
     EventPageComponent,
-    // ChatsComponent,
-    // ChatRoomsComponent,
     EventInfoComponent,
     ResendComponent,
     BaseComponent,
@@ -114,6 +111,6 @@ import { ChatsModule } from './components/chats/chats.module';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

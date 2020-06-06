@@ -6,6 +6,7 @@
   margin: 0 auto;
   justify-content: center;
   align-items: center;
+  padding-bottom: 300px;
 }
 
 button {
@@ -15,4 +16,11 @@ button {
 mat-form-field,
 password-form-element {
   width: 100%;
+}
+
+.mat-checkbox-label {
+  white-space: normal !important;
+}
+.eula:hover {
+  text-decoration: underline;
 }

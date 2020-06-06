@@ -125,5 +125,6 @@
     {"key": "quit", "value": "Çık"},
     {"key": "cancel", "value": "İptal"},
     {"key": "myEvents", "value": "Ventieelerim"},
-    {"key": "leaveEvent", "value": "Ayrıl"}
+    {"key": "leaveEvent", "value": "Ayrıl"},
+    {"key": "eula", "value": "Kullanım Koşulları"}
 ]

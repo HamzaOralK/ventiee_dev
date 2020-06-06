@@ -10,7 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PasswordFormElementModule } from '../password-form-element/password-form-element.module';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { GenericModalModule } from '../generic-modal/generic-modal.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,10 @@ import { PasswordFormElementModule } from '../password-form-element/password-for
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    PasswordFormElementModule
+    PasswordFormElementModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    GenericModalModule
   ],
   exports: [
     SignUpFormComponent

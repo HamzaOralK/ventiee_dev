@@ -44,20 +44,30 @@
     </mat-error>
   </mat-form-field>
 
-  <!-- <mat-form-field appearance="outline">
-    <mat-label>{{'password' | ml}}</mat-label>
-    <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password">
-    <mat-icon matSuffix (click)="changeShowPassword()">remove_red_eye</mat-icon>
-    <mat-error *ngIf="signUpControls.password.hasError('required')">
-      {{'passwordRequired' | ml}}
+  <mat-form-field appearance="outline">
+    <mat-label>{{'nickname' | ml}}</mat-label>
+    <input matInput type="text" formControlName="nickname">
+    <mat-error *ngIf="signUpControls.nickname.hasError('required')">
+      {{'nicknameRequired' | ml}}
     </mat-error>
-    <mat-error *ngIf="signUpControls.password.hasError('minlength')">
-      {{'passwordMinLength' | ml}}
+    <mat-error *ngIf="signUpControls.nickname.hasError('minlength')">
+      {{'nicknameMinLength' | ml}}
     </mat-error>
-    <mat-error *ngIf="signUpControls.password.hasError('maxlength')">
-      {{'passwordMaxLength' | ml}}
+    <mat-error *ngIf="signUpControls.nickname.hasError('maxlength')">
+      {{'nicknameMaxLength' | ml}}
     </mat-error>
-  </mat-form-field> -->
+    <mat-error *ngIf="signUpControls.nickname.hasError('pattern')">
+      {{'nicknamePattern' | ml}}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- <mat-checkbox formControlName="emailNotification" ngDefaultControl>{{'emailNotification' | ml}}</mat-checkbox> -->
+
   <password-form-element [formControl]="signUpControls.password" ngDefaultControl></password-form-element>
+  <div style="display: flex; flex-direction: row;">
+    <mat-checkbox formControlName="eulaStatus">&nbsp;</mat-checkbox>
+    <span><span class="eula c-ptr" (click)="openModal()">Ventiee kullanıcı sözleşmesini</span> okudum ve kabul ediyorum.</span>
+  </div>
+  <br>
   <button mat-raised-button color="primary" [disabled]="!signUp.valid">{{'signup' | ml}}</button>
 </form>
