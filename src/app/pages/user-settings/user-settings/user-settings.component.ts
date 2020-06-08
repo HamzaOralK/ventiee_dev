@@ -5,6 +5,8 @@ import { User } from 'src/app/dtos/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Gender, SchoolType } from 'src/app/dtos/enums';
 import { COMMONS } from 'src/app/shared/commons';
+import { MatDialog } from '@angular/material/dialog';
+import { GenericImageCropperComponent } from 'src/app/components/generic-image-cropper/generic-image-cropper.component';
 
 @Component({
   selector: 'user-settings',
@@ -16,6 +18,8 @@ export class UserSettingsComponent implements OnInit {
   user: User;
   genders: any;
   schoolTypes: any;
+  croppedImage: any = '';
+  imageChangedEvent: any = '';
 
   profileForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.min(2)]),
@@ -32,7 +36,8 @@ export class UserSettingsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -53,5 +58,38 @@ export class UserSettingsComponent implements OnInit {
       /** TODO: Change whole user with settings update. */
     });
   }
+
+  uploadImg(fileInput: HTMLInputElement) {
+    fileInput.click();
+  }
+
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.openImageCropper(reader.result);
+    };
+  }
+
+
+  openImageCropper(imageBase64: any) {
+    const dialogRef = this.dialog.open(GenericImageCropperComponent, {
+      maxWidth: '600px',
+      maxHeight: '700px',
+      data: {
+        croppedImage: this.croppedImage,
+        imageBase64: imageBase64,
+        aspectRatio: 1
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.imageBase64) this.croppedImage = result.imageBase64
+    });
+  }
+
 
 }

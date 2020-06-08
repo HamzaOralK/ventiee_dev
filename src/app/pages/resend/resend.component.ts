@@ -1,5 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from 'src/app/components/base/base.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'resend',
@@ -10,7 +11,7 @@ export class ResendComponent extends BaseComponent implements OnInit {
 
   email: string = '';
 
-  constructor(injector: Injector) {
+  constructor(injector: Injector, private router: Router) {
     super(injector);
   }
 
@@ -18,7 +19,8 @@ export class ResendComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
       this.email = p.get('user');
-      this.resendEmail();
+      if(this.email) this.resendEmail();
+      else this.router.navigate(['/home']);
     });
     this.subscription.add(routeSubscription);
   }

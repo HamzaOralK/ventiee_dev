@@ -15,6 +15,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NewPasswordFormModule } from 'src/app/components/new-password-form/new-password-form.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { GenericImageCropperModule } from 'src/app/components/generic-image-cropper/generic-image-cropper.module';
 
 @NgModule({
   declarations: [UserSettingsComponent],
@@ -33,7 +35,9 @@ import { NewPasswordFormModule } from 'src/app/components/new-password-form/new-
     MatDatepickerModule,
     MatCardModule,
     MatCheckboxModule,
-    NewPasswordFormModule
+    NewPasswordFormModule,
+    MatDialogModule,
+    GenericImageCropperModule
   ]
 })
 

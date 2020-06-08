@@ -1,7 +1,7 @@
 <div *ngIf="user" class="profile">
   <div class="profile-header">
     <div class="top">
-      <div class="header-image"></div>
+      <img class="header-image" [src]="user.imageURI || './assets/user.png'" />
       <h2>{{user.nickname}}</h2>
     </div>
     <div style="display: flex; justify-content: center;">
@@ -12,7 +12,7 @@
     <mat-tab label="{{'profile' | ml}}">
       <mat-card style="word-break: break-all;">
         <p *ngIf="user.gender"><b>{{'gender' | ml}}: </b>{{user.gender | ml}}</p>
-        <p *ngIf="user.preferredGender"><b>{{'preferredGender' | ml}}: </b>{{user.preferredGender | ml}}</p>
+        <!-- <p *ngIf="user.preferredGender"><b>{{'preferredGender' | ml}}: </b>{{user.preferredGender | ml}}</p> -->
         <p *ngIf="user.schoolType || user.school"><b>{{'school' | ml}}: </b>{{user.schoolType | ml}}/{{user.school}}</p>
         <p *ngIf="user.birthday"><b>{{'birthday' | ml}}: </b>{{user.birthday | date:'dd/MM'}}</p>
         <p>{{user.description ? user.description : 'noDesc' | ml }}</p>

@@ -1,5 +1,4 @@
 import { UserType, Gender, SchoolType, RelationshipStatus } from './enums';
-import { UserSettings } from './userSettings';
 import { Event } from './event';
 
 export class User {
@@ -20,6 +19,7 @@ export class User {
   password:string;
   emailNotification: boolean;
   preferredGender: Gender;
+  imageURI?: string;
 }
 
 export class UserComment {

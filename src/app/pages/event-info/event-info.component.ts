@@ -33,7 +33,13 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
     this.roomState = this.store.select('roomState');
     this.roomState.subscribe(p => {
-      if(p.activeRoom && p.activeRoom.users) this.users = p.activeRoom.users;
+      let room = p.rooms.find(r => r._id === this.data.room._id);
+      if(room && (!room.users || room.users.length === 0)) this.roomService.getRoomUsers(this.data.room).subscribe(u => {
+        this.users = u;
+      })
+      else {
+        this.users = room.users;
+      };
     });
   }
 
@@ -50,11 +56,11 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
   }
 
   cancelEvent() {
-    console.log('this.cancelEvent');
+    this.roomService.cancelEvent(this.data.room._id);
   }
 
-  dontJoin() {
-    console.log('this.cancelEvent');
+  leaveEvent() {
+    this.roomService.leaveRoom(this.data.room._id, this.authService.user._id);
   }
 
 }

@@ -1,11 +1,18 @@
-<div style="display: flex; flex-direction: row; align-items: center;">
+<div style="display: flex; flex-direction: row; align-items: center; margin-left: 30px;">
   <h2>{{'profileSettings' | ml}}</h2>
   <button (click)="submit($event)" mat-raised-button style="height:30px; margin-left: 10px;">{{'save' | ml}}</button>
 </div>
 <form [formGroup]="profileForm" *ngIf="user">
-  <mat-tab-group style="z-index: 0; position: relative;">
+  <mat-tab-group style="z-index: 0; position: relative;" mat-align-tabs="center">
     <mat-tab label="Profil Ayarları">
       <mat-card class="settingsCard">
+
+        <div class="imageContainer">
+          <img [src]="croppedImage || './assets/user.png'">
+          <button mat-raised-button class="button" (click)="uploadImg(fileInput)">Resim Yükle</button>
+          <input #fileInput type="file" accept='image/*' (change)="fileChangeEvent($event)" style="display: none;" />
+        </div>
+
         <mat-form-field appearance="outline">
           <mat-label>{{'description' | ml}}</mat-label>
           <textarea matInput formControlName="description"></textarea>
@@ -27,6 +34,7 @@
           </mat-select>
         </mat-form-field>
         <br>
+        <!--
         <mat-form-field appearance="outline">
           <mat-label>{{'preferredGender' | ml}}</mat-label>
           <mat-select formControlName="preferredGender">
@@ -36,6 +44,7 @@
           </mat-select>
         </mat-form-field>
         <br>
+        -->
         <mat-form-field appearance="outline">
           <mat-label>{{'schoolType' | ml}}</mat-label>
           <mat-select formControlName="schoolType">
@@ -53,13 +62,6 @@
     </mat-tab>
     <mat-tab label="Temel Ayarlar">
       <mat-card class="settingsCard">
-        <!--
-          <mat-form-field appearance="outline">
-            <mat-label>{{'nickname' | ml}}</mat-label>
-            <input matInput type="text" formControlName="nickname">
-          </mat-form-field>
-        -->
-        <br>
         <mat-form-field appearance="outline">
           <mat-label>{{'name' | ml}}</mat-label>
           <input matInput type="text" formControlName="name">

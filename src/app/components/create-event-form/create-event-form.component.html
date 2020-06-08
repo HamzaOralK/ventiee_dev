@@ -1,15 +1,17 @@
 <div class="mainCreateForm scroll">
 <div class="topContainer">
   <div class="imageContainer">
-    <img [src]="imgURL">
+    <img [src]="croppedImage">
     <button mat-raised-button class="button" (click)="uploadImg(fileInput)">Resim Yükle</button>
   </div>
+
   <div>
     <h1 *ngIf="title">{{ title }}</h1>
     <h1 *ngIf="!title">{{ 'newEvent' | ml }}</h1>
   </div>
 </div>
-<input #fileInput type="file" accept='image/*' (change)="preview(fileInput.files)" style="display: none;" />
+<input #fileInput type="file" accept='image/*' (change)="fileChangeEvent($event)" style="display: none;" />
+
 <div class="stepper">
   <ng-template [ngIf]="smallScreen" [ngIfElse]="bigScreen">
   <mat-vertical-stepper [linear]="isLinear" #stepper>
@@ -50,8 +52,14 @@
       <ng-template matStepLabel>{{'tags' | ml}}</ng-template>
       <div>
         <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
-          <div *ngFor="let tag of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tag)}" (click)="addRemoveTag(tag)">{{tag}}</div>
-        </div>
+            <div *ngFor="let tagObject of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}"
+              (click)="addRemoveTag(tagObject.tag)">{{tagObject.tag}}</div>
+          </div>
+
+          <div class="tagError">
+            {{'tagError' | ml}}
+          </div>
+
         <div class="actions">
           <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
           <button mat-raised-button color="primary" matStepperNext>{{'next' | ml}}</button>
@@ -178,6 +186,11 @@
             <div *ngFor="let tagObject of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}"
               (click)="addRemoveTag(tagObject.tag)">{{tagObject.tag}}</div>
           </div>
+
+          <div class="tagError">
+            {{'tagError' | ml}}
+          </div>
+
           <div class="actions">
             <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
             <button mat-raised-button color="primary" matStepperNext>{{'next' | ml}}</button>

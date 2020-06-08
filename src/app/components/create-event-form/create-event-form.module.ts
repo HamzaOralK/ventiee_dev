@@ -16,6 +16,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { GenericImageCropperModule } from '../generic-image-cropper/generic-image-cropper.module';
+
+
+import { MatDialogModule } from '@angular/material/dialog';
 /** TimePicker */
 
 @NgModule({
@@ -38,7 +42,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatMomentDateModule,
     MatButtonToggleModule,
     MatSelectModule,
+    MatDialogModule,
     NgxMaterialTimepickerModule.setLocale("tr-TR"),
+    GenericImageCropperModule,
   ],
   exports: [ CreateEventFormComponent ]
 })

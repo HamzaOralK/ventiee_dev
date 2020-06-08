@@ -11,7 +11,7 @@
     <ng-container *ngIf="user; else noUser">
 
       <button mat-button [routerLink]="['/profile', user._id]">
-        <img class="userpic" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+        <img class="userpic" [src]="user.imageURI || './assets/user.png'">
         <span class="username">{{user?.nickname}}</span>
       </button>
 

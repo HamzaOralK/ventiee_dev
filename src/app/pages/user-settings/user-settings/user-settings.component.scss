@@ -12,3 +12,25 @@ mat-form-field {
   justify-content: center;
   align-items: center;
 }
+
+.imageContainer {
+  max-width: 200px;
+  position: relative;
+  img {
+    width: 100%;
+    height: auto;
+    min-width: 200px;
+    border-radius: 100px;
+  }
+}
+.button {
+  display: none;
+}
+
+
+.imageContainer:hover .button {
+  display: unset !important;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}

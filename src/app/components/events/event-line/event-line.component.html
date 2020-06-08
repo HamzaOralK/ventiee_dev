@@ -1,5 +1,5 @@
 <mat-expansion-panel>
-  <mat-expansion-panel-header [collapsedHeight]="'80px'" [expandedHeight]="'80px'">
+  <mat-expansion-panel-header [collapsedHeight]="'110px'" [expandedHeight]="'110px'">
     <mat-panel-title>
       <div style="display: flex; flex-direction: column;">
         <div style="display: flex;">
@@ -12,6 +12,11 @@
             </div>
             <div class="titleDesc" *ngIf="event.description">
               {{event.description}}
+            </div>
+            <div class="tags">
+              <div *ngFor="let tag of event.tags" class="tag">
+                {{tag}}
+              </div>
             </div>
           </div>
         </div>
@@ -32,12 +37,6 @@
       </button>
     </div>
     <br>
-
-    <div class="tags">
-      <div *ngFor="let tag of event.tags" class="tag">
-        {{tag}}
-      </div>
-    </div>
     <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
       <div class="iconInfo">
         <mat-icon>arrow_forward</mat-icon>

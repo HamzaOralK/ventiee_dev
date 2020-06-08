@@ -1,6 +1,6 @@
 <div class="user">
   <div style="display: flex; align-items: center;">
-    <div class="user-image"></div>
+    <img class="user-image" [src]="user.user.imageURI || './assets/user.png'"/>
     {{user.user.nickname}} <span *ngIf="isUserModerator(user.user)">(Moderatör)</span>
   </div>
   <div>

@@ -58,4 +58,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     return Gender;
   }
 
+
+
 }

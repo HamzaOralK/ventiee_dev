@@ -97,7 +97,7 @@ export class EventCalendarComponent implements OnInit {
     this.events = [];
     this.roomState = this.store.select("roomState");
     this.roomState.subscribe(p => {
-      if(p.rooms.length > 0) {
+      if(p.rooms.length > 0 && this.events.length === 0) {
         this.transformRooms();
         this.cdr.detectChanges();
       }

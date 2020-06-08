@@ -13,24 +13,5 @@
     <div *ngFor="let user of users" class="text">
       <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)"></event-info-user>
     </div>
-<!--
-    <mat-tab-group>
-      <mat-tab label="{{'invited' | ml}}">
-        <div style="min-height: 100px;">
-
-        </div>
-      </mat-tab>
-      <mat-tab label="{{'waiting' | ml}}">
-        <div style="min-height: 100px;">
-
-        </div>
-      </mat-tab>
-      <mat-tab label="{{'inroom' | ml }}">
-        <div *ngFor="let user of users" class="text">
-          <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)"></event-info-user>
-        </div>
-      </mat-tab>
-    </mat-tab-group> -->
-
   </ng-container>
 </div>

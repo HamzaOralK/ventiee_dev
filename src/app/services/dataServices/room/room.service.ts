@@ -144,7 +144,7 @@ export class RoomService implements OnDestroy {
       let room = this.rooms.find(r => r._id === roomId);
       if(room && !room.users) {
         this.loadMessages(room);
-        this.getRoomUsers(room);
+        this.getRoomUsers(room).subscribe();;
       }
     }
   }
@@ -198,9 +198,11 @@ export class RoomService implements OnDestroy {
 
   getRoomUsers(room: Room) {
     let url = environment.serviceURL + "/jUser/get/" + room._id;
-    this.http.get<RoomUser[]>(url).subscribe(p => {
-      this.roomStore.dispatch(new RoomAction.SetRoomUsers({room: room, roomUsers: p}))
-    });
+    return this.http.get<RoomUser[]>(url).pipe(
+      tap(p => {
+        this.roomStore.dispatch(new RoomAction.SetRoomUsers({ room: room, roomUsers: p }))
+      })
+    );
   }
 
   kickUser(eventId: string, user: {_id: string, nickname: string}) {

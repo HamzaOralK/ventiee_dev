@@ -17,6 +17,8 @@
   }
 }
 
+
+
 .button {
   display: none;
 }
@@ -81,6 +83,11 @@ mat-horizontal-stepper {
 
 .tagSelected {
   background-color: mat-color($app-primary, 500);
+}
+
+.tagError {
+  color: mat-color($app-warn);
+  margin-bottom: 20px;
 }
 
 .mainCreateForm {

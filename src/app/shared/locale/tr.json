@@ -126,5 +126,7 @@
     {"key": "cancel", "value": "İptal"},
     {"key": "myEvents", "value": "Ventieelerim"},
     {"key": "leaveEvent", "value": "Ayrıl"},
-    {"key": "eula", "value": "Kullanım Koşulları"}
+    {"key": "eula", "value": "Kullanım Koşulları"},
+    {"key": "chatsNoVentiee", "value": "Bir ventiee'niz olmadığını görüyorum."},
+    {"key": "tagError", "value": "*Minimum 1, maksimum 3 tag seçmelisiniz."}
 ]

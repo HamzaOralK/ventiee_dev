@@ -11,11 +11,12 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { Observable, Subscription } from 'rxjs';
 
 import { MatAutocomplete } from '@angular/material/autocomplete';
+import { MatDialog } from '@angular/material/dialog';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { PlaceService } from 'src/app/services/dataServices/place/place.service';
-import { BaseComponent } from '../base/base.component';
 import { MatSelectChange } from '@angular/material/select';
+import { GenericImageCropperComponent } from '../generic-image-cropper/generic-image-cropper.component';
 
 @Component({
   selector: "create-event-form",
@@ -34,9 +35,8 @@ import { MatSelectChange } from '@angular/material/select';
 export class CreateEventFormComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
-
-  public imagePath;
-  imgURL: any;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   visible = true;
   selectable = true;
@@ -71,7 +71,7 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
     type: new FormControl('meeting', [Validators.required])
   });
 
-  tags =  new FormControl([], [Validators.required]);
+  tags =  new FormControl([], [Validators.required, Validators.maxLength(3)]);
 
   timeInformation = new FormGroup({
     startTime: new FormControl(),
@@ -96,7 +96,8 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
     private langService: LangService,
     private authService: AuthService,
     private breakpointObserver: BreakpointObserver,
-    private placeService: PlaceService
+    private placeService: PlaceService,
+    public dialog: MatDialog
   ) {
     this.subscription = new Subscription();
 
@@ -110,7 +111,7 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.generalDescription.patchValue({ id: this.eventId });
-    this.imgURL = "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
+    this.croppedImage = "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
 
     let tagSub = this.eventService.getTags().subscribe((p: { tag: string }[]) => {
       this.allTags = p;
@@ -207,21 +208,29 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
     fileInput.click();
   }
 
-  preview(files) {
-    if (files.length === 0) return;
+  openImageCropper(imageBase64: any) {
+      const dialogRef = this.dialog.open(GenericImageCropperComponent, {
+        maxWidth: '600px',
+        maxHeight: '700px',
+        data: { croppedImage: this.croppedImage, imageBase64: imageBase64 }
+      });
 
-    var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
+      dialogRef.afterClosed().subscribe(result => {
+        if(result && result.imageBase64) this.croppedImage = result.imageBase64
+      });
+  }
 
-    var reader = new FileReader();
-    this.imagePath = files;
-    reader.readAsDataURL(files[0]);
-    reader.onload = (_event) => {
-      this.imgURL = reader.result;
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.openImageCropper(reader.result);
     };
   }
+
+  doneCrop() { }
 
   get title() {
     return this.generalDescription.get("title").value;
