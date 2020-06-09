@@ -55,7 +55,9 @@ export class UserSettingsComponent implements OnInit {
 
   submit(event) {
     event.preventDefault();
-    this.userService.updateUserById(this.user_id, this.profileForm.value).subscribe(p => { });
+    this.userService.updateUserById(this.user_id, this.profileForm.value).subscribe(p => {
+      this.profileForm.controls["base64"].setValue(undefined);
+    });
   }
 
   uploadImg(fileInput: HTMLInputElement) {
@@ -89,6 +91,16 @@ export class UserSettingsComponent implements OnInit {
         this.profileForm.controls["base64"].setValue(this.croppedImage);
       }
     });
+  }
+
+  getImage() {
+    if(this.croppedImage) {
+      return this.croppedImage;
+    } else if (this.user.imageURI) {
+      return this.user.imageURI;
+    } else {
+      return './assets/user.png';
+    }
   }
 
 }

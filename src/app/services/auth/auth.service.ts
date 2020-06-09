@@ -118,4 +118,10 @@ export class AuthService {
     });
   }
 
+  updateToken(imageURI) {
+    let jsonAuthInfo = JSON.parse(window.localStorage.getItem(environment.loginLocalStorageKey));
+    jsonAuthInfo.user.imageURI = imageURI;
+    window.localStorage.setItem(environment.loginLocalStorageKey, JSON.stringify(jsonAuthInfo));
+  }
+
 }

@@ -11,6 +11,7 @@ import * as fromApp from '../../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Injectable({
@@ -22,7 +23,9 @@ export class UserService {
     private http: HttpClient,
     private notificationService: NotificationService,
     private store: Store<fromApp.AppState>,
-    private ml: MultiLanguagePipe) {
+    private ml: MultiLanguagePipe,
+    private authService: AuthService
+  ) {
 
   }
 
@@ -36,7 +39,11 @@ export class UserService {
     return this.http.post(url, user)
     .pipe(
       tap(p => {
-        console.log(p);
+        if(p && p["imageURI"]) {
+          this.authService.updateToken(p["imageURI"]);
+          user.imageURI = p["imageURI"];
+        }
+
         this.notificationService.notify(this.ml.transform(p["msg"]));
         this.store.dispatch(new AuthActions.ChangeUser({user}));
       }),

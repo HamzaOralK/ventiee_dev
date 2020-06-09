@@ -8,7 +8,7 @@
       <mat-card class="settingsCard">
 
         <div class="imageContainer">
-          <img [src]="croppedImage || './assets/user.png'">
+          <img [src]="getImage()">
           <button mat-raised-button class="button" (click)="uploadImg(fileInput)">Resim Yükle</button>
           <input #fileInput type="file" accept='image/*' (change)="fileChangeEvent($event)" style="display: none;" />
         </div>
