@@ -2,10 +2,6 @@
   <div class="users">
     <!-- <p *ngFor="let user of activeRoom.users">{{user.nickname}}</p> -->
     <div class="roomInfo" *ngIf="activeRoom">
-      <!-- <span class="text">
-        <b>{{'event' | ml}}:</b>&nbsp;{{activeRoom.title}}<br>
-        <b>{{'time' | ml}}:</b>&nbsp;{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
-      </span> -->
       <button mat-raised-button color="primary" (click)="openDialog()" style="margin-right: 5px;">
         <mat-icon>event_note</mat-icon>
         {{'info' | ml}}
@@ -20,9 +16,6 @@
       </button>
     </div>
     <mat-list>
-      <!-- <div mat-subheader>
-
-      </div> -->
       <ng-container *ngIf="activeRoom && activeRoom.users">
         <mat-list-item *ngFor="let roomUser of activeRoom.users">
           <img mat-list-icon class="userImage" [src]="user.imageURI || './assets/user.png'">
@@ -39,18 +32,14 @@
   </div>
   <div class="control">
     <div class="roomInfo noDesktop" *ngIf="activeRoom">
-      <span class="text c-ptr" (click)="openDialog()">
-        <b>{{'event' | ml}}:</b> {{activeRoom.title}}
+      <div class="text c-ptr" (click)="openDialog()">
+        <span><b>{{'event' | ml}}:</b> {{activeRoom.title}}</span>
         <div>
           <mat-icon>arrow_forward</mat-icon>{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
         </div>
-      </span>
+      </div>
       <span class="spacer"></span>
       <div [ngClass]="!isSmallScreen ? 'hidden' : 'showFlex'">
-        <!-- <button mat-flat-button color="accent" (click)="openDialog()">
-          <mat-icon>event_note</mat-icon>
-          {{'info' | ml}}
-        </button> -->
         <button mat-flat-button color="accent" (click)="leaveRoom()">
           <mat-icon>clear</mat-icon>
           {{'leaveEvent' | ml}}

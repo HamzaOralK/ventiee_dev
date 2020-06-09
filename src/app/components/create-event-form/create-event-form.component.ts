@@ -17,6 +17,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { PlaceService } from 'src/app/services/dataServices/place/place.service';
 import { MatSelectChange } from '@angular/material/select';
 import { GenericImageCropperComponent } from '../generic-image-cropper/generic-image-cropper.component';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: "create-event-form",
@@ -95,17 +96,14 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private langService: LangService,
     private authService: AuthService,
-    private breakpointObserver: BreakpointObserver,
+    private appService: AppService,
     private placeService: PlaceService,
     public dialog: MatDialog
   ) {
     this.subscription = new Subscription();
 
-    breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.Small
-    ]).subscribe(result => {
-      this.smallScreen = result.matches;
+    this.appService.s_smallScreen.subscribe(p => {
+      this.smallScreen = p;
     });
   }
 

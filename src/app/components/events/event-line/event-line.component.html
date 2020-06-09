@@ -1,5 +1,5 @@
 <mat-expansion-panel>
-  <mat-expansion-panel-header [collapsedHeight]="'110px'" [expandedHeight]="'110px'">
+  <mat-expansion-panel-header [collapsedHeight]="setHeight()" [expandedHeight]="setHeight()">
     <mat-panel-title>
       <div style="display: flex; flex-direction: column;">
         <div style="display: flex;">
@@ -26,7 +26,7 @@
   <div>
     <div class="line">
       <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex;">
-        <div class="header-image"></div>
+        <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
         <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
       </div>
       <button mat-raised-button color="primary" (click)="joinEvent()" *ngIf="checkJoinable()">

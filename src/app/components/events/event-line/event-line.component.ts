@@ -17,6 +17,7 @@ export class EventLineComponent implements OnInit {
   @Output("onJoin") onJoin = new EventEmitter();
 
   @Input() event: Event;
+  smallScreen: boolean;
 
   user: User;
   constructor(
@@ -27,6 +28,9 @@ export class EventLineComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.appService.s_smallScreen.subscribe(p => {
+      this.smallScreen = p;
+    });
     this.user = this.authService.user;
   }
 
@@ -45,5 +49,9 @@ export class EventLineComponent implements OnInit {
 
   checkJoinable() {
     return this.user._id !== this.event.moderatorUserId;
+  }
+
+  setHeight() {
+    return this.smallScreen ? '150px' : '110px';
   }
 }
