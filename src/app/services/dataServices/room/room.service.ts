@@ -16,6 +16,7 @@ import { NotificationService } from '../../notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
 import { tap, catchError } from 'rxjs/operators';
+import { AlertService } from '../../alert/alert.service';
 
 const MESSAGE_TO_CLIENT = 'messageToClient';
 const JOIN_ROOM = 'joinRoom';
@@ -48,7 +49,8 @@ export class RoomService implements OnDestroy {
     private authService: AuthService,
     private router: Router,
     private notificationService: NotificationService,
-    private mlPipe: MultiLanguagePipe
+    private mlPipe: MultiLanguagePipe,
+    private alertService: AlertService
   ) {
     this.msg = new Subject();
     this.subscription = new Subscription();
@@ -123,6 +125,8 @@ export class RoomService implements OnDestroy {
     let incMessage = message['message'] as MMessage;
     let room = this.rooms.find(p => p._id === incMessage.eventId);
     if(room) {
+      if(incMessage.roomUser.user._id !== this.user._id) this.alertService.play();
+      /** roomUser kendi mesajından kendisi unreadMessages arttırmasın diye yollanıyor. */
       this.roomStore.dispatch(new RoomAction.SendMessage({ room: room, roomUser: {user: this.user}, message: [incMessage] }));
       if (incMessage.type === MessageType.NewUser) {
         this.roomStore.dispatch(new RoomAction.InsertUser({ roomId: room._id, roomUser: message["message"].roomUser }));
