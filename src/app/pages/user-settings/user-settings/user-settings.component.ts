@@ -31,7 +31,8 @@ export class UserSettingsComponent implements OnInit {
     gender: new FormControl(),
     preferredGender: new FormControl(),
     schoolType: new FormControl(),
-    school: new FormControl()
+    school: new FormControl(),
+    base64: new FormControl()
   });
 
   constructor(
@@ -54,15 +55,12 @@ export class UserSettingsComponent implements OnInit {
 
   submit(event) {
     event.preventDefault();
-    this.userService.updateUserById(this.user_id, this.profileForm.value).subscribe(p => {
-      /** TODO: Change whole user with settings update. */
-    });
+    this.userService.updateUserById(this.user_id, this.profileForm.value).subscribe(p => { });
   }
 
   uploadImg(fileInput: HTMLInputElement) {
     fileInput.click();
   }
-
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
@@ -73,7 +71,6 @@ export class UserSettingsComponent implements OnInit {
       this.openImageCropper(reader.result);
     };
   }
-
 
   openImageCropper(imageBase64: any) {
     const dialogRef = this.dialog.open(GenericImageCropperComponent, {
@@ -87,9 +84,11 @@ export class UserSettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result.imageBase64) this.croppedImage = result.imageBase64
+      if (result && result.imageBase64) {
+        this.croppedImage = result.imageBase64;
+        this.profileForm.controls["base64"].setValue(this.croppedImage);
+      }
     });
   }
-
 
 }

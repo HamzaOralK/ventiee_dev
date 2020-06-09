@@ -146,10 +146,7 @@ export class EventService {
           roomUser.color = new Color(COMMONS.getRandom(255), COMMONS.getRandom(255), COMMONS.getRandom(255), 1);
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
-          this.notificationService.notify(
-            this.langService.get("eventCreateSuccess"),
-            "OK"
-          );
+          this.notificationService.notify(this.langService.get("eventCreateSuccess"),"OK");
           this.router.navigate(["/room/" + p._id]);
         }
       });

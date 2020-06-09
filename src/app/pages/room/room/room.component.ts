@@ -235,7 +235,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     }
   }
 
-
   getOnlyDate(date: Date): string {
     if(!(date instanceof Date)) {
       date = new Date(date);
