@@ -39,7 +39,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatTabsModule,
     ChatsModule,
     RoomModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
 })
 export class HomeModule { }

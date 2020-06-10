@@ -56,6 +56,7 @@ import { VfooterComponent } from './layout/vfooter/vfooter.component';
 import { EventsModule } from './components/events/events.module';
 import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module';
 import { ChatsModule } from './components/chats/chats.module';
+import { LoadingOverlayModule } from './components/loading-overlay/loading-overlay.module';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { ChatsModule } from './components/chats/chats.module';
     DirectivesModule,
     EventsModule,
     SignUpFormModule,
-    ChatsModule
+    ChatsModule,
+    LoadingOverlayModule
   ],
   exports: [],
   providers: [

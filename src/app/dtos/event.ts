@@ -16,6 +16,8 @@ export class Event {
   description: string;
   tags: string[];
   type: EventType;
+  imageURI?: string;
+  base64: any;
 }
 
 export class MLocation {

@@ -109,7 +109,6 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.generalDescription.patchValue({ id: this.eventId });
-    this.croppedImage = "https://static.vinepair.com/wp-content/uploads/2016/02/standard-pour-social.jpg";
 
     let tagSub = this.eventService.getTags().subscribe((p: { tag: string }[]) => {
       this.allTags = p;
@@ -164,6 +163,9 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
       formEndTime = this.timeInformation.value.endTime;
       formEndHour = parseInt(formEndTime.split(":")[0]);
       formEndMin = parseInt(formEndTime.split(":")[1]);
+    }
+    if(this.croppedImage) {
+      newEvent.base64 = this.croppedImage;
     }
     let endDate: Date;
     if (formEndDate) {

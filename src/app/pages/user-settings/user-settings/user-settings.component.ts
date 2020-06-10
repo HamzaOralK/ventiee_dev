@@ -7,6 +7,7 @@ import { Gender, SchoolType } from 'src/app/dtos/enums';
 import { COMMONS } from 'src/app/shared/commons';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericImageCropperComponent } from 'src/app/components/generic-image-cropper/generic-image-cropper.component';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'user-settings',
@@ -20,6 +21,7 @@ export class UserSettingsComponent implements OnInit {
   schoolTypes: any;
   croppedImage: any = '';
   imageChangedEvent: any = '';
+  isLoading: boolean = true;
 
   profileForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.min(2)]),
@@ -38,6 +40,7 @@ export class UserSettingsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
+    private appService: AppService,
     public dialog: MatDialog
   ) { }
 
@@ -49,13 +52,16 @@ export class UserSettingsComponent implements OnInit {
         this.profileForm.patchValue(this.user);
       });
     });
+    this.isLoading = false;
     this.genders = COMMONS.getEnumArray(Gender);
     this.schoolTypes = COMMONS.getEnumArray(SchoolType);
   }
 
   submit(event) {
     event.preventDefault();
+    this.appService.loading = true;
     this.userService.updateUserById(this.user_id, this.profileForm.value).subscribe(p => {
+      this.appService.loading = false;
       this.profileForm.controls["base64"].setValue(undefined);
     });
   }

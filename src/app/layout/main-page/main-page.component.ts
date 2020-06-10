@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { RoomService } from 'src/app/services/dataServices/room/room.service';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'main-page',
@@ -9,7 +9,13 @@ import { RoomService } from 'src/app/services/dataServices/room/room.service';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(private roomService: RoomService) { }
+  isLoading: boolean;
+
+  constructor(private appService: AppService) {
+    this.appService.s_loading.subscribe(p => {
+      this.isLoading = p;
+    })
+  }
 
   ngOnInit() { }
 

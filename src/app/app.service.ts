@@ -14,6 +14,9 @@ export class AppService {
   smallScreen: boolean;
   s_smallScreen: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
+  _loading: boolean;
+  s_loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(
     private store: Store<fromApp.AppState>,
     private breakpointObserver: BreakpointObserver
@@ -29,7 +32,11 @@ export class AppService {
     this.s_smallScreen.subscribe(p => {
       this.smallScreen = p;
     })
+  }
 
+  set loading(loading) {
+    this._loading = loading;
+    this.s_loading.next(loading);
   }
 
   openNav() {

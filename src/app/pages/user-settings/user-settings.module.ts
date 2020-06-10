@@ -19,7 +19,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { GenericImageCropperModule } from 'src/app/components/generic-image-cropper/generic-image-cropper.module';
 
 @NgModule({
-  declarations: [UserSettingsComponent],
+  declarations: [
+    UserSettingsComponent
+  ],
   imports: [
     CommonModule,
     UserSettingsRoutingModule,
