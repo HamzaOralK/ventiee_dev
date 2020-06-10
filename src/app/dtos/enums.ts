@@ -1,7 +1,7 @@
 export enum UserType {
-    Basic = 1,
-    Premium = 2,
-    Admin = 4
+    Standart = 'STD',
+    Premium = 'PRM',
+    Admin = 'ADMIN'
 }
 
 export enum Gender {

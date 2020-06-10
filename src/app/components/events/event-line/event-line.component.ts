@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
+import { UserType } from 'src/app/dtos/enums';
 
 @Component({
   selector: 'event-line',
@@ -59,6 +60,6 @@ export class EventLineComponent implements OnInit {
   }
 
   checkAdmin() {
-    return this.user.nickname === 'okhuz';
+    return this.user.userType === UserType.Admin;
   }
 }

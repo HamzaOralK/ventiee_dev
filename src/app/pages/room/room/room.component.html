@@ -31,7 +31,7 @@
     </mat-list>
   </div>
   <div class="control">
-    <div class="roomInfo noDesktop" *ngIf="activeRoom">
+    <div class="roomInfo noDesktop shadow" *ngIf="activeRoom">
       <div class="text c-ptr" (click)="openDialog()">
         <span><b>{{'event' | ml}}:</b> {{activeRoom.title}}</span>
         <div>
@@ -55,15 +55,25 @@
           <div *ngIf="i > 0 && getOnlyDate(activeRoom.messages[i-1].date) !== getOnlyDate(message.date)" class="mContainer">
             <span class="date">{{getOnlyDate(message.date)}}</span>
           </div>
-          <div #messagesContainer class="messageWrapper">
+          <div #messagesContainer class="messageWrapper"
+          [ngClass]="(i > 0 && activeRoom.messages[i-1].roomUser.user._id !== message.roomUser.user._id) || i === 0 ? 'dMargin' : ''">
             <div [ngClass]="isOwn(message) ? 'own' : 'other'" *ngIf="message.type === undefined">
               <div style="max-width: 65%; overflow: hidden;">
                 <span *ngIf="i === 0 && !isOwn(message)" [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">{{message.roomUser.user.nickname}}</span>
-                <span *ngIf="i > 0 && activeRoom.messages[i-1].roomUser.user._id !== message.roomUser.user._id && !isOwn(message)"
-                  [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">{{message.roomUser.user.nickname}}</span>
+
+                <span *ngIf="i > 0 &&
+                             (
+                               activeRoom.messages[i-1].roomUser.user._id !== message.roomUser.user._id ||
+                               getOnlyDate(activeRoom.messages[i-1].date) !== getOnlyDate(message.date)
+                              ) &&
+                             !isOwn(message)"
+                  [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">
+                  {{message.roomUser.user.nickname}}
+                </span>
+
                 <div class="message">
                   <span class="messageText">{{message.message}}</span><br>
-                  <span class="messageDate">{{message.date | date:'dd/MM/yyyy HH:mm'}}</span>
+                  <span class="messageDate">{{message.date | date:'HH:mm'}}</span>
                 </div>
               </div>
             </div>

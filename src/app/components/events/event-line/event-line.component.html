@@ -25,7 +25,7 @@
   </mat-expansion-panel-header>
   <div>
     <div class="line">
-      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex;">
+      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex; align-items: center;">
         <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
         <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
       </div>

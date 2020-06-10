@@ -14,7 +14,7 @@
   <password-form-element [formControl]="loginControls.password" ngDefaultControl></password-form-element>
 
   <div class="errors" *ngIf="login.status === 'VALID'">
-    <p *ngIf="error === 'LoginError'">Kullanıcı adı veya şifre yanlış.</p>
+    <p *ngIf="error === 'LoginError'">E-Mail veya şifre yanlış.</p>
     <p *ngIf="error === 'NotVerified'">Kullanıcı onaylanmamış.</p>
   </div>
   <button mat-raised-button color="primary" [disabled]="!login.valid">{{'login' | ml}}</button>
