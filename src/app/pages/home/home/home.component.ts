@@ -71,24 +71,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if(this.eventScroll) {
-      (this.eventScroll.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
-        let scrollHeight = (this.eventScroll.nativeElement as HTMLLIElement).scrollHeight;
-        let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
-        let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
-        if (scrollHeight - (scrollTop + offsetHeight) < 1 ) {
-          if(!this._isAll) {
-            this._loading = true;
-            this.eventService.loadMoreEvents().subscribe((p) => {
-              if(p.length === 0) {
-                this._isAll = true;
-              }
-              this._loading = false;
-            });
-          }
-        }
-      });
-    }
+    // if(this.eventScroll) {
+    //   (this.eventScroll.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
+    //     let scrollHeight = (this.eventScroll.nativeElement as HTMLLIElement).scrollHeight;
+    //     let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
+    //     let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
+    //     if (scrollHeight - (scrollTop + offsetHeight) < 1 ) { }
+    //   });
+    // }
   }
 
   ngOnDestroy() {

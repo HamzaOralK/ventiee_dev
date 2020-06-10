@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule,
     MatListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    ScrollingModule
   ],
   exports: [
     EventsComponent

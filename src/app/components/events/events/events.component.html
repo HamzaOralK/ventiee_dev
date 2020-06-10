@@ -1,3 +1,5 @@
 <mat-accordion>
-  <event-line *ngFor="let event of events" [event]="event" (onJoin)="onJoin($event)"></event-line>
+    <cdk-virtual-scroll-viewport [ngClass]="true ? 'scroll':''" [itemSize]="18 * 7" class="example-viewport" style="height: 100%;">
+        <event-line *cdkVirtualFor="let event of events" [event]="event" (onJoin)="onJoin($event)"></event-line>
+    </cdk-virtual-scroll-viewport>
 </mat-accordion>
