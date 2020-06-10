@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { User } from 'src/app/dtos/user';
 import { COMMONS } from 'src/app/shared/commons';
 import { AppService } from 'src/app/app.service';
+import { RoomService } from '../room/room.service';
 
 @Injectable({ providedIn: "root" })
 export class EventService {
@@ -39,7 +40,8 @@ export class EventService {
     private langService: LangService,
     private notificationService: NotificationService,
     private router: Router,
-    private appService: AppService
+    private appService: AppService,
+    private roomService: RoomService
   ) {
     this.auth = this.store.select("authState");
     this.auth.subscribe(p => {
@@ -152,6 +154,7 @@ export class EventService {
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
           this.notificationService.notify(this.langService.get("eventCreateSuccess"),"OK");
           this.router.navigate(["/room/" + p._id]);
+          this.roomService.joinSocketRoom(room._id, true);
         }
       });
   }

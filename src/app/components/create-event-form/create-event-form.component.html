@@ -34,6 +34,9 @@
           <mat-error *ngIf="formControls(generalDescription).peopleCount.hasError('min')">
             {{'min3person' | ml}}
           </mat-error>
+          <mat-error *ngIf="formControls(generalDescription).peopleCount.hasError('max')">
+            {{'max20person' | ml}}
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>{{'description' | ml}}</mat-label>
@@ -164,6 +167,9 @@
             <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" required appOnlyNumbers>
             <mat-error *ngIf="formControls(generalDescription).peopleCount.hasError('min')">
               {{'min3person' | ml}}
+            </mat-error>
+            <mat-error *ngIf="formControls(generalDescription).peopleCount.hasError('max')">
+              {{'max20person' | ml}}
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">

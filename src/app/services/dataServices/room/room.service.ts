@@ -105,7 +105,7 @@ export class RoomService implements OnDestroy {
           if (message.personToKick === this.user._id) this.processKick(message.roomToLeave, message.personToKick);
         });
         this.socket.on(CANCEL_EVENT, (message) => {
-          // console.log(message.message)
+          console.log(message.message)
           this.processCancelEvent(message.message);
         })
       }
@@ -286,11 +286,13 @@ export class RoomService implements OnDestroy {
   }
 
   cancelEvent(roomId: string) {
+    console.log(roomId);
     this.socket.emit(CANCEL_EVENT, roomId, roomId);
   }
 
   processCancelEvent(roomId: string) {
     let room = this.rooms.find(p => p._id === roomId);
+    console.log(room);
     this.notificationService.notify(room.title + " iptal edildi.");
     this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
     if (this.router.url === '/room/' + roomId) {

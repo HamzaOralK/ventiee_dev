@@ -13,7 +13,6 @@ import { Observable, Subscription } from 'rxjs';
 import { MatAutocomplete } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatHorizontalStepper } from '@angular/material/stepper';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { PlaceService } from 'src/app/services/dataServices/place/place.service';
 import { MatSelectChange } from '@angular/material/select';
 import { GenericImageCropperComponent } from '../generic-image-cropper/generic-image-cropper.component';
@@ -68,7 +67,7 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
   generalDescription = new FormGroup({
     title: new FormControl(""),
     description: new FormControl("", [Validators.maxLength(100)]),
-    peopleCount: new FormControl("", [Validators.min(3)]),
+    peopleCount: new FormControl("", [Validators.min(3), Validators.max(20)]),
     type: new FormControl('meeting', [Validators.required])
   });
 
