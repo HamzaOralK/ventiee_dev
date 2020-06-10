@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/dtos/user';
 import { COMMONS } from 'src/app/shared/commons';
+import { AppService } from 'src/app/app.service';
 
 @Injectable({ providedIn: "root" })
 export class EventService {
@@ -37,7 +38,8 @@ export class EventService {
     private authService: AuthService,
     private langService: LangService,
     private notificationService: NotificationService,
-    private router: Router
+    private router: Router,
+    private appService: AppService
   ) {
     this.auth = this.store.select("authState");
     this.auth.subscribe(p => {
@@ -133,10 +135,12 @@ export class EventService {
   }
 
   addEvent(event: Event) {
+    this.appService.loading = true;
     let url = environment.serviceURL + "/event/add";
     return this.http
       .post<any>(url, event)
       .subscribe((p) => {
+        this.appService.loading = false;
         if (p._id) {
           let room: Room = { ...event, _id: p._id, users: [], messages: [] };
           room.moderatorUser = new User();
