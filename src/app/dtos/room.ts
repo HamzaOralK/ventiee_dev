@@ -5,6 +5,7 @@ import { Event } from './event';
 export class Room extends Event {
   users: RoomUser[];
   messages: MMessage[];
+  unreadMessagesCount?: number;
 }
 
 export class RoomUser {

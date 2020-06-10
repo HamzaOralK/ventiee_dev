@@ -128,5 +128,6 @@
     {"key": "leaveEvent", "value": "Ayrıl"},
     {"key": "eula", "value": "Kullanım Koşulları"},
     {"key": "chatsNoVentiee", "value": "Bir ventiee'niz olmadığını görüyorum."},
-    {"key": "tagError", "value": "*Minimum 1, maksimum 3 tag seçmelisiniz."}
+    {"key": "tagError", "value": "*Minimum 1, maksimum 3 tag seçmelisiniz."},
+    {"key": "remove", "value": "Sil"}
 ]

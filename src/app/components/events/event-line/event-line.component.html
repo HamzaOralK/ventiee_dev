@@ -29,12 +29,21 @@
         <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
         <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
       </div>
+
       <button mat-raised-button color="primary" (click)="joinEvent()" *ngIf="checkJoinable()">
         <mat-icon>
           playlist_add
         </mat-icon>
         {{'join' | ml}}
       </button>
+
+      <button mat-raised-button color="warn" (click)="removeByAdminAuth()" *ngIf="checkAdmin()">
+        <mat-icon>
+          cancel
+        </mat-icon>
+        {{'remove' | ml}}
+      </button>
+
     </div>
     <br>
     <div style="display: flex; flex-direction: row; flex-wrap: wrap;">

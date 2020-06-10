@@ -2,7 +2,10 @@
   <img class="titleImg" [src]="'./assets/no_img.png'">
   <div>
     <div>
-      <b>{{room.title}}</b>
+      <b>
+        <span *ngIf="room.unreadMessagesCount > 0" matBadge="{{room.unreadMessagesCount}}" matBadgeOverlap="false">{{room.title}}</span>
+        <span *ngIf="room.unreadMessagesCount === 0 || room.unreadMessagesCount === undefined">{{room.title}}</span>
+      </b>
     </div>
 
     <div style="display: flex;">

@@ -40,6 +40,8 @@ export class RoomService implements OnDestroy {
   msg: Subject<MMessage>;
   connected: boolean = false;
 
+  unreadMessageCount: number = 0;
+
   private getMessagesSubscription: Subscription;
 
   constructor(
@@ -58,6 +60,7 @@ export class RoomService implements OnDestroy {
       if(p) {
         this.activeRoom = p.activeRoom;
         this.rooms = p.rooms;
+        this.calcUnreadMessages();
       }
     });
 
@@ -146,6 +149,7 @@ export class RoomService implements OnDestroy {
     this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({roomId}));
     if(this.rooms) {
       let room = this.rooms.find(r => r._id === roomId);
+      this.resetRoomUnreadCount(room);
       if(room && !room.users) {
         this.loadMessages(room);
         this.getRoomUsers(room).subscribe();;
@@ -292,7 +296,18 @@ export class RoomService implements OnDestroy {
     if (this.router.url === '/room/' + roomId) {
       this.router.navigate(["/home"]);
     }
+  }
 
+  calcUnreadMessages() {
+    let calc = 0;
+    this.rooms.forEach(r => {
+      if(r.unreadMessagesCount && r.unreadMessagesCount > 0) calc = calc + r.unreadMessagesCount;
+    });
+    this.unreadMessageCount = calc;
+  }
+
+  resetRoomUnreadCount(room: Room) {
+    this.roomStore.dispatch(new RoomAction.ResetRoomUnreadCount({ room }));
   }
 
 }

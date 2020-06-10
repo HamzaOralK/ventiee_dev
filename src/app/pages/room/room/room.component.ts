@@ -67,14 +67,14 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.roomState = this.store.select('roomState');
     this.subscription = new Subscription();
 
-     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
-       if (this.roomId) this.roomService.changeRoom(this.roomId);
-       this.pageNo = 1;
-       this.roomId = p.get('id');
-       this.scroll = true;
-       this.scrollToBottom();
-     });
-     this.subscription.add(routeSubscription);
+    let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
+      if (this.roomId) this.roomService.changeRoom(this.roomId);
+      this.pageNo = 1;
+      this.roomId = p.get('id');
+      this.scroll = true;
+      this.scrollToBottom();
+    });
+    this.subscription.add(routeSubscription);
 
     let msgSubscription = this.roomService.msg.subscribe(p => {
       let scrollHeight: number;

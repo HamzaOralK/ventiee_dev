@@ -2,7 +2,11 @@
   <div class="page">
 
     <mat-tab-group #tabs>
-      <mat-tab label="{{'myEvents' | ml}}">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span *ngIf="unreadCount > 0" matBadge="{{unreadCount}}" matBadgeOverlap="false">{{'myEvents' | ml}}</span>
+          <span *ngIf="unreadCount === 0">{{'myEvents' | ml}}</span>
+        </ng-template>
         <div class="rooms">
           <chats></chats>
           <room *ngIf="activeRoom" class="room"></room>

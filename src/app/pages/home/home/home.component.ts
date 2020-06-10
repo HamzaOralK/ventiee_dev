@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   value: string = "";
   user: User;
   activeRoom: Room;
+  unreadCount: number = 0;
 
   _loading: boolean = false;
   _isAll: boolean = false;
@@ -59,11 +60,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
         } else if(p === "") {
           this.eventService.getEvents().subscribe();
         }
-
       });
     this.subscription.add(eventSearchSubscription);
     this.store.select("roomState").subscribe(p => {
-      if(p) this.activeRoom = p.activeRoom;
+      if(p) {
+        this.unreadCount = this.roomService.unreadMessageCount;
+        this.activeRoom = p.activeRoom;
+      }
     });
   }
 

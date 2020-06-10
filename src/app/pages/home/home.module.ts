@@ -16,6 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChatsModule } from 'src/app/components/chats/chats.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RoomModule } from '../room/room.module';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { RoomModule } from '../room/room.module';
     MatProgressSpinnerModule,
     MatTabsModule,
     ChatsModule,
-    RoomModule
+    RoomModule,
+    MatBadgeModule
   ],
 })
 export class HomeModule { }

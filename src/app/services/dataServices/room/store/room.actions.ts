@@ -13,6 +13,7 @@ export const KICK_USER = 'KICK_USER';
 export const LEAVE_ROOM = 'LEAVE_ROOM';
 export const CHANGE_ACTIVE_ROOM = 'CHANGE_ACTIVE_ROOM';
 export const SET_ROOM_USERS = 'SET_ROOM_USERS';
+export const RESET_ROOM_UNREAD_COUNT = 'RESET_ROOM_UNREAD_COUNT';
 
 
 export class SendMessage implements Action {
@@ -65,5 +66,10 @@ export class SetRoomUsers implements Action {
   constructor(public payload: { room: Room, roomUsers: RoomUser[] }) { }
 }
 
+export class ResetRoomUnreadCount implements Action {
+  readonly type = RESET_ROOM_UNREAD_COUNT;
+  constructor(public payload: { room: Room }) { }
+}
+
 export type RoomActions = SendMessage | GetMessage | LoadMessages | GetRooms | JoinRoom | LeaveRoom |
-            KickUser | ChangeActiveRoom | SetRoomUsers | InsertUser;
+            KickUser | ChangeActiveRoom | SetRoomUsers | InsertUser | ResetRoomUnreadCount;

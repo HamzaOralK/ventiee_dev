@@ -11,6 +11,10 @@ export class AlertService {
     let audio = new Audio();
     audio.src = "./assets/audio/notification.wav";
     audio.load();
-    audio.play();
+    var promise = audio.play();
+    if (promise) {
+      promise.catch(function (error) { console.error(error); });
+    }
+
   }
 }

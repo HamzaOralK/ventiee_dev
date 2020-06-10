@@ -17,6 +17,7 @@ import { ChatsComponent } from './chats.component';
 import { ChatRoomsComponent } from './chat-rooms/chat-rooms.component';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { RouterModule } from '@angular/router';
     MatDatepickerModule,
     MatMomentDateModule,
     MatButtonToggleModule,
-    MatCardModule
+    MatCardModule,
+    MatBadgeModule
   ],
   exports: [ChatsComponent, ChatRoomsComponent]
 })

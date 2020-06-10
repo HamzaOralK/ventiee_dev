@@ -29,15 +29,16 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         if(!room.messages) room.messages = [];
         let dumMessages = [...room.messages, ...action.payload.message];
         room.messages = dumMessages;
-        state.rooms[roomIndex] = room;
-        let unreadMessages = state.unreadMessages;
-        if(action.payload.message[0].roomUser.user._id !== action.payload.roomUser.user._id) {
+        let unreadMessages = room.unreadMessagesCount;
+        if(unreadMessages === undefined) unreadMessages = 0;
+        if (action.payload.message[0].roomUser.user._id !== action.payload.roomUser.user._id) {
           unreadMessages++;
         }
+        room.unreadMessagesCount = unreadMessages;
+        state.rooms[roomIndex] = room;
         return {
           ...state,
-          rooms: [...state.rooms],
-          unreadMessages: unreadMessages
+          rooms: [...state.rooms]
         }
       }
       break;
@@ -99,6 +100,14 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
     case RoomActions.SET_ROOM_USERS:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
       state.rooms[roomIndex].users = action.payload.roomUsers;
+      return {
+        ...state,
+        rooms: state.rooms,
+        activeRoom: state.rooms[roomIndex]
+      }
+    case RoomActions.RESET_ROOM_UNREAD_COUNT:
+      roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
+      state.rooms[roomIndex].unreadMessagesCount = 0;
       return {
         ...state,
         rooms: state.rooms,
