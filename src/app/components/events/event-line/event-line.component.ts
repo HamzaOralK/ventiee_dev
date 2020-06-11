@@ -55,11 +55,16 @@ export class EventLineComponent implements OnInit {
   setHeight() {
     return this.smallScreen ? '150px' : '110px';
   }
-  removeByAdminAuth() {
-    console.log(this.user);
+
+  removeByAdminAuth(eventId: string) {
+    this.roomService.cancelEvent(eventId, true);
   }
 
   checkAdmin() {
     return this.user.userType === UserType.Admin;
+  }
+
+  report() {
+
   }
 }

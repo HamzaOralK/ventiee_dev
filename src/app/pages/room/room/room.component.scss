@@ -56,15 +56,12 @@ $usersFullWidth: 220px;
     div {
       display: flex;
       align-items: center;
-      // margin-left: 15px;
     }
   }
 }
 
 .sendMessageForm {
   width: 100%;
-  height: 80px;
-  position: absolute;
   bottom: 15px;
   display: flex;
   justify-content: space-between;
@@ -90,18 +87,13 @@ $usersFullWidth: 220px;
 
 .messages {
   width: 100%;
-  max-height: calc(100% - 170px);
-  overflow-y: auto;
-  position: absolute;
-  overflow-x: hidden;
+  flex-grow: 1;
   @include media-breakpoint(xs) {
     width: 100%;
-    max-height: calc(100% - 170px);
   }
 
   @include media-breakpoint(sm) {
     width: 100%;
-    max-height: calc(100% - 180px);
   }
   .inner {
     display: flex;
@@ -207,14 +199,18 @@ $usersFullWidth: 220px;
 }
 .control {
   padding: 5px;
-  width: 50%;
   position: relative;
   height: 99%;
+  display: flex;
+  flex-direction: column;
+  min-width: 500px;
   @include media-breakpoint(xs) {
     width: 100%;
+    min-width: unset;
   }
 
   @include media-breakpoint(sm) {
+    min-width: unset;
     width: 100%;
   }
 }

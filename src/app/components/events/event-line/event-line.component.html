@@ -37,7 +37,14 @@
         {{'join' | ml}}
       </button>
 
-      <button mat-raised-button color="warn" (click)="removeByAdminAuth()" *ngIf="checkAdmin()">
+      <button mat-raised-button color="primary" (click)="report()">
+        <mat-icon>
+          warning
+        </mat-icon>
+        {{'report' | ml}}
+      </button>
+
+      <button mat-raised-button color="warn" (click)="removeByAdminAuth(event._id)" *ngIf="checkAdmin()">
         <mat-icon>
           cancel
         </mat-icon>

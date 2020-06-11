@@ -3,6 +3,7 @@ import { User } from './user';
 export class Event {
   _id: string;
   title: string;
+  status: EventStatus;
   peopleCount: number;
   startDate: Date;
   endDate: Date;
@@ -18,6 +19,14 @@ export class Event {
   type: EventType;
   imageURI?: string;
   base64: any;
+}
+
+export enum EventStatus {
+  Pending = 0,
+  Active = 1,
+  Completed = 2,
+  Cancelled = 9,
+  Deleted = -1
 }
 
 export class MLocation {

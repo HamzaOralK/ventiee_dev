@@ -5,8 +5,7 @@
     <mat-icon *ngIf="user && smallScreen" class="icon c-ptr" [matBadge]="unreadMessages" matBadgeColor="accent"
       (click)="toggleLeftMenu()">menu</mat-icon>
     -->
-    <mat-icon *ngIf="user" class="icon c-ptr home" aria-hidden="false" routerLink="/home" (click)="getEvents()">home
-    </mat-icon>
+    <mat-icon *ngIf="user" class="icon c-ptr home" aria-hidden="false" routerLink="/home" (click)="getEvents()">home</mat-icon>
     <span class="spacer"></span>
     <ng-container *ngIf="user; else noUser">
 

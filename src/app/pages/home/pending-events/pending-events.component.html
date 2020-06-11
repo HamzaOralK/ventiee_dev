@@ -1,0 +1,12 @@
+<div class="container scroll">
+  <div *ngFor="let event of pendingEvents" class="event">
+    <img class="titleImg" [src]="event.imageURI || './assets/no_img.png'">
+    <span>
+      {{event.title}}
+    </span>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary">Onayla</button>
+
+    <button mat-raised-button color="warn" style="margin-left: 10px;">Reddet</button>
+  </div>
+</div>

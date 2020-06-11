@@ -6,11 +6,11 @@
         <mat-icon>event_note</mat-icon>
         {{'info' | ml}}
       </button>
-      <button mat-raised-button color="primary" (click)="leaveRoom()" *ngIf="!isModerator()">
+      <button mat-raised-button color="warn" (click)="leaveRoom()" *ngIf="!isModerator()">
         <mat-icon>clear</mat-icon>
         {{'quit' | ml}}
       </button>
-      <button mat-raised-button color="primary" (click)="cancelEvent()" *ngIf="isModerator()">
+      <button mat-raised-button color="warn" (click)="cancelEvent()" *ngIf="isModerator()">
         <mat-icon>block</mat-icon>
         {{'cancel' | ml}}
       </button>
@@ -40,7 +40,7 @@
       </div>
       <span class="spacer"></span>
       <div [ngClass]="!isSmallScreen ? 'hidden' : 'showFlex'">
-        <button mat-flat-button color="accent" (click)="leaveRoom()">
+        <button mat-flat-button color="warn" (click)="leaveRoom()">
           <mat-icon>clear</mat-icon>
           {{'leaveEvent' | ml}}
         </button>

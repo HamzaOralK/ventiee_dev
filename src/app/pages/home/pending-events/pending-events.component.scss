@@ -1,0 +1,25 @@
+.titleImg {
+  height: max-content;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 15px;
+  width: 100px;
+  object-fit: contain;
+}
+
+.event {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.container {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}

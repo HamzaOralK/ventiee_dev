@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Event } from '../../../dtos/event';
+import { Event, EventStatus } from '../../../dtos/event';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
@@ -57,7 +57,7 @@ export class EventService {
     });
   }
 
-  getEvents(search?: string) {
+  getEvents(search?: string, status: EventStatus = EventStatus.Active ) {
     let url = environment.serviceURL + "/events";
     let params: { pageNo: string; search?: string } = {
       pageNo: "1",
@@ -68,7 +68,7 @@ export class EventService {
     }
 
     return this.http
-      .get<Event[]>(url, {
+      .post<Event[]>(url, { status }, {
         params,
       })
       .pipe(
@@ -90,7 +90,7 @@ export class EventService {
       );
   }
 
-  loadMoreEvents(search?: string) {
+  loadMoreEvents(search?: string, status: EventStatus = EventStatus.Active) {
     let url = environment.serviceURL + "/events";
     let params: { pageNo: string; search?: string } = {
       pageNo: this._pageNo.toString()
@@ -101,7 +101,7 @@ export class EventService {
     }
 
     return this.http
-      .get<Event[]>(url, {
+      .post<Event[]>(url, {status}, {
         params
       })
       .pipe(
@@ -153,7 +153,8 @@ export class EventService {
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
           this.notificationService.notify(this.langService.get("eventCreateSuccess"));
-          this.router.navigate(["/room/" + p._id]);
+          // this.router.navigate(["/room/" + p._id]);
+          this.router.navigate(["/home"]);
           this.roomService.joinSocketRoom(room._id, true);
         }
       }, (e) => {
@@ -167,5 +168,32 @@ export class EventService {
     let url = environment.serviceURL + "/tags";
     return this.http.get(url);
   }
+
+  /** Pending Events Section */
+  getPendingEvents(pageNo: number, status: EventStatus = EventStatus.Pending) {
+    let url = environment.serviceURL + "/events";
+    let params: { pageNo: string; search?: string } = {
+      pageNo: pageNo.toString(),
+    };
+
+    return this.http
+      .post<Event[]>(url, { status }, {
+        params,
+      })
+      .pipe(
+        map((result: any) => {
+          if (result) {
+            return result;
+          }
+        }),
+        catchError((error) => {
+          if (error.status === 401) {
+            this.authService.logoutUser();
+          }
+          throw error;
+        })
+      );
+  }
+  /** ////Pending Events Section */
 
 }

@@ -127,6 +127,7 @@
     {"key": "quit", "value": "Çık"},
     {"key": "cancel", "value": "İptal"},
     {"key": "myEvents", "value": "Ventieelerim"},
+    {"key": "pendingEvents", "value": "Onay Bekleyenler"},
     {"key": "leaveEvent", "value": "Ayrıl"},
     {"key": "eula", "value": "Kullanım Koşulları"},
     {"key": "chatsNoVentiee", "value": "Bir ventiee'niz olmadığını görüyorum."},

@@ -17,11 +17,13 @@ import { ChatsModule } from 'src/app/components/chats/chats.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RoomModule } from '../room/room.module';
 import { MatBadgeModule } from '@angular/material/badge';
+import { PendingEventsComponent } from './pending-events/pending-events.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    LandingComponent
+    LandingComponent,
+    PendingEventsComponent
   ],
   imports: [
     CommonModule,

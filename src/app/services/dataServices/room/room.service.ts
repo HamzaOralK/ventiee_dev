@@ -2,8 +2,10 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Room, RoomUser } from 'src/app/dtos/room';
 import { Store } from '@ngrx/store';
 import * as fromRoom from './store/room.reducer';
-import * as fromApp from '../../../store/app.reducer';
 import * as RoomAction from './store/room.actions';
+import * as fromApp from '../../../store/app.reducer';
+import * as AppAction from "../../../store/app.actions";
+
 import { MMessage, MessageType } from 'src/app/dtos/message';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/internal/Observable';
@@ -285,14 +287,16 @@ export class RoomService implements OnDestroy {
     this.socket.emit(KICK_PERSON, user._id, roomId);
   }
 
-  cancelEvent(roomId: string) {
-    console.log(roomId);
+  cancelEvent(roomId: string, isAuth: boolean = false) {
     this.socket.emit(CANCEL_EVENT, roomId, roomId);
+    /** isAuthsa event içeride olmayan bir admin tarafından iptal edilmiş demek. */
+    if(isAuth) {
+      this.store.dispatch(new AppAction.FilterEvent({_id: roomId}));
+    }
   }
 
   processCancelEvent(roomId: string) {
     let room = this.rooms.find(p => p._id === roomId);
-    console.log(room);
     this.notificationService.notify(room.title + " iptal edildi.");
     this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
     if (this.router.url === '/room/' + roomId) {

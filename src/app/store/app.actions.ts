@@ -34,7 +34,7 @@ export class AddEvent implements Action {
 
 export class FilterEvent implements Action {
   readonly type = FILTER_EVENT;
-  constructor(public payload: Event) { }
+  constructor(public payload: Partial<Event>) { }
 }
 
 
