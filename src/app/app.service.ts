@@ -4,6 +4,8 @@ import * as fromApp from './store/app.reducer';
 import * as AppAction from './store/app.actions';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { GenericModalComponent, ModalType } from './components/generic-modal/generic-modal.component';
 
 
 @Injectable({
@@ -19,7 +21,8 @@ export class AppService {
 
   constructor(
     private store: Store<fromApp.AppState>,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    public dialog: MatDialog
   ) {
 
     this.breakpointObserver.observe([
@@ -45,6 +48,13 @@ export class AppService {
 
   closeNav() {
     this.store.dispatch(new AppAction.ToggleLeftNav(false));
+  }
+
+  openModal(title: string, description: string, htmlTemplate: string, type: ModalType) {
+    const dialogRef = this.dialog.open(GenericModalComponent, {
+      data: { htmlTemplate, title, description }
+    });
+    if(type === ModalType.Confirmation) return dialogRef.afterClosed()
   }
 
 }

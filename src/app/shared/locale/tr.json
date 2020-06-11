@@ -126,11 +126,18 @@
     {"key": "info", "value": "Bilgi"},
     {"key": "quit", "value": "Çık"},
     {"key": "cancel", "value": "İptal"},
+    {"key": "no", "value": "Hayır"},
+    {"key": "ok", "value": "Evet"},
     {"key": "myEvents", "value": "Ventieelerim"},
     {"key": "pendingEvents", "value": "Onay Bekleyenler"},
     {"key": "leaveEvent", "value": "Ayrıl"},
     {"key": "eula", "value": "Kullanım Koşulları"},
     {"key": "chatsNoVentiee", "value": "Bir ventiee'niz olmadığını görüyorum."},
     {"key": "tagError", "value": "*Minimum 1, maksimum 3 tag seçmelisiniz."},
-    {"key": "remove", "value": "Sil"}
+    {"key": "remove", "value": "Sil"},
+    {"key": "report", "value": "Şikayet Et"},
+    {"key": "reportQuestion", "value": "Bu etkinliği şikayet etmek istediğinize emin misiniz?"},
+    {"key": "deleteQuestion", "value": "Bu etkinliği silmek istediğinize emin misiniz?"},
+    {"key": "leaveQuestion", "value": "Ayrılmak istediğinize emin misiniz?"},
+    {"key": "cancelQuestion", "value": "İptal etmek istediğinize emin misiniz?"}
 ]

@@ -8,6 +8,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromApp from '../../store/app.reducer';
 import { BaseComponent } from 'src/app/components/base/base.component';
+import { AppService } from 'src/app/app.service';
+import { ModalType } from 'src/app/components/generic-modal/generic-modal.component';
 
 @Component({
   selector: 'event-info',
@@ -23,6 +25,7 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
     private roomService: RoomService,
     public dialogRef: MatDialogRef<any>,
     private store: Store<fromApp.AppState>,
+    private appService: AppService,
     @Inject(MAT_DIALOG_DATA) public data: {room: Room},
     injector: Injector
   ) {
@@ -56,11 +59,21 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
   }
 
   cancelEvent() {
-    this.roomService.cancelEvent(this.data.room._id);
+    this.appService.openModal(undefined, 'cancelQuestion', undefined, ModalType.Confirmation).subscribe(p => {
+      if (p) {
+        this.roomService.cancelEvent(this.data.room._id);
+        this.dialogRef.close();
+      }
+    });
   }
 
   leaveEvent() {
-    this.roomService.leaveRoom(this.data.room._id, this.authService.user._id);
+    this.appService.openModal(undefined, 'leaveQuestion', undefined, ModalType.Confirmation).subscribe(p => {
+      if (p) {
+        this.roomService.leaveRoom(this.data.room._id, this.authService.user._id);
+        this.dialogRef.close();
+      }
+    });
   }
 
 }

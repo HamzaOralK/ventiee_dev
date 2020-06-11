@@ -32,11 +32,11 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       filter(event => this.virtualScroll.getRenderedRange().end === this.virtualScroll.getDataLength()),
       throttleTime(1000)
     ).subscribe(event => {
-      if (!this._isAll) {
+      if (!this.eventService._isAll) {
         this._loading = true;
         this.eventService.loadMoreEvents().subscribe((p) => {
           if (p.length === 0) {
-            this._isAll = true;
+            this.eventService._isAll = true;
           }
           this._loading = false;
         });

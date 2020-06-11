@@ -32,6 +32,7 @@ export class EventService {
 
   _pageNo: number;
   user: User;
+  _isAll: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -58,6 +59,7 @@ export class EventService {
   }
 
   getEvents(search?: string, status: EventStatus = EventStatus.Active ) {
+    this._isAll = false;
     let url = environment.serviceURL + "/events";
     let params: { pageNo: string; search?: string } = {
       pageNo: "1",

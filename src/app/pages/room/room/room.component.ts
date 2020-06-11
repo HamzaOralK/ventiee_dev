@@ -17,6 +17,7 @@ import { EventInfoComponent } from '../../event-info/event-info.component';
 import { Store } from '@ngrx/store';
 import { AppService } from 'src/app/app.service';
 import { COMMONS } from 'src/app/shared/commons';
+import { ModalType } from 'src/app/components/generic-modal/generic-modal.component';
 
 @Component({
   selector: 'room',
@@ -217,11 +218,15 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   leaveRoom() {
-    this.roomService.leaveRoom(this.activeRoom._id, this.user._id);
+    this.appService.openModal(undefined, 'leaveQuestion', undefined, ModalType.Confirmation).subscribe(p => {
+      if (p) this.roomService.leaveRoom(this.activeRoom._id, this.user._id);
+    });
   }
 
   cancelEvent() {
-    this.roomService.cancelEvent(this.activeRoom._id);
+    this.appService.openModal(undefined, 'cancelQuestion', undefined, ModalType.Confirmation).subscribe(p => {
+      if (p) this.roomService.cancelEvent(this.activeRoom._id);
+    });
   }
 
   getColor(user: User) {

@@ -7,6 +7,7 @@ import { User } from 'src/app/dtos/user';
 import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
 import { UserType } from 'src/app/dtos/enums';
+import { ModalType } from '../../generic-modal/generic-modal.component';
 
 @Component({
   selector: 'event-line',
@@ -57,7 +58,9 @@ export class EventLineComponent implements OnInit {
   }
 
   removeByAdminAuth(eventId: string) {
-    this.roomService.cancelEvent(eventId, true);
+    this.appService.openModal(this.event.title, 'deleteQuestion', undefined, ModalType.Confirmation).subscribe(p => {
+      if (p) this.roomService.cancelEvent(eventId, true);
+    })
   }
 
   checkAdmin() {
@@ -65,6 +68,8 @@ export class EventLineComponent implements OnInit {
   }
 
   report() {
-
+    this.appService.openModal(this.event.title, 'reportQuestion', undefined, ModalType.Confirmation).subscribe(p => {
+      if(p) console.log('Şikayet ediltdi.');
+    });
   }
 }

@@ -3,9 +3,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { GenericModalComponent } from '../generic-modal/generic-modal.component';
+// import { MatDialog } from '@angular/material/dialog';
+// import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { eula_tr } from "src/assets/eula-tr";
+import { AppService } from 'src/app/app.service';
+import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
+import { ModalType } from '../generic-modal/generic-modal.component';
 
 @Component({
   selector: 'sign-up-form',
@@ -28,7 +31,8 @@ export class SignUpFormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    public dialog: MatDialog
+    private appService: AppService,
+    private mlPipe: MultiLanguagePipe
   ) { }
 
   ngOnInit(): void { }
@@ -56,13 +60,8 @@ export class SignUpFormComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  openModal() {
-    const dialogRef = this.dialog.open(GenericModalComponent, {
-      data: { htmlTemplate: eula_tr }
-    });
-    dialogRef.afterClosed().subscribe(result => {});
+  openModal(){
+    this.appService.openModal('eula', undefined, eula_tr, ModalType.Information);
   }
-
-
 
 }
