@@ -150,6 +150,11 @@ input:-webkit-autofill:active {
   color: mat-color($app-font,500) !important;
 }
 
+.ventiee-snackbar-warn {
+  background: mat-color($app-warn, 300) !important;
+  color: mat-color($app-font, 50) !important;
+}
+
 .mat-form-field-label {
   mat-label {
     color: mat-color($app-font, 300) !important;
@@ -178,4 +183,8 @@ input:-webkit-autofill:active {
 }
 .showFlex {
   display: flex;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+  min-height: 100%;
 }

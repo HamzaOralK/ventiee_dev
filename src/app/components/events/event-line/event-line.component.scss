@@ -45,11 +45,12 @@ mat-expansion-panel {
 }
 
 .titleImg {
-  height: auto;
+  height: max-content;
   cursor: pointer;
   padding: 5px;
   margin-right: 5px;
-  width: 64px;
+  border-radius: 15px;
+  width: 100px;
   object-fit: contain;
 }
 

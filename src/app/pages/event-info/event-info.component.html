@@ -1,7 +1,7 @@
 <div class="info">
   <mat-card>
     <h4>{{data.room.title}}</h4>
-    <h5>{{'startDate' | ml}}: {{data.room.startDate | date:'dd/MM/yyyy HH:mm'}}</h5>
+    <h5 *ngIf="data.room.startDate">{{'startDate' | ml}}: {{data.room.startDate | date:'dd/MM/yyyy HH:mm'}}</h5>
     <h5 *ngIf="data.room.endDate">{{'endDate' | ml}}: {{data.room.endDate | date:'dd/MM/yyyy HH:mm'}}</h5>
     <h5>{{'howmany' | ml}}: {{data.room.peopleCount}}</h5>
     <mat-card-actions>

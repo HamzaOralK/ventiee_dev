@@ -1,5 +1,5 @@
 <div class="room" (click)="changeRoom()" [ngClass]="isSelected() ? 'selected' : undefined">
-  <img class="titleImg" [src]="'./assets/no_img.png'">
+  <img class="titleImg" [src]="room.imageURI || './assets/no_img.png'">
   <div>
     <div>
       <b>
@@ -13,7 +13,7 @@
         <mat-icon>emoji_people</mat-icon>
         {{room.moderatorUser.nickname}}
       </div>
-      <div class="iconInfo">
+      <div class="iconInfo" *ngIf="room.startDate">
         <mat-icon>arrow_forward</mat-icon>
         {{room.startDate | date:'dd/MM/yyyy'}}
       </div>

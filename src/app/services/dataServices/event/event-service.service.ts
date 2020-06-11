@@ -14,7 +14,7 @@ import { AuthService } from '../../auth/auth.service';
 import { Room, RoomUser, Color } from 'src/app/dtos/room';
 import { Subscription } from 'rxjs';
 import { LangService } from '../../lang/lang.service';
-import { NotificationService } from '../../notification/notification.service';
+import { NotificationService, SnackType } from '../../notification/notification.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/dtos/user';
@@ -144,7 +144,7 @@ export class EventService {
       .subscribe((p) => {
         this.appService.loading = false;
         if (p._id) {
-          let room: Room = { ...event, _id: p._id, users: [], messages: [] };
+          let room: Room = { ...event, _id: p._id, users: [], messages: [], imageURI: p.imageURI };
           room.moderatorUser = new User();
           room.moderatorUser = this.user;
           let roomUser = new RoomUser();
@@ -152,10 +152,14 @@ export class EventService {
           roomUser.color = COMMONS.generateRandomRGBAColor();
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
-          this.notificationService.notify(this.langService.get("eventCreateSuccess"),"OK");
+          this.notificationService.notify(this.langService.get("eventCreateSuccess"));
           this.router.navigate(["/room/" + p._id]);
           this.roomService.joinSocketRoom(room._id, true);
         }
+      }, (e) => {
+        this.appService.loading = false;
+        if (e.error && e.error.code === 'E15')
+          this.notificationService.notify(this.langService.get("sameNameEvent"), SnackType.warn);
       });
   }
 

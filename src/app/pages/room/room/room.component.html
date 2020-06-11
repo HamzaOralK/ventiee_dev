@@ -34,7 +34,7 @@
     <div class="roomInfo noDesktop shadow" *ngIf="activeRoom">
       <div class="text c-ptr" (click)="openDialog()">
         <span><b>{{'event' | ml}}:</b> {{activeRoom.title}}</span>
-        <div>
+        <div *ngIf="activeRoom.startDate">
           <mat-icon>arrow_forward</mat-icon>{{activeRoom.startDate | date:'dd/MM/yyyy HH:mm'}}
         </div>
       </div>

@@ -29,9 +29,7 @@
               </mat-form-field>
             </div>
             <div class="events scroll" #eventScroll>
-              <events *ngIf="(appWise | async).events" [events]="(appWise | async).events" style="display: block; height: 100%;"
-                (onJoinEvent)="onJoinEvent($event)">
-              </events>
+              <events *ngIf="(appWise | async).events" [events]="(appWise | async).events" style="display: block; height: 100%;" (onJoinEvent)="onJoinEvent($event)"></events>
               <mat-spinner *ngIf="_loading"></mat-spinner>
               <mat-card *ngIf="(appWise | async).events.length === 0">
                 {{'noEventError' | ml}}

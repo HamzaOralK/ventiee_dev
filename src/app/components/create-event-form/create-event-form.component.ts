@@ -3,9 +3,9 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { Event } from 'src/app/dtos/event';
+import { Event, EventType } from 'src/app/dtos/event';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
-import { NotificationService } from 'src/app/services/notification/notification.service';
+import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
 import { LangService } from 'src/app/services/lang/lang.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Observable, Subscription } from 'rxjs';
@@ -140,54 +140,55 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
     newEvent.tags = this.tags.value;
     newEvent.description = this.generalDescription.value.description.trim();
     newEvent.type = this.generalDescription.value.type;
-    let formStartDate: Date = new Date(this.timeInformation.value.startDate);
-    let formStartTime: string = this.timeInformation.value.startTime;
-    let formStartHour: number = parseInt(formStartTime.split(":")[0]);
-    let formStartMin: number = parseInt(formStartTime.split(":")[1]);
-    let startDate: Date = new Date(
-      formStartDate.getFullYear(),
-      formStartDate.getMonth(),
-      formStartDate.getDate(),
-      formStartHour,
-      formStartMin
-    );
-    newEvent.startDate = startDate;
-    let formEndDate: Date;
-    let formEndTime: string;
-    let formEndHour: number = 0;
-    let formEndMin: number = 0;
-    if (this.timeInformation.value.endDate)
-      formEndDate = new Date(this.timeInformation.value.endDate);
-    if (this.timeInformation.value.endTime) {
-      formEndTime = this.timeInformation.value.endTime;
-      formEndHour = parseInt(formEndTime.split(":")[0]);
-      formEndMin = parseInt(formEndTime.split(":")[1]);
-    }
-    if(this.croppedImage) {
-      newEvent.base64 = this.croppedImage;
-    }
-    let endDate: Date;
-    if (formEndDate) {
-      endDate = new Date(
-        formEndDate.getFullYear(),
-        formEndDate.getMonth(),
-        formEndDate.getDate(),
-        formEndHour,
-        formEndMin
+    if(newEvent.type === EventType.meeting) {
+      let formStartDate: Date = new Date(this.timeInformation.value.startDate);
+      let formStartTime: string = this.timeInformation.value.startTime;
+      let formStartHour: number = parseInt(formStartTime.split(":")[0]);
+      let formStartMin: number = parseInt(formStartTime.split(":")[1]);
+      let startDate: Date = new Date(
+        formStartDate.getFullYear(),
+        formStartDate.getMonth(),
+        formStartDate.getDate(),
+        formStartHour,
+        formStartMin
       );
-      newEvent.endDate = endDate;
-    }
-    if(this.eventType === 'meeting') {
+      newEvent.startDate = startDate;
+      let formEndDate: Date;
+      let formEndTime: string;
+      let formEndHour: number = 0;
+      let formEndMin: number = 0;
+      if (this.timeInformation.value.endDate)
+        formEndDate = new Date(this.timeInformation.value.endDate);
+      if (this.timeInformation.value.endTime) {
+        formEndTime = this.timeInformation.value.endTime;
+        formEndHour = parseInt(formEndTime.split(":")[0]);
+        formEndMin = parseInt(formEndTime.split(":")[1]);
+      }
+      let endDate: Date;
+      if (formEndDate) {
+        endDate = new Date(
+          formEndDate.getFullYear(),
+          formEndDate.getMonth(),
+          formEndDate.getDate(),
+          formEndHour,
+          formEndMin
+        );
+        newEvent.endDate = endDate;
+      }
       newEvent.venue = this.placeInformation.value.venue;
       newEvent.city = this.placeInformation.value.location.city;
       newEvent.district = this.placeInformation.value.location.district;
       newEvent.latitute = this.placeInformation.value.location.latitute;
       newEvent.longtitute = this.placeInformation.value.location.longtitute;
     }
+    if (this.croppedImage) {
+      newEvent.base64 = this.croppedImage;
+    }
+
     if (newEvent.endDate && newEvent.startDate > newEvent.endDate) {
-      this.notificationService.notify(this.langService.get("startDateGtThanEndDate"), "OK");
+      this.notificationService.notify(this.langService.get("startDateGtThanEndDate"), SnackType.warn);
     } else if (newEvent.startDate < new Date()) {
-      this.notificationService.notify(this.langService.get("startDateGtThanNow"), "OK");
+      this.notificationService.notify(this.langService.get("startDateGtThanNow"), SnackType.warn);
     } else {
       this.eventService.addEvent(newEvent);
     }
@@ -196,7 +197,7 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
   checkValid(): boolean {
     if(this.eventType === 'meeting')
       return (this.generalDescription.valid && this.timeInformation.valid && this.placeInformation.valid);
-    else return (this.generalDescription.valid && this.timeInformation.valid);
+    else return (this.generalDescription.valid && this.tags.valid);
   }
 
   formControls(formGroup: FormGroup): any {
