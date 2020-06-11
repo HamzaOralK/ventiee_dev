@@ -111,7 +111,7 @@ export class RoomComponent implements OnInit, OnDestroy {
           if (this.activeRoom.users && this.activeRoom.users.length >= 1) {
             this.activeRoom.users.map(ru => {
               if (!ru.color) {
-                ru.color = new Color(COMMONS.getRandom(255), COMMONS.getRandom(255), COMMONS.getRandom(255), 1);
+                ru.color = COMMONS.generateRandomRGBAColor();
               }
               return ru.user;
             });

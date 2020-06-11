@@ -149,7 +149,7 @@ export class EventService {
           room.moderatorUser = this.user;
           let roomUser = new RoomUser();
           roomUser.user = this.user;
-          roomUser.color = new Color(COMMONS.getRandom(255), COMMONS.getRandom(255), COMMONS.getRandom(255), 1);
+          roomUser.color = COMMONS.generateRandomRGBAColor();
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
           this.notificationService.notify(this.langService.get("eventCreateSuccess"),"OK");

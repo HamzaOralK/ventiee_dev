@@ -11,22 +11,9 @@ import * as fromRoom from '../../../services/dataServices/room/store/room.reduce
 import * as fromAuth from '../../../services/auth/store/auth.reducer';
 import * as fromApp from "../../../store/app.reducer";
 import { Store } from '@ngrx/store';
+import { COMMONS } from 'src/app/shared/commons';
 
 
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
 
 export interface CustomCalendarEvent extends CalendarEvent {
   eventInformation?: Event
@@ -110,7 +97,8 @@ export class EventCalendarComponent implements OnInit {
         start: new Date(p.startDate),
         end: p.endDate ? new Date(p.endDate) : undefined,
         title: p.title,
-        eventInformation: p
+        eventInformation: p,
+        color: this.generateEventColors()
       };
       this.events.push(ev);
     });
@@ -168,7 +156,7 @@ export class EventCalendarComponent implements OnInit {
         title: 'New event',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
-        color: colors.red,
+        color: this.generateEventColors(),
         draggable: true,
         resizable: {
           beforeStart: true,
@@ -188,6 +176,10 @@ export class EventCalendarComponent implements OnInit {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  generateEventColors() {
+    return { primary: COMMONS.generateRandomHexColor(), secondary: COMMONS.generateRandomHexColor() }
   }
 
 }
