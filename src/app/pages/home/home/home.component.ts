@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ViewChildren, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/internal/Subject';
@@ -42,7 +42,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private router: Router,
     private eventService: EventService,
     private appService: AppService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private cdr: ChangeDetectorRef
   ) {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
