@@ -188,3 +188,23 @@ input:-webkit-autofill:active {
 .cdk-virtual-scroll-content-wrapper {
   min-height: 100%;
 }
+
+.mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+.mat-form-field-flex {
+  align-items: center !important;
+}
+
+
+.tag {
+  background-color: mat-color($app-font, 100);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.tagSelected {
+  background-color: mat-color($app-primary, 500);
+}

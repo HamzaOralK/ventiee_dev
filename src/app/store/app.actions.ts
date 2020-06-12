@@ -37,5 +37,4 @@ export class FilterEvent implements Action {
   constructor(public payload: Partial<Event>) { }
 }
 
-
 export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | AddEvent | FilterEvent;

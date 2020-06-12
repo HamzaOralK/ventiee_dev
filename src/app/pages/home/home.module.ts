@@ -13,13 +13,18 @@ import { SignUpFormModule } from 'src/app/components/sign-up-form/sign-up-form.m
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChatsModule } from 'src/app/components/chats/chats.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RoomModule } from '../room/room.module';
 import { MatBadgeModule } from '@angular/material/badge';
 import { PendingEventsComponent } from './pending-events/pending-events.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'tr-TR' },
+  ],
   declarations: [
     HomeComponent,
     LandingComponent,
@@ -42,6 +47,8 @@ import { PendingEventsComponent } from './pending-events/pending-events.componen
     ChatsModule,
     RoomModule,
     MatBadgeModule,
+    MatDatepickerModule
+
   ],
 })
 export class HomeModule { }

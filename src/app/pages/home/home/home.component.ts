@@ -21,7 +21,7 @@ import { RoomService } from 'src/app/services/dataServices/room/room.service';
   styleUrls: ["./home.component.scss"],
   // encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
   auth: Observable<fromAuth.State>;
   appWise: Observable<fromApp.AppWise>;
   eventSearchText: Subject<string> = new Subject();
@@ -30,20 +30,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
   user: User;
   activeRoom: Room;
   unreadCount: number = 0;
+  allTags: { tag: string }[];
+  tags: string[] = [];
 
   _loading: boolean = false;
   _isAll: boolean = false;
 
-  @ViewChild('eventScroll') eventScroll: ElementRef;
+  // @ViewChild('eventScroll') eventScroll: ElementRef;
   @ViewChild('tabs', { static: false }) tabGroup: MatTabGroup;
+  @ViewChild('eventScroll') detailFilter: ElementRef;
+
+  showFilter: boolean;
 
   constructor(
     private store: Store<fromApp.AppState>,
     private router: Router,
     private eventService: EventService,
     private appService: AppService,
-    private roomService: RoomService,
-    private cdr: ChangeDetectorRef
+    private roomService: RoomService
   ) {
     this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
@@ -69,17 +73,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.activeRoom = p.activeRoom;
       }
     });
-  }
-
-  ngAfterViewInit() {
-    // if(this.eventScroll) {
-    //   (this.eventScroll.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
-    //     let scrollHeight = (this.eventScroll.nativeElement as HTMLLIElement).scrollHeight;
-    //     let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
-    //     let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
-    //     if (scrollHeight - (scrollTop + offsetHeight) < 1 ) { }
-    //   });
-    // }
+    let tagSub = this.eventService.getTags().subscribe((p: { tag: string }[]) => {
+      this.allTags = p;
+    })
+    this.subscription.add(tagSub);
   }
 
   ngOnDestroy() {
@@ -108,5 +105,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.tabGroup.selectedIndex = 0;
     this.store.dispatch(new AppAction.FilterEvent(event));
     this.roomService.changeRoom(event._id);
+  }
+
+  toggleFilter() {
+    this.showFilter = !this.showFilter;
+  }
+
+  addRemoveTag(tag: string) {
+    let value: string[] = this.tags;
+    let index = value.findIndex(p => p === tag);
+    if (index === -1) {
+      value.push(tag);
+      this.tags = value;
+    } else {
+      value.splice(index, 1);
+      this.tags = value;
+    }
+  }
+
+  isSelectedTag(tag: string) {
+    return (this.tags as string[]).find(p => p === tag);
+  }
+
+  search() {
+    this.toggleFilter();
   }
 }

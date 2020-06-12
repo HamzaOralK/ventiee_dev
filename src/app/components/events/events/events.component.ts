@@ -51,6 +51,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onJoin($event) {
     this.onJoinEvent.emit($event);
+    /** Virtual Scroll kendini yenilesin diye. */
     setTimeout(() => { window.dispatchEvent(new Event("resize"));}, 1000);
   }
 

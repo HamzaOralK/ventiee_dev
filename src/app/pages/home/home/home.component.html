@@ -20,13 +20,31 @@
                 <mat-icon>add</mat-icon>
                 <!-- {{'addEvent' | ml}} -->
               </button>
-              <mat-form-field class="searchBox">
+              <mat-form-field appearance="outline" class="searchBox">
                 <mat-label>{{'searchforanevent' | ml}}</mat-label>
                 <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
                 <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-form-field>
+              <br>
+            </div>
+            <div style="text-align: center; position: relative;" >
+              <span class="c-ptr" (click)="toggleFilter()">{{'openFilter' | ml}}</span>
+              <div #detailFilter class="detailFilter" [ngClass]="!showFilter ? 'hidden' : ''">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'startDate' | ml}}</mat-label>
+                  <input matInput [matDatepicker]="startDate" (click)="startDate.open()">
+                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                  <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
+                  <div *ngFor="let tagObject of allTags" class="tag c-ptr"
+                    [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}" (click)="addRemoveTag(tagObject.tag)">
+                    {{tagObject.tag}}</div>
+                </div>
+                <button mat-raised-button (click)="search()">{{'search' | ml}}</button>
+              </div>
             </div>
             <div class="events scroll" #eventScroll>
               <events *ngIf="(appWise | async).events" [events]="(appWise | async).events" style="display: block; height: 100%;" (onJoinEvent)="onJoinEvent($event)"></events>
