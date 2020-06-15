@@ -26,7 +26,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>{{'title'| ml}}</mat-label>
-          <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required>
+          <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required appLowerCase>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>{{'howmany' | ml}}</mat-label>
@@ -55,20 +55,21 @@
       <ng-template matStepLabel>{{'tags' | ml}}</ng-template>
       <div>
         <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
-            <div *ngFor="let tagObject of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}"
-              (click)="addRemoveTag(tagObject.tag)">{{tagObject.tag}}</div>
-          </div>
+          <div *ngFor="let tagObject of allTags" class="tag c-ptr"
+            [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}" (click)="addRemoveTag(tagObject.tag)">
+            {{tagObject.tag}}</div>
+        </div>
 
-          <div class="tagError">
-            {{'tagError' | ml}}
-          </div>
+        <div class="tagError">
+          {{'tagError' | ml}}
+        </div>
 
         <div class="actions">
           <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
-          <button mat-raised-button color="primary" *ngIf="eventType !== 'meeting'" [disabled]="!checkValid()" (click)="createEvent()">{{'createEvent' | ml}}</button>
-          <button mat-raised-button color="primary" *ngIf="eventType === 'meeting'" matStepperNext>{{'next' | ml}}</button>
-
-          <!-- <button mat-raised-button color="primary" matStepperNext>{{'next' | ml}}</button> -->
+          <button mat-raised-button color="primary" *ngIf="eventType !== 'meeting'" [disabled]="!checkValid()"
+            (click)="createEvent()">{{'createEvent' | ml}}</button>
+          <button mat-raised-button color="primary" *ngIf="eventType === 'meeting'"
+            matStepperNext>{{'next' | ml}}</button>
         </div>
       </div>
     </mat-step>
@@ -79,8 +80,8 @@
         <mat-form-field appearance="outline">
           <mat-label>{{'startTime' | ml}}</mat-label>
           <!-- <input matInput type="time"  placeholder="HH:mm"> -->
-            <input matInput formControlName="startTime" [ngxTimepicker]="startTime" [format]="24" readonly required>
-            <ngx-material-timepicker #startTime></ngx-material-timepicker>
+          <input matInput formControlName="startTime" [ngxTimepicker]="startTime" [format]="24" readonly required>
+          <ngx-material-timepicker #startTime></ngx-material-timepicker>
         </mat-form-field>
         <div class="space"></div>
         <mat-form-field appearance="outline">
@@ -105,8 +106,8 @@
         </mat-form-field>
         <div class="actions">
           <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
-          <button mat-raised-button color="primary" matStepperNext *ngIf="eventType === 'meeting'">{{'next' | ml}}</button>
-          <button mat-raised-button color="primary" *ngIf="eventType !== 'meeting'" [disabled]="!checkValid()" (click)="createEvent()">{{'createEvent' | ml}}</button>
+          <button mat-raised-button color="primary" matStepperNext
+            *ngIf="eventType === 'meeting'">{{'next' | ml}}</button>
         </div>
       </form>
     </mat-step>
@@ -120,29 +121,62 @@
         </mat-form-field>
         <div class="container" formGroupName="location">
           <h3>{{'address' | ml}}</h3>
+
+          <!--
+            <mat-form-field appearance="outline">
+              <mat-label>{{'city' | ml}}</mat-label>
+              <input matInput formControlName="city" appLowerCase required>
+            </mat-form-field>
+            -->
+
           <mat-form-field appearance="outline">
             <mat-label>{{'city' | ml}}</mat-label>
-            <input matInput formControlName="city" appLowerCase required>
+            <mat-select formControlName="city" (selectionChange)="cityChanged($event)">
+              <mat-option>&nbsp;</mat-option>
+              <mat-option *ngFor="let city of cities" [value]="city.name">
+                {{city.name}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
+
+
+
+
           <div class="space"></div>
+          <!--
+            <mat-form-field appearance="outline">
+              <mat-label>{{'district' | ml}}</mat-label>
+              <input matInput formControlName="district" appLowerCase required>
+            </mat-form-field>
+            -->
           <mat-form-field appearance="outline">
             <mat-label>{{'district' | ml}}</mat-label>
-            <input matInput formControlName="district" appLowerCase required>
+            <mat-select formControlName="district">
+              <mat-option>&nbsp;</mat-option>
+              <mat-option *ngFor="let district of districts" [value]="district.name">
+                {{district.name}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
           <div class="space"></div>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'lat' | ml}}</mat-label>
-            <input matInput formControlName="latitute" appLowerCase>
-          </mat-form-field>
-          <div class="space"></div>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'long' | ml}}</mat-label>
-            <input matInput formControlName="longtitute" appLowerCase>
-          </mat-form-field>
+
+
+          <!--
+            <mat-form-field appearance="outline">
+              <mat-label>{{'lat' | ml}}</mat-label>
+              <input matInput formControlName="latitute" appLowerCase>
+            </mat-form-field>
+            <div class="space"></div>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'long' | ml}}</mat-label>
+              <input matInput formControlName="longtitute" appLowerCase>
+            </mat-form-field>
+            -->
         </div>
         <div class="actions">
           <button mat-raised-button class="warning" matStepperPrevious>{{'back' | ml}}</button>
-          <button mat-raised-button color="primary" [disabled]="!checkValid()" (click)="createEvent()">{{'createEvent' | ml}}</button>
+          <button mat-raised-button color="primary" [disabled]="!checkValid()"
+            (click)="createEvent()">{{'createEvent' | ml}}</button>
         </div>
       </form>
     </mat-step>
@@ -255,12 +289,6 @@
           <div class="container" formGroupName="location">
             <h3>{{'address' | ml}}</h3>
 
-            <!--
-            <mat-form-field appearance="outline">
-              <mat-label>{{'city' | ml}}</mat-label>
-              <input matInput formControlName="city" appLowerCase required>
-            </mat-form-field>
-            -->
 
             <mat-form-field appearance="outline">
               <mat-label>{{'city' | ml}}</mat-label>

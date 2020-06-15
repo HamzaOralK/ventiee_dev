@@ -40,3 +40,12 @@ export enum EventType {
   meeting = 'meeting',
   conversation = 'conversation'
 }
+
+export class EventFilter {
+  constructor(public status: EventStatus = EventStatus.Active) { }
+  startDate: Date;
+  title: string;
+  district: string;
+  city: string;
+  tags: string[];
+}

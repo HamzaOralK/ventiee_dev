@@ -141,5 +141,7 @@
     {"key": "leaveQuestion", "value": "Ayrılmak istediğinize emin misiniz?"},
     {"key": "cancelQuestion", "value": "İptal etmek istediğinize emin misiniz?"},
     {"key": "openFilter", "value": "Filtreyi Aç."},
-    {"key": "search", "value": "Ara"}
+    {"key": "closeFilter", "value": "Filtreyi Kapat."},
+    {"key": "search", "value": "Ara"},
+    {"key": "clear", "value": "Temizle"}
 ]

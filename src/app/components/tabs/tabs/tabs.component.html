@@ -1,0 +1,9 @@
+<div #parentBody style="height: 100%; overflow: hidden; display: flex; flex-direction: column;">
+  <ul>
+    <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
+      <div *ngIf="tab.label">{{ tab.label }}</div>
+      <div *ngIf="tab.labelElement" [innerHTML]="tab.labelElement"></div>
+    </li>
+  </ul>
+  <ng-content></ng-content>
+</div>

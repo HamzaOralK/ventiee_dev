@@ -14,6 +14,7 @@ import { AppService } from 'src/app/app.service';
 import { Room } from 'src/app/dtos/room';
 import { MatTabGroup } from '@angular/material/tabs/tab-group';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
+import { EventFilter, EventStatus } from 'src/app/dtos/event';
 
 @Component({
   selector: "home",
@@ -21,7 +22,7 @@ import { RoomService } from 'src/app/services/dataServices/room/room.service';
   styleUrls: ["./home.component.scss"],
   // encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   auth: Observable<fromAuth.State>;
   appWise: Observable<fromApp.AppWise>;
   eventSearchText: Subject<string> = new Subject();
@@ -30,17 +31,17 @@ export class HomeComponent implements OnInit {
   user: User;
   activeRoom: Room;
   unreadCount: number = 0;
-  allTags: { tag: string }[];
-  tags: string[] = [];
 
   _loading: boolean = false;
   _isAll: boolean = false;
 
-  // @ViewChild('eventScroll') eventScroll: ElementRef;
+  @ViewChild('eventScroll') eventScroll: ElementRef;
   @ViewChild('tabs', { static: false }) tabGroup: MatTabGroup;
   @ViewChild('eventScroll') detailFilter: ElementRef;
 
   showFilter: boolean;
+  eventFilter: EventFilter;
+  searchText: string;
 
   constructor(
     private store: Store<fromApp.AppState>,
@@ -49,21 +50,27 @@ export class HomeComponent implements OnInit {
     private appService: AppService,
     private roomService: RoomService
   ) {
-    this.auth = this.store.select("authState");
     this.appWise = this.store.select("appWise");
-    this.auth.subscribe(p => {
-      this.user = p.user;
-    });
   }
 
   ngOnInit(): void {
+
+    this.eventFilter = new EventFilter(EventStatus.Active);
+
+    this.auth = this.store.select("authState");
+    this.auth.subscribe(p => {
+      this.user = p.user;
+      if (this.user) this.eventService.getEvents(undefined, this.eventFilter).subscribe();
+    });
+
     let eventSearchSubscription = this.eventSearchText
       .pipe(debounceTime(500))
       .subscribe(p => {
         if(p && p.length >= 3) {
-          this.eventService.getEvents(p).subscribe();
+          this.searchText = p;
+          this.eventService.getEvents(this.searchText, this.eventFilter).subscribe();
         } else if(p === "") {
-          this.eventService.getEvents().subscribe();
+          this.eventService.getEvents(undefined, this.eventFilter).subscribe();
         }
       });
     this.subscription.add(eventSearchSubscription);
@@ -73,10 +80,27 @@ export class HomeComponent implements OnInit {
         this.activeRoom = p.activeRoom;
       }
     });
-    let tagSub = this.eventService.getTags().subscribe((p: { tag: string }[]) => {
-      this.allTags = p;
-    })
-    this.subscription.add(tagSub);
+  }
+
+  ngAfterViewInit() {
+    if (this.eventScroll) {
+      (this.eventScroll.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
+        let scrollHeight = (this.eventScroll.nativeElement as HTMLLIElement).scrollHeight;
+        let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
+        let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
+        if (scrollHeight - (scrollTop + offsetHeight) < 1) {
+          if (!this._isAll) {
+            this._loading = true;
+            this.eventService.loadMoreEvents(this.searchText, this.eventFilter).subscribe((p) => {
+              if (p.length === 0) {
+                this._isAll = true;
+              }
+              this._loading = false;
+            });
+          }
+        }
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -111,23 +135,14 @@ export class HomeComponent implements OnInit {
     this.showFilter = !this.showFilter;
   }
 
-  addRemoveTag(tag: string) {
-    let value: string[] = this.tags;
-    let index = value.findIndex(p => p === tag);
-    if (index === -1) {
-      value.push(tag);
-      this.tags = value;
-    } else {
-      value.splice(index, 1);
-      this.tags = value;
-    }
-  }
-
-  isSelectedTag(tag: string) {
-    return (this.tags as string[]).find(p => p === tag);
-  }
-
-  search() {
+  onSearch(event:any) {
     this.toggleFilter();
+    console.log(event);
+    this.eventFilter = event;
+    this.eventService.getEvents(this.searchText, this.eventFilter).subscribe();
+  }
+
+  resize() {
+    setTimeout(() => { window.dispatchEvent(new Event("resize")); }, 1000);
   }
 }

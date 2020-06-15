@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Event, EventStatus } from '../../../dtos/event';
+import { Event, EventStatus, EventFilter } from '../../../dtos/event';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
@@ -58,7 +58,7 @@ export class EventService {
     });
   }
 
-  getEvents(search?: string, status: EventStatus = EventStatus.Active ) {
+  getEvents(search?: string, eventFilter?: EventFilter ) {
     this._isAll = false;
     let url = environment.serviceURL + "/events";
     let params: { pageNo: string; search?: string } = {
@@ -70,7 +70,7 @@ export class EventService {
     }
 
     return this.http
-      .post<Event[]>(url, { status }, {
+      .post<Event[]>(url, { ...eventFilter }, {
         params,
       })
       .pipe(
@@ -92,7 +92,7 @@ export class EventService {
       );
   }
 
-  loadMoreEvents(search?: string, status: EventStatus = EventStatus.Active) {
+  loadMoreEvents(search?: string, eventFilter?: EventFilter) {
     let url = environment.serviceURL + "/events";
     let params: { pageNo: string; search?: string } = {
       pageNo: this._pageNo.toString()
@@ -103,7 +103,7 @@ export class EventService {
     }
 
     return this.http
-      .post<Event[]>(url, {status}, {
+      .post<Event[]>(url, { ...eventFilter }, {
         params
       })
       .pipe(

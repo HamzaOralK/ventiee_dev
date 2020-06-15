@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { LowerCaseDirective } from './lower-case.directive';
 import { OnlyNumbersDirective } from './only-numbers.directive';
+import { ScrollRetainerDirective } from './scroll-retainer.directive';
 
 @NgModule({
   imports: [
@@ -8,11 +9,13 @@ import { OnlyNumbersDirective } from './only-numbers.directive';
   ],
   declarations: [
     LowerCaseDirective,
-    OnlyNumbersDirective
+    OnlyNumbersDirective,
+    ScrollRetainerDirective
   ],
   exports: [
     LowerCaseDirective,
-    OnlyNumbersDirective
+    OnlyNumbersDirective,
+    ScrollRetainerDirective
   ]
 })
 export class DirectivesModule { }

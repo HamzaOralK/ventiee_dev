@@ -1,0 +1,60 @@
+<div #detailFilter class="detailFilter" [ngClass]="!showFilter ? 'hidden' : ''">
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{'startDate' | ml}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>{{'startDate' | ml}}</mat-label>
+        <input matInput [matDatepicker]="startDate" (click)="startDate.open()" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+      </mat-form-field>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{'place' | ml}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'city' | ml}}</mat-label>
+        <mat-select (selectionChange)="cityChanged($event)" [formControl]="city">
+          <mat-option>&nbsp;</mat-option>
+          <mat-option *ngFor="let city of cities" [value]="city.name">
+            {{city.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{'district' | ml}}</mat-label>
+        <mat-select (selectionChange)="districtChanged($event)" [formControl]="district">
+          <mat-option>&nbsp;</mat-option>
+          <mat-option *ngFor="let district of districts" [value]="district.name">
+            {{district.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{'tags' | ml}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
+        <div *ngFor="let tagObject of allTags" class="tag c-ptr"
+          [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}" (click)="addRemoveTag(tagObject.tag)">
+          {{tagObject.tag}}
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <button mat-raised-button (click)="search()" style="margin-top: 5px;">{{'search' | ml}}</button>
+  <button mat-raised-button color="warn" (click)="clearSearch()" style="margin-left: 5px;">{{'clear' | ml}}</button>
+</div>

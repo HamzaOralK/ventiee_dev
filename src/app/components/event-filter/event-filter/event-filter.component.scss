@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
+@import 'src/mixins.scss';
+
+.detailFilter {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  width: 290px;
+  margin-left: -145px;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid mat-color($app-font, 400);
+  padding: 10px;
+}
+
+mat-expansion-panel mat-form-field {
+  width: 100%;
+}

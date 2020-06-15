@@ -18,17 +18,15 @@ import { ChatsModule } from 'src/app/components/chats/chats.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RoomModule } from '../room/room.module';
 import { MatBadgeModule } from '@angular/material/badge';
-import { PendingEventsComponent } from './pending-events/pending-events.component';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { EventFilterModule } from 'src/app/components/event-filter/event-filter.module';
+import { TabsModule } from 'src/app/components/tabs/tabs.module';
+// import { PendingEventsComponent } from './pending-events/pending-events.component';
 
 @NgModule({
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'tr-TR' },
-  ],
   declarations: [
     HomeComponent,
     LandingComponent,
-    PendingEventsComponent
+    // PendingEventsComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +36,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     HomeRoutingModule,
     PipesModule,
     DirectivesModule,
+    MatTabsModule,
     EventsModule,
     SignUpFormModule,
     MatInputModule,
@@ -47,8 +46,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     ChatsModule,
     RoomModule,
     MatBadgeModule,
-    MatDatepickerModule
-
+    EventFilterModule,
+    TabsModule
   ],
 })
 export class HomeModule { }

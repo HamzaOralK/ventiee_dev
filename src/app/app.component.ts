@@ -43,7 +43,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private appService: AppService,
-    private eventService: EventService,
     private store: Store<fromApp.AppState>,
   ) {}
 
@@ -51,8 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.auth = this.store.select("authState");
     this.auth.subscribe(p => {
       this.user = p.user;
-      if (this.user) this.eventService.getEvents().subscribe();
-    })
+    });
     this.checkLocalStorage();
 
     let body = document.body;

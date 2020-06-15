@@ -50,9 +50,7 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.auth.subscribe(p => {
-      if (p.user && p.token) {
-        // this.eventService.getEvents();
-      }
+      if (p.user && p.token) { }
     });
 
     this.roomSearchText
