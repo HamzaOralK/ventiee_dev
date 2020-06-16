@@ -1,22 +1,24 @@
 <ng-container *ngIf="user">
   <div class="page">
 
-    <mat-tab-group #tabs (selectedIndexChange)="resize()">
-      <mat-tab>
-    <!-- <tabs> -->
-      <!-- <tab> -->
-        <ng-template mat-tab-label>
+    <!-- <mat-tab-group #tabs (selectedIndexChange)="resize()"> -->
+      <!-- <mat-tab> -->
+    <tabs>
+      <tab>
+        <div tab-label>
           <span *ngIf="unreadCount > 0" matBadge="{{unreadCount}}" matBadgeOverlap="false">{{'myEvents' | ml}}</span>
           <span *ngIf="unreadCount === 0">{{'myEvents' | ml}}</span>
-        </ng-template>
+        </div>
+        <ng-container></ng-container>
+        <!---->
         <div class="rooms">
           <chats></chats>
           <room *ngIf="activeRoom" class="room"></room>
         </div>
-      </mat-tab>
-      <!-- </tab> -->
-      <!-- <tab label="{{'events' | ml}}"> -->
-      <mat-tab label="{{'events' | ml}}">
+      <!-- </mat-tab> -->
+      </tab>
+      <tab label="{{'events' | ml}}">
+      <!-- <mat-tab label="{{'events' | ml}}"> -->
         <div class="wholeEvents">
           <div style="height: 100%; display: flex; flex-direction: column; padding: 0 10px;">
             <div class="addEvent">
@@ -54,16 +56,16 @@
             </div>
           </div>
         </div>
-      <!-- </tab> -->
-    </mat-tab>
+      </tab>
+    <!-- </mat-tab> -->
 
       <!--
       <mat-tab label="{{'pendingEvents' | ml}}" *ngIf="user.userType === 'ADMIN'">
         <pending-events></pending-events>
       </mat-tab>
       -->
-    </mat-tab-group>
-    <!-- </tabs> -->
+    <!-- </mat-tab-group> -->
+    </tabs>
 
   </div>
 </ng-container>

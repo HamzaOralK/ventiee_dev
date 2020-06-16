@@ -16,6 +16,7 @@ import { TabLabelDirective } from 'src/app/shared/directives/tab-label.directive
     PipesModule,
     DirectivesModule
   ],
-  exports: [TabsComponent, TabComponent, TabLabelDirective]
+  exports: [TabsComponent, TabComponent, TabLabelDirective],
+  providers: [TabLabelDirective]
 })
 export class TabsModule { }

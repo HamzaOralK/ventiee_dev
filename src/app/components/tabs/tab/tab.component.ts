@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterContentInit, ContentChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, ContentChild, ViewContainerRef, ElementRef } from '@angular/core';
 import { TabsComponent } from '../tabs/tabs.component';
 import { TabLabelDirective } from 'src/app/shared/directives/tab-label.directive';
 
@@ -11,18 +11,20 @@ export class TabComponent implements OnInit, AfterContentInit {
   @Input() label;
   active: boolean;
 
-  @ContentChild(TabLabelDirective, { read: ViewContainerRef }) child: ViewContainerRef;
+  @ContentChild(TabLabelDirective, { read: ElementRef }) child: ElementRef;
 
   constructor(tabs: TabsComponent) {
-    tabs.addTab(this)
+    tabs.addTab(this);
   }
 
   ngAfterContentInit() {
-    if(this.child) console.log(this.child.element.nativeElement.innerHTML);
+    if(this.child) console.log(this.child);
   }
 
   get labelElement() {
-    if (this.child) return this.child.element.nativeElement.innerHTML;
+    if (this.child) {
+      return this.child.nativeElement.innerHTML;
+    }
   }
 
   ngOnInit(): void { }

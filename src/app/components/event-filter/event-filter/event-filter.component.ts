@@ -41,8 +41,6 @@ export class EventFilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tags = this.eventFilter.tags;
-
     let valSub = this.date.valueChanges.subscribe(p => {
       if(p) this.eventFilter.startDate = p.toDate();
     });
@@ -81,6 +79,7 @@ export class EventFilterComponent implements OnInit {
   }
 
   search() {
+    this.eventFilter.tags = this.tags;
     this.onSearch.emit(this.eventFilter);
   }
 

@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { MultiLanguagePipe } from './multi-language.pipe';
+import { NoSanitizePipe } from './no-sanitize.pipe';
 
 @NgModule({
   imports: [
     // dep modules
   ],
   declarations: [
-    MultiLanguagePipe
+    MultiLanguagePipe,
+    NoSanitizePipe
   ],
   exports: [
-    MultiLanguagePipe
+    MultiLanguagePipe, NoSanitizePipe
   ],
-  providers: [MultiLanguagePipe],
+  providers: [ MultiLanguagePipe, NoSanitizePipe ],
 })
 export class PipesModule { }
