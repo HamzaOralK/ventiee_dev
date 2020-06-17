@@ -4,7 +4,7 @@ import { Directive, ElementRef } from '@angular/core';
 export class TabLabelDirective {
 
   constructor(el: ElementRef<any>) {
-    el.nativeElement.style.display = 'none';
+    // el.nativeElement.style.display = 'none';
   }
 
 }

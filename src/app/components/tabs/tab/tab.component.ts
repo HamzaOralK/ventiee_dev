@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, AfterContentInit, ContentChild, ViewContainerRef, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, ElementRef, TemplateRef, AfterContentInit } from '@angular/core';
 import { TabsComponent } from '../tabs/tabs.component';
 import { TabLabelDirective } from 'src/app/shared/directives/tab-label.directive';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'tab',
@@ -10,20 +11,23 @@ import { TabLabelDirective } from 'src/app/shared/directives/tab-label.directive
 export class TabComponent implements OnInit, AfterContentInit {
   @Input() label;
   active: boolean;
+  labelTemplateRef: BehaviorSubject<any> = new BehaviorSubject(undefined);
 
-  @ContentChild(TabLabelDirective, { read: ElementRef }) child: ElementRef;
+  @ContentChild(TabLabelDirective, { read: TemplateRef }) child: TemplateRef<any>;
 
   constructor(tabs: TabsComponent) {
     tabs.addTab(this);
   }
 
   ngAfterContentInit() {
-    if(this.child) console.log(this.child);
+    if(this.child) {
+      this.labelTemplateRef.next(this.child);
+    }
   }
 
   get labelElement() {
     if (this.child) {
-      return this.child.nativeElement.innerHTML;
+      return this.child;
     }
   }
 

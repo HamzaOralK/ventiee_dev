@@ -1,8 +1,8 @@
 <div #parentBody style="height: 100%; overflow: hidden; display: flex; flex-direction: column;">
   <ul>
-    <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [ngClass]="this.selectedTab === tab ? 'selected' : ''">
-      <div *ngIf="tab.label">{{ tab.label }}</div>
-      <div *ngIf="getTabComplexLabel(tab)" [innerHTML]="getTabComplexLabel(tab) | noSanitize"></div>
+    <li *ngFor="let tab of tabs" (click)="selectTab(tab.tabComponent)" [ngClass]="selectedTabComponent === tab.tabComponent ? 'selected' : ''">
+      <div *ngIf="tab.tabComponent.label" #tabLabel>{{ tab.tabComponent.label }}</div>
+      <ng-container *ngIf="!tab.tabComponent.label" #tabLabel></ng-container>
     </li>
   </ul>
   <ng-content></ng-content>

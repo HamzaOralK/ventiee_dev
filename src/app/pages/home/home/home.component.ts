@@ -19,8 +19,7 @@ import { EventFilter, EventStatus } from 'src/app/dtos/event';
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
-  // encapsulation: ViewEncapsulation.None
+  styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   auth: Observable<fromAuth.State>;
@@ -66,10 +65,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
     let eventSearchSubscription = this.eventSearchText
       .pipe(debounceTime(500))
       .subscribe(p => {
+        this._isAll = false;
         if(p && p.length >= 3) {
           this.searchText = p;
           this.eventService.getEvents(this.searchText, this.eventFilter).subscribe();
         } else if(p === "") {
+          this.searchText = undefined;
           this.eventService.getEvents(undefined, this.eventFilter).subscribe();
         }
       });
@@ -107,6 +108,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.subscription.unsubscribe();
   }
 
+  scrollTop() {
+    (this.eventScroll.nativeElement as HTMLElement).scrollTo(0,0);
+  }
+
   onChange(event: any) {
     this.eventSearchText.next(event.target.value);
   }
@@ -136,9 +141,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onSearch(event:any) {
+    this._loading = true;
     this.toggleFilter();
     this.eventFilter = event;
-    this.eventService.getEvents(this.searchText, this.eventFilter).subscribe();
+    this.eventService.getEvents(this.searchText, this.eventFilter).subscribe(p => {
+      this._isAll = false;
+      this.scrollTop();
+    });
   }
 
   resize() {

@@ -20,7 +20,7 @@ export class EventFilterComponent implements OnInit {
   @Output('onSearch') onSearch: EventEmitter<any> = new EventEmitter();
 
   allTags: { tag: string }[];
-  tags: string[] = [];
+  tags: string[];
   date: FormControl = new FormControl();
   city: FormControl = new FormControl();
   district: FormControl = new FormControl();
@@ -29,8 +29,6 @@ export class EventFilterComponent implements OnInit {
   states: any[];
   cities: { name: string, city_code: string }[] = [];
   districts: { id: number, latitude: string, longitude: string, name: string }[] = [];
-
-
 
 
   constructor(
