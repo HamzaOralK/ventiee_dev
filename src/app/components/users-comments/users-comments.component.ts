@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { UserComment } from 'src/app/dtos/user';
 
 @Component({
   selector: 'users-comments',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class UsersCommentsComponent implements OnInit {
 
-  @Input() userComments: Comment[];
+  @Input() userComments: UserComment[];
 
   constructor() { }
 

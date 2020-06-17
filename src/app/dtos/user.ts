@@ -25,6 +25,7 @@ export class User {
 export class UserComment {
   event: Event;
   user: User;
+  date: Date;
   comment: string;
   rating: number;
 }
