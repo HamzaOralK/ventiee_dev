@@ -5,7 +5,7 @@ import { TabComponent } from './tab/tab.component';
 
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
-import { TabLabelDirective } from 'src/app/shared/directives/tab-label.directive';
+import { TabLabelDirective } from 'src/app/components/tabs/tab-label.directive';
 
 
 

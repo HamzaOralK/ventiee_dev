@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ContentChild, ElementRef, TemplateRef, AfterContentInit } from '@angular/core';
 import { TabsComponent } from '../tabs/tabs.component';
-import { TabLabelDirective } from 'src/app/shared/directives/tab-label.directive';
+import { TabLabelDirective } from 'src/app/components/tabs/tab-label.directive';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
