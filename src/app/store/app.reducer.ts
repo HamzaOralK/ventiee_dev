@@ -19,13 +19,15 @@ export const appReducer: ActionReducerMap < AppState > = {
 export interface AppWise {
   leftNavigationOpen: boolean,
   roomNavigationOpen: boolean,
-  events: Event[]
+  events: Event[],
+  history: Event[]
 };
 
 export const initialState: AppWise = {
   leftNavigationOpen: false,
   roomNavigationOpen: false,
-  events: []
+  events: [],
+  history: []
 }
 
 export function appWiseReducer(state = initialState, action: AppActions.AppActions) {
@@ -52,6 +54,16 @@ export function appWiseReducer(state = initialState, action: AppActions.AppActio
       return {
         ...state,
         events: [...state.events, ...action.payload]
+      }
+    case AppActions.GET_HISTORY_EVENTS:
+      return {
+        ...state,
+        history: action.payload
+      }
+    case AppActions.LOAD_MORE_HISTORY_EVENTS:
+      return {
+        ...state,
+        history: [...state.history, ...action.payload]
       }
     case AppActions.ADD_EVENT:
       return {

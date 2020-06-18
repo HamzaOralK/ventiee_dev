@@ -4,6 +4,8 @@ export const TOGGLE_LEFT_NAV = 'TOGGLE_LEFT_NAV';
 export const TOGGLE_ROOM_NAV = 'TOGGLE_ROOM_NAV';
 export const GET_EVENTS = 'GET_EVENTS';
 export const LOAD_MORE_EVENTS = 'LOAD_MORE_EVENTS';
+export const GET_HISTORY_EVENTS = 'GET_HISTORY_EVENTS';
+export const LOAD_MORE_HISTORY_EVENTS = 'LOAD_MORE_HISTORY_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
 export const FILTER_EVENT = 'FILTER_EVENT';
 
@@ -37,4 +39,14 @@ export class FilterEvent implements Action {
   constructor(public payload: Partial<Event>) { }
 }
 
-export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | AddEvent | FilterEvent;
+export class GetHistoryEvents implements Action {
+  readonly type = GET_HISTORY_EVENTS;
+  constructor(public payload: Event[]) { }
+}
+
+export class LoadMoreHistoryEvents implements Action {
+  readonly type = LOAD_MORE_HISTORY_EVENTS;
+  constructor(public payload: Event[]) { }
+}
+
+export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | GetHistoryEvents | LoadMoreHistoryEvents | AddEvent | FilterEvent;

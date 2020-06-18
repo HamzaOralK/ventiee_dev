@@ -19,6 +19,7 @@ export class Event {
   type: EventType;
   imageURI?: string;
   base64: any;
+  comments: EventComment[];
 }
 
 export enum EventStatus {
@@ -42,10 +43,18 @@ export enum EventType {
 }
 
 export class EventFilter {
-  constructor(public status: EventStatus = EventStatus.Active) { }
   startDate: Date;
   title: string;
   district: string;
   city: string;
   tags: string[];
+  status: EventStatus;
+}
+
+export class EventComment {
+  _id: string;
+  user: User;
+  date: Date;
+  comment: string;
+  rating: number;
 }

@@ -58,11 +58,11 @@ export class EventService {
     });
   }
 
-  getEvents(search?: string, eventFilter?: EventFilter ) {
+  getEvents(pageNo: number = 1, search?: string, eventFilter?: EventFilter ) {
     this._isAll = false;
     let url = environment.serviceURL + "/events";
     let params: { pageNo: string; search?: string } = {
-      pageNo: "1",
+      pageNo: pageNo.toString() ,
     };
 
     if (search) {
@@ -76,46 +76,11 @@ export class EventService {
       .pipe(
         map((result: any) => {
           if (result) {
-            this._pageNo = 2;
             let r = result.filter(
               (elem) => !this.joinedRooms.find(({ _id }) => elem._id === _id)
             );
-            this.store.dispatch(new AppActitons.GetEvents(Object.values(r)));
-          }
-        }),
-        catchError((error) => {
-          if (error.status === 401) {
-            this.authService.logoutUser();
-          }
-          throw error;
-        })
-      );
-  }
-
-  loadMoreEvents(search?: string, eventFilter?: EventFilter) {
-    let url = environment.serviceURL + "/events";
-    let params: { pageNo: string; search?: string } = {
-      pageNo: this._pageNo.toString()
-    };
-
-    if (search) {
-      params.search = search;
-    }
-
-    return this.http
-      .post<Event[]>(url, { ...eventFilter }, {
-        params
-      })
-      .pipe(
-        map((result: any) => {
-          if (result) {
-            let r = result.filter(
-              (elem) => !this.joinedRooms.find(({ _id }) => elem._id === _id)
-            );
-            this.store.dispatch(
-              new AppActitons.LoadMoreEvents(Object.values(r))
-            );
-            if (r && r.length > 0) this._pageNo++;
+            if(pageNo === 1) this.store.dispatch(new AppActitons.GetEvents(Object.values(r)));
+            else if (pageNo > 1) this.store.dispatch(new AppActitons.LoadMoreEvents(Object.values(r)));
             return r;
           }
         }),
@@ -173,19 +138,25 @@ export class EventService {
 
   /** Past Events Section */
 
-  getPastEventsByUserId(pageNo: number, search?: string, eventFilter?: EventFilter) {
-    let url = environment.serviceURL + "/jUser/pastEvents/:userId ";
+  getHistoryEventsOfUser(pageNo: number, search?: string) {
+    let url = environment.serviceURL + "/jUser/pastEvents/" + this.user._id;
     let params: { pageNo: string; search?: string } = {
       pageNo: pageNo.toString(),
     };
 
+    if (search) {
+      params.search = search;
+    }
+
     return this.http
-      .post<Event[]>(url, { status }, {
+      .post<Event[]>(url, { }, {
         params,
       })
       .pipe(
         map((result: any) => {
           if (result) {
+            if (pageNo === 1) this.store.dispatch(new AppActitons.GetHistoryEvents(Object.values(result)));
+            else if (pageNo > 1) this.store.dispatch(new AppActitons.LoadMoreHistoryEvents(Object.values(result)));
             return result;
           }
         }),
@@ -197,6 +168,6 @@ export class EventService {
         })
       );
   }
-  /** ////Pending Events Section */
+  /******************* Past Events Section */
 
 }

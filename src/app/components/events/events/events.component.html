@@ -1,9 +1,8 @@
 <div class="wholeEvents">
-  <div style="display: flex; flex-direction: column; padding: 0 10px;">
+  <div style="display: flex; flex-direction: column; padding: 0 10px;" *ngIf="type === 'all' || type === 'history'">
     <div class="addEvent">
       <button class="add" mat-fab color="primary" (click)="createEvent()">
         <mat-icon>add</mat-icon>
-        <!-- {{'addEvent' | ml}} -->
       </button>
       <mat-form-field appearance="outline" class="searchBox">
         <mat-label>{{'searchforanevent' | ml}}</mat-label>
@@ -14,21 +13,24 @@
       </mat-form-field>
       <br>
     </div>
-  </div>
-  <div style="text-align: center; position: relative;">
-    <span class="c-ptr" (click)="toggleFilter()">{{!showFilter ? ('openFilter' | ml) : ('closeFilter' | ml)}}</span>
-    <!-- <span class="c-ptr" (click)="toggleFilter()">{{'openFilter' | ml}}</span> -->
-    <event-filter [showFilter]="showFilter" (onSearch)="onSearch($event)" [(eventFilter)]="eventFilter">
-    </event-filter>
+    <div style="text-align: center; position: relative;">
+      <span class="c-ptr" (click)="toggleFilter()">{{!showFilter ? ('openFilter' | ml) : ('closeFilter' | ml)}}</span>
+      <event-filter [type]="type" [showFilter]="showFilter" (onSearch)="onSearch($event)" [(eventFilter)]="eventFilter">
+      </event-filter>
+    </div>
   </div>
   <div class="events scroll" #eventScroll>
-    <!-- <events *ngIf="(appWise | async).events.length > 0" [events]="(appWise | async).events"
-      style="display: block; height: 100%;" (onJoinEvent)="onJoinEvent($event)"></events> -->
     <mat-accordion>
-      <event-line *ngFor="let event of events" [event]="event" (onJoin)="onJoin($event)"></event-line>
+      <event-line *ngFor="let event of events" [event]="event" [type]="type" (onJoin)="onJoin($event)"></event-line>
     </mat-accordion>
+
+
+
+
+
+
     <mat-spinner *ngIf="_loading"></mat-spinner>
-    <mat-card *ngIf="events.length === 0">
+    <mat-card *ngIf="events && events.length === 0">
       {{'noEventError' | ml}}
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="createEvent()">{{'createEvent' | ml}}</button>

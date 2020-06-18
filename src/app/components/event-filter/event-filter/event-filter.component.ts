@@ -15,6 +15,7 @@ export class EventFilterComponent implements OnInit {
 
   subscription: Subscription;
 
+  @Input('type') type: string;
   @Input('showFilter') showFilter: boolean;
   @Input('eventFilter') eventFilter: EventFilter;
   @Output('onSearch') onSearch: EventEmitter<any> = new EventEmitter();
@@ -110,7 +111,8 @@ export class EventFilterComponent implements OnInit {
     this.city.setValue(undefined);
     this.district.setValue(undefined);
     this.tags = undefined;
-    this.eventFilter = new EventFilter(EventStatus.Active);
+    this.eventFilter = new EventFilter();
+    if(this.type !== 'history') this.eventFilter.status = EventStatus.Active;
     this.onSearch.emit(this.eventFilter);
   }
 

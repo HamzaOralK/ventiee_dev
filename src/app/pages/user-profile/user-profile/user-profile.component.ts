@@ -40,7 +40,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
           let comment = new UserComment();
           comment.user = this.user;
           comment.comment = 'Bu bir commenttir.';
-          comment.event = this.events[0];
+          // comment.event = this.events[0];
           comment.rating = 5;
           this.comments = [];
           this.comments.push(comment);

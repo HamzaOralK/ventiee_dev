@@ -86,9 +86,9 @@ mat-expansion-panel {
     flex-direction: column;
   }
 
-  @include media-breakpoint(sm) {
-    flex-direction: column;
-  }
+  // @include media-breakpoint(sm) {
+  //   flex-direction: column;
+  // }
 
   button {
     margin-left: 15px;
@@ -98,10 +98,10 @@ mat-expansion-panel {
       margin-bottom: 5px;
     }
 
-    @include media-breakpoint(sm) {
-      margin-left: 0;
-      margin-bottom: 5px;
-    }
+    // @include media-breakpoint(sm) {
+    //   margin-left: 0;
+    //   margin-bottom: 5px;
+    // }
   }
 
 }

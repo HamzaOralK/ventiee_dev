@@ -1,4 +1,4 @@
-<mat-expansion-panel>
+<mat-expansion-panel [disabled]="type === 'history'">
   <mat-expansion-panel-header [collapsedHeight]="setHeight()" [expandedHeight]="setHeight()">
     <mat-panel-title>
       <div style="display: flex; flex-direction: column;">
@@ -23,7 +23,7 @@
       </div>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <div>
+  <div *ngIf="type !== 'history'">
     <div class="line">
       <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex; align-items: center;">
         <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
@@ -72,6 +72,5 @@
         <span *ngIf="event.district">, {{event.district}}</span>
       </div>
     </div>
-
   </div>
 </mat-expansion-panel>

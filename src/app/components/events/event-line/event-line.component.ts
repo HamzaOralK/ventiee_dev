@@ -18,6 +18,7 @@ import { ModalType } from '../../generic-modal/generic-modal.component';
 export class EventLineComponent implements OnInit {
   @Output("onJoin") onJoin = new EventEmitter();
 
+  @Input() type: string;
   @Input() event: Event;
   smallScreen: boolean;
 
