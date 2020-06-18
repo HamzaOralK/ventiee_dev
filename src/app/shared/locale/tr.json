@@ -140,9 +140,13 @@
     {"key": "deleteQuestion", "value": "Bu etkinliği silmek istediğinize emin misiniz?"},
     {"key": "leaveQuestion", "value": "Ayrılmak istediğinize emin misiniz?"},
     {"key": "cancelQuestion", "value": "İptal etmek istediğinize emin misiniz?"},
+    {"key": "completeQuestion", "value": "Ventiee'yi tamamlamak istediğinize emin misiniz?"},
     {"key": "openFilter", "value": "Filtreyi Aç."},
     {"key": "closeFilter", "value": "Filtreyi Kapat."},
     {"key": "search", "value": "Ara"},
     {"key": "clear", "value": "Temizle"},
-    {"key": "history", "value": "Geçmiş"}
+    {"key": "history", "value": "Geçmiş"},
+    {"key": "updateError", "value": "Güncelleme yaparken bir hata oluştu."},
+    {"key": "complete", "value": "Tamamla"}
+
 ]

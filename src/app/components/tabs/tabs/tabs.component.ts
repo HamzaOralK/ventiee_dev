@@ -74,4 +74,17 @@ export class TabsComponent implements OnInit, AfterViewChecked {
     tab.active = true;
   }
 
+  changeSelectedTab(index: number) {
+    this.selectedIndex = index;
+    this.tabs.forEach((tab) => {
+      tab.tabComponent.active = false;
+    });
+    this.domTabs.forEach((domtab) => {
+      domtab.style.display = 'none';
+    });
+    this.domTabs[index].style.display = '';
+    this.tabs[index].tabComponent.active = true;
+    this.selectedTabComponent = this.tabs[index].tabComponent;
+  }
+
 }

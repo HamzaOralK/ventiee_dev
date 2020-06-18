@@ -1,4 +1,5 @@
 <div>
+  <loading-overlay *ngIf="isLoading"></loading-overlay>
   <image-cropper
     [imageChangedEvent]="imageChangedEvent"
     [imageBase64]="imageBase64"

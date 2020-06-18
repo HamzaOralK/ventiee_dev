@@ -12,6 +12,7 @@ export class GenericImageCropperComponent implements OnInit {
   croppedImage: any = '';
   imageBase64: any;
   aspectRatio: number = 4/3;
+  isLoading: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<GenericImageCropperComponent>,
@@ -34,9 +35,11 @@ export class GenericImageCropperComponent implements OnInit {
   }
   imageLoaded() {
     // show cropper
+    // this.showCropper = true;
   }
   cropperReady() {
     // cropper ready
+    this.isLoading = false;
   }
   loadImageFailed() {
     // show message

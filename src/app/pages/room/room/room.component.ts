@@ -229,6 +229,12 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
   }
 
+  completeEvent() {
+    this.appService.openModal(undefined, 'completeQuestion', undefined, ModalType.Confirmation).subscribe(p => {
+      if (p) this.roomService.completeEvent(this.activeRoom._id);
+    });
+  }
+
   getColor(user: User) {
     if(this.activeRoom.users && user && user._id) {
       let userCurrent = this.activeRoom.users.find(u => u.user._id === user._id);

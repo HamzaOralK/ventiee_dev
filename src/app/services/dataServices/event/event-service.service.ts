@@ -171,9 +171,10 @@ export class EventService {
     return this.http.get(url);
   }
 
-  /** Pending Events Section */
-  getPendingEvents(pageNo: number, status: EventStatus = EventStatus.Pending) {
-    let url = environment.serviceURL + "/events";
+  /** Past Events Section */
+
+  getPastEventsByUserId(pageNo: number, search?: string, eventFilter?: EventFilter) {
+    let url = environment.serviceURL + "/jUser/pastEvents/:userId ";
     let params: { pageNo: string; search?: string } = {
       pageNo: pageNo.toString(),
     };

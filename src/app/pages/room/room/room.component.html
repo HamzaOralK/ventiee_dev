@@ -10,9 +10,13 @@
         <mat-icon>clear</mat-icon>
         {{'quit' | ml}}
       </button>
-      <button mat-raised-button color="warn" (click)="cancelEvent()" *ngIf="isModerator()">
+      <button mat-raised-button color="warn" (click)="cancelEvent()" *ngIf="isModerator() && activeRoom.type==='meeting'">
         <mat-icon>block</mat-icon>
         {{'cancel' | ml}}
+      </button>
+      <button mat-raised-button color="warn" (click)="completeEvent()" *ngIf="isModerator() && activeRoom.type==='conversation'">
+        <mat-icon>block</mat-icon>
+        {{'complete' | ml}}
       </button>
     </div>
     <mat-list>

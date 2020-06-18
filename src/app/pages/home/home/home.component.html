@@ -1,9 +1,6 @@
 <ng-container *ngIf="user">
   <div class="page">
-
-    <!-- <mat-tab-group #tabs (selectedIndexChange)="resize()"> -->
-      <!-- <mat-tab> -->
-    <tabs>
+    <tabs #tabs>
       <tab>
         <ng-template tab-label>
           <div>
@@ -12,65 +9,16 @@
           </div>
         </ng-template>
         <ng-container></ng-container>
-        <!---->
         <div class="rooms">
           <chats></chats>
           <room *ngIf="activeRoom" class="room"></room>
         </div>
-      <!-- </mat-tab> -->
       </tab>
       <tab label="{{'events' | ml}}">
-      <!-- <mat-tab label="{{'events' | ml}}"> -->
-        <div class="wholeEvents">
-          <div style="height: 100%; display: flex; flex-direction: column; padding: 0 10px;">
-            <div class="addEvent">
-              <button class="add" mat-fab color="primary" (click)="createEvent()">
-                <mat-icon>add</mat-icon>
-                <!-- {{'addEvent' | ml}} -->
-              </button>
-              <mat-form-field appearance="outline" class="searchBox">
-                <mat-label>{{'searchforanevent' | ml}}</mat-label>
-                <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
-                <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
-                  <mat-icon>close</mat-icon>
-                </button>
-              </mat-form-field>
-              <br>
-            </div>
-            <div style="text-align: center; position: relative;" >
-              <span class="c-ptr" (click)="toggleFilter()">{{!showFilter ? ('openFilter' | ml) : ('closeFilter' | ml)}}</span>
-              <!-- <span class="c-ptr" (click)="toggleFilter()">{{'openFilter' | ml}}</span> -->
-              <event-filter
-                [showFilter]="showFilter"
-                (onSearch)="onSearch($event)"
-                [(eventFilter)]="eventFilter">
-              </event-filter>
-            </div>
-            <div class="events scroll" #eventScroll>
-              <events *ngIf="(appWise | async).events.length > 0" [events]="(appWise | async).events" style="display: block; height: 100%;" (onJoinEvent)="onJoinEvent($event)"></events>
-              <mat-spinner *ngIf="_loading"></mat-spinner>
-              <mat-card *ngIf="(appWise | async).events.length === 0">
-                {{'noEventError' | ml}}
-                <mat-card-actions>
-                  <button mat-raised-button color="primary" (click)="createEvent()">{{'createEvent' | ml}}</button>
-                </mat-card-actions>
-              </mat-card>
-            </div>
-          </div>
-        </div>
+        <events [events]="(appWise | async).events" style="display: block; height: 100%;" (onJoinEvent)="onJoinEvent()"></events>
       </tab>
-      <tab label="{{'history' | ml}}">
-      </tab>
-    <!-- </mat-tab> -->
-
-      <!--
-      <mat-tab label="{{'pendingEvents' | ml}}" *ngIf="user.userType === 'ADMIN'">
-        <pending-events></pending-events>
-      </mat-tab>
-      -->
-    <!-- </mat-tab-group> -->
+      <tab label="{{'history' | ml}}"></tab>
     </tabs>
-
   </div>
 </ng-container>
 <ng-container *ngIf="!user">

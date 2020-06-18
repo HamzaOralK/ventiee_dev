@@ -17,7 +17,7 @@ import { Subscription, Subject } from 'rxjs';
 import { NotificationService } from '../../notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
-import { tap, catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
 
 const MESSAGE_TO_CLIENT = 'messageToClient';
@@ -25,13 +25,13 @@ const JOIN_ROOM = 'joinRoom';
 const LEAVE_ROOM = 'leaveRoom';
 const KICK_PERSON = 'kickPerson';
 const CANCEL_EVENT = 'cancelEvent';
+const COMPLETE_EVENT = 'completeEvent';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class RoomService implements OnDestroy {
-
   socket: SocketIOClient.Socket;
   rooms: Room[];
   activeRoom: Room;
@@ -58,30 +58,33 @@ export class RoomService implements OnDestroy {
   ) {
     this.msg = new Subject();
     this.subscription = new Subscription();
-    this.store.select('roomState').subscribe(p => {
-      if(p) {
+    this.store.select("roomState").subscribe((p) => {
+      if (p) {
         this.activeRoom = p.activeRoom;
         this.rooms = p.rooms;
         this.calcUnreadMessages();
       }
     });
 
-    this.store.select('authState').subscribe(p => {
+    this.store.select("authState").subscribe((p) => {
       this.user = p.user;
 
-      if(this.user && !this.connected) {
+      if (this.user && !this.connected) {
         this.getRooms();
         this.socket = io(environment.serviceURL, {
           reconnection: true,
           reconnectionDelay: 1000,
           reconnectionDelayMax: 5000,
-          reconnectionAttempts: Infinity
+          reconnectionAttempts: Infinity,
         });
-        this.getMessagesSubscription = this.getMessages().subscribe((message: string) => { }, e => console.log(e));
+        this.getMessagesSubscription = this.getMessages().subscribe(
+          (message: string) => {},
+          (e) => console.log(e)
+        );
         this.subscription.add(this.getMessagesSubscription);
         this.connected = true;
       }
-    })
+    });
 
     this.url = environment.serviceURL;
   }
@@ -93,22 +96,29 @@ export class RoomService implements OnDestroy {
 
   getMessages() {
     return Observable.create((observer) => {
-      if(this.socket) {
+      if (this.socket) {
         this.socket.on(MESSAGE_TO_CLIENT, (message: Object) => {
           this.insertMessage(message, observer);
         });
-        this.socket.on(JOIN_ROOM, (message: any)=> {
+        this.socket.on(JOIN_ROOM, (message: any) => {
           this.insertMessage(message, observer);
         });
         this.socket.on(LEAVE_ROOM, (message: any) => {
           this.processLeaveRoom(message, observer);
         });
-        this.socket.on(KICK_PERSON, (message: {personToKick: string, roomToLeave: string}) => {
-          if (message.personToKick === this.user._id) this.processKick(message.roomToLeave, message.personToKick);
-        });
+        this.socket.on(
+          KICK_PERSON,
+          (message: { personToKick: string; roomToLeave: string }) => {
+            if (message.personToKick === this.user._id)
+              this.processKick(message.roomToLeave, message.personToKick);
+          }
+        );
         this.socket.on(CANCEL_EVENT, (message) => {
-          console.log(message.message)
           this.processCancelEvent(message.message);
+        });
+        this.socket.on(COMPLETE_EVENT, (message) => {
+          console.log(message);
+          this.processCompleteEvent(message.message);
         })
       }
     });
@@ -116,27 +126,55 @@ export class RoomService implements OnDestroy {
 
   private processLeaveRoom(message: any, observer: any) {
     this.insertMessage(message, observer);
-    if (message["message"].type === MessageType.KickUser && (message["message"] as MMessage).roomUser.user._id === this.user._id) {
-      let room = this.rooms.find(r => r._id === (message["message"] as MMessage).eventId);
+    if (
+      message["message"].type === MessageType.KickUser &&
+      (message["message"] as MMessage).roomUser.user._id === this.user._id
+    ) {
+      let room = this.rooms.find(
+        (r) => r._id === (message["message"] as MMessage).eventId
+      );
       this.notificationService.notify(room.title + " Event'inden kovuldun.");
       this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
-      if (this.router.url === '/room/' + (message["message"] as MMessage).eventId) {
+      if (
+        this.router.url ===
+        "/room/" + (message["message"] as MMessage).eventId
+      ) {
         this.router.navigate(["/home"]);
       }
     }
   }
 
   private insertMessage(message: Object, observer: any) {
-    let incMessage = message['message'] as MMessage;
-    let room = this.rooms.find(p => p._id === incMessage.eventId);
-    if(room) {
-      if(incMessage.roomUser.user._id !== this.user._id) this.alertService.play();
+    let incMessage = message["message"] as MMessage;
+    let room = this.rooms.find((p) => p._id === incMessage.eventId);
+    if (room) {
+      if (incMessage.roomUser.user._id !== this.user._id)
+        this.alertService.play();
       /** roomUser kendi mesajından kendisi unreadMessages arttırmasın diye yollanıyor. */
-      this.roomStore.dispatch(new RoomAction.SendMessage({ room: room, roomUser: {user: this.user}, message: [incMessage] }));
+      this.roomStore.dispatch(
+        new RoomAction.SendMessage({
+          room: room,
+          roomUser: { user: this.user },
+          message: [incMessage],
+        })
+      );
       if (incMessage.type === MessageType.NewUser) {
-        this.roomStore.dispatch(new RoomAction.InsertUser({ roomId: room._id, roomUser: message["message"].roomUser }));
-      } else if (incMessage.type === MessageType.LeaveRoom || incMessage.type === MessageType.KickUser) {
-        this.roomStore.dispatch(new RoomAction.KickUser({ room, roomUserId: message["message"].roomUser.user._id }));
+        this.roomStore.dispatch(
+          new RoomAction.InsertUser({
+            roomId: room._id,
+            roomUser: message["message"].roomUser,
+          })
+        );
+      } else if (
+        incMessage.type === MessageType.LeaveRoom ||
+        incMessage.type === MessageType.KickUser
+      ) {
+        this.roomStore.dispatch(
+          new RoomAction.KickUser({
+            room,
+            roomUserId: message["message"].roomUser.user._id,
+          })
+        );
       }
       observer.next(message);
       this.msg.next(message as MMessage);
@@ -144,36 +182,38 @@ export class RoomService implements OnDestroy {
   }
 
   sendMessage(room: Room, message: MMessage) {
-    this.socket.emit('message', message);
+    this.socket.emit("message", message);
   }
 
   changeRoom(roomId: string) {
-    this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({roomId}));
-    if(this.rooms) {
-      let room = this.rooms.find(r => r._id === roomId);
+    this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({ roomId }));
+    if (this.rooms) {
+      let room = this.rooms.find((r) => r._id === roomId);
       this.resetRoomUnreadCount(room);
-      if(room && !room.users) {
+      if (room && !room.users) {
         this.loadMessages(room);
-        this.getRoomUsers(room).subscribe();;
+        this.getRoomUsers(room).subscribe();
       }
     }
   }
 
   emptyActiveRoom() {
-    this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({roomId: undefined}))
+    this.roomStore.dispatch(
+      new RoomAction.ChangeActiveRoom({ roomId: undefined })
+    );
   }
 
   joinRoom(room: Room) {
-    let url = environment.serviceURL + '/jUser/add';
+    let url = environment.serviceURL + "/jUser/add";
 
     let postObj = {
       eventId: room._id,
       userId: this.user._id,
-      joinDate: new Date()
-    }
+      joinDate: new Date(),
+    };
 
     return this.http.post<any>(url, postObj).pipe(
-      tap(p => {
+      tap((p) => {
         this.roomStore.dispatch(new RoomAction.JoinRoom({ room: p.obj }));
         this.joinSocketRoom(room._id, true);
       })
@@ -181,19 +221,32 @@ export class RoomService implements OnDestroy {
   }
 
   getRooms() {
-    let url = environment.serviceURL + "/jUser/getEvents/" + this.authService.user._id;
-    this.http.get<any>(url).subscribe(res => {
-      let rooms = res as Room[];
-      this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
-      rooms.forEach(r => {
-        this.joinSocketRoom(r._id);
-      });
-    }, error => {
-      this.authService.logoutUser();
-    });
+    let url =
+      environment.serviceURL + "/jUser/getEvents/" + this.authService.user._id;
+    this.http.get<any>(url).subscribe(
+      (res) => {
+        let rooms = res as Room[];
+        this.roomStore.dispatch(new RoomAction.GetRooms({ rooms }));
+        rooms.forEach((r) => {
+          this.joinSocketRoom(r._id);
+        });
+      },
+      (error) => {
+        this.authService.logoutUser();
+      }
+    );
   }
 
-  formatLoadedMessages(p: {_id: string, eventId: string, messageDate: string, text: string, userId: string, userName: string, type: number, user: User}) {
+  formatLoadedMessages(p: {
+    _id: string;
+    eventId: string;
+    messageDate: string;
+    text: string;
+    userId: string;
+    userName: string;
+    type: number;
+    user: User;
+  }) {
     let m = new MMessage();
     m._id = p._id;
     m.eventId = p.eventId;
@@ -209,56 +262,72 @@ export class RoomService implements OnDestroy {
   getRoomUsers(room: Room) {
     let url = environment.serviceURL + "/jUser/get/" + room._id;
     return this.http.get<RoomUser[]>(url).pipe(
-      tap(p => {
-        this.roomStore.dispatch(new RoomAction.SetRoomUsers({ room: room, roomUsers: p }))
+      tap((p) => {
+        this.roomStore.dispatch(
+          new RoomAction.SetRoomUsers({ room: room, roomUsers: p })
+        );
       })
     );
   }
 
-  kickUser(eventId: string, user: {_id: string, nickname: string}) {
+  kickUser(eventId: string, user: { _id: string; nickname: string }) {
     let url = environment.serviceURL + "/jUser/kick";
-    let sendObj = {eventId, userId: user._id}
-    this.http.post(url, sendObj).subscribe(p => {
-      let room = this.rooms.find(p => p._id === eventId);
+    let sendObj = { eventId, userId: user._id };
+    this.http.post(url, sendObj).subscribe((p) => {
+      let room = this.rooms.find((p) => p._id === eventId);
       this.kickSocketRoom(eventId, user);
-      this.notificationService.notify(this.mlPipe.transform('userKicked'));
+      this.notificationService.notify(this.mlPipe.transform("userKicked"));
     });
   }
 
-  processKick(eventId: string, userId: string, type: MessageType = MessageType.KickUser) {
+  processKick(
+    eventId: string,
+    userId: string,
+    type: MessageType = MessageType.KickUser
+  ) {
     let url = environment.serviceURL + "/jUser/leave";
-    let sendObj = { eventId, userId }
-    this.http.post(url, sendObj).subscribe(p => {
+    let sendObj = { eventId, userId };
+    this.http.post(url, sendObj).subscribe((p) => {
       this.leaveSocketRoom(eventId, type);
     });
   }
 
-  leaveRoom(eventId: string, userId: string, type: MessageType = MessageType.LeaveRoom) {
+  leaveRoom(
+    eventId: string,
+    userId: string,
+    type: MessageType = MessageType.LeaveRoom
+  ) {
     let url = environment.serviceURL + "/jUser/leave";
-    let sendObj = { eventId, userId }
-    this.http.post(url, sendObj).subscribe(p => {
-      let room = this.rooms.find(p => p._id === eventId);
+    let sendObj = { eventId, userId };
+    this.http.post(url, sendObj).subscribe((p) => {
+      let room = this.rooms.find((p) => p._id === eventId);
       this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
       this.leaveSocketRoom(eventId, type);
-      this.router.navigate(['/home']);
+      this.router.navigate(["/home"]);
     });
   }
 
   loadMessages(room: Room, pageNo: number = 1) {
     let url = environment.serviceURL + "/messages/" + room._id;
-    return this.http.get(url, {params: {
-      pageNo: pageNo.toString()
-    }}).subscribe((p: any[]) => {
-      p = p.map(e => this.formatLoadedMessages(e));
-      this.roomStore.dispatch(new RoomAction.LoadMessages({room: room, messages: p}));
-      this.msg.next(undefined);
-    });
+    return this.http
+      .get(url, {
+        params: {
+          pageNo: pageNo.toString(),
+        },
+      })
+      .subscribe((p: any[]) => {
+        p = p.map((e) => this.formatLoadedMessages(e));
+        this.roomStore.dispatch(
+          new RoomAction.LoadMessages({ room: room, messages: p })
+        );
+        this.msg.next(undefined);
+      });
   }
   // messages/: id ? pageNo = 1
 
   joinSocketRoom(roomId: string, isInsert = false) {
     let type: MessageType = undefined;
-    if(isInsert) {
+    if (isInsert) {
       type = MessageType.NewUser;
     }
     let socketObj: Partial<MMessage> = {
@@ -266,19 +335,21 @@ export class RoomService implements OnDestroy {
       eventId: roomId,
       type,
       date: new Date(),
-      message: '~!~'
+      message: "~!~",
     };
     this.socket.emit(JOIN_ROOM, roomId, socketObj);
   }
 
   leaveSocketRoom(roomId: string, type: MessageType) {
-    let postUser = { user: { _id: this.user._id, nickname: this.user.nickname }};
+    let postUser = {
+      user: { _id: this.user._id, nickname: this.user.nickname },
+    };
     let socketObj: Partial<MMessage> = {
       roomUser: postUser,
       eventId: roomId,
       type,
       date: new Date(),
-      message: '~!~'
+      message: "~!~",
     };
     this.socket.emit(LEAVE_ROOM, roomId, socketObj);
   }
@@ -290,24 +361,38 @@ export class RoomService implements OnDestroy {
   cancelEvent(roomId: string, isAuth: boolean = false) {
     this.socket.emit(CANCEL_EVENT, roomId, roomId);
     /** isAuthsa event içeride olmayan bir admin tarafından iptal edilmiş demek. */
-    if(isAuth) {
-      this.store.dispatch(new AppAction.FilterEvent({_id: roomId}));
+    if (isAuth) {
+      this.store.dispatch(new AppAction.FilterEvent({ _id: roomId }));
     }
   }
 
+  completeEvent(roomId: string) {
+    this.socket.emit(COMPLETE_EVENT, roomId, roomId);
+  }
+
   processCancelEvent(roomId: string) {
-    let room = this.rooms.find(p => p._id === roomId);
+    let room = this.rooms.find((p) => p._id === roomId);
     this.notificationService.notify(room.title + " iptal edildi.");
     this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
-    if (this.router.url === '/room/' + roomId) {
+    if (this.router.url === "/room/" + roomId) {
+      this.router.navigate(["/home"]);
+    }
+  }
+
+  processCompleteEvent(roomId: string) {
+    let room = this.rooms.find((p) => p._id === roomId);
+    this.notificationService.notify(room.title + " tamamlandı.");
+    this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
+    if (this.router.url === "/room/" + roomId) {
       this.router.navigate(["/home"]);
     }
   }
 
   calcUnreadMessages() {
     let calc = 0;
-    this.rooms.forEach(r => {
-      if(r.unreadMessagesCount && r.unreadMessagesCount > 0) calc = calc + r.unreadMessagesCount;
+    this.rooms.forEach((r) => {
+      if (r.unreadMessagesCount && r.unreadMessagesCount > 0)
+        calc = calc + r.unreadMessagesCount;
     });
     this.unreadMessageCount = calc;
   }
@@ -315,5 +400,4 @@ export class RoomService implements OnDestroy {
   resetRoomUnreadCount(room: Room) {
     this.roomStore.dispatch(new RoomAction.ResetRoomUnreadCount({ room }));
   }
-
 }

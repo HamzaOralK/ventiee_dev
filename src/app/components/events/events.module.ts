@@ -11,6 +11,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { EventFilterModule } from '../event-filter/event-filter.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatListModule,
     MatCardModule,
     MatButtonModule,
-    ScrollingModule
+    ScrollingModule,
+    MatProgressSpinnerModule,
+    EventFilterModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     EventsComponent

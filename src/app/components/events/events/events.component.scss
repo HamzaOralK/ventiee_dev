@@ -1,0 +1,61 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
+@import 'src/mixins.scss';
+
+.wholeEvents {
+  overflow: hidden;
+  border: 2px solid mat-color($app-accent, 500);
+  border-radius: 10px;
+  height: calc(100% - 4px);
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint(xs) {
+    width: 95%;
+    margin-left: 0;
+    flex-grow: 1;
+  }
+
+  @include media-breakpoint(sm) {
+    width: 95%;
+    margin-left: 0;
+    flex-grow: 1;
+  }
+
+  @include media-breakpoint(md) {
+    flex-grow: 0.7;
+  }
+
+  @include media-breakpoint(lg) {
+    flex-grow: 0.5;
+  }
+
+}
+
+.searchBox {
+  width: 100%;
+  max-width: 600px;
+}
+
+.events {
+  overflow-y: auto;
+  flex: 1
+}
+
+mat-form-field {
+  margin-bottom: -1.25em
+}
+
+.addEvent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  height: 70px;
+
+  .add {
+    margin-top: 4px;
+    margin-right: 5px
+  }
+}

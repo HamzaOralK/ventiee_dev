@@ -13,14 +13,11 @@ import { SignUpFormModule } from 'src/app/components/sign-up-form/sign-up-form.m
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChatsModule } from 'src/app/components/chats/chats.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RoomModule } from '../room/room.module';
 import { MatBadgeModule } from '@angular/material/badge';
-import { EventFilterModule } from 'src/app/components/event-filter/event-filter.module';
 import { TabsModule } from 'src/app/components/tabs/tabs.module';
-// import { PendingEventsComponent } from './pending-events/pending-events.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +43,6 @@ import { TabsModule } from 'src/app/components/tabs/tabs.module';
     ChatsModule,
     RoomModule,
     MatBadgeModule,
-    EventFilterModule,
     TabsModule
   ],
 })

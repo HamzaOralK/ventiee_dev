@@ -7,12 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { GenericImageCropperComponent } from './generic-image-cropper.component';
+import { LoadingOverlayModule } from '../loading-overlay/loading-overlay.module';
 
 
 @NgModule({
-  declarations: [
-    GenericImageCropperComponent
-  ],
+  declarations: [GenericImageCropperComponent],
   imports: [
     CommonModule,
     PipesModule,
@@ -20,12 +19,10 @@ import { GenericImageCropperComponent } from './generic-image-cropper.component'
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    ImageCropperModule
+    ImageCropperModule,
+    LoadingOverlayModule
   ],
-  exports: [
-    GenericImageCropperComponent
-  ],
-  entryComponents: [GenericImageCropperComponent]
+  exports: [GenericImageCropperComponent],
+  entryComponents: [GenericImageCropperComponent],
 })
-
-export class GenericImageCropperModule { }
+export class GenericImageCropperModule {}
