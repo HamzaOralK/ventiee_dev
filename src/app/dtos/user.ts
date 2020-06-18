@@ -1,5 +1,4 @@
 import { UserType, Gender, SchoolType, RelationshipStatus } from './enums';
-import { Event } from './event';
 
 export class User {
   email: string;

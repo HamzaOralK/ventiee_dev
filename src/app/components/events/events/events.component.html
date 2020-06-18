@@ -1,7 +1,7 @@
 <div class="wholeEvents">
   <div style="display: flex; flex-direction: column; padding: 0 10px;" *ngIf="type === 'all' || type === 'history'">
     <div class="addEvent">
-      <button class="add" mat-fab color="primary" (click)="createEvent()">
+      <button class="add" mat-fab color="primary" (click)="createEvent()" *ngIf="type === 'all'">
         <mat-icon>add</mat-icon>
       </button>
       <mat-form-field appearance="outline" class="searchBox">
@@ -13,7 +13,8 @@
       </mat-form-field>
       <br>
     </div>
-    <div style="text-align: center; position: relative;">
+
+    <div style="text-align: center; position: relative;" *ngIf="type === 'all'">
       <span class="c-ptr" (click)="toggleFilter()">{{!showFilter ? ('openFilter' | ml) : ('closeFilter' | ml)}}</span>
       <event-filter [type]="type" [showFilter]="showFilter" (onSearch)="onSearch($event)" [(eventFilter)]="eventFilter">
       </event-filter>

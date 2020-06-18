@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserComment } from 'src/app/dtos/user';
+import { EventComment } from 'src/app/dtos/event';
 
 @Component({
   selector: 'users-comments',
@@ -9,7 +9,7 @@ import { UserComment } from 'src/app/dtos/user';
 
 export class UsersCommentsComponent implements OnInit {
 
-  @Input() userComments: UserComment[];
+  @Input() userComments: EventComment[];
 
   constructor() { }
 
