@@ -145,6 +145,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.toggleFilter();
     this.eventFilter = event;
     this.eventService.getEvents(this.searchText, this.eventFilter).subscribe(p => {
+      this._loading = false;
       this._isAll = false;
       this.scrollTop();
     });
