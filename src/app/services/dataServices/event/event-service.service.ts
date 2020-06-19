@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Event, EventStatus, EventFilter } from '../../../dtos/event';
+import { Event, EventFilter } from '../../../dtos/event';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
@@ -30,7 +30,6 @@ export class EventService {
   subscription = new Subscription();
   events: any[];
 
-  _pageNo: number;
   user: User;
   _isAll: boolean = false;
 
@@ -51,7 +50,6 @@ export class EventService {
       }
     })
     this.roomState = this.store.select("roomState");
-    this._pageNo = 1;
 
     this.roomState.subscribe((p) => {
       if (p) this.joinedRooms = p.rooms;

@@ -18,7 +18,7 @@
                 {{tag}}
               </div>
             </div>
-            <div>
+            <div *ngIf="type === 'history'">
               {{'organisator' | ml}}: {{event.moderatorUser.nickname}}
             </div>
           </div>
@@ -26,7 +26,7 @@
       </div>
     </mat-panel-title>
     <mat-panel-description *ngIf="type === 'history'">
-      <button mat-raised-button (click)="openCommentModal()">
+      <button mat-raised-button (click)="openCommentModal()" *ngIf="event.moderatorUser._id !== user._id">
         <mat-icon>chat_bubble</mat-icon>
       </button>
     </mat-panel-description>

@@ -147,6 +147,7 @@
     {"key": "clear", "value": "Temizle"},
     {"key": "history", "value": "Geçmiş"},
     {"key": "updateError", "value": "Güncelleme yaparken bir hata oluştu."},
-    {"key": "complete", "value": "Tamamla"}
-
+    {"key": "complete", "value": "Tamamla"},
+    {"key": "commentSaved", "value": "Yorumunuz kaydedildi."},
+    {"key": "commentError", "value": "Yorumunuz bir sebeple kaydedilemedi."}
 ]

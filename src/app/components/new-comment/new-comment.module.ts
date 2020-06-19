@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { RatingModule } from '../rating/rating.module';
+import { LoadingOverlayModule } from '../loading-overlay/loading-overlay.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { RatingModule } from '../rating/rating.module';
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    LoadingOverlayModule
   ],
   exports: [
     NewCommentComponent

@@ -4,6 +4,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/dtos/user';
 import { Event } from 'src/app/dtos/event';
 import { Subscription } from 'rxjs';
+import { CommentsService } from 'src/app/services/dataServices/comments/comments.service';
+import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
+import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 
 @Component({
   selector: "new-comment",
@@ -15,10 +18,14 @@ export class NewCommentComponent implements OnInit, OnDestroy {
   comment: FormControl = new FormControl(undefined, [Validators.required, this.noWhitespace, Validators.maxLength(140), Validators.minLength(1)]);
   commentLength: number = 0;
   subscription = new Subscription();
+  isLoading = false;
 
   constructor(
     public dialogRef: MatDialogRef<NewCommentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {event: Event, user: User},
+    private commentsService: CommentsService,
+    private notificationService: NotificationService,
+    private mlPipe: MultiLanguagePipe
   ) {}
 
   ngOnInit(): void {
@@ -47,14 +54,24 @@ export class NewCommentComponent implements OnInit, OnDestroy {
   }
 
   sendComment() {
-    let commentObj: Partial<{eventId: string, moderatorUserId: string, fromUserId: string, comment: string, rating: number, date: Date}> = {};
+    let commentObj: Partial<{eventId: string, moderatorUserId: string, userId: string, comment: string, rating: number, date: Date}> = {};
     commentObj.eventId = this.data.event._id;
     commentObj.moderatorUserId = this.data.event.moderatorUserId;
-    commentObj.fromUserId = this.data.user._id;
+    commentObj.userId = this.data.user._id;
     commentObj.comment = this.comment.value.trim();
     commentObj.rating = this.rating;
     commentObj.date = new Date();
-    console.log(commentObj);
+    this.isLoading = true;
+    this.commentsService.sendComment(commentObj).subscribe(p => {
+      this.isLoading = false;
+      this.notificationService.notify(this.mlPipe.transform('commentSaved'), SnackType.default);
+      this.onNoClick();
+    },
+    e => {
+      this.isLoading = false;
+      this.notificationService.notify(this.mlPipe.transform('commentError'), SnackType.warn);
+      this.onNoClick();
+    });
   }
 
   checkCommentValidation() {
