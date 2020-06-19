@@ -75,6 +75,11 @@ export function appWiseReducer(state = initialState, action: AppActions.AppActio
         ...state,
         events: state.events.filter(p => p._id !== action.payload._id)
       }
+    case AppActions.ADD_HISTORY_EVENT:
+      return {
+        ...state,
+        history: [action.payload, ...state.history]
+      }
     default:
       return state;
   }

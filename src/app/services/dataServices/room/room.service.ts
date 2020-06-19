@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Room, RoomUser } from 'src/app/dtos/room';
+import { Event } from 'src/app/dtos/event';
 import { Store } from '@ngrx/store';
 import * as fromRoom from './store/room.reducer';
 import * as RoomAction from './store/room.actions';
@@ -117,7 +118,6 @@ export class RoomService implements OnDestroy {
           this.processCancelEvent(message.message);
         });
         this.socket.on(COMPLETE_EVENT, (message) => {
-          console.log(message);
           this.processCompleteEvent(message.message);
         })
       }
@@ -383,6 +383,11 @@ export class RoomService implements OnDestroy {
     let room = this.rooms.find((p) => p._id === roomId);
     this.notificationService.notify(room.title + " tamamlandı.");
     this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
+    let roomAsEvent: Room = JSON.parse(JSON.stringify(room));
+    delete roomAsEvent.users;
+    delete roomAsEvent.unreadMessagesCount;
+    delete roomAsEvent.messages;
+    this.store.dispatch(new AppAction.AddHistoryEvent( {...(roomAsEvent as Event)}))
     if (this.router.url === "/room/" + roomId) {
       this.router.navigate(["/home"]);
     }

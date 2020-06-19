@@ -6,6 +6,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericModalComponent, ModalType } from './components/generic-modal/generic-modal.component';
+import { EventListType } from './dtos/enums';
 
 
 @Injectable({
@@ -57,6 +58,12 @@ export class AppService {
       data: { htmlTemplate, title, description }
     });
     if(type === ModalType.Confirmation) return dialogRef.afterClosed()
+  }
+
+  resetEvents(eventType: EventListType) {
+    if(eventType === EventListType.All) {
+      this._resetEvents.next('all');
+    }
   }
 
 }

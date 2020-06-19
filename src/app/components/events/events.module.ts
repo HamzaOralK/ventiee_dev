@@ -15,6 +15,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EventFilterModule } from '../event-filter/event-filter.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { NewCommentComponent } from '../new-comment/new-comment.component';
+import { NewCommentModule } from '../new-comment/new-comment.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { MatInputModule } from '@angular/material/input';
     MatProgressSpinnerModule,
     EventFilterModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    NewCommentModule
   ],
   exports: [
     EventsComponent

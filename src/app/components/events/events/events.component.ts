@@ -13,8 +13,6 @@ import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { EventListType } from 'src/app/dtos/enums';
 
-
-
 @Component({
   selector: 'events',
   templateUrl: './events.component.html',
@@ -88,7 +86,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       if(this.type === EventListType.All) {
         this.resetPage();
       }
-    })
+    });
 
   }
 
@@ -204,6 +202,5 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.scrollTop();
     });
   }
-
 
 }

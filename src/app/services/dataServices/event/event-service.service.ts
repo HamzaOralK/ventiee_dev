@@ -120,8 +120,8 @@ export class EventService {
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
           this.notificationService.notify(this.langService.get("eventCreateSuccess"));
-          // this.router.navigate(["/room/" + p._id]);
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/room/" + p._id]);
+          // this.router.navigate(["/home"]);
           this.roomService.joinSocketRoom(room._id, true);
         }
       }, (e) => {

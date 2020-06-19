@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { AppService } from 'src/app/app.service';
+import { EventListType } from 'src/app/dtos/enums';
 
 @Component({
   selector: 'top-navigation',
@@ -45,8 +46,7 @@ export class TopNavigationComponent implements OnInit {
   }
 
   getEvents() {
-    // this.eventService.getEvents().subscribe();
-    this.appService._resetEvents.next('all');
+    this.appService.resetEvents(EventListType.All);
   }
 
   get smallScreen() {

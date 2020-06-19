@@ -7,6 +7,7 @@ export const LOAD_MORE_EVENTS = 'LOAD_MORE_EVENTS';
 export const GET_HISTORY_EVENTS = 'GET_HISTORY_EVENTS';
 export const LOAD_MORE_HISTORY_EVENTS = 'LOAD_MORE_HISTORY_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
+export const ADD_HISTORY_EVENT = 'ADD_HISTORY_EVENT';
 export const FILTER_EVENT = 'FILTER_EVENT';
 
 export class ToggleLeftNav implements Action {
@@ -49,4 +50,9 @@ export class LoadMoreHistoryEvents implements Action {
   constructor(public payload: Event[]) { }
 }
 
-export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | GetHistoryEvents | LoadMoreHistoryEvents | AddEvent | FilterEvent;
+export class AddHistoryEvent implements Action {
+  readonly type = ADD_HISTORY_EVENT;
+  constructor(public payload: Event) { }
+}
+
+export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | GetHistoryEvents | LoadMoreHistoryEvents | AddEvent | FilterEvent | AddHistoryEvent;

@@ -92,3 +92,13 @@ mat-expansion-panel {
   }
 
 }
+
+.mat-expansion-panel-header[aria-disabled="true"] {
+  color: mat-color($app-font) !important;
+}
+mat-panel-description {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}

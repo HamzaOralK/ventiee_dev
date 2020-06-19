@@ -13,15 +13,23 @@
             <div class="titleDesc" *ngIf="event.description">
               {{event.description}}
             </div>
-            <div class="tags">
+            <div class="tags" *ngIf="type !== 'history'">
               <div *ngFor="let tag of event.tags" class="tag">
                 {{tag}}
               </div>
+            </div>
+            <div>
+              {{'organisator' | ml}}: {{event.moderatorUser.nickname}}
             </div>
           </div>
         </div>
       </div>
     </mat-panel-title>
+    <mat-panel-description *ngIf="type === 'history'">
+      <button mat-raised-button (click)="openCommentModal()">
+        <mat-icon>chat_bubble</mat-icon>
+      </button>
+    </mat-panel-description>
   </mat-expansion-panel-header>
   <div *ngIf="type !== 'history'">
     <div class="line">

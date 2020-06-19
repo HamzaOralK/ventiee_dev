@@ -8,6 +8,8 @@ import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
 import { UserType } from 'src/app/dtos/enums';
 import { ModalType } from '../../generic-modal/generic-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { NewCommentComponent } from '../../new-comment/new-comment.component';
 
 @Component({
   selector: 'event-line',
@@ -27,7 +29,8 @@ export class EventLineComponent implements OnInit {
     private roomService: RoomService,
     private authService: AuthService,
     private appService: AppService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -72,5 +75,20 @@ export class EventLineComponent implements OnInit {
     this.appService.openModal(this.event.title, 'reportQuestion', undefined, ModalType.Confirmation).subscribe(p => {
       if(p) console.log('Şikayet ediltdi.');
     });
+  }
+
+  openCommentModal() {
+    const dialogRef = this.dialog.open(NewCommentComponent, {
+      minWidth: '250px',
+      maxWidth: '600px',
+
+      data: {
+        event: this.event,
+        user: this.user
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => { });
+
   }
 }

@@ -30,7 +30,8 @@ import { RatingModule } from '../rating/rating.module';
   ],
   exports: [
     NewCommentComponent
-  ]
+  ],
+  entryComponents: [NewCommentComponent]
 })
 
 export class NewCommentModule { }
