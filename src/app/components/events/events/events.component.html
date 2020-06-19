@@ -16,7 +16,7 @@
 
     <div style="text-align: center; position: relative;" *ngIf="type === 'all'">
       <span class="c-ptr" (click)="toggleFilter()">{{!showFilter ? ('openFilter' | ml) : ('closeFilter' | ml)}}</span>
-      <event-filter [type]="type" [showFilter]="showFilter" (onSearch)="onSearch($event)" [(eventFilter)]="eventFilter">
+      <event-filter *ngIf="showFilter" [type]="type" (onSearch)="onSearch($event)" [(eventFilter)]="eventFilter">
       </event-filter>
     </div>
   </div>
@@ -24,12 +24,6 @@
     <mat-accordion>
       <event-line *ngFor="let event of events" [event]="event" [type]="type" (onJoin)="onJoin($event)"></event-line>
     </mat-accordion>
-
-
-
-
-
-
     <mat-spinner *ngIf="_loading"></mat-spinner>
     <mat-card *ngIf="events && events.length === 0">
       {{'noEventError' | ml}}
@@ -39,8 +33,3 @@
     </mat-card>
   </div>
 </div>
-
-
-
-
-

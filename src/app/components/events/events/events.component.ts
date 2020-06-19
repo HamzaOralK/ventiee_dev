@@ -10,6 +10,8 @@ import * as fromApp from "../../../store/app.reducer";
 import * as fromAuth from "../../../services/auth/store/auth.reducer";
 import { User } from 'src/app/dtos/user';
 import { Router } from '@angular/router';
+import { AppService } from 'src/app/app.service';
+import { EventListType } from 'src/app/dtos/enums';
 
 
 
@@ -22,7 +24,7 @@ import { Router } from '@angular/router';
 export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() user: User;
   @Input() events;
-  @Input() type: string = 'all'; // 'all' bütün eventler, 'user' user eventleri
+  @Input() type: EventListType = EventListType.All; // 'all' bütün eventler, 'user' user eventleri, 'history' history
   @Output('onJoinEvent') onJoinEvent = new EventEmitter();
   @ViewChild('eventScroll') eventScroll: ElementRef;
   auth: Observable<fromAuth.State>;
@@ -43,6 +45,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
     private roomService: RoomService,
     private store: Store<fromApp.AppState>,
     private router: Router,
+    private appService: AppService
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +54,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventFilter = new EventFilter();
     this.auth = this.store.select("authState");
     /** Bütün eventler */
-    if(this.type === 'all') {
+    if(this.type === EventListType.All) {
       this.eventFilter.status = EventStatus.Active;
       this.auth.subscribe(p => {
         if (p.user) this.eventService.getEvents(this._pageNo, undefined, this.eventFilter).subscribe();
@@ -62,7 +65,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.subscription.add(eventSearchSubscription);
     }
     /** Profiline bakılan kullanıcının aktif eventleri */
-    else if (this.type === 'user') {
+    else if (this.type === EventListType.User) {
       this.auth.subscribe(p => {
         if (p.user && this.user) this.eventService.getEventsByModId(this.user._id).subscribe(r => {
           this.events = r;
@@ -70,7 +73,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
     /** Login kullanıcının geçmiş eventleri */
-    else if (this.type === 'history') {
+    else if (this.type === EventListType.History) {
       this.auth.subscribe(p => {
         if (p.user) this.eventService.getHistoryEventsOfUser(this._pageNo, undefined).subscribe();
       });
@@ -80,10 +83,17 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.subscription.add(eventSearchSubscription);
     }
+
+    this.appService._resetEvents.subscribe(p => {
+      if(this.type === EventListType.All) {
+        this.resetPage();
+      }
+    })
+
   }
 
   ngAfterViewInit(): void {
-    if (this.eventScroll && (this.type === 'all' || this.type === 'history')) {
+    if (this.eventScroll && (this.type === EventListType.All || this.type === EventListType.History)) {
       (this.eventScroll.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
         let scrollHeight = (this.eventScroll.nativeElement as HTMLLIElement).scrollHeight;
         let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
@@ -91,11 +101,11 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
         if (scrollHeight - (scrollTop + offsetHeight) < 1) {
           if (!this._isAll) {
             this._loading = true;
-            if(this.type === 'all') {
+            if (this.type === EventListType.All) {
               this.eventService.getEvents(this._pageNo, this.searchText, this.eventFilter).subscribe((p) => {
                 this.processLoadMore(p);
               });
-            } else if(this.type === 'history') {
+            } else if (this.type === EventListType.History) {
               this.eventService.getHistoryEventsOfUser(this._pageNo, this.searchText).subscribe(p => {
                 this.processLoadMore(p);
               })
@@ -132,22 +142,19 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchText = undefined;
     }
     this.scrollTop();
-    if (this.type === 'all') this.eventService.getEvents(this._pageNo, this.searchText, this.eventFilter).subscribe();
-    if (this.type === 'history') this.eventService.getHistoryEventsOfUser(this._pageNo, this.searchText).subscribe();
+    if (this.type === EventListType.All) this.eventService.getEvents(this._pageNo, this.searchText, this.eventFilter).subscribe();
+    if (this.type === EventListType.History) this.eventService.getHistoryEventsOfUser(this._pageNo, this.searchText).subscribe();
   }
 
   onJoin(event) {
     this.onJoinEvent.emit();
     this.store.dispatch(new AppAction.FilterEvent(event));
     this.roomService.changeRoom(event._id);
-    /** Virtual Scroll kendini yenilesin diye. */
-    setTimeout(() => { window.dispatchEvent(new Event("resize"));}, 1000);
   }
 
   scrollTop() {
     (this.eventScroll.nativeElement as HTMLElement).scrollTo(0, 0);
   }
-
 
   onSearch(event: any) {
     this._loading = true;
@@ -182,6 +189,20 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
   createEvent() {
     this.store.dispatch(new AppAction.ToggleLeftNav(false));
     this.router.navigate(["/createEvent"]);
+  }
+
+  resetPage() {
+    this.eventFilter = new EventFilter();
+    if (this.type === EventListType.All) {
+      this.eventFilter.status = EventStatus.Active;
+    }
+    this._pageNo = 1;
+    this.searchText = undefined;
+    this.eventService.getEvents(this._pageNo, this.searchText, this.eventFilter).subscribe(p => {
+      this._loading = false;
+      this._isAll = false;
+      this.scrollTop();
+    });
   }
 
 

@@ -34,3 +34,9 @@ export enum RelationshipStatus {
     Divorced = 16,
     Complicated = 32,
 }
+
+export enum EventListType {
+  All = "all",
+  History = "history",
+  User = "user"
+}

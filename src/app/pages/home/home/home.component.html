@@ -15,7 +15,7 @@
         </div>
       </tab>
       <tab label="{{'events' | ml}}">
-        <events [events]="(appWise | async).events" [type]="'all'" style="display: block; height: 100%;" (onJoinEvent)="onJoinEvent()"></events>
+        <events #allEvents [events]="(appWise | async).events" [type]="'all'" style="display: block; height: 100%;" (onJoinEvent)="onJoinEvent()"></events>
       </tab>
       <tab label="{{'history' | ml}}">
         <events [events]="(appWise | async).history" [type]="'history'" style="display: block; height: 100%;"></events>

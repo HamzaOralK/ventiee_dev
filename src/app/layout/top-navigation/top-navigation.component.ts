@@ -7,7 +7,6 @@ import * as fromAuth from '../../services/auth/store/auth.reducer';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -46,7 +45,8 @@ export class TopNavigationComponent implements OnInit {
   }
 
   getEvents() {
-    this.eventService.getEvents().subscribe();
+    // this.eventService.getEvents().subscribe();
+    this.appService._resetEvents.next('all');
   }
 
   get smallScreen() {

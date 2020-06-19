@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('tabs', { static: false }) tabsComponent: TabsComponent;
 
   showFilter: boolean;
-
   searchText: string;
 
   constructor(

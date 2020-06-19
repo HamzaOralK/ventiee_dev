@@ -11,9 +11,6 @@ h3 {
 
 mat-expansion-panel {
   margin: 10px;
-  // background-color: mat-color($app-accent, 600) !important;
-  // background-color: mat-color($app-primary, 300) !important;
-
 }
 
 .headerInfo {
@@ -86,22 +83,12 @@ mat-expansion-panel {
     flex-direction: column;
   }
 
-  // @include media-breakpoint(sm) {
-  //   flex-direction: column;
-  // }
-
   button {
     margin-left: 15px;
-
     @include media-breakpoint(xs) {
       margin-left: 0;
       margin-bottom: 5px;
     }
-
-    // @include media-breakpoint(sm) {
-    //   margin-left: 0;
-    //   margin-bottom: 5px;
-    // }
   }
 
 }

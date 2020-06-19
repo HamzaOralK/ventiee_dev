@@ -16,7 +16,6 @@ export class EventFilterComponent implements OnInit {
   subscription: Subscription;
 
   @Input('type') type: string;
-  @Input('showFilter') showFilter: boolean;
   @Input('eventFilter') eventFilter: EventFilter;
   @Output('onSearch') onSearch: EventEmitter<any> = new EventEmitter();
 
@@ -40,6 +39,15 @@ export class EventFilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.city.valueChanges.subscribe(p => {
+      this.cityChanged(p);
+    });
+
+    this.date.setValue(this.eventFilter.startDate);
+    this.city.patchValue(this.eventFilter.city);
+    this.district.setValue(this.eventFilter.district);
+    this.tags = this.eventFilter.tags;
+
     let valSub = this.date.valueChanges.subscribe(p => {
       if(p) this.eventFilter.startDate = p.toDate();
     });
@@ -56,6 +64,7 @@ export class EventFilterComponent implements OnInit {
       }
     });
     this.subscription.add(placeSub);
+
   }
 
 
@@ -83,10 +92,10 @@ export class EventFilterComponent implements OnInit {
   }
 
 
-  cityChanged(event: MatSelectChange) {
-    if (event.value) {
-      this.eventFilter.city = event.value;
-      this.placeService.getDistricts(event.value).subscribe(p => {
+  cityChanged(city: string) {
+    if (city) {
+      this.eventFilter.city = city;
+      this.placeService.getDistricts(city).subscribe(p => {
         this.districts = p;
       })
     }

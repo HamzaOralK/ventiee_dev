@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from './store/app.reducer';
 import * as AppAction from './store/app.actions';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericModalComponent, ModalType } from './components/generic-modal/generic-modal.component';
 
@@ -18,6 +18,8 @@ export class AppService {
 
   _loading: boolean;
   s_loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  _resetEvents: Subject<any> = new Subject();
 
   constructor(
     private store: Store<fromApp.AppState>,

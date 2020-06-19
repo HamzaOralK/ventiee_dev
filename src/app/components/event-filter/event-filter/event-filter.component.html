@@ -1,4 +1,4 @@
-<div #detailFilter class="detailFilter" [ngClass]="!showFilter ? 'hidden' : ''">
+<div #detailFilter class="detailFilter">
 
   <mat-accordion>
     <mat-expansion-panel>
@@ -23,7 +23,7 @@
       </mat-expansion-panel-header>
       <mat-form-field appearance="outline">
         <mat-label>{{'city' | ml}}</mat-label>
-        <mat-select (selectionChange)="cityChanged($event)" [formControl]="city">
+        <mat-select [formControl]="city">
           <mat-option>&nbsp;</mat-option>
           <mat-option *ngFor="let city of cities" [value]="city.name">
             {{city.name}}
