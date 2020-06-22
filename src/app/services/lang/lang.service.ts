@@ -9,7 +9,8 @@ export class LangService {
   language: string = 'tr';
   dictionary: {key: string, value: string}[];
   constructor() {
-    this.decideDict();
+    /** Moved to app.module.ts initializer. */
+    // this.decideDict();
   }
 
   decideDict() {

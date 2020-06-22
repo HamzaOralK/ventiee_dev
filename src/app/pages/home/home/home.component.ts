@@ -13,7 +13,7 @@ import { TabsComponent } from 'src/app/components/tabs/tabs/tabs.component';
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"]
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   auth: Observable<fromAuth.State>;
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   _loading: boolean = false;
   _isAll: boolean = false;
 
-  @ViewChild('tabs', { static: false }) tabsComponent: TabsComponent;
+  @ViewChild("tabs", { static: false }) tabsComponent: TabsComponent;
 
   showFilter: boolean;
   searchText: string;
@@ -41,19 +41,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.auth = this.store.select("authState");
-    this.auth.subscribe(p => {
+    this.auth.subscribe((p) => {
       this.user = p.user;
     });
 
-    this.store.select("roomState").subscribe(p => {
-      if(p) {
+    this.store.select("roomState").subscribe((p) => {
+      if (p) {
         this.unreadCount = this.roomService.unreadMessageCount;
         this.activeRoom = p.activeRoom;
       }
     });
+
   }
 
-  ngAfterViewInit() { }
+  ngAfterViewInit() {}
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

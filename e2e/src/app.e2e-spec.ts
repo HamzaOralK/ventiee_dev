@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('mitap app is running!');
+    expect(page.getTitleText()).toEqual('ventiee app is running!');
   });
 
   afterEach(async () => {

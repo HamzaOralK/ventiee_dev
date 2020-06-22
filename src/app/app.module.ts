@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 
 import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
@@ -58,6 +59,17 @@ import { SignUpFormModule } from './components/sign-up-form/sign-up-form.module'
 import { ChatsModule } from './components/chats/chats.module';
 import { LoadingOverlayModule } from './components/loading-overlay/loading-overlay.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { PwaPromptComponent } from './components/pwa-prompt/pwa-prompt.component';
+import { PwaService } from './services/pwa/pwa.service';
+import { LangService } from './services/lang/lang.service';
+
+const initializer = (pwaService: PwaService, langService: LangService) => () => {
+  pwaService.initPwaPrompt();
+  langService.decideDict();
+}
+
 
 @NgModule({
   declarations: [
@@ -71,7 +83,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     BaseComponent,
     VerifyComponent,
     EventInfoUserComponent,
-    VfooterComponent
+    VfooterComponent,
+    PwaPromptComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,19 +115,29 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatMenuModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatBottomSheetModule,
     /** Additional */
     PipesModule,
     DirectivesModule,
     EventsModule,
     SignUpFormModule,
     ChatsModule,
-    LoadingOverlayModule
+    LoadingOverlayModule,
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production,
+    }),
   ],
   exports: [],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      deps: [PwaService, LangService],
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
