@@ -10,24 +10,27 @@
   </div>
   <mat-tab-group class="scroll" style="z-index: 0; position: relative;" mat-align-tabs="center">
     <mat-tab label="{{'profile' | ml}}">
-      <mat-card style="word-break: break-all;">
-        <p *ngIf="user.gender"><b>{{'gender' | ml}}: </b>{{user.gender | ml}}</p>
-        <!-- <p *ngIf="user.preferredGender"><b>{{'preferredGender' | ml}}: </b>{{user.preferredGender | ml}}</p> -->
-        <p *ngIf="user.schoolType || user.school"><b>{{'school' | ml}}: </b>{{user.schoolType | ml}}/{{user.school}}</p>
-        <p *ngIf="user.birthday"><b>{{'birthday' | ml}}: </b>{{user.birthday | date:'dd/MM'}}</p>
-        <p>{{user.description ? user.description : 'noDesc' | ml }}</p>
-      </mat-card>
+      <div style="word-break: break-all;" class="information">
+        <mat-card>
+          <p *ngIf="user.gender"><b>{{'gender' | ml}}: </b>{{user.gender | ml}}</p>
+          <!-- <p *ngIf="user.preferredGender"><b>{{'preferredGender' | ml}}: </b>{{user.preferredGender | ml}}</p> -->
+          <p *ngIf="user.schoolType || user.school"><b>{{'school' | ml}}: </b>{{user.schoolType | ml}}/{{user.school}}</p>
+          <p *ngIf="user.birthday"><b>{{'birthday' | ml}}: </b>{{user.birthday | date:'dd/MM'}}</p>
+          <p>{{user.description ? user.description : 'noDesc' | ml }}</p>
+        </mat-card>
+      </div>
     </mat-tab>
     <mat-tab label="{{'events' | ml}}">
       <div class="scroll" style="width: 100%; height: 100%; display: flex; justify-content: center;">
         <events [user]="user" [type]="'user'"></events>
       </div>
     </mat-tab>
-    <mat-tab label="{{'comments' | ml}}">
-      <mat-card>
+    <mat-tab label="{{'comments' | ml}}" *ngIf="commentedEvents">
+      <div class="df fd-c jc-c ali-c ">
         <h2>{{'userComments' | ml}}</h2>
-        <!-- <users-comments *ngIf="comments" [userComments]="comments"></users-comments> -->
-      </mat-card>
+        <users-comments *ngFor="let event of commentedEvents" [event]="event" class="comments"></users-comments>
+        <div *ngIf="commentedEvents.length === 0">{{'noCommentsSorry' | ml}}</div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

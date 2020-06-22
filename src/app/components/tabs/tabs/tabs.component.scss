@@ -19,6 +19,10 @@ ul {
 
 li {
   float: left;
+  font-size: initial;
+  @include media-breakpoint(xs) {
+    font-size: 15px;
+  }
 }
 
 li:hover {

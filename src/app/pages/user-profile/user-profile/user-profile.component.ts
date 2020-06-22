@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/dataServices/user/user.service';
 import { User } from 'src/app/dtos/user';
-import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Event } from '../../../dtos/event';
 import { Gender } from 'src/app/dtos/enums';
+import { CommentsService } from 'src/app/services/dataServices/comments/comments.service';
 
 
 @Component({
@@ -16,13 +16,12 @@ import { Gender } from 'src/app/dtos/enums';
 export class UserProfileComponent implements OnInit, OnDestroy {
 
   user: User = undefined;
-  events: Event[] = undefined;
+  commentedEvents: Event[] = undefined;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private eventService: EventService,
-    private cdr: ChangeDetectorRef
+    private commentsService: CommentsService,
   ) { }
 
   ngOnInit(): void {
@@ -33,8 +32,17 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         return p;
       })
       .then(user => {
-        this.eventService.getEventsByModId(user._id).toPromise().then(events => {
-          this.cdr.detectChanges();
+        this.commentsService.getCommentsByModeratorUserId(user._id).toPromise().then((p: Event[]) => {
+          let newCommentedEvents = p.map(e => {
+            if(e["comment"]) {
+              e.comments = e["comment"];
+              delete e["comment"];
+            }
+            if(e.comments.length > 0) {
+              return e;
+            }
+          });
+          this.commentedEvents = newCommentedEvents.filter(e => e !== undefined);
         });
       });
     });

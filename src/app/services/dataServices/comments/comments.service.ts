@@ -30,4 +30,13 @@ export class CommentsService {
     let url = environment.serviceURL + "/comment/add";
     return this.http.post<any>(url, {...commentObj});
   }
+
+  getCommentsByEventId(eventId: string) {
+
+  }
+
+  getCommentsByModeratorUserId(moderatorUserId) {
+    let url = environment.serviceURL + "/comments";
+    return this.http.post(url, { moderatorUserId });
+  }
 }

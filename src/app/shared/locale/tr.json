@@ -68,6 +68,7 @@
     {"key": "preferredGender", "value": "Tercih Edilen Cinsiyet"},
     {"key": "Male", "value": "Erkek"},
     {"key": "Female", "value": "Kadın"},
+    {"key": "Other", "value": "Başka"},
     {"key": "Gay", "value": "Gay"},
     {"key": "Lesbian", "value": "Lezbiyen"},
     {"key": "Pangender", "value": "Panseks"},
@@ -149,5 +150,6 @@
     {"key": "updateError", "value": "Güncelleme yaparken bir hata oluştu."},
     {"key": "complete", "value": "Tamamla"},
     {"key": "commentSaved", "value": "Yorumunuz kaydedildi."},
-    {"key": "commentError", "value": "Yorumunuz bir sebeple kaydedilemedi."}
+    {"key": "commentError", "value": "Yorumunuz bir sebeple kaydedilemedi."},
+    {"key": "noCommentsSorry", "value": "Bu kullanıcının hiç yorumu yok. Çok da güvenmeyebilirsiniz."}
 ]

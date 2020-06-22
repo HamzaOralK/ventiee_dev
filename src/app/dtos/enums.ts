@@ -7,11 +7,12 @@ export enum UserType {
 export enum Gender {
     Male = 'Male',
     Female = 'Female',
-    Gay = 'Gay',
-    Lesbian = 'Lesbian',
-    Pangender = 'Pangender',
-    Bisexual = 'Bisexual',
-    Asexual = 'Asexual'
+    Other = 'Other'
+    // Gay = 'Gay',
+    // Lesbian = 'Lesbian',
+    // Pangender = 'Pangender',
+    // Bisexual = 'Bisexual',
+    // Asexual = 'Asexual'
 }
 
 export enum RoomType {

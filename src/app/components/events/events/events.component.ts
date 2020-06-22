@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
-import * as AppAction from "../../../store/app.actions";
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { EventFilter, EventStatus } from 'src/app/dtos/event';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from "../../../store/app.reducer";
+import * as AppAction from "../../../store/app.actions";
 import * as fromAuth from "../../../services/auth/store/auth.reducer";
 import { User } from 'src/app/dtos/user';
 import { Router } from '@angular/router';
@@ -146,8 +146,6 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onJoin(event) {
     this.onJoinEvent.emit();
-    this.store.dispatch(new AppAction.FilterEvent(event));
-    this.roomService.changeRoom(event._id);
   }
 
   scrollTop() {

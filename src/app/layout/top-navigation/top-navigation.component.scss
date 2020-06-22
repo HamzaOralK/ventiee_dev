@@ -41,6 +41,10 @@ mat-toolbar {
   margin-left: 5px;
   font-weight: 600;
   color: mat-color($app-font, 500) !important;
+  display: inline;
+  @include media-breakpoint(xs) {
+    display: none;
+  }
 }
 
 .userpic {

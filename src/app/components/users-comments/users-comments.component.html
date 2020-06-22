@@ -1,17 +1,22 @@
-<div class="comments">
-  <mat-card *ngFor="let userComment of userComments">
+<div class="comments mb-5">
+  <mat-card>
     <mat-card-header>
-      <div mat-card-avatar class="header-image"></div>
-      <mat-card-title>{{userComment.user.nickname}}</mat-card-title>
-      <!-- <mat-card-subtitle>{{userComment.rating}}</mat-card-subtitle> -->
-      <mat-card-subtitle>
-        <rating [rating]="userComment.rating" [readonly]="true"></rating>
-      </mat-card-subtitle>
+      <img mat-card-avatar class="titleImg" [src]="event.imageURI || './assets/no_img.png'">
+      <mat-card-title>{{event.title}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        {{userComment.comment}}
-      </p>
+      <div class="df fd-c">
+        <div *ngFor="let comment of event.comments" class="df fd-c mb-5">
+          <div class="df ali-c" style="min-height: 60px;">
+            <img mat-card-avatar class="titleImg mr-5" [src]="comment.user.imageURI || './assets/user.png'">
+            <span>{{comment.user.nickname}}</span>
+          </div>
+          <div>
+            <rating [rating]='comment.rating' [readonly]="true"></rating>
+          </div>
+          <span>{{comment.comment}}</span>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

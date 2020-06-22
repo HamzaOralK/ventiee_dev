@@ -10,6 +10,10 @@ import { UserType } from 'src/app/dtos/enums';
 import { ModalType } from '../../generic-modal/generic-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NewCommentComponent } from '../../new-comment/new-comment.component';
+import * as fromApp from "../../../store/app.reducer";
+import * as AppAction from "../../../store/app.actions";
+import { Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'event-line',
@@ -31,6 +35,8 @@ export class EventLineComponent implements OnInit {
     private appService: AppService,
     private router: Router,
     public dialog: MatDialog,
+    private store: Store<fromApp.AppState>,
+
   ) { }
 
   ngOnInit(): void {
@@ -44,8 +50,9 @@ export class EventLineComponent implements OnInit {
     let userNewRoom = new Room();
     userNewRoom._id = this.event._id;
     this.roomService.joinRoom(userNewRoom).subscribe(p => {
+      this.roomService.changeRoom(this.event._id);
+      this.store.dispatch(new AppAction.FilterEvent(this.event));
       if(this.appService.smallScreen) {
-        this.roomService.changeRoom(this.event._id);
         this.router.navigate(['/room/' + this.event._id]);
       } else {
         this.onJoin.emit(this.event);

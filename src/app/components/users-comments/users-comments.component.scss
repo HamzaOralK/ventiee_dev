@@ -1,4 +1,14 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
+@import 'src/mixins.scss';
+
 .header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
+}
+
+mat-card-header {
+  min-height: 60px;
+  border-bottom: solid mat-color($app-font) 1px;
+  align-items: center;
 }
