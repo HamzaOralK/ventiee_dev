@@ -149,7 +149,10 @@
     {"key": "history", "value": "Geçmiş"},
     {"key": "updateError", "value": "Güncelleme yaparken bir hata oluştu."},
     {"key": "complete", "value": "Tamamla"},
+    {"key": "yes", "value": "Evet"},
     {"key": "commentSaved", "value": "Yorumunuz kaydedildi."},
     {"key": "commentError", "value": "Yorumunuz bir sebeple kaydedilemedi."},
-    {"key": "noCommentsSorry", "value": "Bu kullanıcının hiç yorumu yok. Çok da güvenmeyebilirsiniz."}
+    {"key": "noCommentsSorry", "value": "Bu kullanıcının hiç yorumu yok. Çok da güvenmeyebilirsiniz."},
+    {"key": "addToHome", "value": "Sitemizi uygulama olarak eklemek ister misiniz?"},
+    {"key": "iosAddInstruction", "value": "Sitemizi uygulama olarak eklemek için ilk önce Menü butonuna sonra 'Add to Home Screen' butonuna basınız."}
 ]

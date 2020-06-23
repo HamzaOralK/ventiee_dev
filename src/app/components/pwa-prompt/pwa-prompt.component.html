@@ -1,17 +1,27 @@
-<mat-toolbar *ngIf="data.mobileType === 'android'" color="primary" class="android-prompt">
-  <button mat-button (click)="installPwa()">
-    Add to Home screen
-  </button>
+<div *ngIf="data.mobileType === 'android'" class="df fd-r ali-c">
   <button mat-icon-button (click)="close()">
     <mat-icon>close</mat-icon>
   </button>
-</mat-toolbar>
+  <div class="df fd-c jc-c" style="width: 100%; align-items: center;">
+    <span>{{'addToHome' | ml}}</span>
+    <div style="width: 100%; display: flex; justify-content: space-evenly;">
+      <button mat-raised-button color="primary" (click)="installPwa()" class="mr-5">
+        <mat-icon>home</mat-icon>
+        {{'yes' | ml}}
+      </button>
+      <button mat-raised-button color="warn" (click)="close()">
+        <mat-icon>close</mat-icon>
+        {{'no' | ml}}
+      </button>
+    </div>
+  </div>
+</div>
 
 <div *ngIf="data.mobileType === 'ios'" class="ios-prompt">
   <button class="close-ios-inv" mat-button color="primary" (click)="close()">
     <mat-icon>close</mat-icon>
   </button>
-  <div>To install this web app on your device tap the Menu button and then 'Add to Home screen' button</div>
+  <div>{{'iosAddInstruction' | ml}}</div>
   <div style="justify-content: center; display: flex; align-items: center;">
     <img src="./assets/ios-menu-btn.png">
     <mat-icon>navigate_next</mat-icon>

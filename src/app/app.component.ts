@@ -10,7 +10,6 @@ import { HammerGestureConfig } from '@angular/platform-browser';
 import { AuthService } from './services/auth/auth.service';
 import { AppService } from './app.service';
 import { User } from './dtos/user';
-import { EventService } from './services/dataServices/event/event-service.service';
 import { environment } from 'src/environments/environment';
 
 export class MyHammerConfig extends HammerGestureConfig {
@@ -42,7 +41,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private appService: AppService,
     private store: Store<fromApp.AppState>,
   ) {}
 
@@ -53,10 +51,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     this.checkLocalStorage();
 
+    /*
     let body = document.body;
     this.swipeHammer = new MyHammerConfig();
     this.swipeHammer.events = ["panright"];
     let swipeHammer = this.swipeHammer.buildHammer(body);
+
     swipeHammer.on("panright", () => {
       this.appService.openNav();
     });
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     mainTapHammer.on("tap", () => {
       this.appService.closeNav();
     });
-
+    */
 
   }
 

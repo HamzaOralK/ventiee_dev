@@ -15,11 +15,10 @@ export class PwaService {
     private platform: Platform,
     private bottomSheet: MatBottomSheet
   ) {
-    // this.initPwaPrompt();
+
   }
 
   public initPwaPrompt() {
-    console.log("aaa");
     if (this.platform.ANDROID) {
       window.addEventListener("beforeinstallprompt", (event: any) => {
         event.preventDefault();

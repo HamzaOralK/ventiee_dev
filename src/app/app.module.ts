@@ -131,12 +131,7 @@ const initializer = (pwaService: PwaService, langService: LangService) => () => 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializer,
-      deps: [PwaService, LangService],
-      multi: true,
-    },
+    { provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService, LangService], multi: true, },
   ],
   bootstrap: [AppComponent],
 })
