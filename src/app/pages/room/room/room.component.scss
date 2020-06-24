@@ -68,11 +68,11 @@ $usersFullWidth: 220px;
   align-items: center;
 
   @include media-breakpoint(xs) {
-    width: 98%;
+    // width: 98%;
   }
 
   @include media-breakpoint(sm) {
-    width: 98%;
+    // width: 98%;
   }
 
 }
@@ -211,6 +211,17 @@ $usersFullWidth: 220px;
   @include media-breakpoint(sm) {
     min-width: unset;
     width: 100%;
+  }
+}
+
+.minWidth {
+  min-width: 700px;
+  @include media-breakpoint(xs) {
+    min-width: unset;
+  }
+
+  @include media-breakpoint(sm) {
+    min-width: unset;
   }
 }
 

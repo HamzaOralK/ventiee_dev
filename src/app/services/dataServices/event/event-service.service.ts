@@ -4,14 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../../../store/app.reducer';
-import * as AppActitons from '../../../store/app.actions';
+import * as AppActions from '../../../store/app.actions';
 import * as fromAuth from '../../auth/store/auth.reducer';
 import * as fromRoom from '../../../services/dataServices/room/store/room.reducer';
 import * as RoomActions from '../../../services/dataServices/room/store/room.actions';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
-import { Room, RoomUser, Color } from 'src/app/dtos/room';
+import { Room, RoomUser } from 'src/app/dtos/room';
 import { Subscription } from 'rxjs';
 import { LangService } from '../../lang/lang.service';
 import { NotificationService, SnackType } from '../../notification/notification.service';
@@ -77,8 +77,8 @@ export class EventService {
             let r = result.filter(
               (elem) => !this.joinedRooms.find(({ _id }) => elem._id === _id)
             );
-            if(pageNo === 1) this.store.dispatch(new AppActitons.GetEvents(Object.values(r)));
-            else if (pageNo > 1) this.store.dispatch(new AppActitons.LoadMoreEvents(Object.values(r)));
+            if(pageNo === 1) this.store.dispatch(new AppActions.GetEvents(Object.values(r)));
+            else if (pageNo > 1) this.store.dispatch(new AppActions.LoadMoreEvents(Object.values(r)));
             return r;
           }
         }),
@@ -118,8 +118,8 @@ export class EventService {
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
           this.notificationService.notify(this.langService.get("eventCreateSuccess"));
-          this.router.navigate(["/room/" + p._id]);
-          // this.router.navigate(["/home"]);
+          if(this.appService.smallScreen) this.router.navigate(["/room/" + p._id]);
+          else this.router.navigate(["/home"]);
           this.roomService.joinSocketRoom(room._id, true);
         }
       }, (e) => {
@@ -153,8 +153,8 @@ export class EventService {
       .pipe(
         map((result: any) => {
           if (result) {
-            if (pageNo === 1) this.store.dispatch(new AppActitons.GetHistoryEvents(Object.values(result)));
-            else if (pageNo > 1) this.store.dispatch(new AppActitons.LoadMoreHistoryEvents(Object.values(result)));
+            if (pageNo === 1) this.store.dispatch(new AppActions.GetHistoryEvents(Object.values(result)));
+            else if (pageNo > 1) this.store.dispatch(new AppActions.LoadMoreHistoryEvents(Object.values(result)));
             return result;
           }
         }),

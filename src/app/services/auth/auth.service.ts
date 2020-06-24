@@ -124,4 +124,13 @@ export class AuthService {
     window.localStorage.setItem(environment.loginLocalStorageKey, JSON.stringify(jsonAuthInfo));
   }
 
+
+  checkLocalStorage() {
+    let str = window.localStorage.getItem(environment.loginLocalStorageKey);
+    if (str) {
+      this.isLoggedIn = true;
+      this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));
+    }
+  }
+
 }

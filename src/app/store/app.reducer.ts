@@ -3,6 +3,7 @@ import * as fromAuth from '../services/auth/store/auth.reducer';
 import * as fromRoom from '../services/dataServices/room/store/room.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 import { Event } from '../dtos/event';
+import { AppService } from '../app.service';
 
 export interface AppState {
   appWise: AppWise;
@@ -79,6 +80,12 @@ export function appWiseReducer(state = initialState, action: AppActions.AppActio
       return {
         ...state,
         history: [action.payload, ...state.history]
+      }
+    case AppActions.COMMENT_HISTORY_EVENT:
+      let index = state.history.findIndex(e => e._id === action.payload);
+      state.history[index].isCommented = true;
+      return {
+        ...state
       }
     default:
       return state;

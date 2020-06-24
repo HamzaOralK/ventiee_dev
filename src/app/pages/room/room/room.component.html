@@ -34,7 +34,7 @@
       </ng-container>
     </mat-list>
   </div>
-  <div class="control">
+  <div class="control" [ngClass]="roomId ? 'minWidth' : ''">
     <div class="roomInfo noDesktop shadow" *ngIf="activeRoom">
       <div class="text c-ptr" (click)="openDialog()">
         <span><b>{{'event' | ml}}:</b> {{activeRoom.title}}</span>

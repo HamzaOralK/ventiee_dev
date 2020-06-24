@@ -3,9 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '../../auth/store/auth.reducer';
 import * as fromApp from '../../../store/app.reducer';
+import * as AppActions from '../../../store/app.actions';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/dtos/user';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +30,14 @@ export class CommentsService {
 
   sendComment(commentObj: Partial<{ eventId: string, moderatorUserId: string, userId: string, comment: string, rating: number, date: Date }>) {
     let url = environment.serviceURL + "/comment/add";
-    return this.http.post<any>(url, {...commentObj});
+    return this.http.post<any>(url, {...commentObj}).pipe(
+      map(c => {
+        this.store.dispatch(new AppActions.CommentHistoryEvent(commentObj.eventId));
+      })
+    );
   }
 
-  getCommentsByEventId(eventId: string) {
-
-  }
+  getCommentsByEventId(eventId: string) { }
 
   getCommentsByModeratorUserId(moderatorUserId) {
     let url = environment.serviceURL + "/comments";

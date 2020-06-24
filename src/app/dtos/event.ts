@@ -20,6 +20,7 @@ export class Event {
   imageURI?: string;
   base64: any;
   comments: EventComment[];
+  isCommented: boolean;
 }
 
 export enum EventStatus {

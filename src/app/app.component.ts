@@ -40,7 +40,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   mainTapHammer: HammerGestureConfig;
 
   constructor(
-    private authService: AuthService,
     private store: Store<fromApp.AppState>,
   ) {}
 
@@ -49,7 +48,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.auth.subscribe(p => {
       this.user = p.user;
     });
-    this.checkLocalStorage();
+    // this.checkLocalStorage();
 
     /*
     let body = document.body;
@@ -76,11 +75,4 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  checkLocalStorage() {
-    let str = window.localStorage.getItem(environment.loginLocalStorageKey);
-    if(str) {
-      this.authService.isLoggedIn = true;
-      this.store.dispatch(new AuthActions.LoginUser(JSON.parse(str)));
-    }
-  }
 }
