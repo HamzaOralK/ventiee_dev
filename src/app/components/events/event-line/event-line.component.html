@@ -25,7 +25,7 @@
         </div>
       </div>
     </mat-panel-title>
-    <mat-panel-description *ngIf="type === 'history'">
+    <mat-panel-description *ngIf="type === 'history' && !event.isCommented">
       <button mat-raised-button (click)="openCommentModal()" *ngIf="event.moderatorUser._id !== user._id">
         <mat-icon>chat_bubble</mat-icon>
       </button>
