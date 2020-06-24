@@ -14,7 +14,7 @@
           <div>
             <rating [rating]='comment.rating' [readonly]="true"></rating>
           </div>
-          <span>{{comment.comment}}</span>
+          <span *ngIf="comment.comment">{{comment.comment}}</span>
         </div>
       </div>
     </mat-card-content>

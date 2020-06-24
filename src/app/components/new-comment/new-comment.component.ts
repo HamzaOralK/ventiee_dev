@@ -15,7 +15,7 @@ import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 })
 export class NewCommentComponent implements OnInit, OnDestroy {
   rating: number = undefined;
-  comment: FormControl = new FormControl(undefined, [Validators.required, this.noWhitespace, Validators.maxLength(140), Validators.minLength(1)]);
+  comment: FormControl = new FormControl(undefined, [this.noWhitespace, Validators.maxLength(140)]);
   commentLength: number = 0;
   subscription = new Subscription();
   isLoading = false;
@@ -40,7 +40,9 @@ export class NewCommentComponent implements OnInit, OnDestroy {
   }
 
   public noWhitespace(control: FormControl) {
-    let isWhitespace = (control.value || '').trim().length === 0;
+    let isWhitespace;
+    if (control.value && control.value.length > 0) isWhitespace = (control.value || '').trim().length === 0;
+    else isWhitespace = false;
     let isValid = !isWhitespace;
     return isValid ? null : { 'whitespace': true }
   }
