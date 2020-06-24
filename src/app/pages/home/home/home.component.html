@@ -12,6 +12,14 @@
         <div class="rooms">
           <chats></chats>
           <room *ngIf="activeRoom" class="room"></room>
+          <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+            <span style="text-align: center;">
+              Konuşmak için bir oda seçebilir,
+              <span class="c-ptr" (click)="goAllEvents()">Ventiee'ler sekmesinden</span>
+              bir Ventiee'ye katılabilir veya
+              <span class="c-ptr" (click)="createEvent()">bir Ventiee oluşturabilirsiniz!</span>
+            </span>
+          </div>
         </div>
       </tab>
       <tab label="{{'events' | ml}}">

@@ -14,9 +14,7 @@ export class PwaService {
   constructor(
     private platform: Platform,
     private bottomSheet: MatBottomSheet
-  ) {
-
-  }
+  ) { }
 
   public initPwaPrompt() {
     if (this.platform.ANDROID) {
@@ -36,11 +34,9 @@ export class PwaService {
 
   private openPromptComponent(mobileType: "ios" | "android") {
     timer(3000)
-      .pipe(take(1))
-      .subscribe(() =>
-        this.bottomSheet.open(PwaPromptComponent, {
-          data: { mobileType, promptEvent: this.promptEvent },
-        })
-      );
+    .pipe(take(1))
+    .subscribe(() =>
+      this.bottomSheet.open(PwaPromptComponent, { data: { mobileType, promptEvent: this.promptEvent }, })
+    );
   }
 }

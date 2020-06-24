@@ -62,10 +62,14 @@ room {
   @include media-breakpoint(sm) {
     display: none;
   }
+}
 
-  @include media-breakpoint(md) {
-    // width: 60%;
-  }
+.c-ptr {
+  text-decoration: underline;
+}
+
+.c-ptr:hover {
+  color: mat-color($app-accent);
 }
 
 :host ::ng-deep .top {

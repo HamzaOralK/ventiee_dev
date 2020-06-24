@@ -9,6 +9,7 @@ import { AppService } from 'src/app/app.service';
 import { Room } from 'src/app/dtos/room';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { TabsComponent } from 'src/app/components/tabs/tabs/tabs.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "home",
@@ -34,7 +35,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private store: Store<fromApp.AppState>,
     private appService: AppService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private router: Router
   ) {
     this.appWise = this.store.select("appWise");
   }
@@ -66,6 +68,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   onJoinEvent() {
     this.tabsComponent.changeSelectedTab(0);
+  }
+
+  createEvent() {
+    this.router.navigate(["/createEvent"]);
+  }
+
+  goAllEvents() {
+    this.tabsComponent.changeSelectedTab(1);
   }
 
 }

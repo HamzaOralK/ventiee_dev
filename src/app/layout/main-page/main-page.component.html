@@ -1,5 +1,5 @@
-<div class="main">
-  <router-outlet></router-outlet>
+<div class="main" [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
   <loading-overlay *ngIf="isLoading"></loading-overlay>
 </div>
 

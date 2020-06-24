@@ -40,7 +40,6 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private eventService: EventService,
-    private roomService: RoomService,
     private store: Store<fromApp.AppState>,
     private router: Router,
     private appService: AppService
