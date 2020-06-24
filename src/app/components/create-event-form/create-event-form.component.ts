@@ -17,6 +17,7 @@ import { PlaceService } from 'src/app/services/dataServices/place/place.service'
 import { MatSelectChange } from '@angular/material/select';
 import { GenericImageCropperComponent } from '../generic-image-cropper/generic-image-cropper.component';
 import { AppService } from 'src/app/app.service';
+import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 
 @Component({
   selector: "create-event-form",
@@ -93,11 +94,11 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
   constructor(
     private eventService: EventService,
     private notificationService: NotificationService,
-    private langService: LangService,
     private authService: AuthService,
     private appService: AppService,
     private placeService: PlaceService,
-    public dialog: MatDialog
+    private ml: MultiLanguagePipe,
+    public dialog: MatDialog,
   ) {
     this.subscription = new Subscription();
 
@@ -186,9 +187,9 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
     }
 
     if (newEvent.endDate && newEvent.startDate > newEvent.endDate) {
-      this.notificationService.notify(this.langService.get("startDateGtThanEndDate"), SnackType.warn);
+      this.notificationService.notify(this.ml.transform("startDateGtThanEndDate"), SnackType.warn);
     } else if (newEvent.startDate < new Date()) {
-      this.notificationService.notify(this.langService.get("startDateGtThanNow"), SnackType.warn);
+      this.notificationService.notify(this.ml.transform("startDateGtThanNow"), SnackType.warn);
     } else {
       this.eventService.addEvent(newEvent);
     }

@@ -18,6 +18,9 @@ import { Store } from '@ngrx/store';
 import { AppService } from 'src/app/app.service';
 import { COMMONS } from 'src/app/shared/commons';
 import { ModalType } from 'src/app/components/generic-modal/generic-modal.component';
+import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
+import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'room',
@@ -57,8 +60,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private appService: AppService,
     private store: Store<fromApp.AppState>,
+    private notificationService: NotificationService,
+    private ml: MultiLanguagePipe,
+    private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
-    public cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -69,6 +74,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.subscription = new Subscription();
 
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
+      /** roomId varsa demek ki route ile gelmiş ve solo açılmış */
       if (this.roomId) this.roomService.changeRoom(this.roomId);
       this.pageNo = 1;
       this.roomId = p.get('id');
@@ -260,5 +266,43 @@ export class RoomComponent implements OnInit, OnDestroy {
   get isSmallScreen() {
     return this.appService.smallScreen;
   }
+
+  fallbackCopyTextToClipboard(text: string) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+
+  // Avoid scrolling to bottom
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    if(successful) this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default, 'OK');
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+  }
+
+  document.body.removeChild(textArea);
+}
+
+
+copyTextToClipboard() {
+  let text = environment.URL + '/ventiee/' + this.roomService.activeRoom._id;
+  console.log(text);
+  if (!navigator.clipboard) {
+    this.fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function () {
+    this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default);
+  }, function (err) {
+    console.error('Async: Could not copy text: ', err);
+  });
+}
 
 }

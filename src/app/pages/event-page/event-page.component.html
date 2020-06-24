@@ -1,8 +1,23 @@
 <div>
-    <mat-card>
-        <p *ngIf="event"> {{event.title}} için {{event.peopleCount}} kişi aranıyor.</p>
-        <mat-card-actions>
-            <button mat-raised-button color="primary" >İnsan Bul!</button>
-        </mat-card-actions>
-    </mat-card>
+
+  <mat-card class="card" *ngIf="event">
+    <mat-card-header>
+      <mat-card-title>{{event.title}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="event.imageURI || './assets/no_img.png'">
+    <mat-card-content>
+      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex; align-items: center;">
+        <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
+        <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
+      </div>
+      <p>
+        {{event.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" *ngIf="joinable" (click)="joinEvent()">{{'join' | ml}}</button>
+      <span *ngIf="!joinable">Zaten bu odada bulunuyorsunuz!</span>
+    </mat-card-actions>
+  </mat-card>
+
 </div>

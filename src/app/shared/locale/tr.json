@@ -103,6 +103,7 @@
     {"key": "invited", "value": "Davetliler"},
     {"key": "waiting", "value": "Kabul bekleyenler"},
     {"key": "inroom", "value": "Odadakiler"},
+    {"key": "roomLinkCopied", "value": "Oda linki kopyalandı."},
     {"key": "newEvent", "value": "Yeni Ventiee"},
     {"key": "users", "value": "Buradakiler"},
     {"key": "joinedNotification", "value": " konuşmaya katıldı."},

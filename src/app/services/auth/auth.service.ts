@@ -5,7 +5,7 @@ import { User } from 'src/app/dtos/user';
 import * as AuthActions from '../auth/store/auth.actions';
 import * as fromAuth from '../auth/store/auth.reducer';
 import * as fromApp from '../../store/app.reducer';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { NotificationService } from '../notification/notification.service';
 import { catchError, tap } from 'rxjs/operators';
@@ -27,6 +27,7 @@ export class AuthService {
     private http: HttpClient,
     private store: Store < fromApp.AppState > ,
     private router: Router,
+    private route: ActivatedRoute,
     private notificationService: NotificationService,
     private ml: MultiLanguagePipe
   ) {
@@ -59,7 +60,9 @@ export class AuthService {
         if (user && token) {
           window.localStorage.setItem(environment.loginLocalStorageKey, JSON.stringify(p));
           this.isLoggedIn = true;
-          this.router.navigate(['/home']);
+          let returnURL = this.route.snapshot.queryParamMap.get('url');
+          if (returnURL) this.router.navigate([returnURL]);
+          else this.router.navigate(['/home']);
           this.store.dispatch(new AuthActions.LoginUser(p));
         }
       }),
@@ -68,7 +71,6 @@ export class AuthService {
           this.router.navigate(['/resend', user.email]);
           return of('NotVerified');
         }
-        //this.notificationService.notify(this.langService.get('loginError'), 'OK');
         return of('LoginError');
       })
     );

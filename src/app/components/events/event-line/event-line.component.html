@@ -18,8 +18,9 @@
                 {{tag}}
               </div>
             </div>
-            <div *ngIf="type === 'history'">
-              {{'organisator' | ml}}: {{event.moderatorUser.nickname}}
+            <div *ngIf="type === 'history'" routerLink="/profile/{{event.moderatorUser._id}}" class="iconInfo c-ptr">
+              <mat-icon>emoji_people</mat-icon>
+              {{event.moderatorUser.nickname}}
             </div>
           </div>
         </div>
@@ -33,7 +34,7 @@
   </mat-expansion-panel-header>
   <div *ngIf="type !== 'history'">
     <div class="line">
-      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex; align-items: center;">
+      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" class="c-ptr" style="display: flex; align-items: center;">
         <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
         <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
       </div>

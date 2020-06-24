@@ -17,8 +17,7 @@ export class AuthGuard implements CanActivate {
 
   checkLogin(url: string) {
     if(this.authService.isLoggedIn) {return true;}
-    this.router.navigate(['/login']);
-    console.log("Auth Guard stuck!");
+    this.router.navigate(['/login'], { queryParams: {url: url} });
     return false;
   }
 

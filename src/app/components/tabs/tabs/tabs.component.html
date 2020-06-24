@@ -1,6 +1,6 @@
 <div #parentBody style="height: 100%; overflow: hidden; display: flex; flex-direction: column;">
   <ul>
-    <li *ngFor="let tab of tabs" (click)="selectTab(tab.tabComponent)" [ngClass]="selectedTabComponent === tab.tabComponent ? 'selected' : ''">
+    <li *ngFor="let tab of tabs" (click)="selectTab(tab.tabComponent)" class="c-ptr" [ngClass]="selectedTabComponent === tab.tabComponent ? 'selected' : ''">
       <div *ngIf="tab.tabComponent.label" #tabLabel>{{ tab.tabComponent.label }}</div>
       <ng-container *ngIf="!tab.tabComponent.label" #tabLabel></ng-container>
     </li>

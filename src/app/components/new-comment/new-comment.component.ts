@@ -25,7 +25,7 @@ export class NewCommentComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: {event: Event, user: User},
     private commentsService: CommentsService,
     private notificationService: NotificationService,
-    private mlPipe: MultiLanguagePipe
+    private ml: MultiLanguagePipe
   ) {}
 
   ngOnInit(): void {
@@ -64,12 +64,12 @@ export class NewCommentComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.commentsService.sendComment(commentObj).subscribe(p => {
       this.isLoading = false;
-      this.notificationService.notify(this.mlPipe.transform('commentSaved'), SnackType.default);
+      this.notificationService.notify(this.ml.transform('commentSaved'), SnackType.default);
       this.onNoClick();
     },
     e => {
       this.isLoading = false;
-      this.notificationService.notify(this.mlPipe.transform('commentError'), SnackType.warn);
+      this.notificationService.notify(this.ml.transform('commentError'), SnackType.warn);
       this.onNoClick();
     });
   }

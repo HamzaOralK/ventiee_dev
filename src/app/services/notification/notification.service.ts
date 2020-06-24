@@ -14,17 +14,17 @@ export class NotificationService {
   constructor(private _snackBar: MatSnackBar) {}
 
   notify(message: string, type: SnackType = SnackType.default, action: string = "OK") {
-    // if(!action) action = "OK";
+    if(!action) action = "OK";
     let cPanel = ['ventiee-snackbar'];
 
     if(type === SnackType.warn) {
       cPanel = ['ventiee-snackbar-warn'];
     }
 
-    this._snackBar.open(message, undefined, {
+    this._snackBar.open(message, action, {
       duration: 4000,
       verticalPosition: 'top',
-      panelClass: cPanel
+      panelClass: cPanel,
     });
   }
 }

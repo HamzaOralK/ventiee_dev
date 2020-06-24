@@ -2,21 +2,25 @@
   <div class="users">
     <!-- <p *ngFor="let user of activeRoom.users">{{user.nickname}}</p> -->
     <div class="roomInfo" *ngIf="activeRoom">
-      <button mat-raised-button color="primary" (click)="openDialog()" style="margin-right: 5px;">
+      <button mat-mini-fab color="primary" (click)="openDialog()" style="margin-right: 5px;">
         <mat-icon>event_note</mat-icon>
-        {{'info' | ml}}
+        <!-- {{'info' | ml}} -->
       </button>
-      <button mat-raised-button color="warn" (click)="leaveRoom()" *ngIf="!isModerator()">
+      <button mat-mini-fab color="primary" (click)="copyTextToClipboard()" style="margin-right: 5px;">
+        <mat-icon>share</mat-icon>
+        <!-- {{'quit' | ml}} -->
+      </button>
+      <button mat-mini-fab color="warn" (click)="leaveRoom()" *ngIf="!isModerator()">
         <mat-icon>clear</mat-icon>
-        {{'quit' | ml}}
+        <!-- {{'quit' | ml}} -->
       </button>
-      <button mat-raised-button color="warn" (click)="cancelEvent()" *ngIf="isModerator() && activeRoom.type==='meeting'">
+      <button mat-mini-fab color="warn" (click)="cancelEvent()" *ngIf="isModerator() && activeRoom.type==='meeting'">
         <mat-icon>block</mat-icon>
-        {{'cancel' | ml}}
+        <!-- {{'cancel' | ml}} -->
       </button>
-      <button mat-raised-button color="warn" (click)="completeEvent()" *ngIf="isModerator() && activeRoom.type==='conversation'">
+      <button mat-mini-fab color="warn" (click)="completeEvent()" *ngIf="isModerator() && activeRoom.type==='conversation'">
         <mat-icon>block</mat-icon>
-        {{'complete' | ml}}
+        <!-- {{'complete' | ml}} -->
       </button>
     </div>
     <mat-list>
@@ -43,11 +47,16 @@
         </div>
       </div>
       <span class="spacer"></span>
-      <div [ngClass]="!isSmallScreen ? 'hidden' : 'showFlex'">
-        <button mat-flat-button color="warn" (click)="leaveRoom()">
-          <mat-icon>clear</mat-icon>
-          {{'leaveEvent' | ml}}
+      <div [ngClass]="!isSmallScreen ? 'hidden' : 'df'">
+        <button mat-mini-fab color="primary" class="mr-5" (click)="copyTextToClipboard()">
+          <mat-icon>share</mat-icon>
+          <!-- {{'leaveEvent' | ml}} -->
         </button>
+        <button mat-mini-fab color="warn" (click)="leaveRoom()">
+          <mat-icon>clear</mat-icon>
+          <!-- {{'leaveEvent' | ml}} -->
+        </button>
+
       </div>
     </div>
     <div #messages class="messages scroll">
