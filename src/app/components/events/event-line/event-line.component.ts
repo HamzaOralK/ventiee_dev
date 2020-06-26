@@ -6,10 +6,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
-import { UserType } from 'src/app/dtos/enums';
+import { UserType, FeedbackTypes } from 'src/app/dtos/enums';
 import { ModalType } from '../../generic-modal/generic-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NewCommentComponent } from '../../new-comment/new-comment.component';
+import { NewFeedbackComponent } from '../../new-feedback/new-feedback.component';
 import * as fromApp from "../../../store/app.reducer";
 import { Store } from '@ngrx/store';
 
@@ -78,23 +78,20 @@ export class EventLineComponent implements OnInit {
   }
 
   report() {
+    /*
     this.appService.openModal(this.event.title, 'reportQuestion', undefined, ModalType.Confirmation).subscribe(p => {
       if(p) console.log('Şikayet ediltdi.');
     });
-  }
-
-  openCommentModal() {
-    const dialogRef = this.dialog.open(NewCommentComponent, {
+    */
+    const dialogRef = this.dialog.open(NewFeedbackComponent, {
       minWidth: '250px',
       maxWidth: '600px',
-
       data: {
         event: this.event,
-        user: this.user
+        type: FeedbackTypes.report,
+        ownerUser: this.user
       }
     });
-
     dialogRef.afterClosed().subscribe(result => { });
-
   }
 }

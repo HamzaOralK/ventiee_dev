@@ -1,0 +1,30 @@
+<loading-overlay *ngIf="isLoading"></loading-overlay>
+<div mat-dialog-title style="display: flex;">
+  <img [src]="data.event.imageURI || './assets/no_img.png'" class="titleImg">
+  <h2>{{data.event.title}}</h2>
+</div>
+
+<div mat-dialog-content class="content">
+  <div style="display: flex; flex-direction: row; align-items: center;" *ngIf="type === 'comment'">
+    <span>{{'rating' | ml}}</span>
+    <rating (onRate)="onRate($event)" [readonly]="false"></rating>
+  </div>
+  <div *ngIf="type === 'report' && data.user">
+    <h4>{{'reportedUser' | ml}}</h4>
+    <p>{{data.user.nickname}}</p>
+  </div>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label *ngIf="type === 'comment'">{{'leaveacomment' | ml}}</mat-label>
+    <mat-label *ngIf="type === 'report'">{{'report' | ml}}</mat-label>
+    <textarea matInput [placeholder]="type==='comment' ? 'Çok eğlendim! Bir daha!' : 'Şikayetinizi yazın!'" rows="5" [formControl]="comment"></textarea>
+  </mat-form-field>
+  <div class="counter">{{commentLength}} / 140</div>
+</div>
+
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="sendFeedback()" [disabled]="checkFeedbackValidation()">{{'send' | ml}}</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()">{{'cancel' | ml}}</button>
+</div>
+

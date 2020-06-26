@@ -3,7 +3,8 @@ import { Event } from 'src/app/dtos/event';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { MatDialog } from '@angular/material/dialog';
-import { NewCommentComponent } from '../../new-comment/new-comment.component';
+import { NewFeedbackComponent } from '../../new-feedback/new-feedback.component';
+import { FeedbackTypes } from 'src/app/dtos/enums';
 
 @Component({
   selector: 'event-line-with-comment',
@@ -28,13 +29,14 @@ export class EventLineWithCommentComponent implements OnInit {
 
 
   openCommentModal() {
-    const dialogRef = this.dialog.open(NewCommentComponent, {
+    const dialogRef = this.dialog.open(NewFeedbackComponent, {
       minWidth: '250px',
       maxWidth: '600px',
 
       data: {
         event: this.event,
-        user: this.user
+        user: this.user,
+        type: FeedbackTypes.comment
       }
     });
 

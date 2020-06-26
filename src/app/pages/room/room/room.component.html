@@ -4,23 +4,21 @@
     <div class="roomInfo" *ngIf="activeRoom">
       <button mat-mini-fab color="primary" (click)="openDialog()" style="margin-right: 5px;">
         <mat-icon>event_note</mat-icon>
-        <!-- {{'info' | ml}} -->
       </button>
       <button mat-mini-fab color="primary" (click)="copyTextToClipboard()" style="margin-right: 5px;">
         <mat-icon>share</mat-icon>
-        <!-- {{'quit' | ml}} -->
+      </button>
+      <button mat-mini-fab color="warn" (click)="report()" *ngIf="!isModerator()" style="margin-right: 5px;">
+        <mat-icon>report_problem</mat-icon>
       </button>
       <button mat-mini-fab color="warn" (click)="leaveRoom()" *ngIf="!isModerator()">
         <mat-icon>clear</mat-icon>
-        <!-- {{'quit' | ml}} -->
       </button>
       <button mat-mini-fab color="warn" (click)="cancelEvent()" *ngIf="isModerator() && activeRoom.type==='meeting'">
         <mat-icon>block</mat-icon>
-        <!-- {{'cancel' | ml}} -->
       </button>
       <button mat-mini-fab color="warn" (click)="completeEvent()" *ngIf="isModerator() && activeRoom.type==='conversation'">
         <mat-icon>block</mat-icon>
-        <!-- {{'complete' | ml}} -->
       </button>
     </div>
     <mat-list>
@@ -32,6 +30,7 @@
           <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/profile', roomUser.user._id]">{{'showProfile' | ml}}</button>
+            <button mat-menu-item *ngIf="isKickable(roomUser.user)" (click)="report(roomUser.user)">{{'report' | ml}}</button>
             <button mat-menu-item *ngIf="isModerator() && isKickable(roomUser.user)" (click)="onKickUser(roomUser.user)">{{'kickUser' | ml}}</button>
           </mat-menu>
         </mat-list-item>

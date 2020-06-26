@@ -41,3 +41,8 @@ export enum EventListType {
   History = "history",
   User = "user"
 }
+
+export enum FeedbackTypes {
+  comment = 'comment',
+  report = 'report'
+}

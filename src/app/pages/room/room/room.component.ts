@@ -7,9 +7,9 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/internal/operators/take';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { ActivatedRoute } from '@angular/router';
-import { MMessage, MessageType } from 'src/app/dtos/message';
+import { MMessage } from 'src/app/dtos/message';
 import { User } from 'src/app/dtos/user';
-import { Room, RoomUser, Color } from 'src/app/dtos/room';
+import { Room, RoomUser } from 'src/app/dtos/room';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,6 +21,8 @@ import { ModalType } from 'src/app/components/generic-modal/generic-modal.compon
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
+import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
+import { FeedbackTypes } from 'src/app/dtos/enums';
 
 @Component({
   selector: 'room',
@@ -268,41 +270,57 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   fallbackCopyTextToClipboard(text: string) {
-  var textArea = document.createElement("textarea");
-  textArea.value = text;
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
 
-  // Avoid scrolling to bottom
-  textArea.style.top = "0";
-  textArea.style.left = "0";
-  textArea.style.position = "fixed";
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
 
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
 
-  try {
-    var successful = document.execCommand('copy');
-    if(successful) this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default, 'OK');
-  } catch (err) {
-    console.error('Fallback: Oops, unable to copy', err);
+    try {
+      var successful = document.execCommand('copy');
+      if(successful) this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default, 'OK');
+    } catch (err) {
+      console.error('Fallback: Oops, unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
   }
 
-  document.body.removeChild(textArea);
-}
 
-
-copyTextToClipboard() {
-  let text = environment.URL + '/ventiee/' + this.roomService.activeRoom._id;
-  console.log(text);
-  if (!navigator.clipboard) {
-    this.fallbackCopyTextToClipboard(text);
-    return;
+  copyTextToClipboard() {
+    let text = environment.URL + '/ventiee/' + this.roomService.activeRoom._id;
+    console.log(text);
+    if (!navigator.clipboard) {
+      this.fallbackCopyTextToClipboard(text);
+      return;
+    }
+    navigator.clipboard.writeText(text).then(function () {
+      this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default);
+    }, function (err) {
+      console.error('Async: Could not copy text: ', err);
+    });
   }
-  navigator.clipboard.writeText(text).then(function () {
-    this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default);
-  }, function (err) {
-    console.error('Async: Could not copy text: ', err);
-  });
-}
+
+  report(user?: User) {
+    let data = {
+      event: this.activeRoom,
+      type: FeedbackTypes.report,
+      ownerUser: this.user
+    }
+    if(user) data["user"] = user;
+    const dialogRef = this.dialog.open(NewFeedbackComponent, {
+      minWidth: '250px',
+      maxWidth: '600px',
+      data
+    });
+    dialogRef.afterClosed().subscribe(result => { });
+  }
+
 
 }

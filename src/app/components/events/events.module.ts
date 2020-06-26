@@ -15,8 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EventFilterModule } from '../event-filter/event-filter.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NewCommentComponent } from '../new-comment/new-comment.component';
-import { NewCommentModule } from '../new-comment/new-comment.module';
+import { NewFeedbackModule } from '../new-feedback/new-feedback.module';
 import { EventLineWithCommentComponent } from './event-line-with-comment/event-line-with-comment.component';
 import { RatingModule } from '../rating/rating.module';
 
@@ -41,7 +40,7 @@ import { RatingModule } from '../rating/rating.module';
     EventFilterModule,
     MatFormFieldModule,
     MatInputModule,
-    NewCommentModule,
+    NewFeedbackModule,
     RatingModule
   ],
   exports: [

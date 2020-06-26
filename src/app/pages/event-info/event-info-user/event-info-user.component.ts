@@ -13,6 +13,7 @@ export class EventInfoUserComponent extends BaseComponent implements OnInit {
   @Input() room: Room;
   @Input() user: RoomUser;
   @Output() onKickUser = new EventEmitter();
+  @Output() onReport = new EventEmitter();
 
   constructor(injector: Injector) {
     super(injector);
@@ -36,6 +37,10 @@ export class EventInfoUserComponent extends BaseComponent implements OnInit {
 
   kickUser(user: Partial<User>) {
     this.onKickUser.emit(user);
+  }
+
+  report(user: Partial<User>) {
+    this.onReport.emit(user);
   }
 
 }

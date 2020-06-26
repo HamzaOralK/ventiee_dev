@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Injector } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/dtos/user';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { Room, RoomUser } from 'src/app/dtos/room';
@@ -10,6 +10,9 @@ import * as fromApp from '../../store/app.reducer';
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { AppService } from 'src/app/app.service';
 import { ModalType } from 'src/app/components/generic-modal/generic-modal.component';
+import { FeedbackTypes } from 'src/app/dtos/enums';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
 
 @Component({
   selector: 'event-info',
@@ -20,16 +23,19 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
 
   users: RoomUser[];
   roomState: Observable<fromRoom.State>;
+  user: User;
 
   constructor(
     private roomService: RoomService,
     public dialogRef: MatDialogRef<any>,
     private store: Store<fromApp.AppState>,
     private appService: AppService,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: {room: Room},
     injector: Injector
   ) {
     super(injector);
+    this.user = this.authService.user;
   }
 
   ngOnInit(): void {
@@ -74,6 +80,21 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
         this.dialogRef.close();
       }
     });
+  }
+
+  report(user?: User) {
+    let data = {
+      event: this.data.room,
+      type: FeedbackTypes.report,
+      ownerUser: this.user
+    }
+    if (user) data["user"] = user;
+    const dialogRef = this.dialog.open(NewFeedbackComponent, {
+      minWidth: '250px',
+      maxWidth: '600px',
+      data
+    });
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NewCommentComponent } from './new-comment.component';
+import { NewFeedbackComponent } from './new-feedback.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -15,7 +15,7 @@ import { LoadingOverlayModule } from '../loading-overlay/loading-overlay.module'
 
 @NgModule({
   declarations: [
-    NewCommentComponent
+    NewFeedbackComponent
   ],
   imports: [
     CommonModule,
@@ -31,9 +31,9 @@ import { LoadingOverlayModule } from '../loading-overlay/loading-overlay.module'
     LoadingOverlayModule
   ],
   exports: [
-    NewCommentComponent
+    NewFeedbackComponent
   ],
-  entryComponents: [NewCommentComponent]
+  entryComponents: [NewFeedbackComponent]
 })
 
-export class NewCommentModule { }
+export class NewFeedbackModule { }

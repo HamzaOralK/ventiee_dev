@@ -5,13 +5,20 @@
     <h5 *ngIf="data.room.endDate">{{'endDate' | ml}}: {{data.room.endDate | date:'dd/MM/yyyy HH:mm'}}</h5>
     <h5>{{'howmany' | ml}}: {{data.room.peopleCount}}</h5>
     <mat-card-actions>
-      <button mat-button *ngIf="isModerator()" class="warning" (click)="cancelEvent()">{{'cancelEvent' | ml}}</button>
-      <button mat-button *ngIf="!isModerator()" class="warning" (click)="leaveEvent()">{{'dontGo' | ml}}</button>
+      <button mat-fab *ngIf="isModerator()" class="warning" (click)="cancelEvent()">
+        <mat-icon>block</mat-icon>
+      </button>
+      <button mat-fab *ngIf="!isModerator()" class="warning" (click)="leaveEvent()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <button mat-fab *ngIf="!isModerator()" class="warning" (click)="report()" style="margin-left: 10px">
+        <mat-icon>report_problem</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card>
   <ng-container *ngIf="users">
     <div *ngFor="let user of users" class="text">
-      <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)"></event-info-user>
+      <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)" (onReport)="report($event)"></event-info-user>
     </div>
   </ng-container>
 </div>
