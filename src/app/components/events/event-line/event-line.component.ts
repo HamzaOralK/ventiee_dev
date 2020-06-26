@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 import { UserType, FeedbackTypes } from 'src/app/dtos/enums';
 import { ModalType } from '../../generic-modal/generic-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NewFeedbackComponent } from '../../new-feedback/new-feedback.component';
 import * as fromApp from "../../../store/app.reducer";
 import { Store } from '@ngrx/store';
+import { NewFeedbackComponent } from '../../new-feedback/new-feedback.component';
 
 
 @Component({

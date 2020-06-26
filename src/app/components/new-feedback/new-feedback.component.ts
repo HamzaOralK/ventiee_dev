@@ -73,8 +73,9 @@ export class NewFeedbackComponent implements OnInit, OnDestroy {
     if(this.type === FeedbackTypes.report) commentObj.description = this.comment.value.trim();
     commentObj.date = new Date();
     this.isLoading = true;
+    let postSub;
     if(this.type === FeedbackTypes.comment) {
-      this.commentsService.sendComment(commentObj).subscribe(p => {
+      postSub = this.commentsService.sendComment(commentObj).subscribe(p => {
         this.isLoading = false;
         this.notificationService.notify(this.ml.transform('commentSaved'), SnackType.default);
         this.onNoClick();
@@ -85,11 +86,17 @@ export class NewFeedbackComponent implements OnInit, OnDestroy {
         this.onNoClick();
       });
     } else if(this.type === FeedbackTypes.report) {
-      this.isLoading = false;
-      console.log(commentObj);
-      this.notificationService.notify(this.ml.transform('reported'), SnackType.default);
-      this.onNoClick();
-    }
+      postSub= this.commentsService.sendReport(commentObj).subscribe(p => {
+        this.isLoading = false;
+        this.notificationService.notify(this.ml.transform('reported'), SnackType.default);
+        this.onNoClick();
+      }, e => {
+          this.isLoading = false;
+          this.notificationService.notify(this.ml.transform('reportedError'), SnackType.warn);
+          this.onNoClick();
+      });
+   }
+   this.subscription.add(postSub);
   }
 
   checkFeedbackValidation() {

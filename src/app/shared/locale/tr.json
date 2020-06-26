@@ -140,6 +140,7 @@
     {"key": "report", "value": "Şikayet Et"},
     {"key": "reportABug", "value": "Hata bildir"},
     {"key": "reported", "value": "Şikayetiniz alındı."},
+    {"key": "reportedError", "value": "Şikayetiniz alınamadı, bir hata oluştu."},
     {"key": "reportedUser", "value": "Şikayet edilen kullanıcı"},
     {"key": "reportQuestion", "value": "Bu etkinliği şikayet etmek istediğinize emin misiniz?"},
     {"key": "deleteQuestion", "value": "Bu etkinliği silmek istediğinize emin misiniz?"},

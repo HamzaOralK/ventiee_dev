@@ -37,6 +37,11 @@ export class CommentsService {
     );
   }
 
+  sendReport(reportObj: Partial<{ eventId: string, moderatorUserId: string, userId: string, ownerUserId: string, description: string, date: Date }>) {
+    let url = environment.serviceURL + "/report/add";
+    return this.http.post<any>(url, { ...reportObj })
+  }
+
   getCommentsByEventId(eventId: string) { }
 
   getCommentsByModeratorUserId(moderatorUserId) {
