@@ -107,7 +107,7 @@ export class AuthService {
       this.notificationService.notify(this.ml.transform('resetPassMailSent'));
       this.router.navigate(['/home']);
     }, e => {
-      console.log(e);
+      // console.log(e);
     });
   }
 
@@ -116,7 +116,7 @@ export class AuthService {
       this.notificationService.notify(this.ml.transform('resetSuccesfull'));
       this.router.navigate(['/login']);
     }, e => {
-      console.log(e);
+      // console.log(e);
     });
   }
 

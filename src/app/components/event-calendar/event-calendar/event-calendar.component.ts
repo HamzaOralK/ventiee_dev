@@ -145,7 +145,7 @@ export class EventCalendarComponent implements OnInit {
       data: {room: data.event.eventInformation}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 

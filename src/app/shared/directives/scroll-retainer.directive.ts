@@ -14,7 +14,7 @@ export class ScrollRetainerDirective implements OnDestroy {
     this.changes.observe(this.elementRef.nativeElement, { childList: true, subtree: true })
     this.subscription = fromEvent(window, 'scroll').subscribe(() => {
       this.lastScrollPosition = window.pageYOffset
-      console.log(window.pageYOffset);
+      // console.log(window.pageYOffset);
     });
   }
 

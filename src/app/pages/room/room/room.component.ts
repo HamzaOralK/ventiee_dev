@@ -295,7 +295,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   copyTextToClipboard() {
     let text = environment.URL + '/ventiee/' + this.roomService.activeRoom._id;
-    console.log(text);
+    // console.log(text);
     if (!navigator.clipboard) {
       this.fallbackCopyTextToClipboard(text);
       return;
