@@ -1,4 +1,4 @@
-<mat-expansion-panel [disabled]="type === 'history'">
+<mat-expansion-panel>
   <mat-expansion-panel-header [collapsedHeight]="setHeight()" [expandedHeight]="setHeight()">
     <mat-panel-title>
       <div style="display: flex; flex-direction: column;">
@@ -13,26 +13,17 @@
             <div class="titleDesc" *ngIf="event.description">
               {{event.description}}
             </div>
-            <div class="tags" *ngIf="type !== 'history'">
+            <div class="tags">
               <div *ngFor="let tag of event.tags" class="tag">
                 {{tag}}
               </div>
-            </div>
-            <div *ngIf="type === 'history'" routerLink="/profile/{{event.moderatorUser._id}}" class="iconInfo c-ptr">
-              <mat-icon>emoji_people</mat-icon>
-              {{event.moderatorUser.nickname}}
             </div>
           </div>
         </div>
       </div>
     </mat-panel-title>
-    <mat-panel-description *ngIf="type === 'history' && !event.isCommented">
-      <button mat-raised-button (click)="openCommentModal()" *ngIf="event.moderatorUser._id !== user._id">
-        <mat-icon>chat_bubble</mat-icon>
-      </button>
-    </mat-panel-description>
   </mat-expansion-panel-header>
-  <div *ngIf="type !== 'history'">
+  <div>
     <div class="line">
       <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" class="c-ptr" style="display: flex; align-items: center;">
         <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />

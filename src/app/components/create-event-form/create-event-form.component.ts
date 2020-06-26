@@ -181,6 +181,8 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
       newEvent.district = this.placeInformation.value.location.district;
       newEvent.latitute = this.placeInformation.value.location.latitute;
       newEvent.longtitute = this.placeInformation.value.location.longtitute;
+    } else if (newEvent.type === EventType.conversation) {
+        newEvent.startDate = new Date();
     }
     if (this.croppedImage) {
       newEvent.base64 = this.croppedImage;

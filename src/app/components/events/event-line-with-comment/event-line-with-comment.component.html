@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-header>
+    <img mat-card-avatar class="titleImg" [src]="event.imageURI || './assets/no_img.png'">
+    <mat-card-title>
+      <div class="title">
+        <span>{{event.title}}</span>
+        <span class="divider">/</span>
+        <div routerLink="/profile/{{event.moderatorUser._id}}" class="iconInfo c-ptr">
+          <mat-icon>emoji_people</mat-icon>
+          {{event.moderatorUser.nickname}}
+        </div>
+      </div>
+    </mat-card-title>
+  </mat-card-header>
+
+  <div class="titleDesc" *ngIf="!comment">
+    <h4>{{'description' | ml}}</h4>
+    {{event.description}}
+  </div>
+  <div class="titleDesc" *ngIf="comment">
+    <h4>{{'yourComment' | ml}}</h4>
+    <rating [rating]='comment.rating' [readonly]="true"></rating>
+    <br>
+    {{comment.comment}}
+  </div>
+
+  <mat-card-actions *ngIf="!event.isCommented">
+    <button mat-raised-button (click)="openCommentModal()" color="primary" *ngIf="event.moderatorUser._id !== user._id">
+      <mat-icon>chat_bubble</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -151,6 +151,7 @@
     {"key": "updateError", "value": "Güncelleme yaparken bir hata oluştu."},
     {"key": "complete", "value": "Tamamla"},
     {"key": "yes", "value": "Evet"},
+    {"key": "yourComment", "value": "Yapılmış Yorumunuz"},
     {"key": "commentSaved", "value": "Yorumunuz kaydedildi."},
     {"key": "commentError", "value": "Yorumunuz bir sebeple kaydedilemedi."},
     {"key": "noCommentsSorry", "value": "Bu kullanıcının hiç yorumu yok. Çok da güvenmeyebilirsiniz."},

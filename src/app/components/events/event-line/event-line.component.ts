@@ -11,7 +11,6 @@ import { ModalType } from '../../generic-modal/generic-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NewCommentComponent } from '../../new-comment/new-comment.component';
 import * as fromApp from "../../../store/app.reducer";
-import * as AppAction from "../../../store/app.actions";
 import { Store } from '@ngrx/store';
 
 

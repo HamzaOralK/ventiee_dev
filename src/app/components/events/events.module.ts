@@ -17,11 +17,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
 import { NewCommentModule } from '../new-comment/new-comment.module';
+import { EventLineWithCommentComponent } from './event-line-with-comment/event-line-with-comment.component';
+import { RatingModule } from '../rating/rating.module';
 
 @NgModule({
   declarations: [
     EventsComponent,
-    EventLineComponent
+    EventLineComponent,
+    EventLineWithCommentComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +41,8 @@ import { NewCommentModule } from '../new-comment/new-comment.module';
     EventFilterModule,
     MatFormFieldModule,
     MatInputModule,
-    NewCommentModule
+    NewCommentModule,
+    RatingModule
   ],
   exports: [
     EventsComponent

@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+@import 'src/theme.scss';
+@import 'src/mixins.scss';
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconInfo {
+  padding: 0 !important;
+}
+
+.divider {
+  font-size: 40px;
+  margin: 0 10px;
+}
+
+.titleDesc {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card {
+  margin: 10px 0;
+}

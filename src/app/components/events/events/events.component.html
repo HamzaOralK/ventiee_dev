@@ -21,9 +21,12 @@
     </div>
   </div>
   <div class="events scroll" #eventScroll>
-    <mat-accordion>
+    <mat-accordion *ngIf="type !== 'history'">
       <event-line *ngFor="let event of events" [event]="event" [type]="type" (onJoin)="onJoin($event)"></event-line>
     </mat-accordion>
+    <div *ngIf="type === 'history'" style="padding: 0 20px;">
+      <event-line-with-comment *ngFor="let event of events" [event]="event" [type]="type"></event-line-with-comment>
+    </div>
     <mat-spinner *ngIf="_loading"></mat-spinner>
     <mat-card *ngIf="events && events.length === 0 && type === 'all'">
       {{'noEventError' | ml}}
