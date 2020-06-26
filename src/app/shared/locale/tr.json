@@ -138,6 +138,7 @@
     {"key": "tagError", "value": "*Minimum 1, maksimum 3 tag seçmelisiniz."},
     {"key": "remove", "value": "Sil"},
     {"key": "report", "value": "Şikayet Et"},
+    {"key": "reportABug", "value": "Hata bildir"},
     {"key": "reported", "value": "Şikayetiniz alındı."},
     {"key": "reportedUser", "value": "Şikayet edilen kullanıcı"},
     {"key": "reportQuestion", "value": "Bu etkinliği şikayet etmek istediğinize emin misiniz?"},

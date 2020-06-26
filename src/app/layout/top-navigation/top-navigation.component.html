@@ -22,17 +22,18 @@
         <mat-icon style="font-size: 36px; height: 36px; width: 36px;">keyboard_arrow_down</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <!--
-        <button mat-menu-item>
-          <mat-icon>face</mat-icon>
-          <span>{{ 'myProfile' | ml }}</span>
-        </button>
-        -->
 
         <button mat-menu-item [routerLink]="['/userSettings', user._id]">
           <mat-icon>settings</mat-icon>
           <span>{{'settings' | ml}}</span>
         </button>
+
+        <button mat-menu-item (click)="report()">
+          <mat-icon>report_problem</mat-icon>
+          <span>{{'reportABug' | ml}}</span>
+        </button>
+
+
         <button mat-menu-item (click)="logOut()">
           <mat-icon>exit_to_app</mat-icon>
           <span>{{'logout' | ml}}</span>

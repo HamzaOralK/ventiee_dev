@@ -6,9 +6,10 @@ import * as fromApp from '../../store/app.reducer';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
-import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { AppService } from 'src/app/app.service';
-import { EventListType } from 'src/app/dtos/enums';
+import { EventListType, FeedbackTypes } from 'src/app/dtos/enums';
+import { MatDialog } from '@angular/material/dialog';
+import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
 
 @Component({
   selector: 'top-navigation',
@@ -24,8 +25,8 @@ export class TopNavigationComponent implements OnInit {
   constructor(
     private store: Store<fromApp.AppState>,
     private authService: AuthService,
-    private eventService: EventService,
-    private appService: AppService
+    private appService: AppService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -51,6 +52,19 @@ export class TopNavigationComponent implements OnInit {
 
   get smallScreen() {
     return this.appService.smallScreen;
+  }
+
+  report(user?: User) {
+    let data = {
+      type: FeedbackTypes.report,
+      ownerUser: this.user
+    }
+    const dialogRef = this.dialog.open(NewFeedbackComponent, {
+      minWidth: '250px',
+      maxWidth: '600px',
+      data
+    });
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
 }

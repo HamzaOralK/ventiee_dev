@@ -11,7 +11,6 @@ import { BaseComponent } from 'src/app/components/base/base.component';
 import { AppService } from 'src/app/app.service';
 import { ModalType } from 'src/app/components/generic-modal/generic-modal.component';
 import { FeedbackTypes } from 'src/app/dtos/enums';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
 
 @Component({

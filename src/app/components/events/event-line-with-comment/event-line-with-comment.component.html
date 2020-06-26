@@ -27,6 +27,7 @@
   <mat-card-actions *ngIf="!event.isCommented">
     <button mat-raised-button (click)="openCommentModal()" color="primary" *ngIf="event.moderatorUser._id !== user._id">
       <mat-icon>chat_bubble</mat-icon>
+      {{'leaveacomment' | ml}}
     </button>
   </mat-card-actions>
 </mat-card>

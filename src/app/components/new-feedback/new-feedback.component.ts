@@ -61,15 +61,16 @@ export class NewFeedbackComponent implements OnInit, OnDestroy {
   }
 
   sendFeedback() {
-    let commentObj: Partial<{eventId: string, moderatorUserId: string, userId: string, comment: string, rating: number, date: Date, ownerUserId: string}> = {};
+    let commentObj: Partial<{eventId: string, moderatorUserId: string, userId: string, comment: string, rating: number, date: Date, ownerUserId: string, description: string}> = {};
     if(this.data.event) {
       commentObj.eventId = this.data.event._id;
       commentObj.moderatorUserId = this.data.event.moderatorUserId;
     }
     if(this.data.user) commentObj.userId = this.data.user._id;
     if(this.data.ownerUser) commentObj.ownerUserId = this.data.ownerUser._id
-    commentObj.comment = this.comment.value.trim();
     if(this.rating) commentObj.rating = this.rating;
+    if(this.type === FeedbackTypes.comment) commentObj.comment = this.comment.value.trim();
+    if(this.type === FeedbackTypes.report) commentObj.description = this.comment.value.trim();
     commentObj.date = new Date();
     this.isLoading = true;
     if(this.type === FeedbackTypes.comment) {

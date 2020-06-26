@@ -1,4 +1,4 @@
-<div class="info">
+<mat-dialog-content class="mat-typography scroll">
   <mat-card>
     <h4>{{data.room.title}}</h4>
     <h5 *ngIf="data.room.startDate">{{'startDate' | ml}}: {{data.room.startDate | date:'dd/MM/yyyy HH:mm'}}</h5>
@@ -16,9 +16,10 @@
       </button>
     </mat-card-actions>
   </mat-card>
-  <ng-container *ngIf="users">
+  <div style="height: 100%; overflow-y: auto; overflow-x: hidden;" *ngIf="users">
     <div *ngFor="let user of users" class="text">
       <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)" (onReport)="report($event)"></event-info-user>
     </div>
-  </ng-container>
-</div>
+  </div>
+</mat-dialog-content>
+
