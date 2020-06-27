@@ -1,4 +1,4 @@
-<div class="top">
+<div class="top" [ngClass]="!roomId ? 'ml-5' : ''">
   <div class="users">
     <!-- <p *ngFor="let user of activeRoom.users">{{user.nickname}}</p> -->
     <div class="roomInfo" *ngIf="activeRoom">
@@ -37,7 +37,7 @@
       </ng-container>
     </mat-list>
   </div>
-  <div class="control" [ngClass]="roomId ? 'minWidth' : ''">
+  <div class="control" [ngClass]="roomId ? 'minWidth' : 'fx1'">
     <div class="roomInfo noDesktop shadow" *ngIf="activeRoom">
       <div class="text c-ptr" (click)="openDialog()">
         <span><b>{{'event' | ml}}:</b> {{activeRoom.title}}</span>
