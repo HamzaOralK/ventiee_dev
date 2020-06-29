@@ -1,12 +1,12 @@
 <h2 mat-dialog-title>{{ title | ml }}</h2>
 <mat-dialog-content *ngIf="htmlTemplate" class="mat-typography scroll" [innerHTML]="htmlTemplate"></mat-dialog-content>
-<button mat-button *ngIf="htmlTemplate" (click)="onNoClick()">{{ 'no' | ml }}</button>
+<button mat-button *ngIf="htmlTemplate" (click)="onNoClick()">{{ 'cancel' | ml }}</button>
 
 
 <mat-dialog-content *ngIf="!htmlTemplate">
   {{description | ml}}
 </mat-dialog-content>
 <div mat-dialog-actions *ngIf="!htmlTemplate">
-  <button mat-button (click)="onNoClick()">{{ 'no' | ml }}</button>
+  <button mat-button (click)="onNoClick()">{{ 'cancel' | ml }}</button>
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{ 'ok' | ml }}</button>
 </div>

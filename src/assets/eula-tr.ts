@@ -40,7 +40,7 @@ export const eula_tr = `<p>ventiee'yi ziyaretiniz ve ventiee içeriğini kullan�
 
 <p>sitenin virüs ve sair zararlı içerik barındırmaması için özen sarf edilmekle birlikte, gelişen teknoloji, teknik sorun ve diğer nedenlerle bilgisayarınıza virüs, trojan gibi zararlı yazılımların bulaşması ihtimali bulunmaktadır. bu gibi risklere karşı antivirüs programları ve benzeri uygulamalar kullanmanızı tavsiye ederiz. sitemizde gezinmeniz dolayısıyla karşılaşabileceğiniz yazılımsal ve donanımsal dahil olmak üzere hiçbir zarara ilişkin sorumluluk kabul etmemekteyiz. bu nedenlerle sitemizden talepte bulunmayacağınızı peşinen kabul etmektesiniz.</p>
 
-<h3>işleyiş ve sorumluluklarınız<h3>
+<h3>işleyiş ve sorumluluklarınız</h3>
 
 <p>oluşturduğunuz içerik ventiee kurallarına ve hukuka uygun olmak zorundadır. oluşturduğunuz içerik tüm sorumluluğu size ait olmak üzere ve hiçbir ön denetime tabi olmadan yayına girdiğinden, oluşturduğunuz içeriğin hukuka aykırı olmadığından lütfen emin olun. içerik yayına alındığı anda hukuki sorumluluğunuz başladığından, oluşturduğunuz içeriğin daha sonra tarafınızca veya şikayet/haberdar edilme vs. üzerine ventiee tarafından silinmiş olması sorumluluğunuzu ortadan kaldırmayacaktır.</p>
 

@@ -25,7 +25,8 @@ export class SignUpFormComponent implements OnInit {
     surname: new FormControl('', [Validators.required, Validators.minLength(2)]),
     nickname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern(this.unamePattern)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-    eulaStatus: new FormControl(false, [Validators.requiredTrue])
+    eulaStatus: new FormControl(false, [Validators.requiredTrue]),
+    plus18: new FormControl(false, [Validators.requiredTrue])
   })
 
   constructor(

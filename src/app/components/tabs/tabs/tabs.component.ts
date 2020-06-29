@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, AfterViewChecked, ChangeDetectionStrategy, ElementRef, ViewContainerRef, ViewChild, TemplateRef, ViewChildren, QueryList } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
+import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
+import { AnalyticEventCategorys, AnalyticEventActions } from 'src/app/services/analytics/analyticsEvents';
 
 @Component({
   selector: 'tabs',
@@ -19,7 +21,8 @@ export class TabsComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private elt: ElementRef
+    private elt: ElementRef,
+    private analytics: AnalyticsService
   ) { }
 
   ngOnInit(): void { }
@@ -72,6 +75,16 @@ export class TabsComponent implements OnInit, AfterViewChecked {
     this.domTabs[this.selectedIndex].style.display = '';
     this.selectedTabComponent = tab;
     tab.active = true;
+
+    if(this.selectedIndex === 0) {
+      this.analytics.sendEvent(AnalyticEventCategorys.TABS, AnalyticEventActions.CHANGE, 'JoinedEvents');
+    }
+    if(this.selectedIndex === 1) {
+      this.analytics.sendEvent(AnalyticEventCategorys.TABS, AnalyticEventActions.CHANGE, "AllEvents");
+    }
+    if(this.selectedIndex === 2) {
+      this.analytics.sendEvent(AnalyticEventCategorys.TABS, AnalyticEventActions.CHANGE, "UserHistoryEvents");
+    }
   }
 
   changeSelectedTab(index: number) {

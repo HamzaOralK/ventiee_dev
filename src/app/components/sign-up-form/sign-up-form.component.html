@@ -51,6 +51,11 @@
     <mat-checkbox formControlName="eulaStatus">&nbsp;</mat-checkbox>
     <span><span class="eula c-ptr" (click)="openModal()">Ventiee kullanıcı sözleşmesini</span> okudum ve kabul ediyorum.</span>
   </div>
+  <div style="display: flex; flex-direction: row; margin-bottom: 20px;">
+    <mat-checkbox formControlName="plus18">&nbsp;</mat-checkbox>
+    <span>{{'iamplus18' | ml}}</span>
+  </div>
   <br>
+
   <button mat-raised-button color="primary" [disabled]="!signUp.valid">{{'signup' | ml}}</button>
 </form>
