@@ -8,7 +8,6 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 
 import { StoreModule } from '@ngrx/store';
 
-import { NgxMaskModule } from "ngx-mask";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -95,7 +94,6 @@ const initializer = (pwaService: PwaService, langService: LangService, authServi
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxMaskModule,
     StoreModule.forRoot(fromApp.appReducer),
     /** Material Components */
     MatSidenavModule,
