@@ -1,5 +1,8 @@
 import * as RoomActions from './room.actions';
 import { Room } from 'src/app/dtos/room';
+import cloneDeep from "lodash.clonedeep";
+import { COMMONS } from 'src/app/shared/commons';
+
 
 export interface State {
   rooms: Room[];
@@ -16,6 +19,7 @@ const initialState: State = {
 export function roomReducer(state = initialState, action: RoomActions.RoomActions) {
   let room: Room;
   let roomIndex: number;
+  let copyState: any;
   switch (action.type) {
     case RoomActions.GET_MESSAGE:
       return {
@@ -24,8 +28,9 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       }
     case RoomActions.SEND_MESSAGE:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
+      copyState = cloneDeep(state);
       if(roomIndex > -1) {
-        room = state.rooms[roomIndex];
+        room = copyState.rooms[roomIndex];
         if(!room.messages) room.messages = [];
         let dumMessages = [...room.messages, ...action.payload.message];
         room.messages = dumMessages;
@@ -35,24 +40,25 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
           unreadMessages++;
         }
         room.unreadMessagesCount = unreadMessages;
-        state.rooms[roomIndex] = room;
+        copyState.rooms[roomIndex] = room;
         return {
-          ...state,
-          rooms: [...state.rooms]
-        }
+          ...copyState,
+          rooms: [...copyState.rooms],
+        };
       }
       break;
     case RoomActions.LOAD_MESSAGES:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
-      if (state.rooms[roomIndex].messages)
-        state.rooms[roomIndex].messages = [...action.payload.messages, ...state.rooms[roomIndex].messages];
+      copyState = cloneDeep(state);
+      if (copyState.rooms[roomIndex].messages)
+        copyState.rooms[roomIndex].messages = [...action.payload.messages, ...state.rooms[roomIndex].messages];
       else {
-        state.rooms[roomIndex].messages = action.payload.messages;
+        copyState.rooms[roomIndex].messages = action.payload.messages;
       }
       return {
-        ...state,
-        rooms: [...state.rooms]
-      }
+        ...copyState,
+        // rooms: [...copyState.rooms],
+      };
     case RoomActions.GET_ROOMS:
       if (action.payload.rooms.length > 0) {
         return {
@@ -68,11 +74,12 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         rooms: [...state.rooms, action.payload.room]
       }
     case RoomActions.INSERT_USER:
-      room = state.rooms.find(p => p._id === action.payload.roomId);
+      copyState = cloneDeep(state);
+      room = copyState.rooms.find((p) => p._id === action.payload.roomId);
       if(room.users && room.users.findIndex(u => u.user._id === action.payload.roomUser.user._id) === -1) room.users.push(action.payload.roomUser);
       return {
-        ...state
-      }
+        ...copyState
+      };
     case RoomActions.LEAVE_ROOM:
       return {
         ...state,
@@ -81,13 +88,14 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       }
     case RoomActions.KICK_USER:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
-      if (roomIndex > -1 && state.rooms[roomIndex].users) {
-        state.rooms[roomIndex].users = state.rooms[roomIndex].users.filter(u => u.user._id !== action.payload.roomUserId);
+      copyState = cloneDeep(state);
+      if (roomIndex > -1 && copyState.rooms[roomIndex].users) {
+        copyState.rooms[roomIndex].users = copyState.rooms[roomIndex].users.filter(u => u.user._id !== action.payload.roomUserId);
       }
       return {
-        ...state,
-        rooms: [...state.rooms]
-      }
+        ...copyState,
+        rooms: [...copyState.rooms],
+      };
     case RoomActions.CHANGE_ACTIVE_ROOM:
       //room = state.rooms.find(p => p._id === action.payload.roomId);
       room = undefined;
@@ -99,20 +107,28 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       }
     case RoomActions.SET_ROOM_USERS:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
-      state.rooms[roomIndex].users = action.payload.roomUsers;
+      copyState = cloneDeep(state);
+      copyState.rooms[roomIndex].users = cloneDeep(action.payload.roomUsers);
+      copyState.rooms[roomIndex].users.map((ru) => {
+        if (!ru.color) {
+          ru.color = COMMONS.generateRandomRGBAColor();
+        }
+        return ru.user;
+      });
       return {
-        ...state,
-        rooms: state.rooms,
-        activeRoom: state.rooms[roomIndex]
-      }
+        ...copyState,
+        rooms: copyState.rooms,
+        activeRoom: copyState.rooms[roomIndex],
+      };
     case RoomActions.RESET_ROOM_UNREAD_COUNT:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
-      state.rooms[roomIndex].unreadMessagesCount = 0;
+      copyState = cloneDeep(state);
+      copyState.rooms[roomIndex].unreadMessagesCount = 0;
       return {
         ...state,
-        rooms: state.rooms,
-        activeRoom: state.rooms[roomIndex]
-      }
+        rooms: copyState.rooms,
+        activeRoom: copyState.rooms[roomIndex],
+      };
     default:
       return state;
   }

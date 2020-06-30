@@ -58,7 +58,7 @@ export class AddHistoryEvent implements Action {
 
 export class CommentHistoryEvent implements Action {
   readonly type = COMMENT_HISTORY_EVENT;
-  constructor(public payload: string) { }
+  constructor(public payload: {commentObj, eventId: string}) { }
 }
 
 export type AppActions = ToggleLeftNav | ToggleRoomNav | GetEvents | LoadMoreEvents | GetHistoryEvents | LoadMoreHistoryEvents | AddEvent | FilterEvent | AddHistoryEvent | CommentHistoryEvent;

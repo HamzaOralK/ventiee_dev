@@ -18,7 +18,7 @@ import { Subscription, Subject } from 'rxjs';
 import { NotificationService } from '../../notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
 import { AppService } from 'src/app/app.service';
 
@@ -193,7 +193,7 @@ export class RoomService implements OnDestroy {
       let room = this.rooms.find((r) => r._id === roomId);
       this.resetRoomUnreadCount(room);
       if (room && !room.users) {
-        this.loadMessages(room);
+        this.loadMessages(room).subscribe();
         this.getRoomUsers(room).subscribe();
       }
     }
@@ -319,13 +319,14 @@ export class RoomService implements OnDestroy {
           pageNo: pageNo.toString(),
         },
       })
-      .subscribe((p: any[]) => {
-        p = p.map((e) => this.formatLoadedMessages(e));
-        this.roomStore.dispatch(
-          new RoomAction.LoadMessages({ room: room, messages: p })
-        );
-        this.msg.next(undefined);
-      });
+      .pipe(
+        tap((result: any) => {
+          result = result.map((e) => this.formatLoadedMessages(e));
+          this.roomStore.dispatch(new RoomAction.LoadMessages({ room: room, messages: result }));
+          this.msg.next(undefined);
+          return result;
+        })
+      );
   }
   // messages/: id ? pageNo = 1
 
@@ -335,7 +336,7 @@ export class RoomService implements OnDestroy {
       type = MessageType.NewUser;
     }
     let socketObj: Partial<MMessage> = {
-      roomUser: { user: { _id: this.user._id, nickname: this.user.nickname } },
+      roomUser: { user: { _id: this.user._id, nickname: this.user.nickname, imageURI: this.user.imageURI } },
       eventId: roomId,
       type,
       date: new Date(),

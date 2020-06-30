@@ -44,7 +44,8 @@ export class EventLineWithCommentComponent implements OnInit {
   }
 
   get comment() {
-    return this.event.comments[0];
+    if(this.event.comments.length > 0) return this.event.comments[0];
+    else return undefined;
   }
 
 }

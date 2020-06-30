@@ -32,7 +32,7 @@ export class CommentsService {
     let url = environment.serviceURL + "/comment/add";
     return this.http.post<any>(url, {...commentObj}).pipe(
       map(c => {
-        this.store.dispatch(new AppActions.CommentHistoryEvent(commentObj.eventId));
+        this.store.dispatch(new AppActions.CommentHistoryEvent({commentObj, eventId: commentObj.eventId}));
       })
     );
   }

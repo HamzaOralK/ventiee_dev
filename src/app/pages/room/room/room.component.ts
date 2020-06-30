@@ -23,6 +23,7 @@ import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
 import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
 import { FeedbackTypes } from 'src/app/dtos/enums';
+import cloneDeep from "lodash.clonedeep";
 
 @Component({
   selector: 'room',
@@ -49,6 +50,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   routeSubscription: Subscription;
 
   previousScrollHeightMinusTop: number;
+
+  isAllMessages = false;
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messages') messages: ElementRef;
@@ -113,21 +116,11 @@ export class RoomComponent implements OnInit, OnDestroy {
       this.scroll = true;
       if (p.rooms.length > 0) {
         if ((!this.activeRoom || (p.activeRoom && this.activeRoom._id !== p.activeRoom._id)) && !p.activeRoom) {
+          this.isAllMessages = false;
           this.roomService.changeRoom(this.roomId);
         }
         else if (p.activeRoom) {
           this.activeRoom = p.activeRoom;
-          if (this.activeRoom.users && this.activeRoom.users.length >= 1) {
-            this.activeRoom.users.map(ru => {
-              if (!ru.color) {
-                ru.color = COMMONS.generateRandomRGBAColor();
-              }
-              return ru.user;
-            });
-          }
-        }
-        if (this.activeRoom && p.activeRoom && this.activeRoom._id !== p.activeRoom._id) {
-
         }
       }
       this.cdr.detectChanges();
@@ -138,11 +131,16 @@ export class RoomComponent implements OnInit, OnDestroy {
       (this.messages.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
         let scrollHeight = (this.messages.nativeElement as HTMLLIElement).scrollHeight;
         let scrollTop = (this.messages.nativeElement as HTMLLIElement).scrollTop;
-        if(scrollHeight > 0 && scrollTop === 0 ) {
+        if(scrollHeight > 0 && scrollTop === 0 && !this.isAllMessages) {
           this.pageNo++;
           this._loading = true;
           this.previousScrollHeightMinusTop = scrollHeight - scrollTop;
-          this.roomService.loadMessages(this.activeRoom, this.pageNo);
+          let loadSub = this.roomService.loadMessages(this.activeRoom, this.pageNo).subscribe(r => {
+            if(r.length === 0) {
+              this.isAllMessages = true;
+            }
+          });
+          this.subscription.add(loadSub);
         }
       });
     }
@@ -248,7 +246,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       let userCurrent = this.activeRoom.users.find(u => u.user._id === user._id);
       if (userCurrent) {
         let color = userCurrent.color;
-        return 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')';
+        if(color) return 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')';
       }
       else return 'rgba(145,145,145,1)';
     }
@@ -295,7 +293,6 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   copyTextToClipboard() {
     let text = environment.URL + '/ventiee/' + this.roomService.activeRoom._id;
-    // console.log(text);
     if (!navigator.clipboard) {
       this.fallbackCopyTextToClipboard(text);
       return;

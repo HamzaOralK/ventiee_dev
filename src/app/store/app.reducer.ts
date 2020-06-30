@@ -3,7 +3,7 @@ import * as fromAuth from '../services/auth/store/auth.reducer';
 import * as fromRoom from '../services/dataServices/room/store/room.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 import { Event } from '../dtos/event';
-import { AppService } from '../app.service';
+import cloneDeep from "lodash.clonedeep";
 
 export interface AppState {
   appWise: AppWise;
@@ -82,11 +82,13 @@ export function appWiseReducer(state = initialState, action: AppActions.AppActio
         history: [action.payload, ...state.history]
       }
     case AppActions.COMMENT_HISTORY_EVENT:
-      let index = state.history.findIndex(e => e._id === action.payload);
-      state.history[index].isCommented = true;
+      let copyState = cloneDeep(state);
+      let index = copyState.history.findIndex((e) => e._id === action.payload.eventId);
+      copyState.history[index].isCommented = true;
+      copyState.history[index].comments = [action.payload.commentObj];
       return {
-        ...state
-      }
+        ...copyState,
+      };
     default:
       return state;
   }
