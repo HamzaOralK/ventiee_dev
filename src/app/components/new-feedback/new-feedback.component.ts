@@ -6,7 +6,6 @@ import { Event } from 'src/app/dtos/event';
 import { Subscription } from 'rxjs';
 import { CommentsService } from 'src/app/services/dataServices/comments/comments.service';
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
-import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { FeedbackTypes } from 'src/app/dtos/enums';
 
 
@@ -27,8 +26,7 @@ export class NewFeedbackComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<NewFeedbackComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { event: Event, user: User, type: FeedbackTypes, ownerUser: User}, //'comment' | 'report'
     private commentsService: CommentsService,
-    private notificationService: NotificationService,
-    private ml: MultiLanguagePipe
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -77,22 +75,22 @@ export class NewFeedbackComponent implements OnInit, OnDestroy {
     if(this.type === FeedbackTypes.comment) {
       postSub = this.commentsService.sendComment(commentObj).subscribe(p => {
         this.isLoading = false;
-        this.notificationService.notify(this.ml.transform('commentSaved'), SnackType.default);
+        this.notificationService.notify('commentSaved', SnackType.default);
         this.onNoClick();
       },
       e => {
         this.isLoading = false;
-        this.notificationService.notify(this.ml.transform('commentError'), SnackType.warn);
+        this.notificationService.notify('commentError', SnackType.warn);
         this.onNoClick();
       });
     } else if(this.type === FeedbackTypes.report) {
       postSub= this.commentsService.sendReport(commentObj).subscribe(p => {
         this.isLoading = false;
-        this.notificationService.notify(this.ml.transform('reported'), SnackType.default);
+        this.notificationService.notify('reported', SnackType.default);
         this.onNoClick();
       }, e => {
           this.isLoading = false;
-          this.notificationService.notify(this.ml.transform('reportedError'), SnackType.warn);
+          this.notificationService.notify('reportedError', SnackType.warn);
           this.onNoClick();
       });
    }

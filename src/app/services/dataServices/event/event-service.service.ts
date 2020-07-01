@@ -20,7 +20,6 @@ import { User } from 'src/app/dtos/user';
 import { COMMONS } from 'src/app/shared/commons';
 import { AppService } from 'src/app/app.service';
 import { RoomService } from '../room/room.service';
-import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 
 @Injectable({ providedIn: "root" })
 export class EventService {
@@ -37,7 +36,6 @@ export class EventService {
     private http: HttpClient,
     private store: Store<fromApp.AppState>,
     private authService: AuthService,
-    private ml: MultiLanguagePipe,
     private notificationService: NotificationService,
     private router: Router,
     private appService: AppService,
@@ -117,7 +115,7 @@ export class EventService {
           roomUser.color = COMMONS.generateRandomRGBAColor();
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
-          this.notificationService.notify(this.ml.transform("eventCreateSuccess"));
+          this.notificationService.notify("eventCreateSuccess");
           if (this.appService.smallScreen) this.router.navigate(["/room/" + p._id]);
           else this.router.navigate(["/home"]);
           this.roomService.joinSocketRoom(room._id, true);
@@ -125,7 +123,7 @@ export class EventService {
       }, (e) => {
         this.appService.loading = false;
         if (e.error && e.error.code === 'E15')
-          this.notificationService.notify(this.ml.transform("sameNameEvent"), SnackType.warn);
+          this.notificationService.notify("sameNameEvent", SnackType.warn);
       });
   }
 

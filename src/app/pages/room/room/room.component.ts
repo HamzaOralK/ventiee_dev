@@ -16,7 +16,6 @@ import { Store } from '@ngrx/store';
 import { AppService } from 'src/app/app.service';
 import { ModalType } from 'src/app/components/generic-modal/generic-modal.component';
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
-import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
 import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
 import { FeedbackTypes } from 'src/app/dtos/enums';
@@ -65,7 +64,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     private appService: AppService,
     private store: Store<fromApp.AppState>,
     private notificationService: NotificationService,
-    private ml: MultiLanguagePipe,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
   ) { }
@@ -282,7 +280,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
     try {
       var successful = document.execCommand('copy');
-      if(successful) this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default, 'OK');
+      if(successful) this.notificationService.notify('roomLinkCopied', SnackType.default, 'OK');
     } catch (err) {
       console.error('Fallback: Oops, unable to copy', err);
     }
@@ -298,8 +296,8 @@ export class RoomComponent implements OnInit, OnDestroy {
       return;
     }
     navigator.clipboard.writeText(text).then(() => {
-      this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default);
-    }, function (err) {
+      this.notificationService.notify('roomLinkCopied', SnackType.default);
+    }, (err) => {
       console.error('Async: Could not copy text: ', err);
     });
   }

@@ -162,5 +162,6 @@
     {"key": "addToHome", "value": "Sitemizi uygulama olarak eklemek ister misiniz?"},
     {"key": "iosAddInstruction", "value": "Sitemizi uygulama olarak eklemek için ilk önce Menü butonuna sonra 'Add to Home Screen' butonuna basınız."},
     {"key": "noHistoryEventError", "value": "Geçmiş bir eventiniz bulunmamakta."},
-    {"key": "iamplus18", "value": "18 yaşından büyüğüm"}
+    {"key": "iamplus18", "value": "18 yaşından büyüğüm."},
+    {"key": "maxRoomNumberReached", "value": "Maksimum oda sayısına ulaştınız."}
 ]

@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 // import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { eula_tr } from "src/assets/eula-tr";
 import { AppService } from 'src/app/app.service';
-import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { ModalType } from '../generic-modal/generic-modal.component';
 
 @Component({
@@ -32,8 +31,7 @@ export class SignUpFormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private appService: AppService,
-    private mlPipe: MultiLanguagePipe
+    private appService: AppService
   ) { }
 
   ngOnInit(): void { }

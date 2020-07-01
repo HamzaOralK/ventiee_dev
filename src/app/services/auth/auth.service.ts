@@ -9,7 +9,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { NotificationService } from '../notification/notification.service';
 import { catchError, tap } from 'rxjs/operators';
-import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
 
 
@@ -28,8 +27,7 @@ export class AuthService {
     private store: Store < fromApp.AppState > ,
     private router: Router,
     private route: ActivatedRoute,
-    private notificationService: NotificationService,
-    private ml: MultiLanguagePipe
+    private notificationService: NotificationService
   ) {
     this.auth = this.store.select('authState');
     this.auth.subscribe(p => {
@@ -43,10 +41,10 @@ export class AuthService {
   signUp(user: User) {
     return this.http.post(environment.serviceURL + '/user/signup', user).pipe(
       tap(p => {
-        this.notificationService.notify(this.ml.transform('signUpSuccess'));
+        this.notificationService.notify('signUpSuccess');
       }),
       catchError(e => {
-        this.notificationService.notify(this.ml.transform('signUpError'));
+        this.notificationService.notify('signUpError');
         throw e;
       })
     );
@@ -89,14 +87,14 @@ export class AuthService {
 
   verifyUser(hash: string) {
     return this.http.post(environment.serviceURL + '/verify/'+ hash, {}).subscribe(p => {
-      this.notificationService.notify(this.ml.transform('verified'));
+      this.notificationService.notify('verified');
       this.router.navigate(['/home']);
     });
   }
 
   resend(resendInfo:{email: string, language: string}) {
     return this.http.post(environment.serviceURL + '/resend', resendInfo).subscribe(p => {
-      this.notificationService.notify(this.ml.transform('mailSent'));
+      this.notificationService.notify('mailSent');
     }, e => {
         if (e && e.error && e.error.msg === 'User already verified') this.router.navigate(['/login']);
     });
@@ -104,7 +102,7 @@ export class AuthService {
 
   sendForgotMail(sendInfo: { email: string, language: string }) {
     return this.http.post(environment.serviceURL + '/user/forgotPass', sendInfo).subscribe(p => {
-      this.notificationService.notify(this.ml.transform('resetPassMailSent'));
+      this.notificationService.notify('resetPassMailSent');
       this.router.navigate(['/home']);
     }, e => {
       // console.log(e);
@@ -113,7 +111,7 @@ export class AuthService {
 
   resetPassword(token: string, password: string) {
     return this.http.post(environment.serviceURL + '/resetPassword/' + token, { password }).subscribe(p => {
-      this.notificationService.notify(this.ml.transform('resetSuccesfull'));
+      this.notificationService.notify('resetSuccesfull');
       this.router.navigate(['/login']);
     }, e => {
       // console.log(e);

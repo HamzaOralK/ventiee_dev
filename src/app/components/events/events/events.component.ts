@@ -3,15 +3,17 @@ import { debounceTime } from 'rxjs/operators';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { EventFilter, EventStatus } from 'src/app/dtos/event';
-import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from "../../../store/app.reducer";
 import * as AppAction from "../../../store/app.actions";
 import * as fromAuth from "../../../services/auth/store/auth.reducer";
+import * as fromRoom from "../../../services/dataServices/room/store/room.reducer";
 import { User } from 'src/app/dtos/user';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { EventListType } from 'src/app/dtos/enums';
+import { environment } from 'src/environments/environment';
+import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'events',
@@ -26,6 +28,9 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output('onJoinEvent') onJoinEvent = new EventEmitter();
   @ViewChild('eventScroll') eventScroll: ElementRef;
   auth: Observable<fromAuth.State>;
+
+  roomStates: Observable<fromRoom.State>;
+  currentRoomsQuantity: number = 0;
 
   _isAll: boolean = false;
   _loading: boolean = false;
@@ -42,7 +47,8 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
     private eventService: EventService,
     private store: Store<fromApp.AppState>,
     private router: Router,
-    private appService: AppService
+    private appService: AppService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +56,10 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = new Subscription();
     this.eventFilter = new EventFilter();
     this.auth = this.store.select("authState");
+    this.roomStates = this.store.select("roomState");
+    this.roomStates.subscribe(p => {
+      if(p.rooms) this.currentRoomsQuantity = p.rooms.length;
+    });
     /** Bütün eventler */
     if(this.type === EventListType.All) {
       this.eventFilter.status = EventStatus.Active;
@@ -182,8 +192,12 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   createEvent() {
-    this.store.dispatch(new AppAction.ToggleLeftNav(false));
-    this.router.navigate(["/createEvent"]);
+    if(this.currentRoomsQuantity < environment.maxRoomNumber) {
+      this.store.dispatch(new AppAction.ToggleLeftNav(false));
+      this.router.navigate(["/createEvent"]);
+    } else {
+      this.notificationService.notify("maxRoomNumberReached", SnackType.warn, "OK");
+    }
   }
 
   resetPage() {

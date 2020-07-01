@@ -9,7 +9,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { GenericImageCropperComponent } from 'src/app/components/generic-image-cropper/generic-image-cropper.component';
 import { AppService } from 'src/app/app.service';
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
-import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 
 @Component({
   selector: 'user-settings',
@@ -45,7 +44,6 @@ export class UserSettingsComponent implements OnInit {
     private appService: AppService,
     public dialog: MatDialog,
     public notificationService: NotificationService,
-    public mlPipe: MultiLanguagePipe
   ) { }
 
   ngOnInit(): void {
@@ -68,7 +66,7 @@ export class UserSettingsComponent implements OnInit {
       this.appService.loading = false;
       this.profileForm.controls["base64"].setValue(undefined);
     }, e => {
-      this.notificationService.notify(this.mlPipe.transform("updateError"), SnackType.warn);
+      this.notificationService.notify("updateError", SnackType.warn);
       this.appService.loading = false;
     });
   }

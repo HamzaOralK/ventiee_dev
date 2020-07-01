@@ -6,7 +6,6 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { Event, EventType } from 'src/app/dtos/event';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
-import { LangService } from 'src/app/services/lang/lang.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Observable, Subscription } from 'rxjs';
 
@@ -17,7 +16,6 @@ import { PlaceService } from 'src/app/services/dataServices/place/place.service'
 import { MatSelectChange } from '@angular/material/select';
 import { GenericImageCropperComponent } from '../generic-image-cropper/generic-image-cropper.component';
 import { AppService } from 'src/app/app.service';
-import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 
 @Component({
   selector: "create-event-form",
@@ -97,7 +95,6 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private appService: AppService,
     private placeService: PlaceService,
-    private ml: MultiLanguagePipe,
     public dialog: MatDialog,
   ) {
     this.subscription = new Subscription();
@@ -189,9 +186,9 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
     }
 
     if (newEvent.endDate && newEvent.startDate > newEvent.endDate) {
-      this.notificationService.notify(this.ml.transform("startDateGtThanEndDate"), SnackType.warn);
+      this.notificationService.notify("startDateGtThanEndDate", SnackType.warn);
     } else if (newEvent.startDate < new Date()) {
-      this.notificationService.notify(this.ml.transform("startDateGtThanNow"), SnackType.warn);
+      this.notificationService.notify("startDateGtThanNow", SnackType.warn);
     } else {
       this.eventService.addEvent(newEvent);
     }

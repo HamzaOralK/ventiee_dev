@@ -16,11 +16,9 @@ import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { Subscription, Subject, Observable } from 'rxjs';
 import { NotificationService } from '../../notification/notification.service';
-import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
-import { AppService } from 'src/app/app.service';
 
 const MESSAGE_TO_CLIENT = 'messageToClient';
 const JOIN_ROOM = 'joinRoom';
@@ -55,9 +53,7 @@ export class RoomService implements OnDestroy {
     private authService: AuthService,
     private router: Router,
     private notificationService: NotificationService,
-    private mlPipe: MultiLanguagePipe,
     private alertService: AlertService,
-    private appService: AppService
   ) {
     this.msg = new Subject();
     this.subscription = new Subscription();
@@ -284,7 +280,7 @@ export class RoomService implements OnDestroy {
     this.http.post(url, sendObj).subscribe((p) => {
       let room = this.rooms.find((p) => p._id === eventId);
       this.kickSocketRoom(eventId, user);
-      this.notificationService.notify(this.mlPipe.transform("userKicked"));
+      this.notificationService.notify("userKicked");
     });
   }
 
