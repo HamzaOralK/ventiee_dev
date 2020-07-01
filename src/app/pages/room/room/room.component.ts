@@ -2,28 +2,25 @@ import { Component, OnInit, NgZone, ViewChild, ElementRef, OnDestroy, ViewChildr
 import * as fromRoom from '../../../services/dataServices/room/store/room.reducer';
 import * as fromAuth from '../../../services/auth/store/auth.reducer';
 import * as fromApp from "../../../store/app.reducer";
-import { Observable } from 'rxjs/internal/Observable';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { take } from 'rxjs/internal/operators/take';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { ActivatedRoute } from '@angular/router';
 import { MMessage } from 'src/app/dtos/message';
 import { User } from 'src/app/dtos/user';
 import { Room, RoomUser } from 'src/app/dtos/room';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EventInfoComponent } from '../../event-info/event-info.component';
 import { Store } from '@ngrx/store';
 import { AppService } from 'src/app/app.service';
-import { COMMONS } from 'src/app/shared/commons';
 import { ModalType } from 'src/app/components/generic-modal/generic-modal.component';
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
 import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
 import { FeedbackTypes } from 'src/app/dtos/enums';
-import cloneDeep from "lodash.clonedeep";
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'room',

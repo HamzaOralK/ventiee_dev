@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/internal/Subscription';
 import * as fromAuth from "../../../services/auth/store/auth.reducer";
 import * as fromApp from "../../../store/app.reducer";
 import { User } from 'src/app/dtos/user';
@@ -10,6 +8,7 @@ import { Room } from 'src/app/dtos/room';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { TabsComponent } from 'src/app/components/tabs/tabs/tabs.component';
 import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: "home",

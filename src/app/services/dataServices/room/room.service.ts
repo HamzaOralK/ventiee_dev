@@ -9,16 +9,16 @@ import * as AppAction from "../../../store/app.actions";
 
 import { MMessage, MessageType } from 'src/app/dtos/message';
 import * as io from 'socket.io-client';
-import { Observable } from 'rxjs/internal/Observable';
+
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription, Subject, Observable } from 'rxjs';
 import { NotificationService } from '../../notification/notification.service';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
-import { tap, map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
 import { AppService } from 'src/app/app.service';
 
@@ -188,13 +188,17 @@ export class RoomService implements OnDestroy {
   }
 
   changeRoom(roomId: string) {
-    this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({ roomId }));
     if (this.rooms) {
       let room = this.rooms.find((r) => r._id === roomId);
-      this.resetRoomUnreadCount(room);
-      if (room && !room.users) {
-        this.loadMessages(room).subscribe();
-        this.getRoomUsers(room).subscribe();
+      if(room) {
+        this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({ roomId }));
+        this.resetRoomUnreadCount(room);
+        if (!room.users) {
+          this.loadMessages(room).subscribe();
+          this.getRoomUsers(room).subscribe();
+        }
+      } else {
+        this.router.navigate(["/home"]);
       }
     }
   }

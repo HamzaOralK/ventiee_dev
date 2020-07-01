@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/dtos/user';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { NotificationService } from '../../notification/notification.service';
 import * as AuthActions from '../../auth/store/auth.actions';
 import * as fromAuth from '../../auth/store/auth.reducer';
@@ -12,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { MultiLanguagePipe } from 'src/app/shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/auth.service';
+import { Observable } from 'rxjs';
 
 
 @Injectable({

@@ -17,6 +17,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "socket.io-client",
+              "debug",
+              "socket.io-parser",
+              "dom-plane",
+              "dom-set",
+              "dom-autoscroller",
+              "angular-calendar/date-adapters/date-fns"
+            ],
             "outputPath": "../ventiee_dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -69,6 +78,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "allowedCommonJsDependencies": [
+            "socket.io-client",
+            "debug",
+            "socket.io-parser",
+            "dom-plane",
+            "dom-set",
+            "dom-autoscroller",
+            "angular-calendar/date-adapters/date-fns"
+          ],
           "options": {
             "browserTarget": "ventiee:build",
             "host": "192.168.1.3"

@@ -1,13 +1,11 @@
 import {Component, OnDestroy, OnInit, ChangeDetectorRef, AfterViewInit} from '@angular/core';
-import { Subject } from 'rxjs/internal/Subject';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
 import * as fromAuth from '../../services/auth/store/auth.reducer';
 import * as fromApp from '../../store/app.reducer';
 import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
-import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { Room } from 'src/app/dtos/room';
+import { Subject, Subscription, Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'chats',

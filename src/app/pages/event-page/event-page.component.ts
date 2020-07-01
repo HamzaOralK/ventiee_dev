@@ -42,7 +42,8 @@ export class EventPageComponent implements OnInit {
     );
     let checksub;
     let eventsub = this.event$.subscribe(p => {
-      this.event = p;
+      this.event = p[0];
+      console.log(p);
       checksub = this.roomState.subscribe(p => {
         let index = p.rooms.findIndex(r => r._id === this.event._id);
         if (index === -1) this.joinable = true;

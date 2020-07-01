@@ -1,10 +1,10 @@
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { tap } from 'rxjs/internal/operators/tap';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { NotificationService } from '../services/notification/notification.service';
 import { MultiLanguagePipe } from '../shared/pipes/multi-language.pipe';
 import { environment } from 'src/environments/environment';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 
