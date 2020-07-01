@@ -171,25 +171,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.message.setValue('');
   }
 
-
-  createTextLinks(text) {
-    // return (text || "").replace(
-    //   /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
-    //   (match, space, url) => {
-    //     var hyperlink = url;
-    //     if (!hyperlink.match('^https?:\/\/')) {
-    //       hyperlink = 'https://' + hyperlink;
-    //     }
-    //     return space + '<a href="' + hyperlink + '">' + url + '</a>';
-    //   }
-    // );
-    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    return text.replace(urlRegex, function (url) {
-      return '<a href="' + url + '">' + url + '</a>';
-    });
-  }
-
-
   scrollToBottomCheck() {
     if(!this.scroll) {
       if ((this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
@@ -316,7 +297,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       this.fallbackCopyTextToClipboard(text);
       return;
     }
-    navigator.clipboard.writeText(text).then(function () {
+    navigator.clipboard.writeText(text).then(() => {
       this.notificationService.notify(this.ml.transform('roomLinkCopied'), SnackType.default);
     }, function (err) {
       console.error('Async: Could not copy text: ', err);

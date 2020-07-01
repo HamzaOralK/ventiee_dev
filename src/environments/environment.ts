@@ -7,7 +7,8 @@ export const environment = {
   URL: 'http://192.168.1.3:4200',
   serviceURL: 'http://localhost:3001',
   loginLocalStorageKey: "authInformation",
-  imageURL: 'http://img.ventiee.com'
+  imageURL: 'http://img.ventiee.com',
+  maxRoomNumber: 1000
 };
 
 /*

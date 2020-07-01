@@ -4,4 +4,5 @@ export const environment = {
     serviceURL: "https://api.ventiee.com",
     loginLocalStorageKey: "authInformation",
     imageURL: "https://img.ventiee.com",
+    maxRoomNumber: 5
 };
