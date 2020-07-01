@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
 import { FeedbackTypes } from 'src/app/dtos/enums';
 import { take } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'room',
@@ -49,6 +50,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   previousScrollHeightMinusTop: number;
 
   isAllMessages = false;
+  message: FormControl = new FormControl('');
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messages') messages: ElementRef;
@@ -151,9 +153,9 @@ export class RoomComponent implements OnInit, OnDestroy {
     this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
   }
 
-  sendMessage(event: Partial<InputEvent>) {
-    let value: string = (event.target as HTMLInputElement).value;
-
+  sendMessage() {
+    // let value: string = (event.target as HTMLInputElement).value;
+    let value = this.message.value;
     if(value.trim().length > 0) {
       let message = new MMessage();
       message.date = new Date();
@@ -165,8 +167,28 @@ export class RoomComponent implements OnInit, OnDestroy {
       message.type = undefined;
       this.roomService.sendMessage(this.activeRoom, message);
     };
-    (event.target as HTMLInputElement).value = '';
+    // (event.target as HTMLInputElement).value = '';
+    this.message.setValue('');
   }
+
+
+  createTextLinks(text) {
+    // return (text || "").replace(
+    //   /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+    //   (match, space, url) => {
+    //     var hyperlink = url;
+    //     if (!hyperlink.match('^https?:\/\/')) {
+    //       hyperlink = 'https://' + hyperlink;
+    //     }
+    //     return space + '<a href="' + hyperlink + '">' + url + '</a>';
+    //   }
+    // );
+    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(urlRegex, function (url) {
+      return '<a href="' + url + '">' + url + '</a>';
+    });
+  }
+
 
   scrollToBottomCheck() {
     if(!this.scroll) {
@@ -182,11 +204,11 @@ export class RoomComponent implements OnInit, OnDestroy {
     if(this.messages) this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
   }
 
-  submit(event) {
-    event.preventDefault();
-    let dumEvent = { target: event.target[0] }
-    this.sendMessage(dumEvent);
-  }
+  // submit(event) {
+  //   event.preventDefault();
+  //   let dumEvent = { target: event.target[0] }
+  //   this.sendMessage(dumEvent);
+  // }
 
   isOwn(message: MMessage) {
     return message.roomUser.user._id === this.user._id;

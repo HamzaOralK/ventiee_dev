@@ -30,7 +30,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>{{'howmany' | ml}}</mat-label>
-          <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" required appOnlyNumbers>
+          <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" required onlyNumbers>
           <mat-error *ngIf="formControls(generalDescription).peopleCount.hasError('min')">
             {{'min3person' | ml}}
           </mat-error>
@@ -201,7 +201,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'howmany' | ml}}</mat-label>
-            <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" required appOnlyNumbers>
+            <input matInput placeholder="{{'howmany' | ml}}" formControlName="peopleCount" required onlyNumbers>
             <mat-error *ngIf="formControls(generalDescription).peopleCount.hasError('min')">
               {{'min3person' | ml}}
             </mat-error>

@@ -12,8 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
 import { NewFeedbackModule } from 'src/app/components/new-feedback/new-feedback.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,8 @@ import { NewFeedbackModule } from 'src/app/components/new-feedback/new-feedback.
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RoomRoutingModule,
     PipesModule,
     DirectivesModule,

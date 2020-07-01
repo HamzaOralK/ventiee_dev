@@ -6,9 +6,7 @@ import { Directive, ElementRef, OnChanges, SimpleChanges, HostListener, Input } 
 export class LowerCaseDirective {
   @Input() ngModel: string;
 
-  constructor(private el: ElementRef) {
-    (el.nativeElement as HTMLInputElement).value = '';
-  }
+  constructor(private el: ElementRef) { }
 
   @HostListener('input')
   onChange() {

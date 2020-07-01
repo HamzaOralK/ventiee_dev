@@ -84,7 +84,7 @@
                 </span>
 
                 <div class="message">
-                  <span class="messageText">{{message.message}}</span><br>
+                  <span class="messageText" [innerHTML]="message.message | linkify"></span><br>
                   <span class="messageDate">{{message.date | date:'HH:mm'}}</span>
                 </div>
               </div>
@@ -109,17 +109,24 @@
 
       </div>
     </div>
-    <form (submit)="submit($event)" (keyup.enter)="sendMessage($event)" (keydown.enter)="$event.preventDefault()" class="sendMessageForm">
+    <div class="sendMessageForm">
       <mat-form-field appearance="outline" class="messageEntry">
         <mat-label>Bir şey yazın.</mat-label>
-        <textarea matInput (focus)="textareaFocus()" style="resize: none"></textarea>
+        <textarea
+          matInput
+          style="resize: none"
+          [formControl]="message"
+          (keyup.enter)="sendMessage()"
+          (keydown.enter)="$event.preventDefault()"
+          (focus)="textareaFocus()">
+        </textarea>
       </mat-form-field>
-      <button mat-mini-fab class="sendButton">
+      <button mat-mini-fab (click)="sendMessage()" class="sendButton">
         <mat-icon>
           keyboard_return
         </mat-icon>
       </button>
       <!-- <emoji-mart class="emojis" set="apple" [showPreview]="false"></emoji-mart> -->
-    </form>
+    </div>
   </div>
 </div>

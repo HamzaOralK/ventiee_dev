@@ -7,6 +7,8 @@ import { HammerGestureConfig } from '@angular/platform-browser';
 import { User } from './dtos/user';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
+import { isDevMode } from '@angular/core';
+
 
 
 // export class MyHammerConfig extends HammerGestureConfig {
@@ -41,7 +43,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router
   ) {
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd && !isDevMode()) {
         (<any>window).ga("set", "page", event.urlAfterRedirects);
         (<any>window).ga("send", "pageview");
       }
