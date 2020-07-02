@@ -19,4 +19,5 @@ export class User {
   emailNotification: boolean;
   preferredGender: Gender;
   imageURI?: string;
+  rating: number;
 }
