@@ -9,6 +9,8 @@ import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { TabsComponent } from 'src/app/components/tabs/tabs/tabs.component';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { SnackType, NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: "home",
@@ -35,7 +37,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private store: Store<fromApp.AppState>,
     private appService: AppService,
     private roomService: RoomService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     this.appWise = this.store.select("appWise");
   }
@@ -70,7 +73,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   createEvent() {
-    this.router.navigate(["/createEvent"]);
+    if(this.roomService.rooms.length < environment.maxRoomNumber)
+      this.router.navigate(["/createEvent"]);
+    else {
+      this.notificationService.notify("maxRoomNumberReached", SnackType.warn, "OK");
+    }
   }
 
   goAllEvents() {

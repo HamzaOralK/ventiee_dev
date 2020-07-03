@@ -8,7 +8,7 @@ export const environment = {
   serviceURL: 'http://localhost:3001',
   loginLocalStorageKey: "authInformation",
   imageURL: 'http://img.ventiee.com',
-  maxRoomNumber: 1000
+  maxRoomNumber: 3
 };
 
 /*
