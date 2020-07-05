@@ -12,8 +12,14 @@
   border-radius: 15px;
   border: 1px solid mat-color($app-font, 400);
   padding: 10px;
+  overflow-y: scroll;
+  max-height: 300px;
 }
 
 mat-expansion-panel mat-form-field {
   width: 100%;
+}
+
+.searchActions {
+  padding: 10px;
 }

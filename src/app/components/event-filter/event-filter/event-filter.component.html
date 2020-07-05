@@ -55,6 +55,8 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-  <button mat-raised-button (click)="search()" style="margin-top: 5px;">{{'search' | ml}}</button>
-  <button mat-raised-button color="warn" (click)="clearSearch()" style="margin-left: 5px;">{{'clear' | ml}}</button>
+  <div class="searchActions">
+    <button mat-raised-button (click)="search()" style="margin-top: 5px;">{{'search' | ml}}</button>
+    <button mat-raised-button color="warn" (click)="clearSearch()" style="margin-left: 5px;">{{'clear' | ml}}</button>
+  </div>
 </div>
