@@ -183,17 +183,16 @@ export class RoomComponent implements OnInit, OnDestroy {
     if(this.messages) this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
   }
 
-  // submit(event) {
-  //   event.preventDefault();
-  //   let dumEvent = { target: event.target[0] }
-  //   this.sendMessage(dumEvent);
-  // }
-
   isOwn(message: MMessage) {
     return message.roomUser.user._id === this.user._id;
   }
 
   textareaFocus() {
+    if(this.isSmallScreen) {
+      setTimeout(() => {
+        this.scrollToBottom()
+      }, 1000);
+    }
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   }
