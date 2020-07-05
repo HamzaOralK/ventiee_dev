@@ -56,6 +56,8 @@ export class EventLineComponent implements OnInit {
       } else {
         this.onJoin.emit(this.event);
       }
+    }, e => {
+
     });
   }
 

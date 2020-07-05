@@ -163,5 +163,8 @@
     {"key": "iosAddInstruction", "value": "Sitemizi uygulama olarak eklemek için ilk önce Menü butonuna sonra 'Add to Home Screen' butonuna basınız."},
     {"key": "noHistoryEventError", "value": "Geçmiş bir eventiniz bulunmamakta."},
     {"key": "iamplus18", "value": "18 yaşından büyüğüm."},
-    {"key": "maxRoomNumberReached", "value": "Maksimum oda sayısına ulaştınız."}
+    {"key": "maxRoomNumberReached", "value": "Maksimum oda sayısına ulaştınız."},
+    {"key": "Room is full", "value": "Oda maksimum kişi sayısına ulaştı."},
+    {"key": "User has been kicked before", "value": "Bu odadan daha önce kovulmuşsunuz"},
+    {"key": "admin", "value": "Yönetici"}
 ]

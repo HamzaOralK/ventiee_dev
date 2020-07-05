@@ -58,7 +58,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.auth = this.store.select("authState");
     this.roomStates = this.store.select("roomState");
     this.roomStates.subscribe(p => {
-      if(p.rooms) this.currentRoomsQuantity = p.rooms.length;
+      if(p && p.rooms) this.currentRoomsQuantity = p.rooms.length;
     });
     /** Bütün eventler */
     if(this.type === EventListType.All) {

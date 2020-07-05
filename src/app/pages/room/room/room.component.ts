@@ -18,7 +18,7 @@ import { ModalType } from 'src/app/components/generic-modal/generic-modal.compon
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
 import { environment } from 'src/environments/environment';
 import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
-import { FeedbackTypes } from 'src/app/dtos/enums';
+import { FeedbackTypes, UserType } from 'src/app/dtos/enums';
 import { take } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 
@@ -216,8 +216,12 @@ export class RoomComponent implements OnInit, OnDestroy {
     return user._id === this.activeRoom.moderatorUser._id;
   }
 
-  isKickable(user) {
-    return user._id !== this.authService.user._id;
+  isLineAdmin(user: User) {
+    return user.userType === UserType.Admin;
+  }
+
+  isKickable(user: User) {
+    return user._id !== this.authService.user._id && user.userType !== UserType.Admin;
   }
 
   leaveRoom() {

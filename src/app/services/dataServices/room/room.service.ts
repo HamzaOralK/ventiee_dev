@@ -14,10 +14,10 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription, Subject, Observable } from 'rxjs';
-import { NotificationService } from '../../notification/notification.service';
+import { Subscription, Subject, Observable, throwError } from 'rxjs';
+import { NotificationService, SnackType } from '../../notification/notification.service';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
 
 const MESSAGE_TO_CLIENT = 'messageToClient';
@@ -216,10 +216,17 @@ export class RoomService implements OnDestroy {
 
     return this.http.post<any>(url, postObj).pipe(
       tap((p) => {
+        if(p.code) {
+          this.notificationService.notify(p.msg, SnackType.warn, 'OK');
+          throw new Error(p.msg);
+        }
         this.roomStore.dispatch(new RoomAction.JoinRoom({ room: p.obj }));
         this.joinSocketRoom(room._id, true);
         this.changeRoom(room._id);
         this.store.dispatch(new AppAction.FilterEvent(room));
+      }),
+      catchError(e => {
+        return throwError(e);
       })
     );
   }
@@ -336,7 +343,7 @@ export class RoomService implements OnDestroy {
       type = MessageType.NewUser;
     }
     let socketObj: Partial<MMessage> = {
-      roomUser: { user: { _id: this.user._id, nickname: this.user.nickname, imageURI: this.user.imageURI } },
+      roomUser: { user: { _id: this.user._id, nickname: this.user.nickname, imageURI: this.user.imageURI, userType: this.user.userType } },
       eventId: roomId,
       type,
       date: new Date(),
