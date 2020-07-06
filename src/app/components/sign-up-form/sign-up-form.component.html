@@ -57,7 +57,8 @@
   <password-form-element [formControl]="signUpControls.password" ngDefaultControl></password-form-element>
   <div style="display: flex; flex-direction: row; margin-bottom: 20px;">
     <mat-checkbox formControlName="eulaStatus">&nbsp;</mat-checkbox>
-    <span><span class="eula c-ptr" (click)="openModal()">Ventiee kullanıcı sözleşmesini</span> okudum ve kabul ediyorum.</span>
+    <span *ngIf="language === 'tr'"><span class="eula c-ptr" (click)="openModal()">Ventiee kullanıcı sözleşmesini</span> okudum ve kabul ediyorum.</span>
+    <span *ngIf="language === 'en'">I have read and agree to the <span class="eula c-ptr" (click)="openModal()">terms.</span></span>
   </div>
   <div style="display: flex; flex-direction: row; margin-bottom: 20px;">
     <mat-checkbox formControlName="plus18">&nbsp;</mat-checkbox>

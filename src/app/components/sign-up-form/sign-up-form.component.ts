@@ -9,6 +9,7 @@ import { eula_tr } from "src/assets/eula-tr";
 import { AppService } from 'src/app/app.service';
 import { ModalType } from '../generic-modal/generic-modal.component';
 import { Languages } from 'src/app/dtos/languages';
+import { LangService } from 'src/app/services/lang/lang.service';
 
 @Component({
   selector: 'sign-up-form',
@@ -33,7 +34,8 @@ export class SignUpFormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private appService: AppService
+    private appService: AppService,
+    private langService: LangService
   ) { }
 
   ngOnInit(): void { }
@@ -67,6 +69,10 @@ export class SignUpFormComponent implements OnInit {
 
   get languages() {
     return Languages;
+  }
+
+  get language() {
+    return this.langService.language;
   }
 
 }

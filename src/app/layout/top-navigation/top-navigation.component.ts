@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as AppAction from '../../store/app.actions'
 import { Observable } from 'rxjs';
@@ -32,6 +32,7 @@ export class TopNavigationComponent implements OnInit {
     private appService: AppService,
     private langService: LangService,
     public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -44,6 +45,7 @@ export class TopNavigationComponent implements OnInit {
     this.language.setValue(this.langService.language);
     this.language.valueChanges.subscribe(p => {
       this.langService.changeLanguage(p);
+      this.cdr.detectChanges();
     });
 
   }
@@ -83,6 +85,7 @@ export class TopNavigationComponent implements OnInit {
 
   changeLanguage(language: Languages) {
     this.language.setValue(language);
+    this.cdr.detectChanges();
   }
 
 }
