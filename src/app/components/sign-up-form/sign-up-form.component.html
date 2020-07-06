@@ -44,6 +44,14 @@
     </mat-error>
   </mat-form-field>
 
+  <mat-form-field appearance="outline">
+    <mat-label>{{'language' | ml}}</mat-label>
+    <mat-select formControlName="language">
+      <mat-option [value]="languages.tr">{{'turkish' | ml}}</mat-option>
+      <mat-option [value]="languages.en">{{'english' | ml}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <!-- <mat-checkbox formControlName="emailNotification" ngDefaultControl>{{'emailNotification' | ml}}</mat-checkbox> -->
 
   <password-form-element [formControl]="signUpControls.password" ngDefaultControl></password-form-element>

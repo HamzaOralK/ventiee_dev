@@ -13,6 +13,7 @@ import { PasswordFormElementModule } from '../password-form-element/password-for
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GenericModalModule } from '../generic-modal/generic-modal.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { GenericModalModule } from '../generic-modal/generic-modal.module';
     PasswordFormElementModule,
     MatCheckboxModule,
     MatDialogModule,
-    GenericModalModule
+    GenericModalModule,
+    MatSelectModule
   ],
   exports: [
     SignUpFormComponent

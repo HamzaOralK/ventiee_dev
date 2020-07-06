@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SnackType, NotificationService } from 'src/app/services/notification/notification.service';
+import { LangService } from 'src/app/services/lang/lang.service';
+import { Languages } from 'src/app/dtos/languages';
 
 @Component({
   selector: "home",
@@ -28,6 +30,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   _loading: boolean = false;
   _isAll: boolean = false;
 
+  language: any;
+
   @ViewChild("tabs", { static: false }) tabsComponent: TabsComponent;
 
   showFilter: boolean;
@@ -38,9 +42,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private appService: AppService,
     private roomService: RoomService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private langService: LangService
   ) {
     this.appWise = this.store.select("appWise");
+    this.language = this.langService.language;
   }
 
   ngOnInit(): void {
@@ -48,6 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.auth.subscribe((p) => {
       this.user = p.user;
     });
+
 
     this.store.select("roomState").subscribe((p) => {
       if (p) {
@@ -82,6 +89,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   goAllEvents() {
     this.tabsComponent.changeSelectedTab(1);
+  }
+
+  getLanguage() {
+
   }
 
 }

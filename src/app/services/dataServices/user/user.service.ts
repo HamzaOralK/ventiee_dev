@@ -30,16 +30,26 @@ export class UserService {
     return this.http.get<User>(url).pipe(catchError(err => {throw err}));
   }
 
+  getUserMe(id: string): Observable<User> {
+    let url = environment.serviceURL + '/user/me/' + id;
+    return this.http.get<User>(url).pipe(catchError(err => { throw err }));
+  }
+
   updateUserById(id: string, user: User) {
     let url = environment.serviceURL + '/user/update/' + id;
     return this.http.post(url, user)
     .pipe(
       tap(p => {
-        if(p && p["imageURI"]) {
-          this.authService.updateToken(p["imageURI"]);
-          user.imageURI = p["imageURI"];
+        if(p) {
+          if(p["imageURI"]) {
+            this.authService.updateToken(p["imageURI"]);
+            user.imageURI = p["imageURI"];
+          }
+          if(p["language"]) {
+            this.authService.updateToken(undefined, p["language"]);
+            user.language = p["language"];
+          }
         }
-
         this.notificationService.notify(p["msg"]);
         this.store.dispatch(new AuthActions.ChangeUser({user}));
       }),

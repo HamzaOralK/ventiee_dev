@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { eula_tr } from "src/assets/eula-tr";
 import { AppService } from 'src/app/app.service';
 import { ModalType } from '../generic-modal/generic-modal.component';
+import { Languages } from 'src/app/dtos/languages';
 
 @Component({
   selector: 'sign-up-form',
@@ -24,6 +25,7 @@ export class SignUpFormComponent implements OnInit {
     surname: new FormControl('', [Validators.required, Validators.minLength(2)]),
     nickname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern(this.unamePattern)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+    language: new FormControl('tr', [Validators.required]),
     eulaStatus: new FormControl(false, [Validators.requiredTrue]),
     plus18: new FormControl(false, [Validators.requiredTrue])
   })
@@ -61,6 +63,10 @@ export class SignUpFormComponent implements OnInit {
 
   openModal(){
     this.appService.openModal('eula', undefined, eula_tr, ModalType.Information);
+  }
+
+  get languages() {
+    return Languages;
   }
 
 }

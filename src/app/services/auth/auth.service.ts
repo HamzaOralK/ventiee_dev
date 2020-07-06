@@ -119,9 +119,10 @@ export class AuthService {
     });
   }
 
-  updateToken(imageURI) {
+  updateToken(imageURI?, language?) {
     let jsonAuthInfo = JSON.parse(window.localStorage.getItem(environment.loginLocalStorageKey));
-    jsonAuthInfo.user.imageURI = imageURI;
+    if (imageURI) jsonAuthInfo.user.imageURI = imageURI;
+    if (language) jsonAuthInfo.user.language = language;
     window.localStorage.setItem(environment.loginLocalStorageKey, JSON.stringify(jsonAuthInfo));
   }
 

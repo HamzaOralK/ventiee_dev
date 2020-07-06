@@ -51,6 +51,22 @@
       <button class="action" mat-stroked-button routerLink="/signup">
         {{'signup' | ml}}
       </button>
+
+      <button mat-button class="lang" [matMenuTriggerFor]="menu">
+        <img [src]="language.value === 'tr' ? './assets/tr.png' : './assets/en.png'">
+        <span>{{ (language.value === 'tr' ? 'turkish' : 'english') | ml }}</span>
+      </button>
+      <mat-menu #menu="matMenu">
+
+        <button mat-menu-item class="lang" (click)="changeLanguage(languages.tr)">
+          <img src="./assets/tr.png">
+          <span>{{'turkish' | ml}}</span>
+        </button>
+        <button mat-menu-item class="lang" (click)="changeLanguage(languages.en)">
+          <img src="./assets/en.png">
+          <span>{{'english' | ml}}</span>
+        </button>
+      </mat-menu>
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>

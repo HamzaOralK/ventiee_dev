@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/dtos/user';
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ export enum LoginError {
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent extends BaseComponent implements OnInit {
+export class LoginFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   auth: Observable<fromAuth.State>;
   error: LoginError;

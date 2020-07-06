@@ -57,7 +57,7 @@
         <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
           <div *ngFor="let tagObject of allTags" class="tag c-ptr"
             [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}" (click)="addRemoveTag(tagObject.tag)">
-            {{tagObject.tag}}</div>
+            {{tagObject.tag | ml}}</div>
         </div>
 
         <div class="tagError">
@@ -227,7 +227,7 @@
         <div>
           <div style="display: flex; flex-direction: row; flex-wrap: wrap; min-height: fit-content;">
             <div *ngFor="let tagObject of allTags" class="tag c-ptr" [ngClass]="{'tagSelected': isSelectedTag(tagObject.tag)}"
-              (click)="addRemoveTag(tagObject.tag)">{{tagObject.tag}}</div>
+              (click)="addRemoveTag(tagObject.tag)">{{tagObject.tag | ml}}</div>
           </div>
 
           <div class="tagError">
@@ -249,6 +249,9 @@
             <mat-label>{{'startTime' | ml}}</mat-label>
             <!-- <input matInput type="time"  placeholder="HH:mm"> -->
             <input matInput formControlName="startTime" [ngxTimepicker]="startTime" [format]="24" readonly required>
+            <button mat-icon-button matSuffix (click)="clearStartTime()">
+              <mat-icon>clear</mat-icon>
+            </button>
             <ngx-material-timepicker #startTime></ngx-material-timepicker>
           </mat-form-field>
           <div class="space"></div>
@@ -263,6 +266,9 @@
             <mat-label>{{'endTime' | ml}}</mat-label>
             <!-- <input matInput type="time"  placeholder="HH:mm"> -->
             <input matInput formControlName="endTime" [ngxTimepicker]="endTime" [format]="24" readonly>
+            <button mat-icon-button matSuffix (click)="clearEndTime()">
+              <mat-icon>clear</mat-icon>
+            </button>
             <ngx-material-timepicker #endTime></ngx-material-timepicker>
           </mat-form-field>
           <div class="space"></div>

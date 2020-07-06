@@ -10,6 +10,9 @@ import { AppService } from 'src/app/app.service';
 import { EventListType, FeedbackTypes } from 'src/app/dtos/enums';
 import { MatDialog } from '@angular/material/dialog';
 import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
+import { Languages } from 'src/app/dtos/languages';
+import { FormControl } from '@angular/forms';
+import { LangService } from 'src/app/services/lang/lang.service';
 
 @Component({
   selector: 'top-navigation',
@@ -21,12 +24,14 @@ export class TopNavigationComponent implements OnInit {
   auth: Observable<fromAuth.State>;
   user: User;
   unreadMessages: number;
+  language = new FormControl();
 
   constructor(
     private store: Store<fromApp.AppState>,
     private authService: AuthService,
     private appService: AppService,
-    public dialog: MatDialog
+    private langService: LangService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -36,6 +41,11 @@ export class TopNavigationComponent implements OnInit {
     this.store.select('roomState').subscribe(p => {
       if(p) this.unreadMessages = p.unreadMessages;
     });
+    this.language.setValue(this.langService.language);
+    this.language.valueChanges.subscribe(p => {
+      this.langService.changeLanguage(p);
+    });
+
   }
 
   toggleLeftMenu() {
@@ -65,6 +75,14 @@ export class TopNavigationComponent implements OnInit {
       data
     });
     dialogRef.afterClosed().subscribe(result => { });
+  }
+
+  get languages() {
+    return Languages;
+  }
+
+  changeLanguage(language: Languages) {
+    this.language.setValue(language);
   }
 
 }

@@ -262,7 +262,14 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
       this.districts = [];
       this.placeInformation.controls["location"].patchValue({district: undefined});
     }
-
   }
+
+  clearStartTime() {
+    this.timeInformation.controls["startTime"].setValue(undefined);
+  }
+  clearEndTime() {
+    this.timeInformation.controls["endTime"].setValue(undefined);
+  }
+
 
 }

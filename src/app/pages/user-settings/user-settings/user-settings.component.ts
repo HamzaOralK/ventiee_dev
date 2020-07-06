@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/dataServices/user/user.service';
 import { User } from 'src/app/dtos/user';
+import { Languages } from 'src/app/dtos/languages';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Gender, SchoolType } from 'src/app/dtos/enums';
 import { COMMONS } from 'src/app/shared/commons';
@@ -35,7 +36,8 @@ export class UserSettingsComponent implements OnInit {
     preferredGender: new FormControl(),
     schoolType: new FormControl(),
     school: new FormControl(),
-    base64: new FormControl()
+    base64: new FormControl(),
+    language: new FormControl()
   });
 
   constructor(
@@ -44,12 +46,13 @@ export class UserSettingsComponent implements OnInit {
     private appService: AppService,
     public dialog: MatDialog,
     public notificationService: NotificationService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(p => {
       this.user_id = p.get('id');
-      this.userService.getUserById(p.get('id')).subscribe(user => {
+      this.userService.getUserMe(p.get('id')).subscribe(user => {
         this.user = user;
         this.profileForm.patchValue(this.user);
       });
@@ -65,6 +68,7 @@ export class UserSettingsComponent implements OnInit {
     this.userService.updateUserById(this.user_id, this.profileForm.value).subscribe(p => {
       this.appService.loading = false;
       this.profileForm.controls["base64"].setValue(undefined);
+      this.cdr.detectChanges();
     }, e => {
       this.notificationService.notify("updateError", SnackType.warn);
       this.appService.loading = false;
@@ -112,6 +116,10 @@ export class UserSettingsComponent implements OnInit {
     } else {
       return './assets/user.png';
     }
+  }
+
+  get languages() {
+    return Languages;
   }
 
 }

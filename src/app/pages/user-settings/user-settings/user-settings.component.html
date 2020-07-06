@@ -4,7 +4,7 @@
 </div>
 <form [formGroup]="profileForm" *ngIf="user">
   <mat-tab-group style="z-index: 0; position: relative;" mat-align-tabs="center">
-    <mat-tab label="Profil Ayarları">
+    <mat-tab [label]="'profile' | ml">
       <mat-card class="settingsCard">
 
         <div class="imageContainer">
@@ -60,7 +60,7 @@
         </mat-form-field>
       </mat-card>
     </mat-tab>
-    <mat-tab label="Temel Ayarlar">
+    <mat-tab [label]="'basicSettings' | ml">
       <mat-card class="settingsCard">
         <mat-form-field appearance="outline">
           <mat-label>{{'name' | ml}}</mat-label>
@@ -72,11 +72,19 @@
           <input matInput type="text" formControlName="surname">
         </mat-form-field>
         <br>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'language' | ml}}</mat-label>
+          <mat-select formControlName="language">
+            <mat-option [value]="languages.tr">{{'turkish' | ml}}</mat-option>
+            <mat-option [value]="languages.en">{{'english' | ml}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
         <mat-checkbox formControlName="emailNotification" ngDefaultControl>{{'emailNotification' | ml}}</mat-checkbox>
         <br>
       </mat-card>
     </mat-tab>
-    <mat-tab label="Şifre Ayarları">
+    <mat-tab [label]="'passwordSettings' | ml">
       <mat-card class="settingsCard">
         <new-password-form></new-password-form>
       </mat-card>
