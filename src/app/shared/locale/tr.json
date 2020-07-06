@@ -166,5 +166,6 @@
     {"key": "maxRoomNumberReached", "value": "Maksimum oda sayısına ulaştınız."},
     {"key": "Room is full", "value": "Oda maksimum kişi sayısına ulaştı."},
     {"key": "User has been kicked before", "value": "Bu odadan daha önce kovulmuşsunuz"},
-    {"key": "admin", "value": "Yönetici"}
+    {"key": "admin", "value": "Yönetici"},
+    {"key": "faq", "value": "S.S.S."}
 ]
