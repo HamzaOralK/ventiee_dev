@@ -48,7 +48,6 @@ export class LoginFormComponent extends BaseComponent implements OnInit {
     user.email = this.login.value.email;
     user.password = this.login.value.password;
     let loginSubscription = this.authService.loginUser(user).subscribe(p => {
-
       if(p === LoginError.LoginError) {
         this.error = LoginError.LoginError;
       } else if (p === LoginError.NotVerified) {

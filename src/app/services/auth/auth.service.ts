@@ -63,6 +63,7 @@ export class AuthService {
           else this.router.navigate(['/home']);
           this.store.dispatch(new AuthActions.LoginUser(p));
         }
+        return p;
       }),
       catchError(e => {
         if (e.status === 400 && (e.error && e.error.msg === 'User is not verified')) {
