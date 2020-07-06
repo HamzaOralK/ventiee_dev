@@ -15,6 +15,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { CalendarModule, DateAdapter } from "angular-calendar";
 import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
+import { environment } from 'src/environments/environment';
+
+export function getCurentLocale(): string {
+  let language = JSON.parse(localStorage.getItem(environment.loginLocalStorageKey)).user.language;
+  if(language === 'en') return 'en-US';
+  if(language === 'tr') return 'tr-TR';
+
+}
+
 
 // registerLocaleData(localeTr);
 
@@ -35,6 +44,6 @@ import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
     }),
   ],
   exports: [EventCalendarComponent],
-  providers: [{ provide: LOCALE_ID, useValue: "tr-TR" }],
+  // providers: [{ provide: LOCALE_ID, useValue: getCurentLocale() }],
 })
 export class EventCalendarModule {}

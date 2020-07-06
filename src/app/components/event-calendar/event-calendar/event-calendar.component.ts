@@ -12,6 +12,7 @@ import * as fromAuth from '../../../services/auth/store/auth.reducer';
 import * as fromApp from "../../../store/app.reducer";
 import { Store } from '@ngrx/store';
 import { COMMONS } from 'src/app/shared/commons';
+import { LangService } from 'src/app/services/lang/lang.service';
 
 
 
@@ -42,7 +43,7 @@ export class EventCalendarComponent implements OnInit {
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
   /** TODO: langService */
-  locale: string = 'tr';
+  locale: string;
 
   modalData: {
     action: string;
@@ -77,7 +78,8 @@ export class EventCalendarComponent implements OnInit {
     private roomService: RoomService,
     private store: Store<fromApp.AppState>,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private langService: LangService
   ) { }
 
   ngOnInit(): void {
@@ -88,7 +90,10 @@ export class EventCalendarComponent implements OnInit {
         this.transformRooms();
         this.cdr.detectChanges();
       }
-    })
+    });
+    if (this.langService.language === 'tr') this.locale = 'tr-TR';
+    if (this.langService.language === 'en') this.locale = 'en-US';
+
   }
 
   transformRooms() {
