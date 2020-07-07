@@ -8,7 +8,6 @@ import { Event } from 'src/app/dtos/event';
 import { MatDialog } from '@angular/material/dialog';
 import { EventInfoComponent } from 'src/app/pages/event-info/event-info.component';
 import * as fromRoom from '../../../services/dataServices/room/store/room.reducer';
-import * as fromAuth from '../../../services/auth/store/auth.reducer';
 import * as fromApp from "../../../store/app.reducer";
 import { Store } from '@ngrx/store';
 import { COMMONS } from 'src/app/shared/commons';

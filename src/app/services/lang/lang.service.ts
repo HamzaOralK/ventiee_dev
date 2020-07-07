@@ -54,4 +54,8 @@ export class LangService {
     this.decideDict();
   }
 
+  get languages() {
+    return Languages;
+  }
+
 }

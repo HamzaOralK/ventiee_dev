@@ -54,17 +54,17 @@
 
       <button mat-button class="lang" [matMenuTriggerFor]="menu">
         <img [src]="language.value === 'tr' ? './assets/tr.png' : './assets/en.png'">
-        <span>{{ (language.value === 'tr' ? 'turkish' : 'english') | ml }}</span>
+        <span><b>{{ (language.value === 'tr' ? 'TR' : 'EN') | ml }}</b></span>
       </button>
       <mat-menu #menu="matMenu">
 
         <button mat-menu-item class="lang" (click)="changeLanguage(languages.tr)">
           <img src="./assets/tr.png">
-          <span>{{'turkish' | ml}}</span>
+          <span>{{'TR' | ml}}</span>
         </button>
         <button mat-menu-item class="lang" (click)="changeLanguage(languages.en)">
           <img src="./assets/en.png">
-          <span>{{'english' | ml}}</span>
+          <span>{{'EN' | ml}}</span>
         </button>
       </mat-menu>
     </ng-template>

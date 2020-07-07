@@ -67,12 +67,12 @@ export class SignUpFormComponent implements OnInit {
     this.appService.openModal('eula', undefined, eula_tr, ModalType.Information);
   }
 
-  get languages() {
-    return Languages;
-  }
-
   get language() {
     return this.langService.language;
+  }
+
+  get languages () {
+    return this.langService.languages;
   }
 
 }

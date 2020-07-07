@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/dataServices/user/user.service';
 import { User } from 'src/app/dtos/user';
-import { Languages } from 'src/app/dtos/languages';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Gender, SchoolType } from 'src/app/dtos/enums';
 import { COMMONS } from 'src/app/shared/commons';
@@ -10,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GenericImageCropperComponent } from 'src/app/components/generic-image-cropper/generic-image-cropper.component';
 import { AppService } from 'src/app/app.service';
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
+import { LangService } from 'src/app/services/lang/lang.service';
 
 @Component({
   selector: 'user-settings',
@@ -44,9 +44,11 @@ export class UserSettingsComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private appService: AppService,
+    private langService: LangService,
+    private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
     public notificationService: NotificationService,
-    private cdr: ChangeDetectorRef
+
   ) { }
 
   ngOnInit(): void {
@@ -119,7 +121,6 @@ export class UserSettingsComponent implements OnInit {
   }
 
   get languages() {
-    return Languages;
+    return this.langService.languages;
   }
-
 }

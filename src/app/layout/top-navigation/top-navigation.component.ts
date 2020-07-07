@@ -80,12 +80,13 @@ export class TopNavigationComponent implements OnInit {
   }
 
   get languages() {
-    return Languages;
+    return this.langService.languages;
   }
 
   changeLanguage(language: Languages) {
     this.language.setValue(language);
     this.cdr.detectChanges();
   }
+
 
 }
