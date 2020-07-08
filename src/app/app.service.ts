@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from './store/app.reducer';
 import * as AppAction from './store/app.actions';
+import * as RoomAction from './services/dataServices/room/store/room.actions';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -64,6 +65,10 @@ export class AppService {
     if(eventType === EventListType.All) {
       this._resetEvents.next('all');
     }
+  }
+
+  setActiveRoomUndefined() {
+    this.store.dispatch(new RoomAction.SetActiveRoomUndefined());
   }
 
 }

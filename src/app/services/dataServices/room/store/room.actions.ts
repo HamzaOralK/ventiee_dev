@@ -14,6 +14,7 @@ export const LEAVE_ROOM = 'LEAVE_ROOM';
 export const CHANGE_ACTIVE_ROOM = 'CHANGE_ACTIVE_ROOM';
 export const SET_ROOM_USERS = 'SET_ROOM_USERS';
 export const RESET_ROOM_UNREAD_COUNT = 'RESET_ROOM_UNREAD_COUNT';
+export const SET_ACTIVE_ROOM_UNDEFINED = 'SET_ACTIVE_ROOM_UNDEFINED';
 
 
 export class SendMessage implements Action {
@@ -71,5 +72,10 @@ export class ResetRoomUnreadCount implements Action {
   constructor(public payload: { room: Room }) { }
 }
 
+export class SetActiveRoomUndefined implements Action {
+  readonly type = SET_ACTIVE_ROOM_UNDEFINED;
+  constructor() { }
+}
+
 export type RoomActions = SendMessage | GetMessage | LoadMessages | GetRooms | JoinRoom | LeaveRoom |
-            KickUser | ChangeActiveRoom | SetRoomUsers | InsertUser | ResetRoomUnreadCount;
+  KickUser | ChangeActiveRoom | SetRoomUsers | InsertUser | ResetRoomUnreadCount | SetActiveRoomUndefined;

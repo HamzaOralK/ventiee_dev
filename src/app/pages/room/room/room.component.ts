@@ -77,11 +77,14 @@ export class RoomComponent implements OnInit, OnDestroy {
 
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
       /** roomId varsa demek ki route ile gelmiş ve solo açılmış */
-      if (this.roomId) this.roomService.changeRoom(this.roomId);
-      this.pageNo = 1;
-      this.roomId = p.get('id');
-      this.scroll = true;
-      this.scrollToBottom();
+      if (this.roomId) {
+        this.scroll = true;
+        this.pageNo = 1;
+        this.roomId = p.get('id');
+        this.scrollToBottom();
+        this.roomService.changeRoom(this.roomId);
+      }
+
     });
     this.subscription.add(routeSubscription);
 
@@ -144,6 +147,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.appService.setActiveRoomUndefined();
     this.subscription.unsubscribe();
   }
 

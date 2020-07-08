@@ -11,7 +11,7 @@ export const eula_tr = `<p>ventiee'yi ziyaretiniz ve ventiee içeriğini kullan�
 
 <p>DİĞER ÜYELERLE OLAN ETKİLEŞİMLERİNİZDEN YALNIZCA SİZ SORUMLUSUNUZ. VENTIEE'NİN, ÜYELERİNİN SABIKA KAYDI SORGUSU YAPMADIĞINI VEYA ÜYELERİNİN GEÇMİŞİNİ ARAŞTIRMADIĞINI BİLİYORSUNUZ. VENTIEE, ÜYELERİNİN DAVRANIŞLARI İÇİN HERHANGİ BİR TEMSİLDE VEYA GARANTİDE BULUNMAZ.</p>
 
-<h3>gizlilik</h3>
+<h3>cookieler</h3>
 
 <p>ventiee'de bulunduğunuz süre boyunca 'cookie' olarak da adlandırılan çerezlerin ve buna benzer unsurların bilgisayarınıza yerleştirilmesi söz konusu olabilir. çerezler basit metin dosyalarından ibaret olup, kimlik ve sair özel bilgiler içermez, bu nevi kişisel bilgi içermemekle beraber, oturum bilgileri ve benzeri veriler saklanır ve sizi tekrar tanımak için kullanılabilir. bu konuda daha fazla bilgiyi <a href="http://en.wikipedia.org/wiki/http_cookie">http://en.wikipedia.org/wiki/http_cookie</a> ve <a href="http://tr.wikipedia.org/wiki/çerez">http://tr.wikipedia.org/wiki/çerez</a> adreslerinden edinebilirsiniz. (verilen linklerden ulaşacağınız içeriğin güvenilirliğine ilişkin sorumluluğumuz bulunmamaktadır.)</p>
 
