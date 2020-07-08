@@ -4,6 +4,14 @@ export const eula_tr = `<p>ventiee'yi ziyaretiniz ve ventiee içeriğini kullan�
 
 <p>ventiee içeriğini önceden kontrol edilmiyor olması nedeniyle 18 yaşından küçüklere uygun olmayabilir. çocuklarınızın gelişimini olumsuz etkileyecek içeriklerden uzak durmasını sağlayabileceğiniz filtre yazılımları güvenli internet paketleri bulunmaktadır, bunları kullanmanızı tavsiye ederiz. internet'in çocuklarca güvenli kullanımı konusunda bilgilendirme için: <a href="http://www.guvenliweb.org.tr/">http://www.guvenliweb.org.tr/</a></p>
 
+
+<h3>güvenlik</h3>
+
+<p>ventiee her ne kadar üyelerin aynı etkinlik altında toplandığı ve saygılı çerçevesi içinde iletişim kurmalarını teşvik etmek için çabalasa da, herhangi bir kullanıcının Hizmetteki veya Hizmet dışındaki davranışından sorumlu değildir. Diğer üyelerle olan tüm iletişimlerinizde, özellikle Hizmetin dışında iletişime geçmeye veya bizzat tanışmaya karar verdiğinizde, dikkatli olacağınızı kabul edersiniz. Ayrıca Hizmeti kullanmadan önce ventiee'nin Güvenlik İpuçları'nı incelemeyi ve bunlara uymayı kabul edersiniz. Diğer kullanıcılara mali bilgilerinizi (örneğin kredi kartı veya banka kartı bilgilerinizi) vermemeli, banka havalesi ile veya başka türlü para göndermeyeceğinizi kabul edersiniz.</p>
+
+<p>DİĞER ÜYELERLE OLAN ETKİLEŞİMLERİNİZDEN YALNIZCA SİZ SORUMLUSUNUZ. VENTIEE'NİN, ÜYELERİNİN SABIKA KAYDI SORGUSU YAPMADIĞINI VEYA ÜYELERİNİN GEÇMİŞİNİ ARAŞTIRMADIĞINI BİLİYORSUNUZ. VENTIEE, ÜYELERİNİN DAVRANIŞLARI İÇİN HERHANGİ BİR TEMSİLDE VEYA GARANTİDE BULUNMAZ.</p>
+
+
 <h3>hukuka aykırı içerik ve şikayet</h3>
 
 <p>ventiee, Maze Software teknoloji ve bilişim anonim şirketi’ne ait olup, 5651 sayılı kanun çerçevesinde yer sağlayıcı sıfatı’yla(<a href="https://www.btk.gov.tr/">https://www.btk.gov.tr/</a>) hizmet vermektedir. Ventiee'de organizatörler tarafından oluşturulan içerikler herhangi bir ön incelemeye tabi olmaksızın ve doğrudan organizatörler tarafından yayına alınmaktadır. tarafımıza başvurulmadığı müddetçe, yayınlanan içeriğin hukuka uygunluğunu denetleme yükümlülüğümüz bulunmamaktadır. ancak, Ventiee yer sağladığı içeriğin hukuka uygunluğunu sağlamaya özen göstermekte, bu nedenle yapılan her başvuruyu dikkatle değerlendirmektedir.</p>
@@ -24,11 +32,25 @@ export const eula_tr = `<p>ventiee'yi ziyaretiniz ve ventiee içeriğini kullan�
 
 <p>ventiee'de yer alan bağlantılara/yönlendirmelere (link) ilişkin hiçbir sorumluluğumuz bulunmamaktadır. ventiee, bağlantı ve yönlendirmelerin içeriğini kontrol etmediği gibi, içeriğin doğruluğu, yönlendirilen adreste virüs, trojan, phishing ve benzeri zararlı bir unsur olmadığı veya yönlendirilen sitenin hukuka uygun olduğu gibi veya benzeri hiçbir bir garanti vermemektedir.</p>
 
-<h3>gizlilik</h3>
+<h3>topluluk kuralları</h3>
 
-<p>ventiee’debulunduğunuz süre boyunca 'cookie' olarak da adlandırılan çerezlerin ve buna benzer unsurların bilgisayarınıza yerleştirilmesi söz konusu olabilir. çerezler basit metin dosyalarından ibaret olup, kimlik ve sair özel bilgiler içermez, bu nevi kişisel bilgi içermemekle beraber, oturum bilgileri ve benzeri veriler saklanır ve sizi tekrar tanımak ve benzeri hizmetler için kullanılabilir. bu konuda daha fazla bilgiyi <a href="http://www.allaboutcookies.org/">http://www.allaboutcookies.org/</a> <a href="http://en.wikipedia.org/wiki/http_cookie">http://en.wikipedia.org/wiki/http_cookie</a> ve <a href="http://tr.wikipedia.org/wiki/çerez_(internet)">http://tr.wikipedia.org/wiki/çerez_(internet)</a> adreslerinden edinebilirsiniz. (verilen linklerden ulaşacağınız içeriğin güvenilirliğine ilişkin sorumluluğumuz bulunmamaktadır.)</p>
+<p>Hizmeti kullanmakla aşağıdakileri yapmayacağınızı kabul edersiniz:</p>
+  <ul>
+    <li>Hizmeti, yasadışı veya bu Sözleşme tarafından yasaklanmış herhangi bir amaç için kullanmak.</li>
+    <li>Hizmeti herhangi bir zararlı veya kötü amaçla kullanmak</li>
+    <li>Hizmeti Ventiee'ye zarar verme amacıyla kullanmak</li>
+    <li>istenmeyen e-postalar göndermek, üyelerden para istemek veya üyeleri dolandırmak.</li>
+    <li>herhangi bir kişi veya kuruluşu taklit etmek veya izni olmadan bir başka kişinin görüntülerini yayınlamak.</li>
+    <li>herhangi bir kişiyi korkutmak, "takip etmek", tehdit etmek, saldırmak, incitmek veya karalamak.</li>
+    <li>herhangi bir kişinin tanıtım, mahremiyet, telif, ticari marka veya diğer fikri mülkiyet veya sözleşme hakkı dahil haklarını ihlal eden veya haklarına tecavüz eden herhangi bir İçerik yayınlamak.</li>
+    <li>nefret söylemi, tehdit edici, cinsel olarak açık veya pornografik; şiddeti kışkırtan; çıplaklık ya da grafik şiddet veya nedensiz şiddet ihtiva eden herhangi bir İçerik yayınlamak.</li>
+    <li>ırkçılık, bağnazlık, nefret ya da herhangi bir gruba veya bireye karşı fiziksel zarar vermeyi teşvik eden herhangi bir içerik göndermek.</li>
+    <li>diğer üyelerden herhangi bir amaçla şifre istemek veya ticari veya yasadışı amaçlarla kişisel olarak tanımlayıcı bilgileri istemek veya bir başka bir kişinin kişisel bilgilerini onun izni olmadan yaymak.</li>
+    <li>başka bir üyenin hesabını kullanmak, başka bir kullanıcı ile bir hesap paylaşmak veya birden fazla hesaba sahip olmak.</li>
+    <li>hesabınızı önceden feshetmişsek, iznimiz olmadan bir başka hesap oluşturmak.</li>
+  </ul>
 
-<p>ventiee'yi ziyaretiniz esnasında ip adresiniz ve bilgisayarınız aracılığıyla toplanabilen diğer veriler maze software tarafından anonim olarak kaydedilmektedir.</p>
+<p>Bu Sözleşmeyi ihlal etmişseniz, Hizmeti kötüye kullanmışsanız veya Hizmet üzerinde veya dışında gerçekleşen eylemler veya iletişimler dahil Ventiee'nin herhangi bir şekilde uygunsuz veya yasa dışı olarak gördüğü bir şekilde davranmışsanız, Ventiee soruşturma yapma ve/veya hesabınızı uygulama içi satın alma işlemleri için para iadesi yapmadan feshetme hakkını saklı tutar.</p>
 
 <h3>maze software'in hak ve yükümlülükleri</h3>
 

@@ -195,5 +195,6 @@
     {"key": "Fotoğraf", "value": "Fotoğraf"},
     {"key": "Dil", "value": "Dil"},
     {"key": "Yemek", "value": "Yemek"},
-    {"key": "Alışveriş", "value": "Alışveriş"}
+    {"key": "Alışveriş", "value": "Alışveriş"},
+    {"key": "privacy", "value": "Gizlilik Sözleşmesi"}
 ]

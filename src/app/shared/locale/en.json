@@ -195,5 +195,7 @@
     {"key": "Fotoğraf", "value": "Photography"},
     {"key": "Dil", "value": "Language"},
     {"key": "Yemek", "value": "Food"},
-    {"key": "Alışveriş", "value": "Shopping"}
+    {"key": "Alışveriş", "value": "Shopping"},
+    {"key": "privacy", "value": "Privacy Policy"}
+
 ]

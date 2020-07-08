@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 // import { MatDialog } from '@angular/material/dialog';
 // import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { eula_tr } from "src/assets/eula-tr";
+import { privacy_tr } from "src/assets/privacy-tr";
 import { AppService } from 'src/app/app.service';
 import { ModalType } from '../generic-modal/generic-modal.component';
-import { Languages } from 'src/app/dtos/languages';
 import { LangService } from 'src/app/services/lang/lang.service';
 
 @Component({
@@ -27,6 +27,7 @@ export class SignUpFormComponent implements OnInit {
     nickname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern(this.unamePattern)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
     language: new FormControl('tr', [Validators.required]),
+    privacyStatus: new FormControl(false, [Validators.requiredTrue]),
     eulaStatus: new FormControl(false, [Validators.requiredTrue]),
     plus18: new FormControl(false, [Validators.requiredTrue])
   })
@@ -63,8 +64,9 @@ export class SignUpFormComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  openModal(){
-    this.appService.openModal('eula', undefined, eula_tr, ModalType.Information);
+  openModal(type: string){
+    if(type === 'eula') this.appService.openModal('eula', undefined, eula_tr, ModalType.Information);
+    if (type === 'privacy') this.appService.openModal('privacy', undefined, privacy_tr, ModalType.Information);
   }
 
   get language() {
