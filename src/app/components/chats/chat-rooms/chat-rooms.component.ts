@@ -24,9 +24,10 @@ export class ChatRoomsComponent implements OnInit {
 
 
   changeRoom() {
-    this.roomService.changeRoom(this.room._id);
     if(this.appService.smallScreen) {
       this.router.navigate(['/room/' + this.room._id]);
+    } else {
+      this.roomService.changeRoom(this.room._id);
     }
     this.appService.closeNav();
   }

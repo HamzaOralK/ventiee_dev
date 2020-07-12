@@ -17,7 +17,9 @@
   }
 }
 
-
+.mat-button-toggle-checked {
+  background-color: mat-color($app-accent, 500) !important;
+}
 
 .button {
   display: none;

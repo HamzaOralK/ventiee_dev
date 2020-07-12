@@ -14,10 +14,10 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription, Subject, Observable, throwError } from 'rxjs';
+import { Subscription, Subject, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { NotificationService, SnackType } from '../../notification/notification.service';
 import { environment } from 'src/environments/environment';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, take } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
 
 const MESSAGE_TO_CLIENT = 'messageToClient';
@@ -39,7 +39,6 @@ export class RoomService implements OnDestroy {
   connectionOptions: any;
   user: User;
   subscription: Subscription;
-  msg: Subject<MMessage>;
   connected: boolean = false;
 
   unreadMessageCount: number = 0;
@@ -55,7 +54,6 @@ export class RoomService implements OnDestroy {
     private notificationService: NotificationService,
     private alertService: AlertService,
   ) {
-    this.msg = new Subject();
     this.subscription = new Subscription();
     this.store.select("roomState").subscribe((p) => {
       if (p) {
@@ -175,7 +173,6 @@ export class RoomService implements OnDestroy {
         );
       }
       observer.next(message);
-      this.msg.next(message as MMessage);
     }
   }
 
@@ -190,8 +187,10 @@ export class RoomService implements OnDestroy {
         this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({ roomId }));
         this.resetRoomUnreadCount(room);
         if (!room.users) {
-          this.loadMessages(room).subscribe();
-          this.getRoomUsers(room).subscribe();
+          this.getRoomUsers(room).toPromise().then();
+        }
+        if(!room.messages) {
+          this.loadMessages(room).pipe(take(1)).subscribe();
         }
       } else {
         this.router.navigate(["/home"]);
@@ -221,8 +220,8 @@ export class RoomService implements OnDestroy {
           throw new Error(p.msg);
         }
         this.roomStore.dispatch(new RoomAction.JoinRoom({ room: p.obj }));
-        this.joinSocketRoom(room._id, true);
         this.changeRoom(room._id);
+        this.joinSocketRoom(room._id, true);
         this.store.dispatch(new AppAction.FilterEvent(room));
       }),
       catchError(e => {
@@ -330,7 +329,6 @@ export class RoomService implements OnDestroy {
         tap((result: any) => {
           result = result.map((e) => this.formatLoadedMessages(e));
           this.roomStore.dispatch(new RoomAction.LoadMessages({ room: room, messages: result }));
-          this.msg.next(undefined);
           return result;
         })
       );

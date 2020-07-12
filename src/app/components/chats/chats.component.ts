@@ -18,7 +18,7 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
   appWise: Observable<fromApp.AppWise>;
   roomState: Observable<fromRoom.State>;
 
-  rooms: Room[];
+  rooms: Room[] = [];
   filteredRooms: Room[] = [];
 
   roomSearchText: Subject<string> = new Subject();

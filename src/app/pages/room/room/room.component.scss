@@ -127,7 +127,7 @@ $usersFullWidth: 220px;
     margin: 2px 10px 2px 10px;
     border-radius: 5px;
     .messageText {
-      word-break: break-all;
+      word-break: break-word;
       color: white !important;
     }
   }
@@ -142,7 +142,7 @@ $usersFullWidth: 220px;
     margin: 2px 10px 2px 10px;
     border-radius: 5px;
     span {
-      word-break: break-all;
+      word-break: break-word;
     }
   }
 }

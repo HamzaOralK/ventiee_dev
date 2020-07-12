@@ -57,8 +57,9 @@ export class EventService {
   getEvents(pageNo: number = 1, search?: string, eventFilter?: EventFilter ) {
     this._isAll = false;
     let url = environment.serviceURL + "/events";
-    let params: { pageNo: string; search?: string } = {
-      pageNo: pageNo.toString() ,
+    let params: { pageNo: string; search?: string, userId?: string } = {
+      pageNo: pageNo.toString(),
+      userId: this.user._id
     };
 
     if (search) {
@@ -66,9 +67,7 @@ export class EventService {
     }
 
     return this.http
-      .post<Event[]>(url, { ...eventFilter }, {
-        params,
-      })
+      .post<Event[]>(url, { ...eventFilter }, { params })
       .pipe(
         map((result: any) => {
           if (result) {

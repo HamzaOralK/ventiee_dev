@@ -27,6 +27,9 @@
         <mat-form-field appearance="outline">
           <mat-label>{{'title'| ml}}</mat-label>
           <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required appLowerCase>
+          <mat-error *ngIf="formControls(generalDescription).title.hasError('maxlength')">
+            {{'titleMax' | ml}}
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>{{'howmany' | ml}}</mat-label>
@@ -198,6 +201,10 @@
           <mat-form-field appearance="outline">
             <mat-label>{{'title'| ml}}</mat-label>
             <input matInput placeholder="{{'forWhat' | ml}}" formControlName="title" required appLowerCase>
+            <mat-error *ngIf="formControls(generalDescription).title.hasError('maxlength')">
+              {{'titleMax' | ml}}
+            </mat-error>
+
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'howmany' | ml}}</mat-label>

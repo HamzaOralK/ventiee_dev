@@ -10,8 +10,11 @@
                 {{event.title}}
               </h3>
             </div>
-            <div class="titleDesc" *ngIf="event.description">
-              {{event.description}}
+            <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" class="c-ptr df fd-c">
+              <div class="df ali-c">
+                <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
+                <p><b>{{event.moderatorUser.nickname}}</b></p>
+              </div>
             </div>
             <div class="tags">
               <div *ngFor="let tag of event.tags" class="tag">
@@ -25,52 +28,46 @@
   </mat-expansion-panel-header>
   <div>
     <div class="line">
-      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" class="c-ptr" style="display: flex; align-items: center;">
-        <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
-        <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
+      <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+        <div class="iconInfo">
+          <mat-icon>arrow_forward</mat-icon>
+          {{event.startDate | date:'dd/MM/yyyy HH:mm'}}
+        </div>
+        <div class="iconInfo" *ngIf="event.endDate">
+          <mat-icon>keyboard_tab</mat-icon>
+          {{event.endDate | date:'dd/MM/yyyy HH:mm'}}
+        </div>
+        <div class="iconInfo">
+          <mat-icon>people</mat-icon>
+          {{event.peopleCount}}
+        </div>
+        <div class="iconInfo" *ngIf="event.city">
+          <mat-icon>place</mat-icon>
+          <span *ngIf="event.city">{{event.city}}</span>
+          <span *ngIf="event.district">, {{event.district}}</span>
+        </div>
       </div>
 
-      <button mat-raised-button color="primary" (click)="joinEvent()" *ngIf="checkJoinable()">
-        <mat-icon>
-          playlist_add
-        </mat-icon>
-        {{'join' | ml}}
-      </button>
+      <div class="titleDesc" *ngIf="event.description">
+        <h3>{{'description' | ml}}</h3>
+        <p>{{event.description}}</p>
+      </div>
 
-      <button mat-raised-button color="primary" (click)="report()">
-        <mat-icon>
-          warning
-        </mat-icon>
-        {{'report' | ml}}
-      </button>
+      <div class="c-ptr df fd-r">
+        <button mat-raised-button color="primary" (click)="joinEvent()" *ngIf="checkJoinable()">
+          <mat-icon>playlist_add</mat-icon>
+          {{'join' | ml}}
+        </button>
+        <button mat-raised-button color="primary" (click)="report()">
+          <mat-icon>warning</mat-icon>
+          {{'report' | ml}}
+        </button>
+        <button mat-raised-button color="warn" (click)="removeByAdminAuth(event._id)" *ngIf="checkAdmin()">
+          <mat-icon>cancel</mat-icon>
+          {{'remove' | ml}}
+        </button>
+      </div>
 
-      <button mat-raised-button color="warn" (click)="removeByAdminAuth(event._id)" *ngIf="checkAdmin()">
-        <mat-icon>
-          cancel
-        </mat-icon>
-        {{'remove' | ml}}
-      </button>
-
-    </div>
-    <br>
-    <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
-      <div class="iconInfo">
-        <mat-icon>arrow_forward</mat-icon>
-        {{event.startDate | date:'dd/MM/yyyy HH:mm'}}
-      </div>
-      <div class="iconInfo" *ngIf="event.endDate">
-        <mat-icon>keyboard_tab</mat-icon>
-        {{event.endDate | date:'dd/MM/yyyy HH:mm'}}
-      </div>
-      <div class="iconInfo">
-        <mat-icon>people</mat-icon>
-        {{event.peopleCount}}
-      </div>
-      <div class="iconInfo" *ngIf="event.city">
-        <mat-icon>place</mat-icon>
-        <span *ngIf="event.city">{{event.city}}</span>
-        <span *ngIf="event.district">, {{event.district}}</span>
-      </div>
     </div>
   </div>
 </mat-expansion-panel>

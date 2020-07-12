@@ -66,7 +66,7 @@ export class EventLineComponent implements OnInit {
   }
 
   setHeight() {
-    return this.smallScreen ? '150px' : '130px';
+    return this.smallScreen ? '150px' : '150px';
   }
 
   removeByAdminAuth(eventId: string) {

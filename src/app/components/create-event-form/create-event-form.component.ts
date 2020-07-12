@@ -64,8 +64,8 @@ export class CreateEventFormComponent implements OnInit, OnDestroy {
   tagFilter = new FormControl();
 
   generalDescription = new FormGroup({
-    title: new FormControl(""),
-    description: new FormControl("", [Validators.maxLength(100)]),
+    title: new FormControl("", [Validators.maxLength(40)]),
+    description: new FormControl("", [Validators.maxLength(500)]),
     peopleCount: new FormControl("", [Validators.min(3), Validators.max(20)]),
     type: new FormControl('meeting', [Validators.required])
   });

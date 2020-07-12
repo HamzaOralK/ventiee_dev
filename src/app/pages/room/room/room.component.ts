@@ -37,6 +37,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   authState: Observable<fromAuth.State>;
 
   activeRoom: Room;
+  activeRoomMessages: MMessage[];
+  activeRoomUsers: RoomUser[];
 
   rooms: Room[];
   user: User;
@@ -77,51 +79,31 @@ export class RoomComponent implements OnInit, OnDestroy {
 
     let routeSubscription = this.activatedRoute.paramMap.subscribe(p => {
       /** roomId varsa demek ki route ile gelmiş ve solo açılmış */
+      this.roomId = p.get('id');
       if (this.roomId) {
         this.scroll = true;
         this.pageNo = 1;
-        this.roomId = p.get('id');
-        this.scrollToBottom();
         this.roomService.changeRoom(this.roomId);
       }
 
     });
     this.subscription.add(routeSubscription);
-
-    let msgSubscription = this.roomService.msg.subscribe(p => {
-      let scrollHeight: number;
-      setTimeout(() => {
-        scrollHeight = (this.messages.nativeElement as HTMLLIElement).scrollHeight;
-      });
-      if (this.messages && this._loading)
-        setTimeout(() => {
-          (this.messages.nativeElement as HTMLLIElement).scrollTop = scrollHeight - this.previousScrollHeightMinusTop;
-        });
-      this._loading = false;
-    });
-    this.subscription.add(msgSubscription);
   }
 
 
   ngAfterViewInit() {
     let containerSub = this.messagesContainer.changes.subscribe((list: QueryList<ElementRef>) => {
-        this.scrollToBottomCheck();
-        if (this.scroll && list.length > 0) {
-          this.scroll = false;
-        }
+      this.scrollToBottomCheck();
+      if (this.scroll && list.length > 0) {
+        this.scroll = false;
       }
-    );
+    });
     this.subscription.add(containerSub);
     let stateSub = this.store.select("roomState").subscribe(p => {
-      this.scroll = true;
+      this._loading = false;
+      if(!this.activeRoom) this.scroll = true;
       if (p.rooms.length > 0) {
-        if ((!this.activeRoom || (p.activeRoom && this.activeRoom._id !== p.activeRoom._id)) && !p.activeRoom) {
-          this.isAllMessages = false;
-          this.roomService.changeRoom(this.roomId);
-        }
-        else if (p.activeRoom) {
-          this.activeRoom = p.activeRoom;
-        }
+        if(p.activeRoom) this.activeRoom = p.activeRoom;
       }
       this.cdr.detectChanges();
     });
@@ -175,16 +157,18 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   scrollToBottomCheck() {
     if(!this.scroll) {
-      if ((this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
+      // if ((this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
         this.scrollToBottom();
-      }
+      // }
     } else {
       this.scrollToBottom();
     }
   }
 
   scrollToBottom() {
-    if(this.messages) this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight;
+    if(this.messages) {
+      setTimeout(()=>{this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight});
+    }
   }
 
   isOwn(message: MMessage) {
