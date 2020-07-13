@@ -43,7 +43,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>{{'description' | ml}}</mat-label>
-          <input matInput placeholder="{{'description' | ml}}" formControlName="description" required>
+          <textarea matInput placeholder="{{'description' | ml}}" rows="5" formControlName="description" required></textarea>
           <mat-error *ngIf="formControls(generalDescription).description.hasError('maxlength')">
             {{'descMax' | ml}}
           </mat-error>
@@ -218,7 +218,8 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'description' | ml}}</mat-label>
-            <input matInput placeholder="{{'description' | ml}}" formControlName="description" required>
+            <!-- <input matInput placeholder="{{'description' | ml}}" formControlName="description" required> -->
+            <textarea matInput placeholder="{{'description' | ml}}" rows="5" formControlName="description" required></textarea>
             <mat-error *ngIf="formControls(generalDescription).description.hasError('maxlength')">
               {{'descMax' | ml}}
             </mat-error>

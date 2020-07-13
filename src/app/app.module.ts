@@ -61,13 +61,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { PwaPromptComponent } from './components/pwa-prompt/pwa-prompt.component';
-import { PwaService } from './services/pwa/pwa.service';
 import { LangService } from './services/lang/lang.service';
 import { AuthService } from './services/auth/auth.service';
 
-const initializer = (pwaService: PwaService, langService: LangService, authService: AuthService) => () => {
+const initializer = (langService: LangService, authService: AuthService) => () => {
   authService.checkLocalStorage();
-  pwaService.initPwaPrompt();
+  // pwaService.initPwaPrompt();
   langService.decideDict();
 }
 
@@ -131,7 +130,7 @@ const initializer = (pwaService: PwaService, langService: LangService, authServi
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    { provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService, LangService, AuthService], multi: true, },
+    { provide: APP_INITIALIZER, useFactory: initializer, deps: [LangService, AuthService], multi: true, },
   ],
   bootstrap: [AppComponent],
 })

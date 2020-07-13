@@ -34,7 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    NewFeedbackModule
+    NewFeedbackModule,
   ],
   exports: [
     RoomComponent

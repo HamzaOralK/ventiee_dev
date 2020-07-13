@@ -14,11 +14,12 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription, Subject, Observable, throwError, BehaviorSubject } from 'rxjs';
+import { Subscription, Observable, throwError } from 'rxjs';
 import { NotificationService, SnackType } from '../../notification/notification.service';
 import { environment } from 'src/environments/environment';
 import { tap, catchError, take } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
+import { AppService } from 'src/app/app.service';
 
 const MESSAGE_TO_CLIENT = 'messageToClient';
 const JOIN_ROOM = 'joinRoom';
@@ -27,10 +28,10 @@ const KICK_PERSON = 'kickPerson';
 const CANCEL_EVENT = 'cancelEvent';
 const COMPLETE_EVENT = 'completeEvent';
 
-
 @Injectable({
   providedIn: "root",
 })
+
 export class RoomService implements OnDestroy {
   socket: SocketIOClient.Socket;
   rooms: Room[];
@@ -53,6 +54,7 @@ export class RoomService implements OnDestroy {
     private router: Router,
     private notificationService: NotificationService,
     private alertService: AlertService,
+    private appService: AppService
   ) {
     this.subscription = new Subscription();
     this.store.select("roomState").subscribe((p) => {
@@ -220,7 +222,7 @@ export class RoomService implements OnDestroy {
           throw new Error(p.msg);
         }
         this.roomStore.dispatch(new RoomAction.JoinRoom({ room: p.obj }));
-        this.changeRoom(room._id);
+        if(!this.appService.smallScreen) this.changeRoom(room._id);
         this.joinSocketRoom(room._id, true);
         this.store.dispatch(new AppAction.FilterEvent(room));
       }),

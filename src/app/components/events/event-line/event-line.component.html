@@ -10,7 +10,7 @@
                 {{event.title}}
               </h3>
             </div>
-            <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" class="c-ptr df fd-c">
+            <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" class="c-ptr df fd-c user">
               <div class="df ali-c">
                 <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
                 <p><b>{{event.moderatorUser.nickname}}</b></p>
@@ -54,11 +54,11 @@
       </div>
 
       <div class="c-ptr df fd-r">
-        <button mat-raised-button color="primary" (click)="joinEvent()" *ngIf="checkJoinable()">
+        <button mat-raised-button color="primary" (click)="joinEvent()" *ngIf="checkJoinable()" style="margin-right: 5px;">
           <mat-icon>playlist_add</mat-icon>
           {{'join' | ml}}
         </button>
-        <button mat-raised-button color="primary" (click)="report()">
+        <button mat-raised-button color="primary" (click)="report()" style="margin-right: 5px;">
           <mat-icon>warning</mat-icon>
           {{'report' | ml}}
         </button>
