@@ -5,6 +5,7 @@ import { Room, RoomUser } from '../../../../dtos/room';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_MESSAGE = 'GET_MESSAGE';
 export const LOAD_MESSAGES = 'LOAD_MESSAGES';
+export const BUG_LOAD_MESSAGES = 'BUG_LOAD_MESSAGES';
 export const JOIN_ROOM = 'JOIN_ROOM';
 export const INSERT_USER = 'INSERT_USER';
 export const GET_ROOMS = 'GET_ROOMS';
@@ -29,6 +30,11 @@ export class GetMessage implements Action {
 
 export class LoadMessages implements Action {
   readonly type = LOAD_MESSAGES;
+  constructor(public payload: { room: Room, messages?: MMessage[] }) { }
+}
+
+export class BugLoadMessages implements Action {
+  readonly type = BUG_LOAD_MESSAGES;
   constructor(public payload: { room: Room, messages?: MMessage[] }) { }
 }
 
@@ -77,5 +83,5 @@ export class SetActiveRoomUndefined implements Action {
   constructor() { }
 }
 
-export type RoomActions = SendMessage | GetMessage | LoadMessages | GetRooms | JoinRoom | LeaveRoom |
+export type RoomActions = SendMessage | GetMessage | LoadMessages | BugLoadMessages | GetRooms | JoinRoom | LeaveRoom |
   KickUser | ChangeActiveRoom | SetRoomUsers | InsertUser | ResetRoomUnreadCount | SetActiveRoomUndefined;

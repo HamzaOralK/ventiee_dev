@@ -1,9 +1,10 @@
 <div class="wholeEvents">
   <div style="display: flex; flex-direction: column; padding: 0 10px;" *ngIf="type === 'all' || type === 'history'">
     <div class="addEvent">
-      <button class="add" mat-fab color="primary" (click)="createEvent()" *ngIf="type === 'all'">
+      <!-- <button class="add" mat-raised-button color="primary" (click)="createEvent()" *ngIf="type === 'all'">
         <mat-icon>add</mat-icon>
-      </button>
+        {{'create' | ml}}
+      </button> -->
       <mat-form-field appearance="outline" class="searchBox">
         <mat-label>{{'searchforanevent' | ml}}</mat-label>
         <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>

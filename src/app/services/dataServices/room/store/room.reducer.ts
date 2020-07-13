@@ -62,6 +62,15 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         ...copyState,
         // rooms: [...copyState.rooms],
       };
+    case RoomActions.BUG_LOAD_MESSAGES:
+      roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
+      copyState = cloneDeep(state);
+      copyState.rooms[roomIndex].messages = action.payload.messages;
+
+      return {
+        ...copyState,
+        // rooms: [...copyState.rooms],
+      };
     case RoomActions.GET_ROOMS:
       if (action.payload.rooms.length > 0) {
         return {

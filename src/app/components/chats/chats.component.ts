@@ -6,6 +6,11 @@ import * as fromRoom from '../../services/dataServices/room/store/room.reducer';
 import { Room } from 'src/app/dtos/room';
 import { Subject, Subscription, Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import * as AppAction from "../../store/app.actions";
+import { Router } from '@angular/router';
+import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'chats',
@@ -13,6 +18,8 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./chats.component.scss']
 })
 export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  currentModRoomsQuantity: number = 0;
 
   auth: Observable<fromAuth.State>;
   appWise: Observable<fromApp.AppWise>;
@@ -29,7 +36,10 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private store: Store<fromApp.AppState>,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private notificationService: NotificationService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +53,12 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
       if(p) {
         this.rooms = p.rooms;
         this.filteredRooms = p.rooms;
+        if (p && p.rooms) {
+          let modedRooms = p.rooms.filter(r => {
+            return r.moderatorUserId === this.authService.user._id || r.moderatorUser._id === this.authService.user._id;
+          });
+          this.currentModRoomsQuantity = modedRooms.length;
+        };
         this.cdr.detectChanges();
       }
     });
@@ -79,5 +95,15 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
   clearFilter() {
     this.value = "";
     this.roomSearchText.next(undefined);
+  }
+
+
+  createEvent() {
+    if (this.currentModRoomsQuantity < environment.maxRoomNumber) {
+      this.store.dispatch(new AppAction.ToggleLeftNav(false));
+      this.router.navigate(["/createEvent"]);
+    } else {
+      this.notificationService.notify("maxRoomNumberReached", SnackType.warn, "OK");
+    }
   }
 }

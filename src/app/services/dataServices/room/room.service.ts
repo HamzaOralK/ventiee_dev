@@ -335,6 +335,23 @@ export class RoomService implements OnDestroy {
         })
       );
   }
+
+  bugloadMessages(room: Room, pageNo: number = 1) {
+    let url = environment.serviceURL + "/messages/" + room._id;
+    return this.http
+      .get(url, {
+        params: {
+          pageNo: pageNo.toString(),
+        },
+      })
+      .pipe(
+        tap((result: any) => {
+          result = result.map((e) => this.formatLoadedMessages(e));
+          this.roomStore.dispatch(new RoomAction.BugLoadMessages({ room: room, messages: result }));
+          return result;
+        })
+      );
+  }
   // messages/: id ? pageNo = 1
 
   joinSocketRoom(roomId: string, isInsert = false) {

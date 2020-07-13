@@ -74,8 +74,8 @@ export class EventService {
             let r = result.filter(
               (elem) => !this.joinedRooms.find(({ _id }) => elem._id === _id)
             );
-            if(pageNo === 1) this.store.dispatch(new AppActions.GetEvents(Object.values(r)));
-            else if (pageNo > 1) this.store.dispatch(new AppActions.LoadMoreEvents(Object.values(r)));
+            if(pageNo === 1 && r.length > 0) this.store.dispatch(new AppActions.GetEvents(Object.values(r)));
+            else if (pageNo > 1 && r.length > 0) this.store.dispatch(new AppActions.LoadMoreEvents(Object.values(r)));
             return r;
           }
         }),

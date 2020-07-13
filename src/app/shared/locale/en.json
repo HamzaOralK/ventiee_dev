@@ -197,6 +197,7 @@
     {"key": "Dil", "value": "Language"},
     {"key": "Yemek", "value": "Food"},
     {"key": "Alışveriş", "value": "Shopping"},
-    {"key": "privacy", "value": "Privacy Policy"}
+    {"key": "privacy", "value": "Privacy Policy"},
+    {"key": "loadMoreMessage", "value": "Load more message"}
 
 ]

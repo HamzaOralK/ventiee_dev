@@ -1,11 +1,17 @@
 <div style="min-width: 300px; height: 100%;">
-  <mat-form-field appearance="outline" class="searchBox">
-    <mat-label>{{'searchchats' | ml}}</mat-label>
-    <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
-    <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
-      <mat-icon>close</mat-icon>
+  <div class="df jc-c ali-c">
+    <button class="add" mat-raised-button color="primary" (click)="createEvent()">
+      <!-- <mat-icon>add</mat-icon> -->
+      {{'newEvent' | ml}}
     </button>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="searchBox">
+      <mat-label>{{'searchchats' | ml}}</mat-label>
+      <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
+      <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
   <div class="scroll chats" *ngIf="filteredRooms.length > 0">
     <chat-rooms *ngFor="let room of filteredRooms" [room]="room"></chat-rooms>
   </div>

@@ -49,16 +49,12 @@ export class EventLineComponent implements OnInit {
     let userNewRoom = new Room();
     userNewRoom._id = this.event._id;
     this.roomService.joinRoom(userNewRoom).subscribe(p => {
-      // this.roomService.changeRoom(this.event._id);
-      // this.store.dispatch(new AppAction.FilterEvent(this.event));
       if(this.appService.smallScreen) {
         this.router.navigate(['/room/' + this.event._id]);
       } else {
         this.onJoin.emit(this.event);
       }
-    }, e => {
-
-    });
+    }, e => { });
   }
 
   checkJoinable() {

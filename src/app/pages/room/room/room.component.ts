@@ -128,6 +128,16 @@ export class RoomComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadMoreWithButton() {
+    this._loading = true;
+    let loadSub = this.roomService.bugloadMessages(this.activeRoom, this.pageNo).subscribe(r => {
+      if (r.length === 0) {
+        this.isAllMessages = true;
+      }
+    });
+    this.subscription.add(loadSub);
+  }
+
   ngOnDestroy() {
     this.appService.setActiveRoomUndefined();
     this.subscription.unsubscribe();

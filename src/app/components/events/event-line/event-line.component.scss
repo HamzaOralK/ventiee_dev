@@ -61,6 +61,7 @@ mat-expansion-panel {
   border-radius: 15px;
   width: 100px;
   object-fit: contain;
+
   @include media-breakpoint(xs) {
     width: 50px;
 
