@@ -27,6 +27,7 @@ const LEAVE_ROOM = 'leaveRoom';
 const KICK_PERSON = 'kickPerson';
 const CANCEL_EVENT = 'cancelEvent';
 const COMPLETE_EVENT = 'completeEvent';
+const USER_ENTERED = 'userEntered';
 
 @Injectable({
   providedIn: "root",
@@ -105,9 +106,7 @@ export class RoomService implements OnDestroy {
         this.socket.on(LEAVE_ROOM, (message: any) => {
           this.processLeaveRoom(message, observer);
         });
-        this.socket.on(
-          KICK_PERSON,
-          (message: { personToKick: string; roomToLeave: string }) => {
+        this.socket.on(KICK_PERSON,(message: { personToKick: string; roomToLeave: string }) => {
             if (message.personToKick === this.user._id)
               this.processKick(message.roomToLeave, message.personToKick);
           }
@@ -149,30 +148,11 @@ export class RoomService implements OnDestroy {
       if (incMessage.roomUser.user._id !== this.user._id)
         this.alertService.play();
       /** roomUser kendi mesajından kendisi unreadMessages arttırmasın diye yollanıyor. */
-      this.roomStore.dispatch(
-        new RoomAction.SendMessage({
-          room: room,
-          roomUser: { user: this.user },
-          message: [incMessage],
-        })
-      );
+      this.roomStore.dispatch(new RoomAction.SendMessage({room: room, roomUser: { user: this.user }, message: [incMessage]}));
       if (incMessage.type === MessageType.NewUser) {
-        this.roomStore.dispatch(
-          new RoomAction.InsertUser({
-            roomId: room._id,
-            roomUser: message["message"].roomUser,
-          })
-        );
-      } else if (
-        incMessage.type === MessageType.LeaveRoom ||
-        incMessage.type === MessageType.KickUser
-      ) {
-        this.roomStore.dispatch(
-          new RoomAction.KickUser({
-            room,
-            roomUserId: message["message"].roomUser.user._id,
-          })
-        );
+        this.roomStore.dispatch(new RoomAction.InsertUser({roomId: room._id, roomUser: message["message"].roomUser, }));
+      } else if (incMessage.type === MessageType.LeaveRoom || incMessage.type === MessageType.KickUser) {
+        this.roomStore.dispatch(new RoomAction.KickUser({room, roomUserId: message["message"].roomUser.user._id, }));
       }
       observer.next(message);
     }
@@ -186,6 +166,7 @@ export class RoomService implements OnDestroy {
     if (this.rooms) {
       let room = this.rooms.find((r) => r._id === roomId);
       if(room) {
+        this.userEntered(room._id);
         this.roomStore.dispatch(new RoomAction.ChangeActiveRoom({ roomId }));
         this.resetRoomUnreadCount(room);
         if (!room.users) {
@@ -433,5 +414,9 @@ export class RoomService implements OnDestroy {
 
   resetRoomUnreadCount(room: Room) {
     this.roomStore.dispatch(new RoomAction.ResetRoomUnreadCount({ room }));
+  }
+
+  userEntered(eventId) {
+    this.socket.emit(USER_ENTERED, {eventId, userId: this.authService.user._id});
   }
 }

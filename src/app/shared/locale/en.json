@@ -198,6 +198,9 @@
     {"key": "Yemek", "value": "Food"},
     {"key": "Alışveriş", "value": "Shopping"},
     {"key": "privacy", "value": "Privacy Policy"},
-    {"key": "loadMoreMessage", "value": "Load more message"}
+    {"key": "loadMoreMessage", "value": "Load more message"},
+    {"key": "bugOrSuggestion", "value": "Bug or Suggestion"},
+    {"key": "writeBugOrSuggestion", "value": "Write about a suggestion or report a bug. "}
+
 
 ]

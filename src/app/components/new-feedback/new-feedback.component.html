@@ -18,9 +18,10 @@
   </div>
   <br>
   <mat-form-field appearance="outline">
-    <mat-label *ngIf="type === 'comment'">{{'leaveacomment' | ml}}</mat-label>
-    <mat-label *ngIf="type === 'report'">{{'report' | ml}}</mat-label>
-    <textarea matInput [placeholder]="type==='comment' ? 'Çok eğlendim! Bir daha!' : 'Şikayetinizi yazın!'" rows="5" [formControl]="comment"></textarea>
+      <mat-label>{{getTitle() | ml}}</mat-label>
+
+    <textarea matInput [placeholder]="getPlaceholder() | ml" rows="5" [formControl]="comment"></textarea>
+
   </mat-form-field>
   <div class="counter">{{commentLength}} / 140</div>
 </div>

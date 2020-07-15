@@ -59,14 +59,14 @@
 
       </div>
     </div>
-    <div #messages class="messages scroll">
+    <div #messages class="messages scroll" id="messages">
       <div #scrollElement class="inner" *ngIf="activeRoom">
         <div style="display: flex; justify-content: center; align-items: center;">
           <mat-spinner *ngIf="_loading"></mat-spinner>
         </div>
-        <div style="display: flex; justify-content: center; align-items: center;" class="c-ptr" *ngIf="!isAllMessages" (click)="loadMoreWithButton()">
+        <!-- <div style="display: flex; justify-content: center; align-items: center;" class="c-ptr" *ngIf="!isAllMessages" (click)="loadMoreWithButton()">
           {{'loadMoreMessage' | ml}}
-        </div>
+        </div> -->
         <ng-container *ngFor="let message of activeRoom.messages; let i = index;">
           <div *ngIf="i > 0 && getOnlyDate(activeRoom.messages[i-1].date) !== getOnlyDate(message.date)" class="mContainer">
             <span class="date">{{getOnlyDate(message.date)}}</span>

@@ -31,9 +31,10 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       copyState = cloneDeep(state);
       if(roomIndex > -1) {
         room = copyState.rooms[roomIndex];
-        if(!room.messages) room.messages = [];
-        let dumMessages = [...room.messages, ...action.payload.message];
-        room.messages = dumMessages;
+        if(room.messages) {
+          let dumMessages = [...room.messages, ...action.payload.message];
+          room.messages = dumMessages;
+        }
         let unreadMessages = room.unreadMessagesCount;
         if(unreadMessages === undefined) unreadMessages = 0;
         if (

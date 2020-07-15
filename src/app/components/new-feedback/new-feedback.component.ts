@@ -22,9 +22,12 @@ export class NewFeedbackComponent implements OnInit, OnDestroy {
   isLoading = false;
   type: FeedbackTypes;
 
+  placeholder: string;
+  title: string;
+
   constructor(
     public dialogRef: MatDialogRef<NewFeedbackComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { event: Event, user: User, type: FeedbackTypes, ownerUser: User}, //'comment' | 'report'
+    @Inject(MAT_DIALOG_DATA) public data: { event: Event, user: User, type: FeedbackTypes, ownerUser: User, placeholder: string, title: string}, //'comment' | 'report'
     private commentsService: CommentsService,
     private notificationService: NotificationService
   ) {}
@@ -36,6 +39,8 @@ export class NewFeedbackComponent implements OnInit, OnDestroy {
     this.subscription.add(sub);
     this.type = this.data.type;
     if (this.type === FeedbackTypes.report) this.comment.setValidators([Validators.required, this.noWhitespace, Validators.maxLength(140)]);
+    this.placeholder = this.data.placeholder;
+    this.title = this.data.title;
   }
 
   ngOnDestroy() {
@@ -107,6 +112,23 @@ export class NewFeedbackComponent implements OnInit, OnDestroy {
   checkFeedbackValidation() {
     if (this.type === FeedbackTypes.comment) return !(this.rating !== undefined && this.comment.valid);
     else if (this.type === FeedbackTypes.report) return !(this.comment.valid);
+  }
+
+
+  getTitle() {
+    if(this.title) return this.title;
+    else {
+      if (this.type === FeedbackTypes.comment) return 'leaveacomment';
+      else if (this.type === FeedbackTypes.report) return 'report';
+    }
+  }
+
+  getPlaceholder() {
+    if(this.placeholder) return this.placeholder;
+    else {
+      if (this.type === FeedbackTypes.comment) return 'Çok eğlendim! Bir daha!';
+      else if (this.type === FeedbackTypes.report) return 'Şikayetinizi yazın!';
+    }
   }
 
 }

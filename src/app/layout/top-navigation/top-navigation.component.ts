@@ -69,7 +69,9 @@ export class TopNavigationComponent implements OnInit {
   report(user?: User) {
     let data = {
       type: FeedbackTypes.report,
-      ownerUser: this.user
+      ownerUser: this.user,
+      title: "bugOrSuggestion",
+      placeholder: "writeBugOrSuggestion"
     }
     const dialogRef = this.dialog.open(NewFeedbackComponent, {
       minWidth: '250px',

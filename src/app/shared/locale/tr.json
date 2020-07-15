@@ -198,5 +198,7 @@
     {"key": "Yemek", "value": "Yemek"},
     {"key": "Alışveriş", "value": "Alışveriş"},
     {"key": "privacy", "value": "Gizlilik Sözleşmesi"},
-    {"key": "loadMoreMessage", "value": "Daha fazla mesaj yükle"}
+    {"key": "loadMoreMessage", "value": "Daha fazla mesaj yükle"},
+    {"key": "bugOrSuggestion", "value": "Hata/Öneri bildir"},
+    {"key": "writeBugOrSuggestion", "value": "Hata veya önerinizi yazınız."}
 ]

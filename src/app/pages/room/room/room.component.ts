@@ -56,7 +56,9 @@ export class RoomComponent implements OnInit, OnDestroy {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('messages') messages: ElementRef;
   @ViewChildren('messagesContainer') messagesContainer: QueryList<ElementRef>;
-  @ViewChild('scrollElement') scrollElement: ElementRef;
+
+  height1: any;
+  height2: any;
 
   constructor(
     private roomService: RoomService,
@@ -101,7 +103,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.subscription.add(containerSub);
     let stateSub = this.store.select("roomState").subscribe(p => {
       this._loading = false;
-      if(!this.activeRoom) this.scroll = true;
+      if(!this.activeRoom || (p.activeRoom && p.activeRoom._id !== this.activeRoom._id) ) this.scroll = true;
       if (p.rooms.length > 0) {
         if(p.activeRoom) this.activeRoom = p.activeRoom;
       }
@@ -113,6 +115,10 @@ export class RoomComponent implements OnInit, OnDestroy {
       (this.messages.nativeElement as HTMLLIElement).addEventListener('scroll', () => {
         let scrollHeight = (this.messages.nativeElement as HTMLLIElement).scrollHeight;
         let scrollTop = (this.messages.nativeElement as HTMLLIElement).scrollTop;
+
+        this.height1 = (this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight);
+        this.height2 = this.messages.nativeElement.scrollTop;
+
         if(scrollHeight > 0 && scrollTop === 0 && !this.isAllMessages) {
           this.pageNo++;
           this._loading = true;
@@ -167,9 +173,9 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   scrollToBottomCheck() {
     if(!this.scroll) {
-      // if ((this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight) - this.messages.nativeElement.scrollTop < 300) {
+      if (this.height1 - this.height2  < 300) {
         this.scrollToBottom();
-      // }
+      }
     } else {
       this.scrollToBottom();
     }
@@ -177,7 +183,9 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   scrollToBottom() {
     if(this.messages) {
-      setTimeout(()=>{this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight});
+      setTimeout(()=>{
+        this.messages.nativeElement.scrollTop = this.messages.nativeElement.scrollHeight
+      });
     }
   }
 
