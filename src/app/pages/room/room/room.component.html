@@ -25,7 +25,7 @@
       <ng-container *ngIf="activeRoom && activeRoom.users">
         <mat-list-item *ngFor="let roomUser of activeRoom.users">
           <img mat-list-icon class="userImage" [src]="roomUser.user.imageURI || './assets/user.png'">
-          <div mat-line [ngStyle]="{'color': getColor(roomUser.user)}"><b>{{roomUser.user.nickname}}</b></div>
+          <div mat-line [ngStyle]="{'color': getColor(roomUser.user)}" class="nickname"><b>{{roomUser.user.nickname}}</b></div>
           <div mat-line *ngIf="isLineModerator(roomUser.user)">{{'organisator' | ml}}</div>
           <div mat-line *ngIf="isLineAdmin(roomUser.user)">{{'admin' | ml}}</div>
           <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>

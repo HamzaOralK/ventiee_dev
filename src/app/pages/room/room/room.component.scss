@@ -113,6 +113,12 @@ $usersFullWidth: 220px;
   }
 }
 
+.nickname {
+  b {
+    font-size: 13px;
+  }
+}
+
 .own, .messageWrapper, .other {
   width: 100%;
   display: flex;

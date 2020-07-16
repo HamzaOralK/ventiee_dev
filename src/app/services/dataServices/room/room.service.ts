@@ -28,6 +28,7 @@ const KICK_PERSON = 'kickPerson';
 const CANCEL_EVENT = 'cancelEvent';
 const COMPLETE_EVENT = 'completeEvent';
 const USER_ENTERED = 'userEntered';
+const UPDATE_LAST_SEEN = 'updateLastSeen';
 
 @Injectable({
   providedIn: "root",
@@ -145,14 +146,17 @@ export class RoomService implements OnDestroy {
     let incMessage = message["message"] as MMessage;
     let room = this.rooms.find((p) => p._id === incMessage.eventId);
     if (room) {
-      if (incMessage.roomUser.user._id !== this.user._id)
-        this.alertService.play();
+      if (incMessage.roomUser.user._id !== this.user._id) this.alertService.play();
+
       /** roomUser kendi mesajından kendisi unreadMessages arttırmasın diye yollanıyor. */
       this.roomStore.dispatch(new RoomAction.SendMessage({room: room, roomUser: { user: this.user }, message: [incMessage]}));
       if (incMessage.type === MessageType.NewUser) {
         this.roomStore.dispatch(new RoomAction.InsertUser({roomId: room._id, roomUser: message["message"].roomUser, }));
       } else if (incMessage.type === MessageType.LeaveRoom || incMessage.type === MessageType.KickUser) {
         this.roomStore.dispatch(new RoomAction.KickUser({room, roomUserId: message["message"].roomUser.user._id, }));
+      }
+      if (this.activeRoom && this.activeRoom._id === room._id && this.user._id !== incMessage.roomUser.user._id) {
+        this.updateLastSeen(room._id);
       }
       observer.next(message);
     }
@@ -416,7 +420,16 @@ export class RoomService implements OnDestroy {
     this.roomStore.dispatch(new RoomAction.ResetRoomUnreadCount({ room }));
   }
 
-  userEntered(eventId) {
-    this.socket.emit(USER_ENTERED, {eventId, userId: this.authService.user._id});
+  userEntered(eventId: string) {
+    this.socket.emit(UPDATE_LAST_SEEN, {eventId, userId: this.authService.user._id});
   }
+
+  userExit(eventId: string) {
+    this.socket.emit(UPDATE_LAST_SEEN, { eventId, userId: this.authService.user._id });
+  }
+
+  updateLastSeen(eventId: string) {
+    this.socket.emit(UPDATE_LAST_SEEN, { eventId, userId: this.authService.user._id });
+  }
+
 }

@@ -104,6 +104,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     let stateSub = this.store.select("roomState").subscribe(p => {
       this._loading = false;
       if(!this.activeRoom || (p.activeRoom && p.activeRoom._id !== this.activeRoom._id) ) this.scroll = true;
+      if ((this.activeRoom && p.activeRoom && p.activeRoom._id !== this.activeRoom._id)) { this.roomService.userExit(this.activeRoom._id); }
       if (p.rooms.length > 0) {
         if(p.activeRoom) this.activeRoom = p.activeRoom;
       }
@@ -145,6 +146,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.roomService.userExit(this.activeRoom._id);
     this.appService.setActiveRoomUndefined();
     this.subscription.unsubscribe();
   }
