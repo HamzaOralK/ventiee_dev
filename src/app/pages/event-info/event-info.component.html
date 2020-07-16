@@ -5,13 +5,13 @@
     <h5 *ngIf="data.room.endDate">{{'endDate' | ml}}: {{data.room.endDate | date:'dd/MM/yyyy HH:mm'}}</h5>
     <h5>{{'howmany' | ml}}: {{data.room.peopleCount}}</h5>
     <mat-card-actions>
-      <button mat-fab *ngIf="isModerator()" class="warning" (click)="cancelEvent()">
+      <button mat-fab *ngIf="isModerator()" class="warning" (click)="cancelEvent()" [matTooltip]="'cancelEvent' | ml">
         <mat-icon>block</mat-icon>
       </button>
-      <button mat-fab *ngIf="!isModerator()" class="warning" (click)="leaveEvent()">
+      <button mat-fab *ngIf="!isModerator()" class="warning" (click)="leaveEvent()" [matTooltip]="'leaveEvent' | ml">
         <mat-icon>clear</mat-icon>
       </button>
-      <button mat-fab *ngIf="!isModerator()" class="warning" (click)="report()" style="margin-left: 10px">
+      <button mat-fab *ngIf="!isModerator()" class="warning" (click)="report()" style="margin-left: 10px" [matTooltip]="'report' | ml">
         <mat-icon>report_problem</mat-icon>
       </button>
     </mat-card-actions>

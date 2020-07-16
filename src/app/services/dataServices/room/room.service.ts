@@ -146,7 +146,7 @@ export class RoomService implements OnDestroy {
     let incMessage = message["message"] as MMessage;
     let room = this.rooms.find((p) => p._id === incMessage.eventId);
     if (room) {
-      if (incMessage.roomUser.user._id !== this.user._id) this.alertService.play();
+      if (incMessage.roomUser.user._id !== this.user._id && room.messages) this.alertService.play();
 
       /** roomUser kendi mesajından kendisi unreadMessages arttırmasın diye yollanıyor. */
       this.roomStore.dispatch(new RoomAction.SendMessage({room: room, roomUser: { user: this.user }, message: [incMessage]}));

@@ -2,22 +2,22 @@
   <div class="users">
     <!-- <p *ngFor="let user of activeRoom.users">{{user.nickname}}</p> -->
     <div class="roomInfo" *ngIf="activeRoom">
-      <button mat-mini-fab color="primary" (click)="openDialog()" style="margin-right: 5px;">
+      <button mat-mini-fab color="primary" (click)="openDialog()" style="margin-right: 5px;" [matTooltip]="'details' | ml">
         <mat-icon>event_note</mat-icon>
       </button>
-      <button mat-mini-fab color="primary" (click)="copyTextToClipboard()" style="margin-right: 5px;">
+      <button mat-mini-fab color="primary" (click)="copyTextToClipboard()" style="margin-right: 5px;" [matTooltip]="'copyRoomLink' | ml">
         <mat-icon>share</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="report()" *ngIf="!isModerator()" style="margin-right: 5px;">
+      <button mat-mini-fab color="warn" (click)="report()" *ngIf="!isModerator()" style="margin-right: 5px;" [matTooltip]="'report' | ml">
         <mat-icon>report_problem</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="leaveRoom()" *ngIf="!isModerator()">
+      <button mat-mini-fab color="warn" (click)="leaveRoom()" *ngIf="!isModerator()" [matTooltip]="'leaveEvent' | ml">
         <mat-icon>clear</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="cancelEvent()" *ngIf="isModerator() && activeRoom.type==='meeting'">
+      <button mat-mini-fab color="warn" (click)="cancelEvent()" *ngIf="isModerator() && activeRoom.type==='meeting'" [matTooltip]="'cancelEvent' | ml">
         <mat-icon>block</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="completeEvent()" *ngIf="isModerator() && activeRoom.type==='conversation'">
+      <button mat-mini-fab color="warn" (click)="completeEvent()" *ngIf="isModerator() && activeRoom.type==='conversation'" [matTooltip]="'completeEvent' | ml">
         <mat-icon>block</mat-icon>
       </button>
     </div>

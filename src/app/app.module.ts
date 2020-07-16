@@ -63,6 +63,8 @@ import { environment } from '../environments/environment';
 import { PwaPromptComponent } from './components/pwa-prompt/pwa-prompt.component';
 import { LangService } from './services/lang/lang.service';
 import { AuthService } from './services/auth/auth.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 const initializer = (langService: LangService, authService: AuthService) => () => {
   authService.checkLocalStorage();
@@ -122,6 +124,7 @@ const initializer = (langService: LangService, authService: AuthService) => () =
     SignUpFormModule,
     ChatsModule,
     LoadingOverlayModule,
+    MatTooltipModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
     }),

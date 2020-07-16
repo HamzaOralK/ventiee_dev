@@ -4,10 +4,10 @@
     {{user.user.nickname}} <span *ngIf="isUserModerator(user.user)">(Moderatör)</span>
   </div>
   <div>
-    <button mat-icon-button (click)="kickUser(user.user)" *ngIf="isKickable(user.user) && isModerator()">
+    <button mat-icon-button (click)="kickUser(user.user)" *ngIf="isKickable(user.user) && isModerator()" [matTooltip]="'kickUser' | ml">
       <mat-icon>remove_circle_outline</mat-icon>
     </button>
-    <button mat-icon-button (click)="report(user.user)" *ngIf="isKickable(user.user)">
+    <button mat-icon-button (click)="report(user.user)" *ngIf="isKickable(user.user)" [matTooltip]="'report' | ml">
       <mat-icon>report_problem</mat-icon>
     </button>
   </div>

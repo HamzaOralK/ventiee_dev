@@ -86,6 +86,7 @@
     {"key": "leaveacomment", "value": "Yorum"},
     {"key": "resendVerification", "value": "Onaylama E-Mailini Tekrar Gönder!"},
     {"key": "cancelEvent", "value": "Ventiee'yi İptal Et."},
+    {"key": "completeEvent", "value": "Ventiee'yi Tamamla."},
     {"key": "dontGo", "value": "Ventiee'ye Katılma."},
     {"key": "min3person", "value": "Ventiee en az 3 kişilik olabilir."},
     {"key": "max20person", "value": "Ventiee en fazla 20 kişilik olabilir."},
@@ -200,5 +201,7 @@
     {"key": "privacy", "value": "Gizlilik Sözleşmesi"},
     {"key": "loadMoreMessage", "value": "Daha fazla mesaj yükle"},
     {"key": "bugOrSuggestion", "value": "Hata/Öneri bildir"},
-    {"key": "writeBugOrSuggestion", "value": "Hata veya önerinizi yazınız."}
+    {"key": "writeBugOrSuggestion", "value": "Hata veya önerinizi yazınız."},
+    {"key": "details", "value": "Detaylar"},
+    {"key": "copyRoomLink", "value": "Paylaşılabilir oda linkini kopyala"}
 ]

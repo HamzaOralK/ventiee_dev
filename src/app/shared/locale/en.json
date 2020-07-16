@@ -36,8 +36,8 @@
     {"key": "eventCreateSuccess", "value": "Ventiee has been created successfully." },
     {"key": "emailNotValid", "value": "Enter a valid e-mail."},
     {"key": "emailRequired", "value": "E-Mail is mandatory."},
-    {"key": "password", "value": "Pasword"},
-    {"key": "passwordRequired", "value": "Pasword is mandatory."},
+    {"key": "password", "value": "Password"},
+    {"key": "passwordRequired", "value": "Password is mandatory."},
     {"key": "passwordMinLength", "value": "Password must be at least 6 characters long."},
     {"key": "passwordMaxLength", "value": "Password must be 20 characters long at max."},
     {"key": "birthday", "value": "Birthday"},
@@ -86,6 +86,7 @@
     {"key": "leaveacomment", "value": "Comment"},
     {"key": "resendVerification", "value": "Resend verification e-mail!"},
     {"key": "cancelEvent", "value": "Cancel this Ventiee!"},
+    {"key": "completeEvent", "value": "Ventiee'yi Tamamla."},
     {"key": "dontGo", "value": "Don't Participate this Ventiee."},
     {"key": "min3person", "value": "Ventiee must be at least 3 people."},
     {"key": "max20person", "value": "Ventiee should be at most 20 people."},
@@ -200,7 +201,7 @@
     {"key": "privacy", "value": "Privacy Policy"},
     {"key": "loadMoreMessage", "value": "Load more message"},
     {"key": "bugOrSuggestion", "value": "Bug or Suggestion"},
-    {"key": "writeBugOrSuggestion", "value": "Write about a suggestion or report a bug. "}
-
-
+    {"key": "writeBugOrSuggestion", "value": "Write about a suggestion or report a bug. "},
+    {"key": "details", "value": "Detaylar"},
+    {"key": "copyRoomLink", "value": "Paylaşılabilir oda linkini kopyala"}
 ]
