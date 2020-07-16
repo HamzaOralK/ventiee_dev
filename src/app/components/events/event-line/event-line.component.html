@@ -1,4 +1,4 @@
-<mat-expansion-panel>
+<mat-expansion-panel [expanded]="event._id === selectedEventId">
   <mat-expansion-panel-header [collapsedHeight]="setHeight()" [expandedHeight]="setHeight()">
     <mat-panel-title>
       <div style="display: flex; flex-direction: column;">

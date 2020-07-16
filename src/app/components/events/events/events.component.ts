@@ -14,6 +14,8 @@ import { AppService } from 'src/app/app.service';
 import { EventListType } from 'src/app/dtos/enums';
 import { environment } from 'src/environments/environment';
 import { NotificationService, SnackType } from 'src/app/services/notification/notification.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+
 
 @Component({
   selector: 'events',
@@ -24,13 +26,14 @@ import { NotificationService, SnackType } from 'src/app/services/notification/no
 export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() user: User;
   @Input() events;
+  selectedEventId;
   @Input() type: EventListType = EventListType.All; // 'all' bütün eventler, 'user' user eventleri, 'history' history
   @Output('onJoinEvent') onJoinEvent = new EventEmitter();
   @ViewChild('eventScroll') eventScroll: ElementRef;
   auth: Observable<fromAuth.State>;
 
   roomStates: Observable<fromRoom.State>;
-  currentRoomsQuantity: number = 0;
+  currentModRoomsQuantity: number = 0;
 
   _isAll: boolean = false;
   _loading: boolean = false;
@@ -48,7 +51,8 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
     private store: Store<fromApp.AppState>,
     private router: Router,
     private appService: AppService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -57,14 +61,22 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventFilter = new EventFilter();
     this.auth = this.store.select("authState");
     this.roomStates = this.store.select("roomState");
+
     this.roomStates.subscribe(p => {
-      if(p && p.rooms) this.currentRoomsQuantity = p.rooms.length;
+      if (p && p.rooms) this.currentModRoomsQuantity = p.rooms.length;
+      let modedRooms = p.rooms.filter(r => {
+        return r.moderatorUserId === this.authService.user._id || r.moderatorUser._id === this.authService.user._id;
+      });
+      this.currentModRoomsQuantity = modedRooms.length;
+
     });
     /** Bütün eventler */
     if(this.type === EventListType.All) {
       this.eventFilter.status = EventStatus.Active;
       this.auth.subscribe(p => {
-        if (p.user) this.eventService.getEvents(this._pageNo, undefined, this.eventFilter).subscribe();
+        if (p.user) this.eventService.getEvents(this._pageNo, undefined, this.eventFilter).subscribe(r => {
+          this.events = r;
+        });
       });
       let eventSearchSubscription = this.eventSearchText.pipe(debounceTime(500)).subscribe(p => {
         this.processEventSearchText(p);
@@ -192,7 +204,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   createEvent() {
-    if(this.currentRoomsQuantity < environment.maxRoomNumber) {
+    if (this.currentModRoomsQuantity < environment.maxRoomNumber) {
       this.store.dispatch(new AppAction.ToggleLeftNav(false));
       this.router.navigate(["/createEvent"]);
     } else {
@@ -212,6 +224,10 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       this._isAll = false;
       this.scrollTop();
     });
+  }
+
+  changeSelected(event: any) {
+    this.selectedEventId = event._id;
   }
 
 }

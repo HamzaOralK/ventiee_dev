@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 import { UserType, FeedbackTypes } from 'src/app/dtos/enums';
 import { ModalType } from '../../generic-modal/generic-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import * as fromApp from "../../../store/app.reducer";
-import { Store } from '@ngrx/store';
 import { NewFeedbackComponent } from '../../new-feedback/new-feedback.component';
 
 
@@ -25,6 +23,7 @@ export class EventLineComponent implements OnInit {
 
   @Input() type: string;
   @Input() event: Event;
+  @Input() selectedEventId: string;
   smallScreen: boolean;
 
   user: User;
@@ -34,8 +33,6 @@ export class EventLineComponent implements OnInit {
     private appService: AppService,
     private router: Router,
     public dialog: MatDialog,
-    private store: Store<fromApp.AppState>,
-
   ) { }
 
   ngOnInit(): void {

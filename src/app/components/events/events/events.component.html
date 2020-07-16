@@ -1,10 +1,6 @@
 <div class="wholeEvents">
   <div style="display: flex; flex-direction: column; padding: 0 10px;" *ngIf="type === 'all' || type === 'history'">
     <div class="addEvent">
-      <!-- <button class="add" mat-raised-button color="primary" (click)="createEvent()" *ngIf="type === 'all'">
-        <mat-icon>add</mat-icon>
-        {{'create' | ml}}
-      </button> -->
       <mat-form-field appearance="outline" class="searchBox">
         <mat-label>{{'searchforanevent' | ml}}</mat-label>
         <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
@@ -24,7 +20,12 @@
   <div class="events scroll" #eventScroll>
 
     <mat-accordion *ngIf="type !== 'history'">
-      <event-line *ngFor="let event of events" [event]="event" [type]="type" (onJoin)="onJoin($event)"></event-line>
+      <event-line *ngFor="let event of events"
+        [event]="event"
+        [type]="type"
+        [selectedEventId]="selectedEventId"
+        (onJoin)="onJoin($event)"
+        (click)="changeSelected(event)"></event-line>
     </mat-accordion>
 
     <div *ngIf="type === 'history'" style="padding: 0 20px;">
