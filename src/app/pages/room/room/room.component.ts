@@ -146,7 +146,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.roomService.userExit(this.activeRoom._id);
+    if(this.activeRoom) this.roomService.userExit(this.activeRoom._id);
     this.appService.setActiveRoomUndefined();
     this.subscription.unsubscribe();
   }
