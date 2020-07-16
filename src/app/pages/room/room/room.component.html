@@ -21,7 +21,7 @@
         <mat-icon>block</mat-icon>
       </button>
     </div>
-    <mat-list>
+    <mat-list class="scroll">
       <ng-container *ngIf="activeRoom && activeRoom.users">
         <mat-list-item *ngFor="let roomUser of activeRoom.users">
           <img mat-list-icon class="userImage" [src]="roomUser.user.imageURI || './assets/user.png'">
