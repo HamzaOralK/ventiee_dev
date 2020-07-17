@@ -146,14 +146,15 @@ export class RoomService implements OnDestroy {
     let incMessage = message["message"] as MMessage;
     let room = this.rooms.find((p) => p._id === incMessage.eventId);
     if (room) {
-      if (incMessage.roomUser.user._id !== this.user._id && room.messages) this.alertService.play();
 
-      /** roomUser kendi mesajından kendisi unreadMessages arttırmasın diye yollanıyor. */
-      this.roomStore.dispatch(new RoomAction.SendMessage({room: room, roomUser: { user: this.user }, message: [incMessage]}));
       if (incMessage.type === MessageType.NewUser) {
         this.roomStore.dispatch(new RoomAction.InsertUser({roomId: room._id, roomUser: message["message"].roomUser, }));
       } else if (incMessage.type === MessageType.LeaveRoom || incMessage.type === MessageType.KickUser) {
         this.roomStore.dispatch(new RoomAction.KickUser({room, roomUserId: message["message"].roomUser.user._id, }));
+      } else {
+        console.log(incMessage.type);
+        if (incMessage.roomUser.user._id !== this.user._id && room.messages) this.alertService.play();
+        this.roomStore.dispatch(new RoomAction.SendMessage({ room: room, roomUser: { user: this.user }, message: [incMessage] }));
       }
       if (this.activeRoom && this.activeRoom._id === room._id && this.user._id !== incMessage.roomUser.user._id) {
         this.updateLastSeen(room._id);

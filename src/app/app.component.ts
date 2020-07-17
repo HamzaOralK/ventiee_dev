@@ -8,7 +8,8 @@ import { User } from './dtos/user';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 import { isDevMode } from '@angular/core';
-
+import { Meta } from '@angular/platform-browser';
+import { MultiLanguagePipe } from './shared/pipes/multi-language.pipe';
 
 
 // export class MyHammerConfig extends HammerGestureConfig {
@@ -40,7 +41,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private store: Store<fromApp.AppState>,
-    private router: Router
+    private router: Router,
+    private meta: Meta,
+    private mlPipe: MultiLanguagePipe
+
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd && !isDevMode()) {
@@ -51,6 +55,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.meta.addTags([
+      { name: 'description', content: this.mlPipe.transform('metaDescription')},
+      { name: 'keywords', content: this.mlPipe.transform('metaKeywords')}
+    ]);
     this.auth = this.store.select("authState");
     this.auth.subscribe(p => {
       this.user = p.user;

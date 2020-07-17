@@ -2,6 +2,8 @@
     {"key": "E17", "value": "Bu Ventiee'ye zaten katılmışsınız."},
     {"key": "login", "value": "Login"},
     {"key": "loginError", "value": "You couldn't login. An error occured."},
+    {"key": "loginFormError", "value": "E-Mail or password is wrong."},
+    {"key": "userNotVerified", "value": "User is not verified."},
     {"key": "signup", "value": "Sign Up"},
     {"key": "signUpSuccess", "value": "Sign Up is successful. Verification e-mail has been sent."},
     {"key": "signUpError", "value": "There was an error in sign up."},
@@ -124,8 +126,8 @@
     {"key": "mailSent", "value": "New e-mail has been sent."},
     {"key": "resetPassMailSent", "value": "Password change e-mail has been sent."},
     {"key": "resetSuccesfull", "value": "Password reset is successful."},
-    {"key": "conversation", "value": "Conversation"},
-    {"key": "meeting", "value": "Meeting"},
+    {"key": "conversation", "value": "Chat"},
+    {"key": "meeting", "value": "Hang Out"},
     {"key": "tags", "value": "Tags"},
     {"key": "info", "value": "Information"},
     {"key": "quit", "value": "Quit"},
@@ -202,6 +204,8 @@
     {"key": "loadMoreMessage", "value": "Load more message"},
     {"key": "bugOrSuggestion", "value": "Bug or Suggestion"},
     {"key": "writeBugOrSuggestion", "value": "Write about a suggestion or report a bug. "},
-    {"key": "details", "value": "Detaylar"},
-    {"key": "copyRoomLink", "value": "Paylaşılabilir oda linkini kopyala"}
+    {"key": "details", "value": "Details"},
+    {"key": "copyRoomLink", "value": "Copy sharable ventiee link"},
+    {"key": "metaDescription", "value": "Ventiee based, social platform where you can talk and meet with other people without compromising your anonymity."},
+    {"key": "metaKeywords", "value": "ventiee, venti, ventie, wenti, wentie, wentiee, event, hobby, random, hangout, people, social, chat, meeting"}
 ]

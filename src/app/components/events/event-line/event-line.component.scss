@@ -18,6 +18,10 @@ mat-expansion-panel {
   justify-content: flex-start;
   align-items: center;
   font-size: initial;
+  mat-icon {
+    color: #848484 !important;
+    margin-right: 5px;
+  }
   h3 {
     @include media-breakpoint(xs) {
       font-size: 16px;

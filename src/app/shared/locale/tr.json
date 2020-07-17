@@ -2,6 +2,8 @@
     {"key": "E17", "value": "Bu Ventiee'ye zaten katılmışsınız."},
     {"key": "login", "value": "Giriş"},
     {"key": "loginError", "value": "Giriş  yapamadınız. Bir problem oluştu."},
+    {"key": "loginFormError", "value": "E-Mail veya şifre yanlış."},
+    {"key": "userNotVerified", "value": "Kullanıcı onaylanmamış."},
     {"key": "signup", "value": "Kayıt Ol"},
     {"key": "signUpSuccess", "value": "Başarı ile kayıt olundu, onay e-maili yollandı."},
     {"key": "signUpError", "value": "Kayıt olurken bir hata oldu sanırım."},
@@ -203,5 +205,7 @@
     {"key": "bugOrSuggestion", "value": "Hata/Öneri bildir"},
     {"key": "writeBugOrSuggestion", "value": "Hata veya önerinizi yazınız."},
     {"key": "details", "value": "Detaylar"},
-    {"key": "copyRoomLink", "value": "Paylaşılabilir oda linkini kopyala"}
+    {"key": "copyRoomLink", "value": "Paylaşılabilir oda linkini kopyala"},
+    {"key": "metaDescription", "value": "Ventiee tabanlı, insanları buluşturan, sohbet etmelerini ve buluşmalarını amaçlayan sosyal medya platformu!"},
+    {"key": "metaKeywords", "value": "ventiee, venti, ventie, wenti, wentie, wentiee, event, etkinlik, hobi, topluluk, sohbet, buluşma"}
 ]

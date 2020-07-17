@@ -13,7 +13,7 @@
         <mat-icon>emoji_people</mat-icon>
         {{room.moderatorUser.nickname}}
       </div>
-      <div class="iconInfo" *ngIf="room.startDate">
+      <div class="iconInfo" *ngIf="room.type === 'meeting'">
         <mat-icon>arrow_forward</mat-icon>
         {{room.startDate | date:'dd/MM/yyyy'}}
       </div>

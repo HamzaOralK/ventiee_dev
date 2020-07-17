@@ -34,17 +34,16 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
         if(room.messages) {
           let dumMessages = [...room.messages, ...action.payload.message];
           room.messages = dumMessages;
-          let unreadMessages = room.unreadMessagesCount;
-          if (unreadMessages === undefined) unreadMessages = 0;
-          if (
-            (!copyState.activeRoom || copyState.activeRoom._id !== action.payload.room._id) &&
-            action.payload.message[0].roomUser.user._id !== action.payload.roomUser.user._id
-          ) {
-            unreadMessages++;
-          }
-          room.unreadMessagesCount = unreadMessages;
-
         }
+        let unreadMessages = room.unreadMessagesCount;
+        if(unreadMessages === undefined) unreadMessages = 0;
+        if (
+          (!copyState.activeRoom || copyState.activeRoom._id !== action.payload.room._id) &&
+          action.payload.message[0].roomUser.user._id !== action.payload.roomUser.user._id
+        ) {
+          unreadMessages++;
+        }
+        room.unreadMessagesCount = unreadMessages;
         copyState.rooms[roomIndex] = room;
         return {
           ...copyState,

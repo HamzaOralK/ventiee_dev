@@ -6,6 +6,8 @@
           <img class="titleImg" [src]="event.imageURI || './assets/no_img.png'">
           <div style="display: flex; flex-direction: column; justify-content: center;">
             <div class="headerInfo">
+              <mat-icon *ngIf="event.type==='conversation'">chat</mat-icon>
+              <mat-icon *ngIf="event.type==='meeting'">deck</mat-icon>
               <h3>
                 {{event.title}}
               </h3>
@@ -29,7 +31,19 @@
   <div>
     <div class="line">
       <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
-        <div class="iconInfo">
+
+        <div class="iconInfo" *ngIf="event.type === 'conversation'">
+          <mat-icon>chat</mat-icon>
+          <span style="margin-left: 3px;">{{'conversation' | ml}}</span>
+        </div>
+
+        <div class="iconInfo" *ngIf="event.type === 'meeting'">
+          <mat-icon>deck</mat-icon>
+          <span style="margin-left: 3px;">{{'meeting' | ml}}</span>
+        </div>
+
+
+        <div class="iconInfo" *ngIf="event.type === 'meeting'">
           <mat-icon>arrow_forward</mat-icon>
           {{event.startDate | date:'dd/MM/yyyy HH:mm'}}
         </div>
