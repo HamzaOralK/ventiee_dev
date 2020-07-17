@@ -21,8 +21,6 @@ export class ChatRoomsComponent implements OnInit {
 
   ngOnInit(): void { }
 
-
-
   changeRoom() {
     if(this.appService.smallScreen) {
       this.router.navigate(['/room/' + this.room._id]);

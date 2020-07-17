@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
@@ -17,7 +17,7 @@ import { AppService } from 'src/app/app.service';
   templateUrl: './event-page.component.html',
   styleUrls: ['./event-page.component.scss']
 })
-export class EventPageComponent implements OnInit {
+export class EventPageComponent implements OnInit, OnDestroy {
 
   roomState: Observable<fromRoom.State>;
   event$: Observable<any>;
@@ -43,15 +43,28 @@ export class EventPageComponent implements OnInit {
     let checksub;
     let eventsub = this.event$.subscribe(p => {
       this.event = p[0];
-      console.log(p);
       checksub = this.roomState.subscribe(p => {
         let index = p.rooms.findIndex(r => r._id === this.event._id);
         if (index === -1) this.joinable = true;
-        else this.joinable = false;
+        else {
+          this.joinable = false;
+          console.log(this.event._id);
+          console.log(this.appService.smallScreen);
+          if(this.appService.smallScreen) {
+            this.router.navigate(['/room/'+this.event._id]);
+          } else {
+            this.roomService.routerRoomInfo.next(p.rooms[index]);
+            this.router.navigate(['/home']);
+          }
+        };
       });
       this.subscription.add(checksub);
     });
     this.subscription.add(eventsub);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   joinEvent() {

@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription, Observable, throwError } from 'rxjs';
+import { Subscription, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { NotificationService, SnackType } from '../../notification/notification.service';
 import { environment } from 'src/environments/environment';
 import { tap, catchError, take } from 'rxjs/operators';
@@ -46,7 +46,7 @@ export class RoomService implements OnDestroy {
 
   unreadMessageCount: number = 0;
 
-  private getMessagesSubscription: Subscription;
+  routerRoomInfo: BehaviorSubject<Room> = new BehaviorSubject(undefined);
 
   constructor(
     private http: HttpClient,
@@ -81,11 +81,12 @@ export class RoomService implements OnDestroy {
         this.socket.on('reconnect', (attempNumber) => {
           this.getRooms();
         });
-        this.getMessagesSubscription = this.getMessages().subscribe(
+        let getMessagesSubscription: Subscription;
+        getMessagesSubscription = this.getMessages().subscribe(
           (message: string) => {},
           (e) => console.log(e)
         );
-        this.subscription.add(this.getMessagesSubscription);
+        this.subscription.add(getMessagesSubscription);
         this.connected = true;
       }
     });

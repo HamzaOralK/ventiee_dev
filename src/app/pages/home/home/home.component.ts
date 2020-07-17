@@ -63,11 +63,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     });
 
+    this.roomService.routerRoomInfo.subscribe(p => {
+      if(p && p._id) this.roomService.changeRoom(p._id);
+    });
+
   }
 
   ngAfterViewInit() {}
 
   ngOnDestroy() {
+    this.roomService.routerRoomInfo.next(undefined);
     this.subscription.unsubscribe();
   }
 
