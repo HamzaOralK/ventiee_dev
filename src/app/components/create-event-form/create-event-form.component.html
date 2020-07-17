@@ -20,8 +20,14 @@
         <ng-template matStepLabel>{{'event' | ml }}</ng-template>
 
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="type">
-          <mat-button-toggle value="meeting">{{'meeting' | ml}}</mat-button-toggle>
-          <mat-button-toggle value="conversation">{{'conversation' | ml}}</mat-button-toggle>
+          <mat-button-toggle value="meeting">
+            <mat-icon>deck</mat-icon>
+            <span>{{'meeting' | ml}}</span>
+          </mat-button-toggle>
+          <mat-button-toggle value="conversation">
+            <mat-icon>chat</mat-icon>
+            <span>{{'conversation' | ml}}</span>
+          </mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-form-field appearance="outline">
@@ -194,8 +200,14 @@
           <ng-template matStepLabel>{{'event' | ml }}</ng-template>
 
           <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="type">
-            <mat-button-toggle value="meeting">{{'meeting' | ml}}</mat-button-toggle>
-            <mat-button-toggle value="conversation">{{'conversation' | ml}}</mat-button-toggle>
+            <mat-button-toggle value="meeting">
+              <mat-icon>deck</mat-icon>
+              <span>{{'meeting' | ml}}</span>
+            </mat-button-toggle>
+            <mat-button-toggle value="conversation">
+              <mat-icon>chat</mat-icon>
+              <span>{{'conversation' | ml}}</span>
+            </mat-button-toggle>
           </mat-button-toggle-group>
 
           <mat-form-field appearance="outline">

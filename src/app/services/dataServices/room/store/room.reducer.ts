@@ -76,7 +76,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       if (action.payload.rooms.length > 0) {
         return {
           ...state,
-          rooms: [...state.rooms, ...action.payload.rooms]
+          rooms: [...action.payload.rooms]
         }
       }
       break;

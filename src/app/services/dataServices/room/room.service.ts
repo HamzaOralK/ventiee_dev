@@ -78,6 +78,9 @@ export class RoomService implements OnDestroy {
           reconnectionDelayMax: 5000,
           reconnectionAttempts: Infinity,
         });
+        this.socket.on('reconnect', (attempNumber) => {
+          this.getRooms();
+        });
         this.getMessagesSubscription = this.getMessages().subscribe(
           (message: string) => {},
           (e) => console.log(e)
@@ -152,7 +155,6 @@ export class RoomService implements OnDestroy {
       } else if (incMessage.type === MessageType.LeaveRoom || incMessage.type === MessageType.KickUser) {
         this.roomStore.dispatch(new RoomAction.KickUser({room, roomUserId: message["message"].roomUser.user._id, }));
       } else {
-        console.log(incMessage.type);
         if (incMessage.roomUser.user._id !== this.user._id && room.messages) this.alertService.play();
         this.roomStore.dispatch(new RoomAction.SendMessage({ room: room, roomUser: { user: this.user }, message: [incMessage] }));
       }
@@ -219,8 +221,7 @@ export class RoomService implements OnDestroy {
   }
 
   getRooms() {
-    let url =
-      environment.serviceURL + "/jUser/getEvents/" + this.authService.user._id;
+    let url = environment.serviceURL + "/jUser/getEvents/" + this.authService.user._id;
     this.http.get<any>(url).subscribe(
       (res) => {
         let rooms = res as Room[];
