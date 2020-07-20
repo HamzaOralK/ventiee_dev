@@ -52,7 +52,7 @@
     {"key": "nicknamePattern", "value": "Nickname must start with a character and can contain numbers and _."},
     {"key": "nicknameRequired", "value": "Nickname is mandatory."},
     {"key": "nicknameMinLength", "value": "Nickname should be longer."},
-    {"key": "nicknameMaxLength", "value": "Shorten your nickname a little bit."},
+    {"key": "nicknameMaxLength", "value": "Nickname can be 15 characters long at max."},
     {"key": "join", "value": "Join"},
     {"key": "previous", "value": "Previous"},
     {"key": "today", "value": "Today"},

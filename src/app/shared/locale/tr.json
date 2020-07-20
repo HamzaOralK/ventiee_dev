@@ -52,7 +52,7 @@
     {"key": "nicknamePattern", "value": "Nickname harf ile başlayıp, sayı ve _ içerebilir."},
     {"key": "nicknameRequired", "value": "Nickname zorunlu."},
     {"key": "nicknameMinLength", "value": "Nickname daha uzun olmalı."},
-    {"key": "nicknameMaxLength", "value": "Nickname biraz kısa olsun."},
+    {"key": "nicknameMaxLength", "value": "Nickname en fazla 15 karakter olabilir."},
     {"key": "join", "value": "Katıl"},
     {"key": "previous", "value": "Öncesi"},
     {"key": "today", "value": "Bugün"},

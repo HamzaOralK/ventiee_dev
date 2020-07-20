@@ -117,7 +117,11 @@
       <mat-form-field appearance="outline" class="messageEntry">
         <mat-label>Bir şey yazın.</mat-label>
         <textarea
+          #text
           matInput
+          matTextareaAutosize
+          [matAutosizeMinRows]="1"
+          [matAutosizeMaxRows]="5"
           style="resize: none"
           [formControl]="message"
           (keyup.enter)="sendMessage()"
