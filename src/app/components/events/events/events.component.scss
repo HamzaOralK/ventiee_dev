@@ -45,6 +45,9 @@
 mat-form-field {
   margin-bottom: -1.25em
 }
+mat-form-field.mat-form-field {
+  font-size: 13px;
+}
 
 .addEvent {
   display: flex;

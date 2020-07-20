@@ -19,7 +19,7 @@ const initialState: State = {
 export function roomReducer(state = initialState, action: RoomActions.RoomActions) {
   let room: Room;
   let roomIndex: number;
-  let copyState: any;
+  let copyState: State;
   switch (action.type) {
     case RoomActions.GET_MESSAGE:
       return {
@@ -146,6 +146,15 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       return {
         ...state,
         activeRoom: undefined
+      }
+    case RoomActions.UPDATE_ROOM_INFO:
+      roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
+      copyState = cloneDeep(state);
+      copyState.rooms[roomIndex].title = action.payload.room.title;
+      copyState.rooms[roomIndex].description = action.payload.room.description;
+      copyState.rooms[roomIndex].imageURI = action.payload.room.imageURI;
+      return {
+        ...copyState
       }
     default:
       return state;

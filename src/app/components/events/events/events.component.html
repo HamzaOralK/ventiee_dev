@@ -27,6 +27,9 @@
         (onJoin)="onJoin($event)"
         (click)="changeSelected(event)"></event-line>
     </mat-accordion>
+    <div *ngIf="(!events || events.length === 0) && type === 'user'">
+      <h3 style="text-align: center;">{{'noActiveEventsForUser' | ml}}</h3>
+    </div>
 
     <div *ngIf="type === 'history'" style="padding: 0 20px;">
       <event-line-with-comment *ngFor="let event of events" [event]="event" [type]="type"></event-line-with-comment>

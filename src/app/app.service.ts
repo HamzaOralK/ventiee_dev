@@ -67,8 +67,4 @@ export class AppService {
     }
   }
 
-  setActiveRoomUndefined() {
-    this.store.dispatch(new RoomAction.SetActiveRoomUndefined());
-  }
-
 }

@@ -207,5 +207,9 @@
     {"key": "details", "value": "Detaylar"},
     {"key": "copyRoomLink", "value": "Paylaşılabilir oda linkini kopyala"},
     {"key": "metaDescription", "value": "Ventiee tabanlı, insanları buluşturan, sohbet etmelerini ve buluşmalarını amaçlayan sosyal medya platformu!"},
-    {"key": "metaKeywords", "value": "ventiee, venti, ventie, wenti, wentie, wentiee, event, etkinlik, hobi, topluluk, sohbet, buluşma"}
+    {"key": "metaKeywords", "value": "ventiee, venti, ventie, wenti, wentie, wentiee, event, etkinlik, hobi, topluluk, sohbet, buluşma"},
+    {"key": "noActiveEventsForUser", "value": "Kullanıcının aktif ventieesi bulunmamakta."},
+    {"key": "roomUpdated", "value": "Oda güncellendi."},
+    {"key": "edit", "value": "Düzenle"},
+    {"key": "cancelEdit", "value": "Düzenlemeyi iptal et"}
 ]

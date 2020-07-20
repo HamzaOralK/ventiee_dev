@@ -5,6 +5,7 @@ import { User } from 'src/app/dtos/user';
 import { Event } from '../../../dtos/event';
 import { Gender } from 'src/app/dtos/enums';
 import { CommentsService } from 'src/app/services/dataServices/comments/comments.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private commentsService: CommentsService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +56,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   get genders() {
     return Gender;
+  }
+
+  get isClient() {
+    return this.user._id === this.authService.user._id;
   }
 
 

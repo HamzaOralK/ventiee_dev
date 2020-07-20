@@ -11,3 +11,48 @@
 }
 */
 
+h3 {
+  margin: auto 0 !important;
+  font-weight: bold !important;
+}
+.titleImg {
+  height: auto;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 5px;
+  width: 64px;
+  object-fit: contain;
+  border-radius: 15px;
+}
+
+.imageContainer:hover .button {
+  display: unset;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.imageContainer {
+  max-width: 300px;
+  position: relative;
+  img {
+    width: 100%;
+    border-radius: 10px;
+  }
+}
+
+.button {
+  display: none;
+}
+.saveable {
+  background-color: mat-color($app-accent);
+}
+
+
+.unsaveable {
+  background-color: mat-color($app-warn);
+}
+
+mat-form-field {
+  width: 100% !important;
+}

@@ -80,6 +80,7 @@ export class RoomService implements OnDestroy {
         });
         this.socket.on('reconnect', (attempNumber) => {
           this.getRooms();
+          this.setActiveRoomUndefined();
         });
         let getMessagesSubscription: Subscription;
         getMessagesSubscription = this.getMessages().subscribe(
@@ -272,8 +273,8 @@ export class RoomService implements OnDestroy {
 
   kickUser(eventId: string, user: { _id: string; nickname: string }) {
     let url = environment.serviceURL + "/jUser/kick";
-    let sendObj = { eventId, userId: user._id };
-    this.http.post(url, sendObj).subscribe((p) => {
+    let postObj = { eventId, userId: user._id };
+    this.http.post(url, postObj).subscribe((p) => {
       let room = this.rooms.find((p) => p._id === eventId);
       this.kickSocketRoom(eventId, user);
       this.notificationService.notify("userKicked");
@@ -286,8 +287,8 @@ export class RoomService implements OnDestroy {
     type: MessageType = MessageType.KickUser
   ) {
     let url = environment.serviceURL + "/jUser/leave";
-    let sendObj = { eventId, userId };
-    this.http.post(url, sendObj).subscribe((p) => {
+    let postObj = { eventId, userId };
+    this.http.post(url, postObj).subscribe((p) => {
       this.leaveSocketRoom(eventId, type);
     });
   }
@@ -298,8 +299,8 @@ export class RoomService implements OnDestroy {
     type: MessageType = MessageType.LeaveRoom
   ) {
     let url = environment.serviceURL + "/jUser/leave";
-    let sendObj = { eventId, userId };
-    this.http.post(url, sendObj).subscribe((p) => {
+    let postObj = { eventId, userId };
+    this.http.post(url, postObj).subscribe((p) => {
       let room = this.rooms.find((p) => p._id === eventId);
       this.roomStore.dispatch(new RoomAction.LeaveRoom({ room }));
       this.leaveSocketRoom(eventId, type);
@@ -433,6 +434,23 @@ export class RoomService implements OnDestroy {
 
   updateLastSeen(eventId: string) {
     this.socket.emit(UPDATE_LAST_SEEN, { eventId, userId: this.authService.user._id });
+  }
+
+  updateRoomInfo(room: Room) {
+    let url = environment.serviceURL + "/event/update/"+room._id;
+    let postObj = { ...room };
+    return this.http.post(url, postObj).pipe(
+      tap(p => {
+        if(p["imageURI"]) room.imageURI = p["imageURI"];
+        if(room.base64) room.base64 = undefined;
+        this.roomStore.dispatch(new RoomAction.UpdateRoomInfo({ room }));
+        this.notificationService.notify('roomUpdated', SnackType.default);
+      })
+    )
+  }
+
+  setActiveRoomUndefined() {
+    this.store.dispatch(new RoomAction.SetActiveRoomUndefined());
   }
 
 }

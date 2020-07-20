@@ -12,6 +12,8 @@ import { AppService } from 'src/app/app.service';
 import { ModalType } from 'src/app/components/generic-modal/generic-modal.component';
 import { FeedbackTypes } from 'src/app/dtos/enums';
 import { NewFeedbackComponent } from 'src/app/components/new-feedback/new-feedback.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { GenericImageCropperComponent } from 'src/app/components/generic-image-cropper/generic-image-cropper.component';
 
 @Component({
   selector: 'event-info',
@@ -23,6 +25,21 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
   users: RoomUser[];
   roomState: Observable<fromRoom.State>;
   user: User;
+
+  editMode: boolean = false;
+
+  updateInfo = new FormGroup({
+    title: new FormControl("", [Validators.required, Validators.maxLength(40)]),
+    description: new FormControl("", [Validators.required, Validators.maxLength(500)]),
+  });
+
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+
+
+  title: string;
+  description: string;
+  isImageLoaded: boolean = false;
 
   constructor(
     private roomService: RoomService,
@@ -40,7 +57,7 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     super.ngOnInit();
     this.roomState = this.store.select('roomState');
-    this.roomState.subscribe(p => {
+    let roomSub = this.roomState.subscribe(p => {
       let room = p.rooms.find(r => r._id === this.data.room._id);
       if(room && (!room.users || room.users.length === 0)) this.roomService.getRoomUsers(this.data.room).subscribe(u => {
         this.users = u;
@@ -49,6 +66,13 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
         this.users = room.users;
       };
     });
+    this.subscription.add(roomSub);
+    let formSub = this.updateInfo.valueChanges.subscribe(p => {
+      this.title = p.title;
+      this.description = p.description;
+    });
+    this.subscription.add(formSub);
+    if (this.data.room.imageURI) this.croppedImage = this.data.room.imageURI;
   }
 
   onNoClick(): void {
@@ -94,6 +118,66 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
       data
     });
     dialogRef.afterClosed().subscribe(result => { });
+  }
+
+  edit() {
+    this.editMode = true;
+    this.updateInfo.controls["title"].setValue(this.data.room.title);
+    this.updateInfo.controls["description"].setValue(this.data.room.description);
+    this.title = this.data.room.title;
+    this.description = this.data.room.description;
+  }
+
+  save() {
+    let room = new Room();
+    room._id = this.data.room._id;
+    room.title = this.updateInfo.value.title;
+    room.description = this.updateInfo.value.description;
+    room.base64 = this.croppedImage;
+    this.roomService.updateRoomInfo({...room}).subscribe(p => {
+      this.editMode = false;
+      this.dialogRef.close();
+    });
+  }
+
+  cancel() {
+    this.editMode = false;
+  }
+
+  checkValid() {
+    let titleEquality = this.title === this.data.room.title;
+    let descEquality = this.description === this.data.room.description;
+    let final = titleEquality === true && descEquality === true
+    return (this.updateInfo.valid === true && final === false) || this.isImageLoaded === true;
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.openImageCropper(reader.result);
+    };
+  }
+
+  openImageCropper(imageBase64: any) {
+    const dialogRef = this.dialog.open(GenericImageCropperComponent, {
+      maxWidth: '600px',
+      maxHeight: '700px',
+      data: { croppedImage: this.croppedImage, imageBase64: imageBase64 }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.imageBase64) {
+        this.croppedImage = result.imageBase64;
+        this.isImageLoaded = true;
+      }
+    });
+  }
+
+  uploadImg(fileInput: HTMLInputElement) {
+    fileInput.click();
   }
 
 }

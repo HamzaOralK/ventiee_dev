@@ -1,9 +1,41 @@
-<mat-dialog-content class="mat-typography scroll">
+<mat-dialog-content class="mat-typography scroll" [formGroup]="updateInfo">
   <mat-card>
-    <h4>{{data.room.title}}</h4>
-    <h5 *ngIf="data.room.startDate">{{'startDate' | ml}}: {{data.room.startDate | date:'dd/MM/yyyy HH:mm'}}</h5>
-    <h5 *ngIf="data.room.endDate">{{'endDate' | ml}}: {{data.room.endDate | date:'dd/MM/yyyy HH:mm'}}</h5>
-    <h5>{{'howmany' | ml}}: {{data.room.peopleCount}}</h5>
+    <div style="display: flex; margin-bottom: 5px;">
+      <button mat-icon-button *ngIf="isModerator() && !editMode" (click)="edit()" [matTooltip]="'edit' | ml">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="isModerator() && editMode" (click)="save()" [matTooltip]="'save' | ml"
+        [disabled]="!checkValid()" [ngClass]="checkValid() ? 'saveable' : 'unsaveable'" >
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="isModerator() && editMode" (click)="cancel()" [matTooltip]="'cancelEdit' | ml">
+        <mat-icon>cancel</mat-icon>
+      </button>
+
+    </div>
+    <div class="imageContainer">
+      <img [src]="croppedImage || './assets/no_img.png'">
+      <button mat-raised-button class="button" (click)="uploadImg(fileInput)" *ngIf="editMode">Resim Yükle</button>
+    </div>
+    <input #fileInput type="file" accept='image/*' (change)="fileChangeEvent($event)" style="display: none;" />
+
+    <div style="display: flex;">
+      <h3 *ngIf="!editMode">{{data.room.title}}</h3>
+
+      <mat-form-field appearance="outline" *ngIf="editMode">
+        <input matInput placeholder="{{'title' | ml}}" formControlName="title">
+      </mat-form-field>
+    </div>
+    <h4 *ngIf="data.room.startDate"><b>{{'startDate' | ml}}:</b> {{data.room.startDate | date:'dd/MM/yyyy HH:mm'}}</h4>
+    <h4 *ngIf="data.room.endDate"><b>{{'endDate' | ml}}:</b> {{data.room.endDate | date:'dd/MM/yyyy HH:mm'}}</h4>
+    <h4><b>{{'howmany' | ml}}:</b> {{data.room.peopleCount}}</h4>
+    <h2><b>{{'description' | ml}}</b></h2>
+    <h4 *ngIf="!editMode">{{data.room.description}}</h4>
+
+    <mat-form-field appearance="outline" *ngIf="editMode">
+      <textarea matInput placeholder="{{'description' | ml}}" rows="5" formControlName="description"></textarea>
+    </mat-form-field>
+
     <mat-card-actions>
       <button mat-fab *ngIf="isModerator()" class="warning" (click)="cancelEvent()" [matTooltip]="'cancelEvent' | ml">
         <mat-icon>block</mat-icon>
