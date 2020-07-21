@@ -52,10 +52,21 @@
           <mat-icon>share</mat-icon>
           <!-- {{'leaveEvent' | ml}} -->
         </button>
-        <button mat-mini-fab color="warn" (click)="leaveRoom()">
-          <mat-icon>clear</mat-icon>
+        <!-- <button mat-mini-fab color="warn" (click)="leaveRoom()"> -->
+          <!-- <mat-icon>clear</mat-icon> -->
           <!-- {{'leaveEvent' | ml}} -->
+        <!-- </button> -->
+
+        <button mat-mini-fab color="warn" (click)="leaveRoom()" *ngIf="!isModerator()" [matTooltip]="'leaveEvent' | ml">
+          <mat-icon>clear</mat-icon>
         </button>
+        <button mat-mini-fab color="warn" (click)="cancelEvent()" *ngIf="isModerator() && activeRoom.type==='meeting'" [matTooltip]="'cancelEvent' | ml">
+          <mat-icon>block</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" (click)="completeEvent()" *ngIf="isModerator() && activeRoom.type==='conversation'" [matTooltip]="'completeEvent' | ml">
+          <mat-icon>block</mat-icon>
+        </button>
+
 
       </div>
     </div>
