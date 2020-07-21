@@ -1,4 +1,4 @@
-<div class="user">
+<div class="user c-ptr" (click)="goUser()">
   <div style="display: flex; align-items: center;">
     <img class="user-image" [src]="user.user.imageURI || './assets/user.png'"/>
     {{user.user.nickname}} <span *ngIf="isUserModerator(user.user)">(Moderatör)</span>

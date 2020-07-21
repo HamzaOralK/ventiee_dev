@@ -2,6 +2,7 @@ import { Component, OnInit, Injector, Input, Output, EventEmitter } from '@angul
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { Room, RoomUser } from 'src/app/dtos/room';
 import { User } from 'src/app/dtos/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'event-info-user',
@@ -14,8 +15,9 @@ export class EventInfoUserComponent extends BaseComponent implements OnInit {
   @Input() user: RoomUser;
   @Output() onKickUser = new EventEmitter();
   @Output() onReport = new EventEmitter();
+  @Output() closeDialog = new EventEmitter();
 
-  constructor(injector: Injector) {
+  constructor(injector: Injector, private router: Router) {
     super(injector);
   }
 
@@ -41,6 +43,11 @@ export class EventInfoUserComponent extends BaseComponent implements OnInit {
 
   report(user: Partial<User>) {
     this.onReport.emit(user);
+  }
+
+  goUser() {
+    this.closeDialog.emit();
+    this.router.navigate(['/profile', this.user.user._id]);
   }
 
 }

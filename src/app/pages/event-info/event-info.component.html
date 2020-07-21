@@ -50,7 +50,8 @@
   </mat-card>
   <div style="height: 100%; overflow-y: auto; overflow-x: hidden;" *ngIf="users">
     <div *ngFor="let user of users" class="text">
-      <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)" (onReport)="report($event)"></event-info-user>
+      <event-info-user [room]="data.room" [user]="user" (onKickUser)="onKickUser($event)" (onReport)="report($event)"
+        (closeDialog)="onNoClick()"></event-info-user>
     </div>
   </div>
 </mat-dialog-content>
