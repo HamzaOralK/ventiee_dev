@@ -59,7 +59,7 @@
     {"key": "previous", "value": "Previous"},
     {"key": "today", "value": "Today"},
     {"key": "next", "value": "Next"},
-    {"key": "emailNotification", "value": "E-Mail Notifications"},
+    {"key": "emailNotification", "value": "I agree to receive message notifications as e-mail from joined rooms."},
     {"key": "save", "value": "Save"},
     {"key": "profileSettings", "value": "Profile Settings"},
     {"key": "basicSettings", "value": "Basic"},

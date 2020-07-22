@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { RoomService } from 'src/app/services/dataServices/room/room.service';
 import { Room } from 'src/app/dtos/room';
 import { AppService } from 'src/app/app.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class EventPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private eventService: EventService,
     private roomService: RoomService,
-    private appService: AppService
+    private appService: AppService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -48,8 +50,6 @@ export class EventPageComponent implements OnInit, OnDestroy {
         if (index === -1) this.joinable = true;
         else {
           this.joinable = false;
-          console.log(this.event._id);
-          console.log(this.appService.smallScreen);
           if(this.appService.smallScreen) {
             this.router.navigate(['/room/'+this.event._id]);
           } else {
@@ -70,13 +70,17 @@ export class EventPageComponent implements OnInit, OnDestroy {
   joinEvent() {
     let userNewRoom = new Room();
     userNewRoom._id = this.event._id;
-    this.roomService.joinRoom(userNewRoom).subscribe(p => {
-      if (this.appService.smallScreen) {
-        this.router.navigate(['/room/' + this.event._id]);
-      } else {
-        this.router.navigate(['home']);
-      }
-    })
+    if(this.authService.user) {
+      this.roomService.joinRoom(userNewRoom).subscribe(p => {
+        if (this.appService.smallScreen) {
+          this.router.navigate(['/room/' + this.event._id]);
+        } else {
+          this.router.navigate(['/home']);
+        }
+      });
+    } else {
+      this.router.navigate(['/login'], {queryParams: {url: '/ventiee/'+this.event._id}});
+    }
   }
 
 }

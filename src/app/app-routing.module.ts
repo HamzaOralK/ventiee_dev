@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'resetPassword/:token', loadChildren: () => import('./pages/new-password/new-password.module').then(m => m.NewPasswordModule), canActivate: [NonAuthGuard]},
   { path: 'resend/:user', component: ResendComponent, canActivate: [NonAuthGuard]},
   { path: 'verify/:hash', component: VerifyComponent, canActivate: [NonAuthGuard]},
-  { path: 'ventiee/:id', component: EventPageComponent, canActivate: [AuthGuard]},
+  { path: 'ventiee/:id', component: EventPageComponent},
   { path: 'room/:id', loadChildren: () => import('./pages/room/room.module').then(m => m.RoomModule), canActivate: [AuthGuard]},
   { path: 'profile/:id', loadChildren: () => import('./pages/user-profile/user-profile.module').then(m => m.UserProfileModule), canActivate: [AuthGuard]},
   { path: 'userSettings/:id', loadChildren: () => import('./pages/user-settings/user-settings.module').then(m => m.UserSettingsModule), canActivate: [AuthGuard]},

@@ -27,8 +27,9 @@ export class SignUpFormComponent implements OnInit {
     nickname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15), Validators.pattern(this.unamePattern)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
     language: new FormControl('tr', [Validators.required]),
-    privacyStatus: new FormControl(false, [Validators.requiredTrue]),
-    eulaStatus: new FormControl(false, [Validators.requiredTrue]),
+    privacyStatus: new FormControl(true, [Validators.requiredTrue]),
+    eulaStatus: new FormControl(true, [Validators.requiredTrue]),
+    emailNotification: new FormControl(true),
     plus18: new FormControl(false, [Validators.requiredTrue])
   })
 

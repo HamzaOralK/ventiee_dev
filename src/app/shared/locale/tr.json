@@ -59,7 +59,7 @@
     {"key": "previous", "value": "Öncesi"},
     {"key": "today", "value": "Bugün"},
     {"key": "next", "value": "İlerisi"},
-    {"key": "emailNotification", "value": "E-Mail Bildirimleri"},
+    {"key": "emailNotification", "value": "Katıldığım odalara gelen mesajlar hakkında e-mail bildirimlerini almayı kabul ediyorum."},
     {"key": "save", "value": "Kaydet"},
     {"key": "profileSettings", "value": "Profil Ayarları"},
     {"key": "basicSettings", "value": "Temel"},

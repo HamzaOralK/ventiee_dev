@@ -1,12 +1,13 @@
 mat-card {
   max-width: 500px;
-  margin-top: 10px;
+  margin: 0 auto;
 }
 
-div {
+.event {
   width: 100%;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .titleImg {
@@ -29,4 +30,16 @@ div {
 
 .mat-card-actions {
   text-align: center;
+}
+
+.ventieeImg {
+  max-width: 300px;
+}
+
+.mat-card-header, .header {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center;
+  align-items: center;
 }

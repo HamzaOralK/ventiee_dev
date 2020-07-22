@@ -1,10 +1,14 @@
-<div>
+<div class="event">
 
   <mat-card class="card" *ngIf="event">
     <mat-card-header>
-      <mat-card-title>{{event.title}}</mat-card-title>
+      <mat-card-title>
+        <div class="header">
+          <img mat-card-image class="ventieeImg" [src]="event.imageURI || './assets/no_img.png'">
+          <span>{{event.title}}</span>
+        </div>
+        </mat-card-title>
     </mat-card-header>
-    <img mat-card-image [src]="event.imageURI || './assets/no_img.png'">
     <mat-card-content>
       <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex; align-items: center;">
         <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />

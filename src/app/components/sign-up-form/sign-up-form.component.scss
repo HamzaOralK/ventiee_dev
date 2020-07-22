@@ -18,9 +18,15 @@ password-form-element {
   width: 100%;
 }
 
-.mat-checkbox-label {
-  white-space: normal !important;
+:host ::ng-deep .mat-checkbox-label {
+  white-space: break-spaces !important;
 }
+
+:host ::ng-deep .mat-checkbox-inner-container {
+  margin: 0 !important;
+  margin-right: 8px !important;
+}
+
 .eula:hover {
   text-decoration: underline;
 }
