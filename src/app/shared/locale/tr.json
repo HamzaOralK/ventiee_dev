@@ -22,6 +22,7 @@
     {"key": "startTime", "value": "Buluşma Saati"},
     {"key": "endTime", "value": "Bitiş Saati"},
     {"key": "startDate", "value": "Buluşma Tarihi"},
+    {"key": "roomStartDate", "value": "Başlama Tarihi"},
     {"key": "endDate", "value": "Bitiş Tarihi"},
     {"key": "organisator", "value": "Organizatör"},
     {"key": "timeError", "value": "Tarihte bir sıkıntı var."},

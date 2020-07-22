@@ -22,6 +22,7 @@
     {"key": "startTime", "value": "Meeting Time"},
     {"key": "endTime", "value": "End Time"},
     {"key": "startDate", "value": "Meeting Date"},
+    {"key": "roomStartDate", "value": "Start Date"},
     {"key": "endDate", "value": "End Date"},
     {"key": "organisator", "value": "Organisator"},
     {"key": "timeError", "value": "There is a problem with dates."},

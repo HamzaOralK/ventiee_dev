@@ -38,6 +38,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
+import { MatDividerModule } from '@angular/material/divider';
 
 import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { AuthInterceptor } from './auth/auth-interceptor';

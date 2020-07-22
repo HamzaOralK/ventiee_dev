@@ -4,6 +4,7 @@ export class Event {
   _id: string;
   title: string;
   status: EventStatus;
+  currentPeopleCount: number;
   peopleCount: number;
   startDate: Date;
   endDate: Date;

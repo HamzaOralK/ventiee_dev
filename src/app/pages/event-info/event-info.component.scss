@@ -56,3 +56,13 @@ h3 {
 mat-form-field {
   width: 100% !important;
 }
+
+h4 {
+  margin: 0 !important;
+}
+
+.mat-card .mat-divider-horizontal {
+  position: inherit;
+  left: 0;
+  width: 99%;
+}

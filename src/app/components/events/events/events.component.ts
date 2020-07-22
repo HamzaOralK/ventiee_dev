@@ -76,6 +76,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.auth.subscribe(p => {
         if (p.user) this.eventService.getEvents(this._pageNo, undefined, this.eventFilter).subscribe(r => {
           this.events = r;
+          this._pageNo++;
         });
       });
       let eventSearchSubscription = this.eventSearchText.pipe(debounceTime(500)).subscribe(p => {

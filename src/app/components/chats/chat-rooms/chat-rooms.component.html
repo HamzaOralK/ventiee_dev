@@ -17,10 +17,15 @@
         <mat-icon>arrow_forward</mat-icon>
         {{room.startDate | date:'dd/MM/yyyy'}}
       </div>
-      <div class="iconInfo">
+      <!-- <div class="iconInfo">
         <mat-icon>people</mat-icon>
         {{room.peopleCount}}
+      </div> -->
+      <div class="iconInfo">
+        <mat-icon class="currentPeople">person</mat-icon>
+        {{room.currentPeopleCount}}
       </div>
+
     </div>
   </div>
 </div>
