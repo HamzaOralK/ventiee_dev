@@ -111,7 +111,7 @@ export class EventService {
           room.moderatorUser = this.user;
           let roomUser = new RoomUser();
           roomUser.user = this.user;
-          roomUser.color = COMMONS.generateRandomRGBAColor();
+          roomUser.color = COMMONS.generateRandomRGBAColor(0);
           room.currentPeopleCount = 0;
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
