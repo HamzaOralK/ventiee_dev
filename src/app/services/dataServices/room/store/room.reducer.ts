@@ -89,7 +89,12 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
     case RoomActions.INSERT_USER:
       copyState = cloneDeep(state);
       room = copyState.rooms.find((p) => p._id === action.payload.roomId);
-      if(room.users && room.users.findIndex(u => u.user._id === action.payload.roomUser.user._id) === -1) room.users.push(action.payload.roomUser);
+      room.currentPeopleCount++;
+      if(room.users && room.users.findIndex(u => u.user._id === action.payload.roomUser.user._id) === -1) {
+        let newRoomUser = cloneDeep(action.payload.roomUser);
+        if (!newRoomUser.color) newRoomUser.color = COMMONS.generateRandomRGBAColor(room.users.length);
+        room.users.push(newRoomUser);
+      }
       return {
         ...copyState
       };
@@ -102,8 +107,9 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
     case RoomActions.KICK_USER:
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
       copyState = cloneDeep(state);
-      if (roomIndex > -1 && copyState.rooms[roomIndex].users) {
-        copyState.rooms[roomIndex].users = copyState.rooms[roomIndex].users.filter(u => u.user._id !== action.payload.roomUserId);
+      if (roomIndex > -1 ) {
+        copyState.rooms[roomIndex].currentPeopleCount--;
+        if (copyState.rooms[roomIndex].users) copyState.rooms[roomIndex].users = copyState.rooms[roomIndex].users.filter(u => u.user._id !== action.payload.roomUserId);
       }
       return {
         ...copyState,
@@ -122,9 +128,9 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       roomIndex = state.rooms.findIndex(p => p._id === action.payload.room._id);
       copyState = cloneDeep(state);
       copyState.rooms[roomIndex].users = cloneDeep(action.payload.roomUsers);
-      copyState.rooms[roomIndex].users.map((ru) => {
+      copyState.rooms[roomIndex].users.map((ru, index) => {
         if (!ru.color) {
-          ru.color = COMMONS.generateRandomRGBAColor();
+          ru.color = COMMONS.generateRandomRGBAColor(index);
         }
         return ru.user;
       });

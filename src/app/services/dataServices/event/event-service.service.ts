@@ -112,6 +112,7 @@ export class EventService {
           let roomUser = new RoomUser();
           roomUser.user = this.user;
           roomUser.color = COMMONS.generateRandomRGBAColor();
+          room.currentPeopleCount = 0;
           room.users.push(roomUser);
           this.store.dispatch(new RoomActions.JoinRoom({ room: room as Room }));
           this.notificationService.notify("eventCreateSuccess");

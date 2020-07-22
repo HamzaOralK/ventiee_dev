@@ -264,9 +264,7 @@ export class RoomService implements OnDestroy {
     let url = environment.serviceURL + "/jUser/get/" + room._id;
     return this.http.get<RoomUser[]>(url).pipe(
       tap((p) => {
-        this.roomStore.dispatch(
-          new RoomAction.SetRoomUsers({ room: room, roomUsers: p })
-        );
+        this.roomStore.dispatch(new RoomAction.SetRoomUsers({ room: room, roomUsers: p }));
       })
     );
   }
