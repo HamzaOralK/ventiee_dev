@@ -326,6 +326,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       data
     });
     dialogRef.afterClosed().subscribe(result => { });
+    /** To report! */
   }
 
 
