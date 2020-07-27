@@ -14,12 +14,14 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/dtos/user';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { Subscription, Observable, throwError, BehaviorSubject } from 'rxjs';
+import { Subscription, Observable, throwError, BehaviorSubject, of } from 'rxjs';
 import { NotificationService, SnackType } from '../../notification/notification.service';
 import { environment } from 'src/environments/environment';
-import { tap, catchError, take } from 'rxjs/operators';
+import { tap, catchError, take, map } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
 import { AppService } from 'src/app/app.service';
+import cloneDeep from "lodash.clonedeep";
+
 
 const MESSAGE_TO_CLIENT = 'messageToClient';
 const JOIN_ROOM = 'joinRoom';
@@ -308,38 +310,43 @@ export class RoomService implements OnDestroy {
 
   loadMessages(room: Room, pageNo: number = 1) {
     let url = environment.serviceURL + "/messages/" + room._id;
-    return this.http
-      .get(url, {
-        params: {
-          pageNo: pageNo.toString(),
-        },
-      })
-      .pipe(
-        tap((result: any) => {
-          result = result.map((e) => this.formatLoadedMessages(e));
-          this.roomStore.dispatch(new RoomAction.LoadMessages({ room: room, messages: result }));
-          return result;
-        })
-      );
-  }
+    let messageSize = 20;
+    let copyMessages = cloneDeep(room.messages);
+    let slicedMessages;
+    if (copyMessages) {
+      let firstRange = copyMessages.length - (messageSize * pageNo);
+      let secondRange = copyMessages.length - (pageNo - 1)*messageSize;
 
-  bugloadMessages(room: Room, pageNo: number = 1) {
-    let url = environment.serviceURL + "/messages/" + room._id;
-    return this.http
-      .get(url, {
-        params: {
-          pageNo: pageNo.toString(),
-        },
-      })
-      .pipe(
-        tap((result: any) => {
-          result = result.map((e) => this.formatLoadedMessages(e));
-          this.roomStore.dispatch(new RoomAction.BugLoadMessages({ room: room, messages: result }));
-          return result;
+      if(secondRange > 0) {
+        if(firstRange < 0) {
+          firstRange = 0;
+          slicedMessages = copyMessages.slice(firstRange, secondRange);
+        } else {
+          copyMessages.splice(secondRange);
+          slicedMessages = copyMessages.slice(-messageSize);
+        }
+      }
+      // slicedMessages = room.messages.slice((pageNo - 1) * messageSize, pageNo * messageSize);
+    }
+    //console.log(slicedMessages);
+    if(slicedMessages && slicedMessages.length > 0) {
+      return of(slicedMessages);
+    } else {
+      return this.http
+        .get(url, {
+          params: {
+            pageNo: pageNo.toString(),
+          },
         })
-      );
+        .pipe(
+          map((result: any) => {
+            let res = result.map((e) => this.formatLoadedMessages(e));
+            this.roomStore.dispatch(new RoomAction.LoadMessages({ room: room, messages: res }));
+            return res;
+          })
+        );
+    }
   }
-  // messages/: id ? pageNo = 1
 
   joinSocketRoom(roomId: string, isInsert = false) {
     let type: MessageType = undefined;

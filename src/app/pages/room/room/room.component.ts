@@ -48,7 +48,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   roomId: string;
   routeSubscription: Subscription;
 
-  previousScrollHeightMinusTop: number;
 
   isAllMessages = false;
   message: FormControl = new FormControl('');
@@ -103,11 +102,25 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.subscription.add(containerSub);
     let stateSub = this.store.select("roomState").subscribe(p => {
       this._loading = false;
-      if(!this.activeRoom || (p.activeRoom && p.activeRoom._id !== this.activeRoom._id) ) this.scroll = true;
-      if ((this.activeRoom && p.activeRoom && p.activeRoom._id !== this.activeRoom._id)) { this.roomService.userExit(this.activeRoom._id); }
-      if (p.rooms.length > 0) {
-        if(p.activeRoom) this.activeRoom = p.activeRoom;
+      if(!this.activeRoom || (p.activeRoom && p.activeRoom._id !== this.activeRoom._id) ) {
+        this.scroll = true;
       }
+      if (this.activeRoom && (p.activeRoom && p.activeRoom._id !== this.activeRoom._id)) {
+        this.pageNo = 1;
+        this.isAllMessages = false;
+        this.roomService.userExit(this.activeRoom._id);
+      }
+
+      if(p.activeRoom && p.activeRoom.messages && this.pageNo === 1) {
+        this.activeRoomMessages = p.activeRoom.messages.slice(0).slice(-20);
+      }
+
+      if (p.rooms.length > 0) {
+        if(p.activeRoom) {
+          this.activeRoom = p.activeRoom;
+        }
+      }
+
       this.cdr.detectChanges();
     });
     this.subscription.add(stateSub);
@@ -120,29 +133,24 @@ export class RoomComponent implements OnInit, OnDestroy {
         this.height1 = (this.messages.nativeElement.scrollHeight - this.messages.nativeElement.offsetHeight);
         this.height2 = this.messages.nativeElement.scrollTop;
 
-        if(scrollHeight > 0 && scrollTop === 0 && !this.isAllMessages) {
+        if(scrollHeight > 0 && scrollTop === 0 && !this.isAllMessages && (this.height1 + this.height2 !== 0)) {
           this.pageNo++;
           this._loading = true;
-          this.previousScrollHeightMinusTop = scrollHeight - scrollTop;
+
+          (this.messages.nativeElement as HTMLLIElement).scrollTop = 500;
+
           let loadSub = this.roomService.loadMessages(this.activeRoom, this.pageNo).subscribe(r => {
             if(r.length === 0) {
               this.isAllMessages = true;
+            } else {
+              this.activeRoomMessages = [...r, ...this.activeRoomMessages];
             }
+            this._loading = false
           });
           this.subscription.add(loadSub);
         }
       });
     }
-  }
-
-  loadMoreWithButton() {
-    this._loading = true;
-    let loadSub = this.roomService.bugloadMessages(this.activeRoom, this.pageNo).subscribe(r => {
-      if (r.length === 0) {
-        this.isAllMessages = true;
-      }
-    });
-    this.subscription.add(loadSub);
   }
 
   ngOnDestroy() {

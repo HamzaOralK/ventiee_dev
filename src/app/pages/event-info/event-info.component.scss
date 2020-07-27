@@ -33,11 +33,15 @@ h3 {
 }
 
 .imageContainer {
-  max-width: 300px;
+  // max-width: 300px;
   position: relative;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 5px;
   img {
     width: 100%;
     border-radius: 10px;
+    max-width: 300px;
   }
 }
 

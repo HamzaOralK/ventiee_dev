@@ -1,18 +1,18 @@
 <mat-dialog-content class="mat-typography scroll" [formGroup]="updateInfo">
   <mat-card>
-    <div style="display: flex; margin-bottom: 5px;">
-      <button mat-icon-button *ngIf="isModerator() && !editMode" (click)="edit()" [matTooltip]="'edit' | ml">
+    <div style="display: flex; margin-bottom: 5px;" *ngIf="isModerator()">
+      <button mat-icon-button *ngIf="!editMode" (click)="edit()" [matTooltip]="'edit' | ml">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="isModerator() && editMode" (click)="save()" [matTooltip]="'save' | ml"
+      <button mat-icon-button *ngIf="editMode" (click)="save()" [matTooltip]="'save' | ml"
         [disabled]="!checkValid()" [ngClass]="checkValid() ? 'saveable' : 'unsaveable'" >
         <mat-icon>save</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="isModerator() && editMode" (click)="cancel()" [matTooltip]="'cancelEdit' | ml">
+      <button mat-icon-button *ngIf="editMode" (click)="cancel()" [matTooltip]="'cancelEdit' | ml">
         <mat-icon>cancel</mat-icon>
       </button>
-
     </div>
+
     <div class="imageContainer">
       <img [src]="croppedImage || './assets/no_img.png'">
       <button mat-raised-button class="button" (click)="uploadImg(fileInput)" *ngIf="editMode">Resim Yükle</button>

@@ -122,6 +122,7 @@ $usersFullWidth: 230px;
 .own, .messageWrapper, .other {
   width: 100%;
   display: flex;
+  font-size: 14.2px
 }
 
 .own {
@@ -161,9 +162,9 @@ $usersFullWidth: 230px;
   right: 0px;
 }
 
-// .scroll {
-//   scroll-behavior: unset !important;
-// }
+.scroll {
+  scroll-behavior: unset !important;
+}
 
 .noDesktop {
   display: flex;

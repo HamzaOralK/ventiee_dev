@@ -78,20 +78,20 @@
         <!-- <div style="display: flex; justify-content: center; align-items: center;" class="c-ptr" *ngIf="!isAllMessages" (click)="loadMoreWithButton()">
           {{'loadMoreMessage' | ml}}
         </div> -->
-        <ng-container *ngFor="let message of activeRoom.messages; let i = index;">
-          <div *ngIf="i > 0 && getOnlyDate(activeRoom.messages[i-1].date) !== getOnlyDate(message.date)" class="mContainer">
+        <ng-container *ngFor="let message of activeRoomMessages; let i = index;">
+          <div *ngIf="i > 0 && getOnlyDate(activeRoomMessages[i-1].date) !== getOnlyDate(message.date)" class="mContainer">
             <span class="date">{{getOnlyDate(message.date)}}</span>
           </div>
           <div #messagesContainer class="messageWrapper"
-          [ngClass]="(i > 0 && activeRoom.messages[i-1].roomUser.user._id !== message.roomUser.user._id) || i === 0 ? 'dMargin' : ''">
+          [ngClass]="(i > 0 && activeRoomMessages[i-1].roomUser.user._id !== message.roomUser.user._id) || i === 0 ? 'dMargin' : ''">
             <div [ngClass]="isOwn(message) ? 'own' : 'other'" *ngIf="message.type === undefined">
               <div style="max-width: 65%; overflow: hidden;">
                 <span *ngIf="i === 0 && !isOwn(message)" [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">{{message.roomUser.user.nickname}}</span>
 
                 <span *ngIf="i > 0 &&
                              (
-                               activeRoom.messages[i-1].roomUser.user._id !== message.roomUser.user._id ||
-                               getOnlyDate(activeRoom.messages[i-1].date) !== getOnlyDate(message.date)
+                               activeRoomMessages[i-1].roomUser.user._id !== message.roomUser.user._id ||
+                               getOnlyDate(activeRoomMessages[i-1].date) !== getOnlyDate(message.date)
                               ) &&
                              !isOwn(message)"
                   [ngStyle]="{'color': getColor(message.roomUser.user)}" class="user">
