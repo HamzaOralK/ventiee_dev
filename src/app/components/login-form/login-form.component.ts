@@ -13,26 +13,28 @@ export enum LoginError {
 }
 
 @Component({
-  selector: 'login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  selector: "login-form",
+  templateUrl: "./login-form.component.html",
+  styleUrls: ["./login-form.component.scss"],
 })
-export class LoginFormComponent extends BaseComponent implements OnInit, OnDestroy {
-
+export class LoginFormComponent extends BaseComponent
+  implements OnInit, OnDestroy {
   auth: Observable<fromAuth.State>;
   error: LoginError;
   showPassword: boolean = false;
 
+  isSocial: boolean = false;
+
   login = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(4)])
-  })
-  constructor(
-    injector: Injector,
-    private store: Store<fromApp.AppState>
-  ) {
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [
+      Validators.required,
+      Validators.minLength(4),
+    ]),
+  });
+  constructor(injector: Injector, private store: Store<fromApp.AppState>) {
     super(injector);
-    this.auth = this.store.select('authState');
+    this.auth = this.store.select("authState");
   }
 
   ngOnInit(): void {
@@ -40,18 +42,18 @@ export class LoginFormComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   get loginControls(): any {
-    return this.login['controls'];
+    return this.login["controls"];
   }
 
   async onSubmit() {
     let user = new User();
     user.email = this.login.value.email;
     user.password = this.login.value.password;
-    let loginSubscription = this.authService.loginUser(user).subscribe(p => {
-      if(p === LoginError.LoginError) {
+    let loginSubscription = this.authService.loginUser(user).subscribe((p) => {
+      if (p === LoginError.LoginError) {
         this.error = LoginError.LoginError;
       } else if (p === LoginError.NotVerified) {
-        this.error = LoginError.NotVerified
+        this.error = LoginError.NotVerified;
       }
     });
     this.subscription.add(loginSubscription);
@@ -61,4 +63,14 @@ export class LoginFormComponent extends BaseComponent implements OnInit, OnDestr
     this.showPassword = !this.showPassword;
   }
 
+  signInWithFB(event) {
+    event.preventDefault();
+    this.authService.signInWithFB().then(p => {
+
+      if(p.email) {
+        this.isSocial = true;
+        this.login.controls["email"].setValue(p.email);
+      }
+    });
+  }
 }

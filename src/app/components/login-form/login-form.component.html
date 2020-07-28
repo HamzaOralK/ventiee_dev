@@ -1,6 +1,6 @@
 <form [formGroup]="login" class="loginForm" (submit)="onSubmit()" autocomplete="off">
 
-  <mat-form-field class="full-width" appearance="outline">
+  <mat-form-field class="full-width" appearance="outline" *ngIf="!isSocial">
     <mat-label>E-Mail</mat-label>
     <input matInput formControlName="email">
     <mat-error *ngIf="loginControls.email.hasError('email') && !loginControls.email.hasError('required')">
@@ -10,6 +10,9 @@
       {{'emailRequired' | ml}}
     </mat-error>
   </mat-form-field>
+  <div *ngIf="isSocial" style="height: 63px; display: flex; justify-content: center; align-items: center;">
+    <span style="font-weight: 500; font-size: 24px;">{{loginControls.email.value}}</span>
+  </div>
 
   <password-form-element [formControl]="loginControls.password" ngDefaultControl></password-form-element>
 
@@ -17,10 +20,12 @@
     <p *ngIf="error === 'LoginError'">{{'loginFormError' | ml}}</p>
     <p *ngIf="error === 'NotVerified'">{{'userNotVerified' | ml}}</p>
   </div>
-  <button mat-raised-button color="primary" [disabled]="!login.valid">{{'login' | ml}}</button>
+  <button mat-raised-button color="primary" [disabled]="!login.valid" style="margin-bottom: 10px;">{{'login' | ml}}</button>
+
+  <button href="" class="fb connect" (click)="signInWithFB($event)" *ngIf="!isSocial">{{'signInFacebook' | ml}}</button>
   <div class="actions">
     <a class="c-ptr" routerLink="/forgotPassword">{{'forgotPassword' | ml}}</a>
     <a class="c-ptr" routerLink="/signup">{{'signup' | ml}}</a>
   </div>
-
 </form>
+

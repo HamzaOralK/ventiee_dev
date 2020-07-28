@@ -1,6 +1,12 @@
-<form [formGroup]="signUp" class="signUpForm" (submit)="onSubmit()" autocomplete="off">
+<div class="buttons" *ngIf="!signUpType">
+  <button href="" class="fb connect" (click)="signUpWithFB()">{{'signUpFacebook' | ml}}</button>
+  <button href="" class="normal" (click)="signUpWithOutFb()">{{'continueNormal' | ml}}</button>
+</div>
 
-  <mat-form-field appearance="outline">
+<form [formGroup]="signUp" class="signUpForm" (submit)="onSubmit()" autocomplete="off" *ngIf="signUpType">
+
+
+  <mat-form-field appearance="outline" *ngIf="!(signUpType === 'social' && signUpControls.email.value)">
     <mat-label>E-Mail</mat-label>
     <input matInput formControlName="email">
     <mat-error *ngIf="signUpControls.email.hasError('email') && !signUpControls.email.hasError('required')">
@@ -11,7 +17,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" *ngIf="!(signUpType === 'social' && signUpControls.name.value)">
     <mat-label>{{'name' | ml}}</mat-label>
     <input matInput type="text" formControlName="name">
     <mat-error *ngIf="signUpControls.name.hasError('required')">
@@ -19,7 +25,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" *ngIf="!(signUpType === 'social' && signUpControls.surname.value)">
     <mat-label>{{'surname' | ml}}</mat-label>
     <input matInput type="text" formControlName="surname">
     <mat-error *ngIf="signUpControls.surname.hasError('required')">

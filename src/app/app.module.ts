@@ -38,7 +38,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
-import { MatDividerModule } from '@angular/material/divider';
 
 import { EventInfoComponent } from './pages/event-info/event-info.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
@@ -67,6 +66,13 @@ import { AuthService } from './services/auth/auth.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
+
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  // GoogleLoginProvider,
+  FacebookLoginProvider,
+  // AmazonLoginProvider,
+} from 'angularx-social-login';
 
 
 const initializer = (langService: LangService, authService: AuthService) => () => {
@@ -133,12 +139,32 @@ const initializer = (langService: LangService, authService: AuthService) => () =
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
     }),
+    SocialLoginModule,
   ],
   exports: [],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    { provide: APP_INITIALIZER, useFactory: initializer, deps: [LangService, AuthService], multi: true, },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      deps: [LangService, AuthService],
+      multi: true,
+    },
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider(
+              "310267733677307"
+            ),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
   ],
   bootstrap: [AppComponent],
 })
