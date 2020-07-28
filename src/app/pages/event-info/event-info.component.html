@@ -14,7 +14,7 @@
     </div>
 
     <div class="imageContainer">
-      <img [src]="croppedImage || './assets/no_img.png'">
+      <img [src]="base64Image || croppedImage || './assets/no_img.png'">
       <button mat-raised-button class="button" (click)="uploadImg(fileInput)" *ngIf="editMode">Resim Yükle</button>
     </div>
     <input #fileInput type="file" accept='image/*' (change)="fileChangeEvent($event)" style="display: none;" />

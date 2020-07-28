@@ -8,18 +8,45 @@
   justify-content: space-evenly;
   overflow: hidden;
   flex-direction: row;
-  background-size: 100% 99%;
+  background-size: cover;
+  box-sizing: inherit;
   background-repeat: no-repeat;
   align-items: center;
   position: relative;
   @include media-breakpoint(xs) {
     flex-direction: column;
     padding: 30px 30px 60px 30px;
+    padding: 100px 10px;
   }
   @include media-breakpoint(sm) {
     flex-direction: column;
     padding: 30px 30px 150px 30px;
+    padding: 100px 10px;
   }
+  // @include media-breakpoint(md) {
+  //   flex-direction: column;
+  //   padding: 30px 30px 150px 30px;
+  //   padding: 100px 10px;
+  // }
+}
+
+.spcl {
+  display: inline;
+  @include media-breakpoint(xs) {
+    display: none;
+  }
+
+  @include media-breakpoint(sm) {
+    display: none;
+  }
+}
+
+li {
+  line-height: 2em;
+}
+
+:host ::ng-deep .carousel {
+  border-radius: 30px !important;
 }
 
 .cs-h {
@@ -77,6 +104,14 @@
     border: 1px white solid;
     border-radius: 30px;
     padding: 30px;
+    @include media-breakpoint(xs) {
+      width: 100%;
+    }
+
+    @include media-breakpoint(sm) {
+      width: 100%;
+    }
+
   }
 }
 
@@ -127,4 +162,22 @@
     flex-direction: column;
     justify-content: center;
   }
+}
+
+.mat-list-avatar {
+  width: auto !important;
+  border-radius: 5px !important;
+}
+.list {
+  background-color: rgba(255, 224, 182, 0.2);
+  margin: 0 10px 0 0;
+  border-radius: 40px;
+  @include media-breakpoint(xs) {
+    margin: auto;
+  }
+
+  @include media-breakpoint(sm) {
+    margin: auto;
+  }
+
 }

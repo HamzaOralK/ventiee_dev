@@ -33,14 +33,12 @@ export class RatingComponent implements OnInit, AfterViewInit {
   }
 
   rate(rate: number) {
-    console.log(this.readonly);
     if(!this.readonly) {
       (this.star.toArray() as ElementRef[]).forEach(p => {
         p.nativeElement.checked= false;
       });
       let convertedRating = rate.toFixed(1).replace(".", "");
       ((this.star.toArray() as ElementRef[]).find(p => p.nativeElement.id === 'star' + convertedRating + this.uuid).nativeElement as HTMLInputElement).checked = true;
-      console.log(rate);
       this.onRate.emit(rate);
     }
   }

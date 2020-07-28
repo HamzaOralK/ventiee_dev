@@ -1,10 +1,10 @@
 <!doctype html>
-<html>
+<html lang="tr">
 <head>
   <meta charset="utf-8">
   <title>Ventiee</title>
-  <!-- <meta name="description" content="Ventiee tabanlı, insanları buluşturan sosyal medya platformu!">
-  <meta name="keywords" content="ventiee, event, etkinlik, hobi, topluluk, sohmet, buluşma."> -->
+  <meta name="description" content="Ventiee tabanlı, insanları buluşturan sosyal medya platformu!">
+  <meta name="keywords" content="ventiee, event, etkinlik, hobi, topluluk, sohmet, buluşma.">
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -16,6 +16,32 @@
   <meta name="theme-color" content="#1976d2">
 </head>
 <body>
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '310267733677307',
+        cookie: true,
+        xfbml: true,
+        version: 'v7.0'
+      });
+
+      FB.AppEvents.logPageView();
+
+      FB.getLoginStatus(function (response) {
+        console.log(response);
+        // statusChangeCallback(response);
+      });
+
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
   <app-root></app-root>
 
   <script>
@@ -32,6 +58,7 @@
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-156101642-1', 'auto'); // add your tracking ID here.
     ga('send', 'pageview');
+
   </script>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>

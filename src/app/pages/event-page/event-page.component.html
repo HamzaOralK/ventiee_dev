@@ -5,20 +5,34 @@
       <mat-card-title>
         <div class="header">
           <img mat-card-image class="ventieeImg" [src]="event.imageURI || './assets/no_img.png'">
-          <span>{{event.title}}</span>
+          <span>
+            <mat-icon *ngIf="event.type==='conversation'">chat</mat-icon>
+            <mat-icon *ngIf="event.type==='meeting'">deck</mat-icon>
+            {{event.title}}
+          </span>
         </div>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" style="display: flex; align-items: center;">
+      <div routerLink="/profile/{{event.moderatorUser._id}}" *ngIf="event.moderatorUser" class="c-ptr" style="display: flex; align-items: center;">
         <img class="header-image" [src]="event.moderatorUser.imageURI || './assets/user.png'" />
         <p> <b>{{'organisator' | ml}}: {{event.moderatorUser.nickname}}</b></p>
+      </div>
+      <div *ngIf="event.type==='meeting'">
+        <div class="iconInfo">
+          <mat-icon [matTooltip]="'startDate' | ml">arrow_forward</mat-icon>
+          {{event.startDate | date:'dd/MM/yyyy HH:mm'}}
+        </div>
+        <div class="iconInfo" *ngIf="event.endDate">
+          <mat-icon>keyboard_tab</mat-icon>
+          {{event.endDate | date:'dd/MM/yyyy HH:mm'}}
+        </div>
       </div>
       <p>
         {{event.description}}
       </p>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="!isChecking">
       <button mat-raised-button color="primary" *ngIf="joinable" (click)="joinEvent()">{{'join' | ml}}</button>
       <span *ngIf="!joinable">Zaten bu odada bulunuyorsunuz!</span>
     </mat-card-actions>

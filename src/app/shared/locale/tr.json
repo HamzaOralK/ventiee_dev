@@ -214,5 +214,10 @@
     {"key": "noActiveEventsForUser", "value": "Kullanıcının aktif ventieesi bulunmamakta."},
     {"key": "roomUpdated", "value": "Oda güncellendi."},
     {"key": "edit", "value": "Düzenle"},
-    {"key": "cancelEdit", "value": "Düzenlemeyi iptal et"}
+    {"key": "cancelEdit", "value": "Düzenlemeyi iptal et"},
+    {"key": "Aktif Ventieeler", "value": "Aktif Ventieeler"},
+    {"key": "isim", "value": "isim"},
+    {"key": "Yalnız yapılması istenmeyen veya yapılamayan etkinliklerin bütünü, okey, muhabbet veya halısaha.", "value": "Yalnız yapılması istenmeyen veya yapılamayan etkinliklerin bütünü, okey, muhabbet veya halısaha."},
+    {"key": "Ventiee oluştur, sohbet et, bir daha sıkılma!", "value": "Ventiee oluştur, sohbet et, bir daha sıkılma!"}
+
 ]

@@ -5,6 +5,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { NonAuthGuard } from './auth/nonAuth.guard';
 import { ResendComponent } from './pages/resend/resend.component';
 import { VerifyComponent } from './pages/verify/verify.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 
 const routes: Routes = [
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)},
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'resend/:user', component: ResendComponent, canActivate: [NonAuthGuard]},
   { path: 'verify/:hash', component: VerifyComponent, canActivate: [NonAuthGuard]},
   { path: 'ventiee/:id', component: EventPageComponent},
+  { path: 'privacy', component: PrivacyComponent},
+  { path: 'terms-of-service', component: TermsOfServiceComponent},
   { path: 'room/:id', loadChildren: () => import('./pages/room/room.module').then(m => m.RoomModule), canActivate: [AuthGuard]},
   { path: 'profile/:id', loadChildren: () => import('./pages/user-profile/user-profile.module').then(m => m.UserProfileModule), canActivate: [AuthGuard]},
   { path: 'userSettings/:id', loadChildren: () => import('./pages/user-settings/user-settings.module').then(m => m.UserSettingsModule), canActivate: [AuthGuard]},

@@ -35,6 +35,7 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  base64Image: any;
 
 
   title: string;
@@ -133,7 +134,7 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
     room._id = this.data.room._id;
     room.title = this.updateInfo.value.title;
     room.description = this.updateInfo.value.description;
-    room.base64 = this.croppedImage;
+    if(this.base64Image) room.base64 = this.base64Image;
     this.roomService.updateRoomInfo({...room}).subscribe(p => {
       this.editMode = false;
       this.dialogRef.close();
@@ -170,7 +171,8 @@ export class EventInfoComponent extends BaseComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.imageBase64) {
-        this.croppedImage = result.imageBase64;
+        this.base64Image = result.imageBase64;
+
         this.isImageLoaded = true;
       }
     });

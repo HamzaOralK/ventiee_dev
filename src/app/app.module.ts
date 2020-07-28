@@ -65,6 +65,8 @@ import { PwaPromptComponent } from './components/pwa-prompt/pwa-prompt.component
 import { LangService } from './services/lang/lang.service';
 import { AuthService } from './services/auth/auth.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 
 
 const initializer = (langService: LangService, authService: AuthService) => () => {
@@ -88,6 +90,8 @@ const initializer = (langService: LangService, authService: AuthService) => () =
     EventInfoUserComponent,
     VfooterComponent,
     PwaPromptComponent,
+    PrivacyComponent,
+    TermsOfServiceComponent,
   ],
   imports: [
     BrowserModule,

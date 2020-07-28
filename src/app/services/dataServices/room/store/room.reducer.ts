@@ -158,7 +158,7 @@ export function roomReducer(state = initialState, action: RoomActions.RoomAction
       copyState = cloneDeep(state);
       copyState.rooms[roomIndex].title = action.payload.room.title;
       copyState.rooms[roomIndex].description = action.payload.room.description;
-      copyState.rooms[roomIndex].imageURI = action.payload.room.imageURI;
+      if (action.payload.room.imageURI) copyState.rooms[roomIndex].imageURI = action.payload.room.imageURI;
       return {
         ...copyState
       }

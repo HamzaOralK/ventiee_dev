@@ -26,7 +26,8 @@ export class AuthInterceptor implements HttpInterceptor {
       environment.serviceURL + "/resetPassword",
       environment.serviceURL + "/resend",
       environment.serviceURL + "/verify",
-      environment.serviceURL + "/event/get"
+      environment.serviceURL + "/event/get",
+      environment.serviceURL + "/event/public"
     ];
     let checkIndex = tokenizFreeUrls.findIndex((p) => request.url.search(p) > -1);
 

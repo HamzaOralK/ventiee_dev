@@ -21,7 +21,8 @@ body {
 }
 
 * {
-  font-family: Roboto,"Helvetica Neue",sans-serif;
+  // font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-family: ProximaNova,sans-serif;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
   -webkit-text-size-adjust: 100% !important;
@@ -172,6 +173,7 @@ footer {
   align-items: center;
   font-weight: 300;
   color: mat-color($app-font, 300);
+  cursor: pointer;
   // margin-bottom: 5px;
 }
 

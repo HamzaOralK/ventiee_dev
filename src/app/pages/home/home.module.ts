@@ -18,6 +18,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RoomModule } from '../room/room.module';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TabsModule } from 'src/app/components/tabs/tabs.module';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { TabsModule } from 'src/app/components/tabs/tabs.module';
     ChatsModule,
     RoomModule,
     MatBadgeModule,
-    TabsModule
+    TabsModule,
+    MatCarouselModule,
+    MatListModule
   ],
 })
 export class HomeModule { }

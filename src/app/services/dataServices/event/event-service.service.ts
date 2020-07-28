@@ -88,6 +88,12 @@ export class EventService {
       );
   }
 
+  getPublicEvents() {
+    let url = environment.serviceURL + "/event/public";
+    return this.http
+      .get(url);
+  }
+
   getEventById(id: string) {
     let url = environment.serviceURL + "/event/get/" + id;
     return this.http.get<Event>(url);

@@ -25,6 +25,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
   event: Event;
   joinable: boolean;
   subscription = new Subscription();
+  isChecking = true;
 
   constructor(
     private store: Store<fromApp.AppState>,
@@ -47,16 +48,13 @@ export class EventPageComponent implements OnInit, OnDestroy {
       this.event = p[0];
       checksub = this.roomState.subscribe(p => {
         let index = p.rooms.findIndex(r => r._id === this.event._id);
-        if (index === -1) this.joinable = true;
+        if (index === -1) {
+          this.joinable = true;
+        }
         else {
           this.joinable = false;
-          if(this.appService.smallScreen) {
-            this.router.navigate(['/room/'+this.event._id]);
-          } else {
-            this.roomService.routerRoomInfo.next(p.rooms[index]);
-            this.router.navigate(['/home']);
-          }
         };
+        this.isChecking = false;
       });
       this.subscription.add(checksub);
     });
@@ -71,13 +69,14 @@ export class EventPageComponent implements OnInit, OnDestroy {
     let userNewRoom = new Room();
     userNewRoom._id = this.event._id;
     if(this.authService.user) {
-      this.roomService.joinRoom(userNewRoom).subscribe(p => {
+      let jSub = this.roomService.joinRoom(userNewRoom).subscribe(p => {
         if (this.appService.smallScreen) {
           this.router.navigate(['/room/' + this.event._id]);
         } else {
           this.router.navigate(['/home']);
         }
       });
+      this.subscription.add(jSub);
     } else {
       this.router.navigate(['/login'], {queryParams: {url: '/ventiee/'+this.event._id}});
     }
