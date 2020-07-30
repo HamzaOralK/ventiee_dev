@@ -3,13 +3,28 @@
 @import "src/mixins.scss";
 
 .logo {
-  height: 32px;
+  // height: 32px;
+  filter: grayscale(100%);
+  filter: brightness(100);
   @include media-breakpoint(xs) {
-    height: 16px
+    // height: 16px
   }
 }
 
+.loggedInlogo {
+  // height: 32px;
+
+  @include media-breakpoint(xs) {
+    // height: 16px
+  }
+}
+
+
 mat-toolbar {
+  background-color: #ffae20 !important;
+}
+
+mat-toolbar.loggedin {
   background-color: mat-color($app-background, 100) !important;
 }
 
@@ -22,14 +37,14 @@ mat-toolbar {
 }
 
 .mat-stroked-button {
-  border: 2px solid mat-color($app-warn, 500) !important;
+  border: 2px solid white !important;
   min-width: 120px;
   max-width: 12px;
   margin-right: 5px;
 }
 
 :host ::ng-deep .action .mat-button-wrapper {
-  color: mat-color($app-warn, 500) !important;
+  color: white !important;
   font-weight: bold;
   width: inherit;
   display: block;

@@ -1,10 +1,10 @@
-<div style="min-width: 350px; height: 100%;">
-  <div class="df jc-c ali-c">
+<div style="min-width: 300px; height: 100%;">
+  <div class="df ali-c">
     <button class="add" mat-raised-button color="primary" (click)="createEvent()">
       <!-- <mat-icon>add</mat-icon> -->
       {{'newEvent' | ml}}
     </button>
-    <mat-form-field appearance="outline" class="searchBox">
+    <mat-form-field appearance="outline" class="searchBox shrinking-mat-form-field">
       <mat-label>{{'searchchats' | ml}}</mat-label>
       <input matInput (keyup)="onChange($event)" [(ngModel)]="value" appLowerCase>
       <button *ngIf="value" mat-icon-button matSuffix (click)="clearFilter()">

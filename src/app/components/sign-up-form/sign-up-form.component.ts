@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/dtos/user';
 import { Router } from '@angular/router';
@@ -44,10 +44,10 @@ export class SignUpFormComponent implements OnInit {
       Validators.maxLength(20),
     ]),
     language: new FormControl("tr", [Validators.required]),
-    privacyStatus: new FormControl(false, [Validators.requiredTrue]),
-    eulaStatus: new FormControl(false, [Validators.requiredTrue]),
-    emailNotification: new FormControl(false),
-    plus18: new FormControl(false, [Validators.requiredTrue]),
+    // privacyStatus: new FormControl(false, [Validators.requiredTrue]),
+    // eulaStatus: new FormControl(false, [Validators.requiredTrue]),
+    // emailNotification: new FormControl(false),
+    // plus18: new FormControl(false, [Validators.requiredTrue]),
   });
 
   constructor(
@@ -64,7 +64,7 @@ export class SignUpFormComponent implements OnInit {
     return this.signUp["controls"];
   }
 
-  onSubmit() {
+  onSubmit(formDirective: FormGroupDirective) {
     let user = new User();
     user.name = this.signUp.value.name;
     user.surname = this.signUp.value.surname;
@@ -75,6 +75,8 @@ export class SignUpFormComponent implements OnInit {
     this.authService.signUp(user).subscribe((p) => {
       if (p["code"] === 200) {
         this.router.navigate(["/home"]);
+        this.signUp.reset();
+        formDirective.resetForm();
       }
     });
   }

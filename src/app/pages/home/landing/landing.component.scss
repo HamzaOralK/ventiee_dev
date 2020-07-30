@@ -4,7 +4,7 @@
 
 .backgrounds {
   display: flex;
-  padding: 100px 100px;
+  padding: 30px 50px;
   justify-content: space-evenly;
   overflow: hidden;
   flex-direction: row;
@@ -15,19 +15,12 @@
   position: relative;
   @include media-breakpoint(xs) {
     flex-direction: column;
-    padding: 30px 30px 60px 30px;
-    padding: 100px 10px;
+    padding: 10px 10px;
   }
   @include media-breakpoint(sm) {
     flex-direction: column;
-    padding: 30px 30px 150px 30px;
-    padding: 100px 10px;
+    padding: 10px 10px;
   }
-  // @include media-breakpoint(md) {
-  //   flex-direction: column;
-  //   padding: 30px 30px 150px 30px;
-  //   padding: 100px 10px;
-  // }
 }
 
 .spcl {
@@ -39,6 +32,18 @@
   @include media-breakpoint(sm) {
     display: none;
   }
+}
+
+.nspcl {
+    display: none;
+
+    @include media-breakpoint(xs) {
+      display: inline;
+    }
+
+    @include media-breakpoint(sm) {
+      display: inline;
+    }
 }
 
 li {
@@ -75,7 +80,7 @@ li {
 .cn {
   position: relative;
   color: white;
-  width: 48%;
+  width: 70%;
   -webkit-flex: 0 1 auto;
   -moz-box-flex: 0;
   -ms-flex: 0 1 auto;
@@ -97,19 +102,24 @@ li {
   }
 
   .innerText {
-    max-width: 62%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px white solid;
+    border: 2px white solid;
     border-radius: 30px;
     padding: 30px;
+    margin: 0;
     @include media-breakpoint(xs) {
       width: 100%;
+      padding: 30px 0px;
+      margin: 0px 5px;
     }
 
     @include media-breakpoint(sm) {
       width: 100%;
+      padding: 30px 0px;
+      margin: 0px 5px;
     }
 
   }
@@ -134,50 +144,38 @@ li {
 
 .top {
   background-image: url("/assets/background.png");
-  margin-bottom: 10px;
 }
 
-.middle {
-  margin-bottom: 10px;
-  .innerSection {
-    flex-direction: column;
-    align-items: center;
-  }
-  .cn {
-    color: black;
-    .innerText {
-      border: 1px mat-color($app-font) solid;
-    }
-  }
-}
 
-.bottom {
-  background-image: url("/assets/background_3.png");
-  margin-bottom: -10px;
-
-  .innerText {
-    max-width: 100%;
-  }
-  .section {
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-
-.mat-list-avatar {
-  width: auto !important;
-  border-radius: 5px !important;
-}
-.list {
+.form {
   background-color: rgba(255, 224, 182, 0.2);
-  margin: 0 10px 0 0;
+  width: 30% !important;
+  min-width: 300px;
+  max-width: 350px;
   border-radius: 40px;
   @include media-breakpoint(xs) {
-    margin: auto;
+    width: 100% !important;
+    padding-bottom: 100px;
   }
 
   @include media-breakpoint(sm) {
-    margin: auto;
+    width: 100% !important;
+    padding-bottom: 100px;
   }
 
+  @include media-breakpoint(md) {
+    width: 40% !important;
+  }
+}
+
+.text {
+  justify-content: center;
+  align-items: flex-end;
+  @include media-breakpoint(xs) {
+    align-items: center;
+  }
+
+  @include media-breakpoint(sm) {
+    align-items: center;
+  }
 }

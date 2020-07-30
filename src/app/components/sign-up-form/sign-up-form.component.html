@@ -1,41 +1,8 @@
-<div class="buttons" *ngIf="!signUpType">
-  <button href="" class="fb connect" (click)="signUpWithFB()">{{'signUpFacebook' | ml}}</button>
-  <button href="" class="normal" (click)="signUpWithOutFb()">{{'continueNormal' | ml}}</button>
-</div>
-
-<form [formGroup]="signUp" class="signUpForm" (submit)="onSubmit()" autocomplete="off" *ngIf="signUpType">
-
-
-  <mat-form-field appearance="outline" *ngIf="!(signUpType === 'social' && signUpControls.email.value)">
-    <mat-label>E-Mail</mat-label>
-    <input matInput formControlName="email">
-    <mat-error *ngIf="signUpControls.email.hasError('email') && !signUpControls.email.hasError('required')">
-      {{'emailNotValid' | ml}}
-    </mat-error>
-    <mat-error *ngIf="signUpControls.email.hasError('required')">
-      {{'emailRequired' | ml}}
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" *ngIf="!(signUpType === 'social' && signUpControls.name.value)">
-    <mat-label>{{'name' | ml}}</mat-label>
-    <input matInput type="text" formControlName="name">
-    <mat-error *ngIf="signUpControls.name.hasError('required')">
-      {{'nameRequired' | ml}}
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" *ngIf="!(signUpType === 'social' && signUpControls.surname.value)">
-    <mat-label>{{'surname' | ml}}</mat-label>
-    <input matInput type="text" formControlName="surname">
-    <mat-error *ngIf="signUpControls.surname.hasError('required')">
-      {{'surnameRequired' | ml}}
-    </mat-error>
-  </mat-form-field>
-
+<form [formGroup]="signUp" class="signUpForm" (submit)="onSubmit(formDirective)" autocomplete="off" #formDirective="ngForm">
+  <h1 style="text-align: center;">{{'Kayıt ol ve ventieelemeye başla!' | ml}}</h1>
   <mat-form-field appearance="outline">
-    <mat-label>{{'nickname' | ml}}</mat-label>
-    <input matInput type="text" formControlName="nickname">
+    <!-- <mat-label>{{'nickname' | ml}}</mat-label> -->
+    <input matInput type="text" formControlName="nickname" placeholder="{{'nickname' | ml}}">
     <mat-error *ngIf="signUpControls.nickname.hasError('required')">
       {{'nicknameRequired' | ml}}
     </mat-error>
@@ -51,6 +18,37 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
+    <!-- <mat-label>E-Mail</mat-label> -->
+    <input matInput formControlName="email" placeholder="{{'E-Mail' | ml}}">
+    <mat-error *ngIf="signUpControls.email.hasError('email') && !signUpControls.email.hasError('required')" >
+      {{'emailNotValid' | ml}}
+    </mat-error>
+    <mat-error *ngIf="signUpControls.email.hasError('required')">
+      {{'emailRequired' | ml}}
+    </mat-error>
+  </mat-form-field>
+
+  <div class="df w-100">
+    <mat-form-field appearance="outline" class="shrinking-mat-form-field" style="padding-right: 10px;">
+      <!-- <mat-label>{{'name' | ml}}</mat-label> -->
+      <input matInput type="text" formControlName="name" placeholder="{{'name' | ml}}">
+      <mat-error *ngIf="signUpControls.name.hasError('required')">
+        {{'nameRequired' | ml}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="shrinking-mat-form-field">
+      <!-- <mat-label>{{'surname' | ml}}</mat-label> -->
+      <input matInput type="text" formControlName="surname" placeholder="{{'surname' | ml}}">
+      <mat-error *ngIf="signUpControls.surname.hasError('required')">
+        {{'surnameRequired' | ml}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+
+
+  <mat-form-field appearance="outline">
     <mat-label>{{'language' | ml}}</mat-label>
     <mat-select formControlName="language">
       <mat-option [value]="languages.tr">{{'turkish' | ml}}</mat-option>
@@ -59,30 +57,21 @@
   </mat-form-field>
 
   <password-form-element [formControl]="signUpControls.password" ngDefaultControl></password-form-element>
-  <div style="display: flex; flex-direction: row; margin-bottom: 20px;">
-    <mat-checkbox formControlName="eulaStatus">&nbsp;</mat-checkbox>
-    <span *ngIf="language === 'tr'"><span class="eula c-ptr" (click)="openModal('eula')">Ventiee kullanıcı sözleşmesini</span> okudum ve kabul ediyorum.</span>
-    <span *ngIf="language === 'en'">I have read and agree to the <span class="eula c-ptr" (click)="openModal('eula')">terms.</span></span>
-  </div>
 
-
-  <div style="display: flex; flex-direction: row; margin-bottom: 20px;">
-    <mat-checkbox formControlName="privacyStatus">&nbsp;</mat-checkbox>
-    <span *ngIf="language === 'tr'"><span class="eula c-ptr" (click)="openModal('privacy')">Ventiee gizlilik sözleşmesini</span>
-      okudum ve kabul ediyorum.</span>
-    <span *ngIf="language === 'en'">I have read and agree to the <span class="eula c-ptr"
-        (click)="openModal('privacy')">privacy policy.</span></span>
-  </div>
-
-
-  <div style="display: flex; flex-direction: row; margin-bottom: 20px;">
-    <mat-checkbox formControlName="emailNotification" ngDefaultControl>{{'emailNotification' | ml}}</mat-checkbox>
-  </div>
-
-
-  <div style="display: flex; flex-direction: row; margin-bottom: 20px; width: 100%;">
-    <mat-checkbox formControlName="plus18">&nbsp;</mat-checkbox>
-    <span>{{'iamplus18' | ml}}</span>
+  <div class="df fd-r w-100 dcl" style="margin-bottom: 20px;">
+    <span *ngIf="language === 'tr'">
+      Kayıt ol butonuna tıklayarak
+      <span class="eula c-ptr" (click)="openModal('eula')">Kullanıcı Sözleşmesini</span>,
+      <span class="privacy c-ptr" (click)="openModal('privacy')">Gizlilik Sözleşmesini</span>
+      ve 18 yaşından büyük olduğunuzu kabul edeceksiniz.
+      Bizden e-mail bildirimleri alabilirsiniz ancak istediğiniz an bildirimleri kapayabilirsiniz.
+    </span>
+    <span *ngIf="language === 'en'">
+      By clicking Sign Up, you agree to our
+      <span class="eula c-ptr" (click)="openModal('eula')">Terms</span>,
+      <span class="privacy c-ptr" (click)="openModal('privacy')">Privacy Policy</span>
+      and accept that you are older than 18 years old. You may receive e-mail notifications from us and can opt out at any time.
+    </span>
   </div>
   <br>
 

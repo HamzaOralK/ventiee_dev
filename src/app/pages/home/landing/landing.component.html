@@ -1,93 +1,26 @@
 <div class="backgrounds top">
-  <div class="section cn hide list" style="display: flex; flex-direction: column; width: auto; justify-content: center;">
-  <!-- <div class="section cn hide list"> -->
-    <h2>{{'Aktif Ventieeler' | ml}}</h2>
-    <mat-list role="list" class=" scroll" *ngIf="!isLoading">
-      <mat-list-item role="listitem" class="c-ptr" *ngFor="let event of events" (click)="goEventItem(event._id)">
-        <img matListAvatar [src]="event.imageURI || './assets/no_img.png'">
-        <div matLine>
-          <span class="cn">
-            {{event.title}}
-          </span>
+  <div class="section cn">
+    <div class="innerSection">
+
+      <div class="df fd-c text" >
+        <img class="cs-h nspcl" [src]="'assets/1stwoman.png'">
+        <div class="innerText">
+          <h1 class="c-ptr" style="text-align: center;" (click)="goSignUp(target)">
+            {{'Ventiee oluştur, sohbet et, bir daha sıkılma!' | ml}}
+          </h1>
+          <p style="font-size: 18px; padding: 10px; text-align: center;">
+            {{'Ventiee yapmak istediğiniz ventieeler için arkadaşlar bulmanıza yardım eder.' | ml}}
+          </p>
         </div>
-      </mat-list-item>
-    </mat-list>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-
-    <!-- <img class="cs-v" [src]="'assets/img_phone.png'"> -->
-
-    <!-- <mat-carousel style="width: 100%; border-radius: 100px;"
-      timings="250ms ease-in"
-      [autoplay]="true"
-      interval="5000"
-      color="accent"
-      slides="2"
-      proportion="45"
-      [loop]="true"
-      [hideArrows]="false"
-      [hideIndicators]="false"
-      [useKeyboard]="true"
-      [useMouseWheel]="false"
-      orientation="ltr">
-      <mat-carousel-slide [image]="'./assets/shot1.png'" overlayColor="#1111" [hideOverlay]="false" >
-      </mat-carousel-slide>
-      <mat-carousel-slide [image]="'./assets/shot2.png'" overlayColor="#1111" [hideOverlay]="false">
-      </mat-carousel-slide>
-    </mat-carousel> -->
-
-  </div>
-
-  <div class="section cn">
-    <div class="innerSection">
-      <div class="innerText">
-        <p>
-          <span><b style="font-family: Playfair Display,serif; font-size:48px; font-weight: 700;">Ventiee</b>&nbsp;<i>{{'isim' | ml}}</i></span>
-        </p>
-        <p>
-          <span>1. {{'Yalnız yapılması istenmeyen veya yapılamayan etkinliklerin bütünü, okey, muhabbet veya halısaha.' | ml}}</span>
-        </p>
-        <h1 style="text-align: center;">
-          {{'Ventiee oluştur, sohbet et, bir daha sıkılma!' | ml}}
-        </h1>
       </div>
+
       <img class="cs-h spcl" [src]="'assets/1stman.png'">
+
     </div>
   </div>
+  <div class="section cn hide form" #target>
+    <sign-up-form style="width: 100%;"></sign-up-form>
+  </div>
+
 </div>
 
-<div class="backgrounds middle">
-  <div class="section cn">
-    <div class="innerSection">
-      <img class="cs-h" [src]="'assets/1stwoman.png'">
-      <div class="innerText">
-        <h1 style="text-align: center;">
-          {{'Etkinlik Oluştur ve Tanış' | ml}}
-        </h1>
-        <p>{{'Yalnız kalma, gitmek veya yapmak istediğin şeyler için arkadaş bul.' | ml}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="section cn">
-    <img class="cs-h" [src]="'assets/img_laptop.png'">
-  </div>
-</div>
-
-
-<div class="backgrounds bottom">
-  <div class="section cn">
-    <img class="cs-h" [src]="'assets/img_party.png'">
-  </div>
-  <div class="section cn">
-    <div class="innerSection">
-      <div class="innerText">
-        <h1>
-          {{'Buluş, Eğlen ve Tadını Çıkar' | ml}}
-        </h1>
-        <p>
-          {{'Farklı insanlarla tanış, hobilerin veya etkinliklerin için kafa dengi insanlar bul.' | ml}}
-        </p>
-      </div>
-    </div>
-    <img class="cs-h" [src]="'assets/people.png'">
-  </div>
-</div>

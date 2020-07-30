@@ -34,4 +34,9 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.router.navigate(['/ventiee/'+eventId]);
   }
 
+  goSignUp(el: HTMLElement) {
+    // el.scrollIntoView();
+    this.router.navigate(['/signup'])
+  }
+
 }

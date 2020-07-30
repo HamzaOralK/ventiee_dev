@@ -73,6 +73,14 @@ body {
   margin-left: 5px;
 }
 
+w-100 {
+  width: 100% !important;
+}
+
+h-100 {
+  height: 100% !important;
+}
+
 
 footer {
   width: 100%;
@@ -144,13 +152,6 @@ footer {
   color: mat-color($app-warn, 500) !important;
 }
 
-.mat-form-field-subscript-wrapper {
-  position: inherit !important;
-}
-
-// .mat-accordion .mat-expansion-panel {
-//   margin: 5px;
-// }
 
 .timepicker__header {
   background-color: mat-color($app-primary, 500) !important;
@@ -177,8 +178,11 @@ footer {
   // margin-bottom: 5px;
 }
 
-.mat-form-field-flex {
-  background-color: white !important;
+
+.shrinking-mat-form-field {
+  .mat-form-field-infix {
+    width: auto !important;
+  }
 }
 
 input:-webkit-autofill,
@@ -197,16 +201,6 @@ input:-webkit-autofill:active {
 .ventiee-snackbar-warn {
   background: mat-color($app-warn, 300) !important;
   color: mat-color($app-font, 50) !important;
-}
-
-.mat-form-field-label {
-  mat-label {
-    color: mat-color($app-font, 300) !important;
-  }
-}
-
-.mat-form-field-appearance-outline .mat-form-field-outline {
-  color: mat-color($app-font, 500) !important;
 }
 
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
@@ -230,15 +224,6 @@ input:-webkit-autofill:active {
 .cdk-virtual-scroll-content-wrapper {
   min-height: 100%;
 }
-
-.mat-form-field-wrapper {
-  padding-bottom: 0 !important;
-}
-
-.mat-form-field-flex {
-  align-items: center !important;
-}
-
 
 .tag {
   background-color: mat-color($app-font, 100);
