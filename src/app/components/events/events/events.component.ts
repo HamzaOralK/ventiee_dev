@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewIni
 import { debounceTime } from 'rxjs/operators';
 import { EventService } from 'src/app/services/dataServices/event/event-service.service';
 import { Subscription, Observable, Subject } from 'rxjs';
-import { EventFilter, EventStatus } from 'src/app/dtos/event';
+import { EventFilter, EventStatus, EventSort } from 'src/app/dtos/event';
 import { Store } from '@ngrx/store';
 import * as fromApp from "../../../store/app.reducer";
 import * as AppAction from "../../../store/app.actions";
@@ -59,6 +59,9 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
     this._pageNo = 1;
     this.subscription = new Subscription();
     this.eventFilter = new EventFilter();
+    this.eventFilter.sort = new EventSort();
+    this.eventFilter.sort.prop = "startDate";
+    this.eventFilter.sort.direction = -1;
     this.auth = this.store.select("authState");
     this.roomStates = this.store.select("roomState");
 
@@ -118,7 +121,7 @@ export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
         let scrollHeight = (this.eventScroll.nativeElement as HTMLLIElement).scrollHeight;
         let scrollTop = (this.eventScroll.nativeElement as HTMLLIElement).scrollTop;
         let offsetHeight = (this.eventScroll.nativeElement as HTMLLIElement).offsetHeight;
-        if (scrollHeight - (scrollTop + offsetHeight) < 1) {
+        if (scrollHeight - (scrollTop + offsetHeight) < 1 && !this._loading) {
           if (!this._isAll) {
             this._loading = true;
             if (this.type === EventListType.All) {

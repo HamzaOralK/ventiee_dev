@@ -51,6 +51,12 @@ export class EventFilter {
   city: string;
   tags: string[];
   status: EventStatus;
+  sort: EventSort;
+}
+
+export class EventSort {
+  prop: string;
+  direction: number;
 }
 
 export class EventComment {
